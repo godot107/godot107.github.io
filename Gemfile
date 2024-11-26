@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 group :jekyll_plugins do
-    gem 'wdm','>= 0.1.0'
+    gem 'wdm','>= 0.1.0', platforms: [:mswin,:mingw] # allows windows compatibility and github page hosting compatibility.
     gem 'classifier-reborn'
     gem 'jekyll'
     gem 'jekyll-archives'

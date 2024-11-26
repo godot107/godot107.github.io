@@ -1,37 +1,43 @@
 {
   "basics": {
-    "name": "Albert Einstein",
-    "label": "Scientist",
+    "name": "Willie Man",
+    "label": "Data Specialist",
     "image": "",
-    "email": "albert@einstein.de",
-    "phone": "(912) 123-4567",
-    "url": "https://alshedivat.github.io/al-folio/",
-    "summary": "A German-born theoretical physicist, widely ranked among the greatest and most influential scientists of all time",
+    "email": "williemaize828@gmail.com",
+    "phone": "(512) 200-2780",
+    "url": "https://godot107.github.io/",
+    "summary": "Design and implement data solutions for analysis, automation, and cloud-based machine learning adoption.",
     "location": {
-      "address": "2712 Broadway St",
-      "postalCode": "CA 94115",
-      "city": "San Francisco",
+      "address": "",
+      "postalCode": "TX",
+      "city": "Houston",
       "countryCode": "US",
-      "region": "California"
+      "region": ""
     },
     "profiles": [
       {
         "network": "Twitter",
-        "username": "AlbertEinstein",
-        "url": "https://twitter.com/AlbertEinstein"
+        "username": "@WillieMaize828",
+        "url": "https://twitter.com/WillieMaize828"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "willieman828",
+        "url": "https://www.linkedin.com/in/willieman828/"
       }
     ]
   },
   "work": [
     {
-      "name": "Institute for Advanced Study, Princeton University",
-      "position": "Professor of Theoretical Physics",
-      "url": "https://example.com",
-      "startDate": "1933-01-01",
-      "endDate": "1955-01-01",
+      "name": "Data Quality Manager",
+      "position": "Capgemini",
+      "url": "",
+      "startDate": "2018-08-01",
+      "endDate": "Present",
       "summary": "Teaching at Palmer Physical Laboratory (now 302 Frist Campus Center). While not a professor at Princeton, I associated with the physics professors and continued to give lectures on campus.",
       "highlights": ["Relativity"]
-    }
+    },
+    {}
   ],
   "volunteer": [
     {

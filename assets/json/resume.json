@@ -34,43 +34,76 @@
       "url": "",
       "startDate": "2018-08-01",
       "endDate": "Present",
-      "summary": "Teaching at Palmer Physical Laboratory (now 302 Frist Campus Center). While not a professor at Princeton, I associated with the physics professors and continued to give lectures on campus.",
-      "highlights": ["Relativity"]
+      "summary": "Lead data quality improvement projects, owning the strategy, roadmap, and delivery of key initiatives. Managed a team and external vendors, delivering results across multiple projects.",
+      "highlights": ["Architected and implemented a Java-based data quality reporting application, driving a significant improvement in
+data health by executing the Data Quality Management Program.", "Led an ETL workstream, generating revenue and saving $2M annually by automating data processes for hundreds
+of thousands of records and millions of monthly updates. Responsibilities included requirements gathering, testing,
+and stakeholder approvals.", "Leading the scoping and planning of a ServiceNow ETL implementation, replacing the existing data management
+tool with a more scalable solution that enhances data processing efficiency."]
     },
-    {}
+    {
+      "name": "IT Financial Business Analyst",
+      "position": "Capgemini",
+      "startDate": "2016-08-29",
+      "endDate": "2018-09-01",
+      "summary":"Administered an enterprise financial system, generating millions in monthly invoices for Texas Public Agencies, ensuring accuracy and timely processing.",
+      "highlights": ["Led several data analytics and automation project initiatives that included developing automated billing
+methodology, creating a financial forecast ($12 Billion forecasted over 4 years), and automating manual tasks."]
+
+    }
   ],
   "volunteer": [
     {
-      "organization": "People's Climate March",
-      "location": "Zurich, Switzerland",
-      "position": "Lead Organizer",
-      "url": "https://example.com",
-      "startDate": "2014-04-01",
-      "endDate": "2015-07-01",
-      "summary": "Lead organizer for the New York City branch of the People's Climate March, the largest climate march in history.",
-      "highlights": ["Awarded 'Climate Hero' award by Greenpeace for my efforts organizing the march.", "Men of the year 2014 by Time magazine"]
+      "organization": "Sugar Land Family Church",
+      "location": "Sugar Land, Texas",
+      "position": "volunteer",
+      "url": "https://www.slfc.co/",
+      "summary": "",
+      "highlights": ["Bible Study Leader", "Broadcast Team member","youth volunteer"]
+
+    },{
+      "organization": "Harvest Missions Community Church (HMCC) of Austin",
+      "location": "Austin, Texas",
+      "position": "Servant Leader",
+      "url": "https://austin.hmcc.net/",
+      "startDate": "",
+      "endDate": "2020",
+      "summary": "",
+      "highlights": [""]
     }
   ],
   "education": [
     {
-      "institution": "University of Zurich, Zurich, Switzerland",
-      "location": "Zurich, Switzerland",
-      "url": "https://www.uzh.ch/",
-      "area": "Software Development",
-      "studyType": "PhD",
-      "startDate": "1905-01-01",
-      "endDate": "1905-01-01",
-      "score": "10",
-      "courses": ["Theory of Relativity"]
+      "institution": "University of Michigan",
+      "location": "Ann Arbor, Michigan",
+      "url": "https://umich.edu/",
+      "area": "Applied Data Sciences",
+      "studyType": "Masters",
+      "startDate": "2021-09",
+      "endDate": "2024-05",
+      "score": "4.0",
+      "courses": ["Supervised Learning","Deep Learning","Data Visualization","Casual Inference"]
+    },
+    {
+      "institution": "University of Texas",
+      "location": "Austin, Texas",
+      "url": "https://www.utexas.edu/",
+      "area": ["Biochemestry","Business","Computer Science", "Health IT"],
+      "studyType": ["Bachelors","Minors","Certification"],
+      "startDate": "2011-08",
+      "endDate": "2015-05",
+      "score": "3.5",
+      "course_credits": "150",
+      "courses": [""]
     }
   ],
   "awards": [
     {
-      "title": "Nobel Prize in Physics",
-      "date": "1921-11-01",
-      "awarder": "Royal Swedish Academy of Sciences",
-      "url": "https://www.nobelprize.org/prizes/physics/1921/einstein/biographical/",
-      "summary": "The Nobel Prizes are five separate prizes that, according to Alfred Nobel's will of 1895, are awarded to 'those who, during the preceding year, have conferred the greatest benefit to humankind.'"
+      "title": "",
+      "date": "",
+      "awarder": "",
+      "url": "",
+      "summary": ""
     }
   ],
   "certificates": [
@@ -125,20 +158,7 @@
       "url": "https://en.wikisource.org/wiki/Translation:On_the_Electrodynamics_of_Moving_Bodies",
       "summary": "It concerned an interpretation of the Michelson–Morley experiment and the properties of light and time. Special relativity incorporates the principle that the speed of light is the same for all inertial observers regardless of the state of motion of the source."
     },
-    {
-      "name": "Über einen die Erzeugung und Verwandlung des Lichtes betreffenden heuristischen Gesichtspunkt",
-      "publisher": "Annalen der Physik",
-      "releaseDate": "1905-03-18",
-      "url": "https://de.wikisource.org/wiki/Über_einen_die_Erzeugung_und_Verwandlung_des_Lichtes_betreffenden_heuristischen_Gesichtspunkt",
-      "summary": "In the second paper, he applied the quantum theory to light to explain the photoelectric effect. In particular, he used the idea of light quanta (photons) to explain experimental results, but stressed the importance of the experimental results. The importance of his work on the photoelectric effect earned him the Nobel Prize in Physics in 1921."
-    },
-    {
-      "name": "Die Grundlage der allgemeinen Relativitätstheorie",
-      "publisher": "Annalen der Physik",
-      "releaseDate": "1916-03-20",
-      "url": "https://de.wikisource.org/wiki/Die_Grundlage_der_allgemeinen_Relativitätstheorie",
-      "summary": "The publication of the theory of general relativity made him internationally famous. He was professor of physics at the universities of Zurich (1909–1911) and Prague (1911–1912), before he returned to ETH Zurich (1912–1914)."
-    }
+
   ],
   "skills": [
     {
@@ -156,11 +176,7 @@
     }
   ],
   "languages": [
-    {
-      "language": "German",
-      "fluency": "Native speaker",
-      "icon": ""
-    },
+
     {
       "language": "English",
       "fluency": "Fluent",
@@ -181,26 +197,15 @@
       ]
     }
   ],
-  "references": [
-    {
-      "name": "Professor John Doe",
-      "icon": "fa-solid fa-laptop",
-      "reference": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam condimentum, diam quis convallis euismod, arcu mi ullamcorper lorem, a vestibulum nunc magna at sem. Sed in risus ac felis varius blandit. D"
-    },
-    {
-      "name": "Professor John Doe",
-      "icon": "fa-solid fa-thumbtack",
-      "reference": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam condimentum, diam quis convallis euismod, arcu mi ullamcorper lorem, a vestibulum nunc magna at sem. Sed in risus ac felis varius blandit. D"
-    }
-  ],
+//  "references": [],
   "projects": [
     {
-      "name": "Quantum Computing",
+      "name": "Apple cultivars and climate change in the US",
       "summary": "Quantum computing is the use of quantum-mechanical phenomena such as superposition and entanglement to perform computation. Computers that perform quantum computations are known as quantum computers.",
-      "highlights": ["Quantum Teleportation", "Quantum Cryptography"],
-      "startDate": "2018-01-01",
-      "endDate": "2018-01-01",
-      "url": "https://example.com"
+      "highlights": ["Geospatial Analysis", "Time Series","Climate Change","webscraping"],
+      "startDate": "2024-03-01",
+      "endDate": "2024-05-01",
+      "url": "https://github.com/godot107/UM-Apple-Cultivars-Climate-Change"
     }
   ]
 }

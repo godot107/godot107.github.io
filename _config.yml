@@ -2,10 +2,10 @@
 # Site settings
 # -----------------------------------------------------------------------------
 
-title: TEST # the website title (if blank, full name will be used instead)
+title: Willie Man # the website title (if blank, full name will be used instead)
 first_name: Willie
 middle_name: 
-last_name: Maize
+last_name: Man
 email: williemaize828@gmail.com
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
@@ -72,13 +72,13 @@ og_image: # The site-wide (default for all links) Open Graph preview image
 # -----------------------------------------------------------------------------
 
 acm_id: # your dl.acm.org/profile/id
-blogger_url: # your blogger URL
+blogger_url: https://bsky.app/profile/williemaize.bsky.social # your blogger URL
 bluesky_url: # your bluesky URL
 dblp_url: # your DBLP profile url
 discord_id: # your discord id (18-digit unique numerical identifier)
 facebook_id: # your facebook id
 flickr_id: # your flickr id
-github_username: # your GitHub user name
+github_username: godot107 # your GitHub user name
 gitlab_username: # your GitLab user name
 ieee_id: # your ieeexplore.ieee.org/author/id
 inspirehep_id: 1010907 # Inspire HEP author ID
@@ -87,9 +87,9 @@ kaggle_id: # your kaggle id
 keybase_username: # your keybase user name
 lastfm_id: # your lastfm id
 lattes_id: # your ID on Lattes (Brazilian Lattes CV)
-linkedin_username: # your LinkedIn user name
-mastodon_username: # your mastodon instance+username in the format instance.tld/@username
-medium_username: # your Medium username
+linkedin_username: willieman828 # your LinkedIn user name
+mastodon_username: mastodon.social/@williemaize # your mastodon instance+username in the format instance.tld/@username
+medium_username: manwill # your Medium username
 orcid_id: # your ORCID ID
 osf_id: # your OSF ID
 pinterest_id: # your pinterest id
@@ -108,7 +108,7 @@ whatsapp_number: # your WhatsApp number (full phone number in international form
 wikidata_id: # your wikidata id
 wikipedia_id: # your wikipedia id (Case sensitive)
 work_url: # work page URL
-x_username: # your X handle
+x_username: WillieMaize828 # your X handle
 youtube_id: # your youtube channel id (youtube.com/@<youtube_id>)
 zotero_username: # your zotero username
 
@@ -121,7 +121,7 @@ contact_note: >
 
 # For Google Analytics, see https://support.google.com/analytics/answer/10447272?hl=en&ref_topic=14088998&sjid=5129943941510317771-SA#zippy=%2Cgoogle-sites
 # and follow the instructions for Google Sites. You will need to create a Google Analytics property and copy the Google tag ID.
-google_analytics: # your Google Analytics measurement ID (format: G-XXXXXXXXXX)
+google_analytics: G-X3H4T9PEFL # your Google Analytics measurement ID (format: G-XXXXXXXXXX)
 cronitor_analytics: # cronitor RUM analytics site ID (format: XXXXXXXXX)
 pirsch_analytics: # your Pirsch analytics site ID (length 32 characters)
 openpanel_analytics: # your Openpanel analytics client ID (format: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX)
@@ -134,8 +134,8 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: al-folio # blog_name will be displayed in your blog page
-blog_description: a simple whitespace theme for academics
+blog_name: williemaize # blog_name will be displayed in your blog page
+blog_description: Creation Space
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
 
@@ -163,19 +163,22 @@ giscus:
   lang: en
 
 # Disqus comments (DEPRECATED)
-disqus_shortname: al-folio # put your disqus shortname
+disqus_shortname: manwill # put your disqus shortname
 # https://help.disqus.com/en/articles/1717111-what-s-a-shortname
 
 # External sources.
 # If you have blog posts published on medium.com or other external sources,
 # you can display them in your blog by adding a link to the RSS feed.
 external_sources:
-  - name: medium.com
-    rss_url: https://medium.com/@al-folio/feed
-  - name: Google Blog
-    posts:
-      - url: https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/
-        published_date: 2024-05-14
+  - name: Medium Blog
+    rss_url: https://medium.com/@manwill/feed
+  - name: Bluesky
+    rss_url: https://bsky.app/profile/did:plc:keiigiohiu273mt2gdnepv4i/rss
+
+  #- name:
+  #  posts:
+  #    - url: https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/
+  #      published_date: 2024-05-14
 
 # -----------------------------------------------------------------------------
 # Newsletter

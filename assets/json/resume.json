@@ -35,11 +35,7 @@
       "startDate": "2018-08-01",
       "endDate": "Present",
       "summary": "Lead data quality improvement projects, owning the strategy, roadmap, and delivery of key initiatives. Managed a team and external vendors, delivering results across multiple projects.",
-      "highlights": ["Architected and implemented a Java-based data quality reporting application, driving a significant improvement in
-data health by executing the Data Quality Management Program.", "Led an ETL workstream, generating revenue and saving $2M annually by automating data processes for hundreds
-of thousands of records and millions of monthly updates. Responsibilities included requirements gathering, testing,
-and stakeholder approvals.", "Leading the scoping and planning of a ServiceNow ETL implementation, replacing the existing data management
-tool with a more scalable solution that enhances data processing efficiency."]
+      "highlights": ["Architected and implemented a Java-based data quality reporting application, driving a significant improvement in data health by executing the Data Quality Management Program.", "Led an ETL workstream, generating revenue and saving $2M annually by automating data processes for hundreds of thousands of records and millions of monthly updates. Responsibilities included requirements gathering, testing, and stakeholder approvals.", "Leading the scoping and planning of a ServiceNow ETL implementation, replacing the existing data management tool with a more scalable solution that enhances data processing efficiency."]
     },
     {
       "name": "IT Financial Business Analyst",
@@ -47,8 +43,7 @@ tool with a more scalable solution that enhances data processing efficiency."]
       "startDate": "2016-08-29",
       "endDate": "2018-09-01",
       "summary":"Administered an enterprise financial system, generating millions in monthly invoices for Texas Public Agencies, ensuring accuracy and timely processing.",
-      "highlights": ["Led several data analytics and automation project initiatives that included developing automated billing
-methodology, creating a financial forecast ($12 Billion forecasted over 4 years), and automating manual tasks."]
+      "highlights": ["Led several data analytics and automation project initiatives that included developing automated billing methodology, creating a financial forecast ($12 Billion forecasted over 4 years), and automating manual tasks."]
 
     }
   ],
@@ -157,7 +152,7 @@ methodology, creating a financial forecast ($12 Billion forecasted over 4 years)
       "releaseDate": "1905-06-30",
       "url": "https://en.wikisource.org/wiki/Translation:On_the_Electrodynamics_of_Moving_Bodies",
       "summary": "It concerned an interpretation of the Michelson–Morley experiment and the properties of light and time. Special relativity incorporates the principle that the speed of light is the same for all inertial observers regardless of the state of motion of the source."
-    },
+    }
 
   ],
   "skills": [
@@ -197,7 +192,7 @@ methodology, creating a financial forecast ($12 Billion forecasted over 4 years)
       ]
     }
   ],
-//  "references": [],
+  "references": [],
   "projects": [
     {
       "name": "Apple cultivars and climate change in the US",

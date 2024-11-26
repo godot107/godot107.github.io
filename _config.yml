@@ -173,8 +173,8 @@ external_sources:
   - name: Medium Blog
     rss_url: https://medium.com/@manwill/feed
   ## Bluesky not stable quite yet.
-  - name: Bluesky
-    rss_url: https://bsky.app/profile/did:plc:keiigiohiu273mt2gdnepv4i/rss
+  #- name: Bluesky
+  #  rss_url: https://bsky.app/profile/did:plc:keiigiohiu273mt2gdnepv4i/rss
 
   #- name:
   #  posts:

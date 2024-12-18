@@ -7,6 +7,7 @@ tags: community
 categories: slice-of-life
 thumbnail: assets/img/csmp_lifegroup_2016.jpg
 ---
+
 As part of Harvest Community Church, we would call our small groups, life group instead.  This is where we can practice biblical community and just trying to be real with others or "life on life", despite the doubts and insecurities.  We would invite others to be with the community and try to create a safe space for everyone.  You don't necessarily have to be Christian to be a part of this group.  By no means, is life group perfect, but I think it is the attempt and strife towards good and holiness that makes me and others want to be a part of this.
 
 Usually in CSMP, there would be no life group and just exclusively CSMP members for the time being. Instead, the planning team decided to have life group in the summer.  The challenge in life group and with CSMP is that the schedule is incredibly packed and there may not be enough time to meet up with people and follow up. Not to mention that there is a physical component too.  I recall some of us being tired to interact with some of the members.

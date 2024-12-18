@@ -1,11 +1,12 @@
 ---
 layout: page
 title: Analyze the characteristics of highly accessible population centers in the United States
-description: with background image
+description:  This project seeks to improve accessibility to jobs, entertainment, and shopping
 img: assets/img/accessible_populations_walkability.jpg
 importance: 1
 category: work
 related_publications: true
+bibliography: 2018-12-22-distill.bib
 ---
 
 # Introduction

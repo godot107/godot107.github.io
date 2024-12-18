@@ -248,7 +248,7 @@ exclude:
   - lighthouse_results/
   - package.json
   - package-lock.json
-  - _pages/about_willie.md
+  - _pages/about.md
   - purgecss.config.js
   - README.md
   - readme_preview/

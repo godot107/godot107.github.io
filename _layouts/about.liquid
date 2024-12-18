@@ -56,6 +56,7 @@ layout: default
       {% include latest_posts.liquid %}
     {% endif %}
 
+    {% comment %}
     <!-- Selected papers -->
     {% if page.selected_papers %}
       <h2>
@@ -63,6 +64,19 @@ layout: default
       </h2>
       {% include selected_papers.liquid %}
     {% endif %}
+    {% endcomment %}
+
+    <!-- Twitter Timeline -->
+    <div class="twitter-timeline-container">
+    <a class="twitter-timeline" href="https://twitter.com/WillieMaize828"
+      data-tweet-limit="5"
+      data-chrome="noheader nofooter noborders transparent"
+      height="400">
+      Tweets by @WillieMaize828
+    </a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </div>
+
 
     <!-- Social -->
     {% if page.social %}

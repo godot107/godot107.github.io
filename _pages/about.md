@@ -20,7 +20,9 @@ Welcome to my website! I created this space to share my journey in data, AI, and
 
 ## Latest X Posts
 
-<a class="twitter-timeline" href="https://twitter.com/WillieMaize828?ref_src=twsrc%5Etfw">Tweets by WillieMaize828</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<a class="twitter-timeline" href="https://twitter.com/WillieMaize828?ref_src=twsrc%5Etfw"    data-tweet-limit="5"
+   data-chrome="noheader nofooter noborders noscrollbar transparent"
+   height="400">Tweets by WillieMaize828</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <!---
 Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.

@@ -18,12 +18,6 @@ social: true # includes social icons at the bottom of the page
 
 Welcome to my website! I created this space to share my journey in data, AI, and machine learning through blogs and projects, while also offering a glimpse into my life outside of work. Whether you're in the industry exploring my professional skills or someone curious about my hobbies—like baking, traveling, or stories about my dog—I hope you find something here that resonates. Thank you for taking the time to visit and learn more about me!
 
-## Latest X Posts
-
-<a class="twitter-timeline" href="https://twitter.com/WillieMaize828?ref_src=twsrc%5Etfw"    data-tweet-limit="5"
-   data-chrome="noheader nofooter noborders noscrollbar transparent"
-   height="400">Tweets by WillieMaize828</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
 <!---
 Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
 

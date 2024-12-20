@@ -3,7 +3,7 @@ layout: post
 title: Community Summer Missions Project (CSMP) - Life Group
 date: 2016-07-19 16:40:16
 description: Community
-tags: community
+tags: [community, faith]
 categories: slice-of-life
 thumbnail: assets/img/csmp_lifegroup_2016.jpg
 ---

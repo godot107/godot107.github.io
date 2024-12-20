@@ -17,7 +17,7 @@ So what is intensive?  Intensive is the week before we go into field work.  Du
 
 In addition, we woke up early in the morning for physical training exercises which included physical and cardio activities.  At the end of Intensive, there was an eight mile run we did as a team.  I ran long distances before but it has been a while.  But I made up my mind to run where the slower team members were at to encourage them.  I was not the only one.  To encourage comradary and unity, those who completed before everyone else were to run back to those who yet to finish.
 
-![CSMP Team Photo](assets/img/csmp_field_work_2.jpg)
+![CSMP Team Photo](https://github.com/godot107/godot107.github.io/blob/cb56b5f3541bb183842cbca9893a9e8f070f6cdc/assets/img/csmp_field_work_2.jpg)
 
 
 *** Enter Field Work: *** 

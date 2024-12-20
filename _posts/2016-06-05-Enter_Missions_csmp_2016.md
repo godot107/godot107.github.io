@@ -5,7 +5,7 @@ date: 2016-06-05 13:40:16
 description: Community
 tags: [community,faith]
 categories: slice-of-life
-thumbnail: 
+thumbnail: assets/img/csmp_prayer_card.jpeg
 ---
 
 *** Preface *** 

@@ -56,7 +56,7 @@ I've networked with organizers and could seek them for support and advice.
 
 ![Social Good Recruiting App Demo](https://raw.githubusercontent.com/godot107/godot107.github.io/refs/heads/main/assets/img/social_good_recruiting_app_demo.png)
 
-As a reference, here is our <a href = "https://github.com/joannesong/socialChangeHackathon.git" >GitHub repo</a> and <a href = "https://socialgoodhack.devpost.com/>">DEV post</a> of the hackathon.
+As a reference, here is our <a href = "https://github.com/joannesong/socialChangeHackathon.git" >GitHub repo</a> and <a href = "https://socialgoodhack.devpost.com/">DEV post</a> of the hackathon.
 
 
 

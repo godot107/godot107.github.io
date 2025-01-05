@@ -108,12 +108,12 @@
     {"title": "Education Assistance Program",
     "date": "2021-2024",
     "awarder": "Capgemini",
-    "url": "",
+    "url": ""
   },
   {"title": "Academic Scholarship",
   "date": "2021",
   "awarder": "University of Michigan",
-  "url": "",
+  "url": ""
   }
 
   ],
@@ -173,7 +173,7 @@
   "skills": [
     {
       "name": "Data",
-      "level": "Profecient"
+      "level": "Profecient",
       "icon": "fa-solid fa-hashtag",
       "keywords": [
         "Data Analytics",
@@ -190,6 +190,7 @@
       "level":"Expert",
       "icon": "fa-solid fa-hashtag",
       "keywords": [
+        "People Management",
         "Stakeholder Management",
         "Strategy",
         "Presentation",
@@ -235,7 +236,7 @@
         "Cooking",
         "Coffee",
         "Baking"
-      ],
+      ]
 
     }
   ],

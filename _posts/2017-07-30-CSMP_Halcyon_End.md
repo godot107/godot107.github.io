@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Community Summer Missions Project (CSMP) - Halcyon End
-date: 2016-07-19 16:40:16
+date: 2016-07-30 16:40:16
 description: Community
 tags: [community, faith]
 categories: slice-of-life

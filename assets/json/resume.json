@@ -119,45 +119,59 @@
   ],
   "certificates": [
     {
-      "name": "Machine Learning",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
+      "name": "Natural Language Processing Specialization",
+      "date": "2024-08-01",
+      "issuer": "DeepLearning.AI",
+      "url": "https://www.coursera.org/account/accomplishments/specialization/KLDOTL6APEY0",
       "icon": "fa-solid fa-location-dot"
     },
     {
-      "name": "Quantum Computing",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
+      "name": "Generative Adversarial Networks (GANs) Specialization",
+      "date": "2024-05-01",
+      "issuer": "DeepLearning.AI",
+      "url": "https://www.coursera.org/account/accomplishments/specialization/3FJUL68P2WKD",
       "icon": "fa-solid fa-tag"
     },
     {
-      "name": "Quantum Information",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
+      "name": "AWS Certified Database - Specialty",
+      "date": "2024-02-01",
+      "issuer": "Amazon Web Services (AWS)",
+      "url": "https://www.credly.com/badges/e134bbf8-719e-404d-99c4-bf69d922a716/public_url",
       "icon": "fa-solid fa-envelope"
     },
     {
-      "name": "Quantum Cryptography",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
+      "name": "AWS Certified Data Analytics – Specialty",
+      "date": "2023-12-01",
+      "issuer": "Amazon Web Services (AWS)",
+      "url": "https://www.credly.com/badges/ff3b0bba-8b82-40d5-83b6-51315fa157c2/public_url",
       "icon": "fa-solid fa-hashtag"
     },
     {
-      "name": "Quantum Communication",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
+      "name": "Microsoft Certified: Azure Data Engineer Associate",
+      "date": "2023-05-01",
+      "issuer": "Microsoft",
+      "url": "https://www.credly.com/badges/0ea1e478-f12b-45ae-a87d-577d78ae4d55/public_url",
       "icon": "fa-solid fa-calendar"
     },
     {
-      "name": "Quantum Teleportation",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
+      "name": "Microsoft Certified: Azure Data Scientist Associate",
+      "date": "2023-03-01",
+      "issuer": "Microsoft",
+      "url": "https://www.credly.com/badges/d49eea31-2810-4bf3-8a97-a9527c10da77/public_url",
+      "icon": "fa-solid fa-clipboard-check"
+    },
+    {
+      "name": "AWS Certified Machine Learning – Specialty",
+      "date": "2022-12-01",
+      "issuer": "Amazon Web Services (AWS)",
+      "url": "https://www.credly.com/badges/13bfead5-a5d4-4b50-b646-f7a59ed866c2/public_url",
+      "icon": "fa-solid fa-clipboard-check"
+    },
+    {
+      "name": "AWS Certified Solutions Architect – Associate",
+      "date": "2022-06-01",
+      "issuer": "Amazon Web Services (AWS)",
+      "url": "https://www.credly.com/badges/09d7daad-0190-49be-a280-64f25484e52e/public_url",
       "icon": "fa-solid fa-clipboard-check"
     }
   ],

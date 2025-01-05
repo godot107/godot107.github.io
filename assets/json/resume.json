@@ -99,12 +99,23 @@
   ],
   "awards": [
     {
-      "title": "",
-      "date": "",
-      "awarder": "",
+      "title": "Data Detective",
+      "date": "2024",
+      "awarder": "Capgemini",
       "url": "",
-      "summary": ""
-    }
+      "summary": "A Data Detective is a highly analytical professional with a knack for uncovering the root causes of issues and identifying patterns hidden within complex and disparate datasets. This individual combines technical expertise with critical thinking to piece together information from diverse sources, constructing a clear narrative or solution where ambiguity once reigned. Their skill set often includes advanced data analysis, a deep understanding of business processes, and the ability to ask the right questions to get to the bottom of problems."
+    },
+    {"title": "Education Assistance Program",
+    "date": "2021-2024",
+    "awarder": "Capgemini",
+    "url": "",
+  },
+  {"title": "Academic Scholarship",
+  "date": "2021",
+  "awarder": "University of Michigan",
+  "url": "",
+  }
+
   ],
   "certificates": [
     {
@@ -152,27 +163,54 @@
   ],
   "publications": [
     {
-      "name": "Zur Elektrody/namik bewegter Körper",
-      "publisher": "Annalen der Physik",
-      "releaseDate": "1905-06-30",
-      "url": "https://en.wikisource.org/wiki/Translation:On_the_Electrodynamics_of_Moving_Bodies",
-      "summary": "It concerned an interpretation of the Michelson–Morley experiment and the properties of light and time. Special relativity incorporates the principle that the speed of light is the same for all inertial observers regardless of the state of motion of the source."
+      "name": "The Innocence Initiative 2020",
+      "publisher": "Measure",
+      "releaseDate": "2020-10-15",
+      "url": "https://wemeasure.org/sdm_downloads/the-innocence-initiative-2020/",
+      "summary": "The Innocence Initiative is a collaborative effort to elevate the data, listen to the real-life stories of Black girls, and address disparities that perpetuate adultification bias through advocacy, training, and public awareness."
     }
   ],
   "skills": [
     {
-      "name": "Physics",
-      "level": "Master",
+      "name": "Data",
+      "level": "Profecient"
       "icon": "fa-solid fa-hashtag",
       "keywords": [
-        "Quantum Mechanics",
-        "Quantum Computing",
-        "Quantum Information",
-        "Quantum Cryptography",
-        "Quantum Communication",
-        "Quantum Teleportation"
+        "Data Analytics",
+        "Data Visualization",
+        "Data Engineering",
+        "Data Munging",
+        "Data Quality",
+        "Governance",
+        "Architecture"
       ]
-    }
+    },
+    {
+      "name": "Consulting",
+      "level":"Expert",
+      "icon": "fa-solid fa-hashtag",
+      "keywords": [
+        "Stakeholder Management",
+        "Strategy",
+        "Presentation",
+        "Technical Writing",
+        "Project Management",
+        "Cross-functinoal Collaboration",
+        "Decision Support"
+      ]
+  },
+  {
+    "name": "Information Technology (IT)",
+    "level": "Expert",
+    "icon": "fa-solid fa-hashtag",
+    "keywords": [
+        "ITIL",
+        "Configuration Management Database (CMDB)",
+        "ITSM",
+        "Cloud Computing",
+        "System Administration"
+    ]
+  }
   ],
   "languages": [
     {
@@ -183,16 +221,22 @@
   ],
   "interests": [
     {
-      "name": "Physics",
+      "name": "Health",
       "icon": "fa-solid fa-tag",
       "keywords": [
-        "Quantum Mechanics",
-        "Quantum Computing",
-        "Quantum Information",
-        "Quantum Cryptography",
-        "Quantum Communication",
-        "Quantum Teleportation"
-      ]
+        "Running",
+        "Mental Health",
+        "Strength",
+        "Flexibility"
+      ],
+      "name": "Food",
+      "icon": "fa-solid fa-tag",
+      "keywords": [
+        "Cooking",
+        "Coffee",
+        "Baking"
+      ],
+
     }
   ],
   "references": [],

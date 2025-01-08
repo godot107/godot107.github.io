@@ -41,7 +41,7 @@ Assuming the USDA continues to use a 30-year rolling average for risk assessment
 
 _USDA Plant Hardiness Zones in the Eastern Mountain Region from 2014 to 2050 based on Elastic Net Regression_
 
-![plot](reports/figures/fig4_weather_usda.gif)
+![plot](https://github.com/godot107/UM-Apple-Cultivars-Climate-Change/raw/main/reports/figures/fig4_weather_usda.gif)
 
 ## References
 * Hoplamazian, M. (2023, October 20). A bad apple season has some U.S. fruit growers planning for life in a warmer world. NPR. Retrieved April 17, 2024, from https://www.npr.org/2023/10/20/1207202139/a-bad-apple-season-has-some-u-s-fruit-growers-planning-for-life-in-a-warmer-worl

@@ -46,7 +46,7 @@ _USDA Plant Hardiness Zones in the Eastern Mountain Region from 2014 to 2050 bas
 
 ![plot](https://github.com/godot107/UM-Apple-Cultivars-Climate-Change/raw/main/reports/figures/fig4_weather_usda.gif)
 
-# Resources
+### Resources
 - {% cite hoplamazian2023 %}
 - {% cite usapple_industry %}
 - {% cite hmohammed2024 %}

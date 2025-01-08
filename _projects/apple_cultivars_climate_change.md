@@ -49,7 +49,7 @@ _USDA Plant Hardiness Zones in the Eastern Mountain Region from 2014 to 2050 bas
 ### Resources
 - {% cite hoplamazian2023 %}
 - {% cite usapple_industry %}
-- {% cite hmohammed2024 %}
+- {% cite mohammed2024 %}
 - {% cite morton2017 %}
 - {% cite openai2023 %}
 - {% cite nass2024 %}

@@ -6,7 +6,6 @@ img: assets/img/apple_cultivars_thumbnail.png
 importance: 1
 category: work
 related_publications: true
-giscus_comments: true
 
 ---
 

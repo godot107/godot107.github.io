@@ -14,6 +14,8 @@ In the US, cars are the most utilized modes of transportation for every day acti
 
 The outcome of this report is to identify the characteristics which makes a city more accessible than others to create models that predict the accessibility of a population center with those characteristics. Realizing that the scope is beyond the allotted time, we decided to focus on _walkability_ as our metric for accessibility.
 
+[Source Code] (https://github.com/godot107/SIADS696)
+
 # Related Work
 
 1. [The Influence of Land Use on Travel Behavior](https://www.sciencedirect.com/science/article/abs/pii/S0965856400000197) (Boarnet and Crane 2001)
@@ -115,7 +117,6 @@ The standard ParameterGrid method from Scikit-Learn was used for hypertuning the
 
 The Mean Absolute Error (MAE) method was used as the objective function and the evaluation metric in our analysis across all models. This selection was driven by the fact that the values returned by MAE are in the same unit of measure as the dependent variable, and were consequently easily interpreted against the NWI.
 
-![Shape 2](RackMultipart20231020-1-cxpey8_html_407f4fc3ab78677b.gif)
 
 Table 1
 
@@ -128,7 +129,6 @@ Table 1
 
 ### Model Evaluation and Determination
 
-![Shape 2](RackMultipart20231020-1-cxpey8_html_1a69d0d5d4b03a0a.gif)
 
 Table 1
 
@@ -148,37 +148,34 @@ Shapely Additive Explanations (SHAP) was used to calculate the overall importanc
 
 The SHAP "Beeswarm" plot in Fig. 2 indicates that the _Urban_Pct_feature is by far the most important, followed by \_LATracts_half_Pct_ and _Home Value_.
 
-![Shape 2](RackMultipart20231020-1-cxpey8_html_7ca98a122de74044.gif)
+(accessible_populations_shap_beeswarm_plot.png)
 
 Fig. 2
 
 Taking a closer look at the dependency plot for the _Urban_Pct_ feature (colored by _Home Value_ in Fig. 3), we can see that it has a non-linear impact on the SHAP values. For observations with small _Urban_Pct_ values, the impact to SHAP is nearly -1, which slowly increases to 0 when the values of the feature reach roughly 0.33. At this point, there is a plateau from ~0.33 to ~0.75, after which the impact to the SHAP value increases dramatically from 0 to 4+.
 
-Per SHAP's interaction values, the feature that has the most interactive effects with _Urban_Pct_ is _LATracts_half_Pct_. Looking at the interactive effects dependency plot for those two features (Fig.4) indicates a negligible impact to the SHAP value from the combination until the values of both features reach roughly 0.7, which then results in a mostly positive, but slight (maximum 0.4+) increase to the SHAP value. This is the strongest interactive effect, for the most impactful feature, and it only accounts for a slight increase to the overall score, indicating that most of the
+Per SHAP's interaction values, the feature that has the most interactive effects with _Urban_Pct_ is _LATracts_half_Pct_. Looking at the interactive effects dependency plot for those two features (Fig.4) indicates a negligible impact to the SHAP value from the combination until the values of both features reach roughly 0.7, which then results in a mostly positive, but slight (maximum 0.4+) increase to the SHAP value. 
 
-![](RackMultipart20231020-1-cxpey8_html_1b16e3f42763f3c6.png) ![](RackMultipart20231020-1-cxpey8_html_7c1e48bd2e97ef84.png)
 
 ###
 
-### ![Shape 2](RackMultipart20231020-1-cxpey8_html_7ca98a122de74044.gif) ![Shape 2](RackMultipart20231020-1-cxpey8_html_7ca98a122de74044.gif)
-
-Fig. 4
+(accessible_populations_shap_dependency_plot)
 
 Fig. 3
+
+(accessible_populations_shap_dependency_plot_4_5.png)
+
+Fig. 4 & 5
 
 ###
 
 ### Model Accuracy
 
-![Shape 2](RackMultipart20231020-1-cxpey8_html_7ca98a122de74044.gif)
-
-Fig. 5
 
 The MAE results of 0.757 ± 0.026 indicated that the model should be capable of providing reasonable results at predicting the aggregated National Walkability Index (NWI), which has a possible range of 1 to 15.96 points. The scatterplot results in Fig. 5 has the dependent variable (_NatWalkInd_) on the X axis, the feature with the highest SHAP value (_Urban_Pct_) on the Y axis, and the plot is colored by the difference between the actual NWI values and our predicted values. The shape of the data is similar to a sigmoidal curve, and our model has clearly captured this non-linearity, as evidenced by observing the narrow band of green in the diagram, which represents a near zero difference in actuals versus predictions. ![](RackMultipart20231020-1-cxpey8_html_aa735820d6138971.png)
 
 ### Ablative Analysis of Top 5 Features
 
-![Shape 2](RackMultipart20231020-1-cxpey8_html_12444bd0979d1a00.gif)
 
 # Table 2
 
@@ -200,7 +197,6 @@ While holding the XGBoost model parameters static, each feature(s) in the table 
 | Urban_Pct, Home Value, LATracts_half_Pct, LATracts10_Pct                  | 0.9005              | ±0.0302     | -0.1435                          | -18.96%                                  |
 | Urban_Pct, Home Value, LATracts_half_Pct, LATracts10_Pct, LAhalfand10_Pct | 1.1205              | ±0.0215     | -0.3635                          | -48.03%                                  |
 
-![Shape 2](RackMultipart20231020-1-cxpey8_html_12444bd0979d1a00.gif)
 
 # Table 3
 
@@ -210,17 +206,15 @@ Key Findings:
 2. Despite the loss of both _Urban_Pct_ and _Home Value_, the model is still fairly resilient, with an accuracy drop of only -15.29%. The resulting mean MAE of 0.8727 is still better than the Ridge regression model's baseline score of 1.1 MAE with all of the features. This is an indication that there is likely a good amount of multicollinearity involved in this data.
 3. It is not until the top 5 features (_Urban_Pct_, _Home Value_, _LATracts_half_Pct_, _LATracts10_Pct_, _LAhalfand10_Pct_), as reported by the XGBoost Feature Importance variable, until there is significant decay in the MAE score. It is at this point that the XGBoost model performance is worse than the Ridge Regression Baseline (MAE 1.1 ± 0.25).
 
-### Hyperparameter Sensitivity ![](RackMultipart20231020-1-cxpey8_html_e26a937ea5e097e1.png)
+### Hyperparameter Sensitivity 
 
-![Shape 2](RackMultipart20231020-1-cxpey8_html_7ca98a122de74044.gif)
+(accessible_populations_5_fold_CV_mean.png)
 
 Fig. 6
 
 With Hyperopt selecting the optimal parameters used for the training of the XGBoost model, it was important to look at how sensitive some parameters were to being changed. A model that is exceptionally sensitive to slight parameter changes indicates it might be over-fitted and would perform poorly when making predictions on unseen data. All other parameters were held constant when performing these tests.
 
-![](RackMultipart20231020-1-cxpey8_html_b1a89e00aa49d271.png)
-
-![Shape 2](RackMultipart20231020-1-cxpey8_html_7ca98a122de74044.gif)
+(accessible_populations_5_fold_CV_max_depth.png)
 
 Fig. 7
 
@@ -233,9 +227,7 @@ Performing a similar analysis on the max_depth hyperparameter (Fig. #) shows neg
 1. Data leakage occurred during initial regression model development due to the time series nature of the Zillow data Observations for single FIPS codes were appearing in both Train and Test datasets, and the FIPS code categorical variable was included in the dataset as well. This caused exceptionally good MAE scores that were suspicious. Selecting a single month of observations (Jan 2023) and removing FIPS codes from training datasets remediated this issue.
 2. The worst performing under prediction was for FIPS code 31043, which corresponds to the Sioux City metropolitan region in South Dakota. Looking at the SHAP force plot (Figure #) gives us an idea of the reasons for the prediction of 6.18, which is a 5.34 point miss from the actual NWI score of 11.51. The reasoning for this discrepancy comes down to issues with aggregating data up to the grain of State/County for the FIPS codes, so the Zillow _Home Value_ feature can be added to the analysis. The Smart Location Database (SLD) has very granular data, with their FIPS codes going down to the Census Block Group level, while the Food Atlas is slightly less granular at the Census Tract level. Both have to be aggregated upwards to accommodate the Zillow data.
 
-![](RackMultipart20231020-1-cxpey8_html_cef40c36435169d6.png)
-
-![Shape 2](RackMultipart20231020-1-cxpey8_html_7ca98a122de74044.gif)
+(accessible_populations_walkability_color_bar.png)
 
 Fig.8
 
@@ -303,11 +295,11 @@ This process produced mediocre results (MAE 1.253 ± 0.043), so we pivoted from 
 
 A major complication to our analysis was the lack of alignment in the granularity of data between the Zillow ZHVI, SLD and Food Atlas data sources. Rolling up our dependent variable (NWI) by two levels inherently introduced a degree of inaccuracy into the predictions from the start. Despite this issue, the model was ![](RackMultipart20231020-1-cxpey8_html_e989d45976da4065.png)surprisingly successful in predicting the NWI, with a clear normalized curve in the predictions, and an overall mean of differences in NWI actuals versus predictions of 0.034 ± 0.967.
 
-![Shape 2](RackMultipart20231020-1-cxpey8_html_7ca98a122de74044.gif)
+(accessible_populations_SHAP_force_plot.png)
 
 Fig. 9
 
-Another surprising aspect of this analysis was the exceptionally strong correlation (0.86) between the _Urban_Pct_ feature and the _D3B_Ranked_ variable from the SLD. _DB3_Ranked_ is a street intersection density ranking, and it is one of the 4 indexes that is used to build the NWI. These two data points come from completely different resources, where _D3B_Ranked_ is built based on mapping data from [HERE](https://www.here.com/)'s NAVSTREETS product, the Urban flag in the Food Atlas is determined by a simple calculation of whether or not the geographic centroid of the census tract contains more or less than 2500 people. The strength of this correlation that was the reason that _Urban_Pct_ was the most important feature, according SHAP.
+Another surprising aspect of this analysis was the exceptionally strong correlation (0.86) between the _Urban_Pct_ feature and the _D3B_Ranked_ variable from the SLD. _DB3_Ranked_ is a street intersection density ranking, and it is one of the 4 indexes that is used to build the NWI. These two data points come from completely different resources, where _D3B_Ranked_ is built based on mapping data from NAVSTREETS product, the Urban flag in the Food Atlas is determined by a simple calculation of whether or not the geographic centroid of the census tract contains more or less than 2500 people. The strength of this correlation that was the reason that _Urban_Pct_ was the most important feature, according SHAP.
 
 After the feature ablation tests were performed, it was clear that the Zillow _Home Value_ feature was not providing enough value (3.29%) to justify the complexities caused by the aggregation, and that a finer grain of data could potentially provide better predictions. The NWI would still need to be rolled up, but only one step, from Census Block Group to Tract level, in order to be joined with the features from the Food Atlas This would only reduce the NWI range by a minimal amount, 1 to 19.83 (instead of the 1 to 15.96 caused by the two steps roll up), which is a more accurate reflection of the actual 1 to 20 range. That being said, model times would also increase as a result of the increased number of records available for training (roughly a 2,400% increase), so there is a potential tradeoff between time to train and accuracy to be considered.
 
@@ -321,21 +313,17 @@ And finally, building a slightly more complex PyTorch Neural Network would almos
 
 The first model's goal was to understand the different levels of transit infrastructure (such as availability to public transportation) and urban density amongst different U.S. counties. In order to do this, several factors were selected from the smart location database. Since many of the factors are highly correlated with the national walkability index (see figure below), we decided to keep the list of features low.
 
-![Shape 2](RackMultipart20231020-1-cxpey8_html_c179342a5891d654.gif)
+(accessible_populations_silhouette_score.png)
 
 Fig. 10
 
-![](RackMultipart20231020-1-cxpey8_html_ac6d65828063ed62.png)
-
-![](RackMultipart20231020-1-cxpey8_html_760c89e01f26a6d5.png)
-
-![Shape 2](RackMultipart20231020-1-cxpey8_html_6039852edb3bb6af.gif)
+(accessible_populations_walkability_corr_plot.png)
 
 Fig. 11
 
 This also helped us have a conceptual understanding of the unique characteristics of each cluster. The features on the model are: **Total county land acreage** , **D3B** (Street intersection density), the number of street intersections per square mile, which is a good proxy for understanding the urban density of a county, **D4BO50** , Proportion of CBG employment within a square mile of fixed-guideway transit stop, which provides a measure of the public transit availability in commercial centers, and **National Walkability Index.**
 
-![](RackMultipart20231020-1-cxpey8_html_b64fb971e3aa933d.png) ![Shape 2](RackMultipart20231020-1-cxpey8_html_1a69d0d5d4b03a0a.gif)
+(accessible_populations_walkability_feature_plot.png)
 
 Fig. 12
 
@@ -345,13 +333,9 @@ Based on the silhouette optimized model, the model parameters and centroids are 
 
 The second model's goal is to understand how individuals within a specific county have access to food- either through vehicle travel or walking. This will be used to understand the impact that food availability has on housing prices and market stability in a regional context. The features we selected are less auto-correlated than the smart location dataset and do not necessarily require principal component analysis.
 
-![Shape 2](RackMultipart20231020-1-cxpey8_html_1a69d0d5d4b03a0a.gif)
-
+(accessible_populations_walkability_cluster_plot.png)
 Fig. 13
 
-![](RackMultipart20231020-1-cxpey8_html_3d90cbce416c4cdd.png)
-
-![](RackMultipart20231020-1-cxpey8_html_88cb3e9464383ca5.png)
 
 The features for clustering by food availability are as follows:
 
@@ -359,7 +343,8 @@ The features for clustering by food availability are as follows:
 2. The aggregate percent of census tracts that are categorized as a "food desert" by the FDA
 3. The aggregate percent of urban tracts that are within a county
 4. The aggregate percent of tracts that have low access to food and have low vehicle ownership. This is defined as tracts where \>= 100 of households do not have a vehicle, and beyond 1/2 mile from supermarket; or \>= 500 individuals are beyond 20 miles from supermarket ; or \>= 33% of individuals are beyond 20 miles from supermarkets
-   ![Shape 2](RackMultipart20231020-1-cxpey8_html_1a69d0d5d4b03a0a.gif)
+
+(accessible_populations_cluster_map.png)
 
 Fig. 14
 
@@ -372,13 +357,10 @@ The goal of the 3rd model is to understand the health of housing markets within 
 1. Home value- the average normalized home value within a specific county (most recent FYE)
 2. pct \_change_diff_low- the average percent change in home value compared to the U.S. percent change in home value during periods of negative growth in the U.S. housing market (between 2013 and 2022)
 3. pct \_change_diff_med- the average percent change in home value compared to the U.S. percent change in home value during periods of low to no growth in the U.S. housing market (between 2013 and 2022)
-4. pct \_change_diff_high- the average percent change in home value compared to the U.S. percent change in home value during periods of high growth in the U.S. housing market (between 2013 and 2022) ![](RackMultipart20231020-1-cxpey8_html_2048babfee7e82e1.png)
+4. pct \_change_diff_high- the average percent change in home value compared to the U.S. percent change in home value during periods of high growth in the U.S. housing market (between 2013 and 2022) 
 
 We generally define healthy regional housing markets as those with resilient home values during periods of economic decline and perform on par with national trends during high and no growth periods. Additionally, we have reduced all the features above, using Principal Component Analysis to further understand where each cluster is separated visually. Based on the silhouette optimized model, the model parameters and centroids are defined below. Unlike the transit model, this model contains (n=7) clusters.
 
-![Shape 2](RackMultipart20231020-1-cxpey8_html_1a69d0d5d4b03a0a.gif)
-
-Fig. 15
 
 **Cluster relatedness and takeaways**
 

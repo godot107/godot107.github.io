@@ -143,7 +143,7 @@ Shapely Additive Explanations (SHAP) was used to calculate the overall importanc
 
 The SHAP "Beeswarm" plot in Fig. 2 indicates that the _Urban_Pct_feature is by far the most important, followed by \_LATracts_half_Pct_ and _Home Value_.
 
-[Fig. 2](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_shap_beeswarm_plot.png)
+![Fig. 2](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_shap_beeswarm_plot.png)
 
 
 Taking a closer look at the dependency plot for the _Urban_Pct_ feature (colored by _Home Value_ in Fig. 3), we can see that it has a non-linear impact on the SHAP values. For observations with small _Urban_Pct_ values, the impact to SHAP is nearly -1, which slowly increases to 0 when the values of the feature reach roughly 0.33. At this point, there is a plateau from ~0.33 to ~0.75, after which the impact to the SHAP value increases dramatically from 0 to 4+.
@@ -153,11 +153,11 @@ Per SHAP's interaction values, the feature that has the most interactive effects
 
 ###
 
-[Fig. 3](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_shap_dependency_plot.png)
+![Fig. 3](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_shap_dependency_plot.png)
 
 
 
-[Fig. 4 & 5](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_shap_dependency_plot_4_5.png)
+![Fig. 4 & 5](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_shap_dependency_plot_4_5.png)
 
 
 
@@ -202,13 +202,13 @@ Key Findings:
 
 ### Hyperparameter Sensitivity 
 
-[Fig. 6](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_5_fold_CV_mean.png)
+![Fig. 6](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_5_fold_CV_mean.png)
 
 
 
 With Hyperopt selecting the optimal parameters used for the training of the XGBoost model, it was important to look at how sensitive some parameters were to being changed. A model that is exceptionally sensitive to slight parameter changes indicates it might be over-fitted and would perform poorly when making predictions on unseen data. All other parameters were held constant when performing these tests.
 
-[Fig. 7](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_5_fold_CV_max_depth.png)
+![Fig. 7](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_5_fold_CV_max_depth.png)
 
 
 
@@ -221,7 +221,7 @@ Performing a similar analysis on the max_depth hyperparameter (Fig. #) shows neg
 1. Data leakage occurred during initial regression model development due to the time series nature of the Zillow data Observations for single FIPS codes were appearing in both Train and Test datasets, and the FIPS code categorical variable was included in the dataset as well. This caused exceptionally good MAE scores that were suspicious. Selecting a single month of observations (Jan 2023) and removing FIPS codes from training datasets remediated this issue.
 2. The worst performing under prediction was for FIPS code 31043, which corresponds to the Sioux City metropolitan region in South Dakota. Looking at the SHAP force plot (Figure #) gives us an idea of the reasons for the prediction of 6.18, which is a 5.34 point miss from the actual NWI score of 11.51. The reasoning for this discrepancy comes down to issues with aggregating data up to the grain of State/County for the FIPS codes, so the Zillow _Home Value_ feature can be added to the analysis. The Smart Location Database (SLD) has very granular data, with their FIPS codes going down to the Census Block Group level, while the Food Atlas is slightly less granular at the Census Tract level. Both have to be aggregated upwards to accommodate the Zillow data.
 
-[Fig.8](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_walkability_color_bar.png)
+![Fig.8](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_walkability_color_bar.png)
 
 
 
@@ -289,7 +289,7 @@ This process produced mediocre results (MAE 1.253 ± 0.043), so we pivoted from 
 
 A major complication to our analysis was the lack of alignment in the granularity of data between the Zillow ZHVI, SLD and Food Atlas data sources. Rolling up our dependent variable (NWI) by two levels inherently introduced a degree of inaccuracy into the predictions from the start. Despite this issue, the model was ![](RackMultipart20231020-1-cxpey8_html_e989d45976da4065.png)surprisingly successful in predicting the NWI, with a clear normalized curve in the predictions, and an overall mean of differences in NWI actuals versus predictions of 0.034 ± 0.967.
 
-[Fig. 9](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_SHAP_force_plot.png)
+![Fig. 9](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_SHAP_force_plot.png)
 
 
 
@@ -307,14 +307,14 @@ And finally, building a slightly more complex PyTorch Neural Network would almos
 
 The first model's goal was to understand the different levels of transit infrastructure (such as availability to public transportation) and urban density amongst different U.S. counties. In order to do this, several factors were selected from the smart location database. Since many of the factors are highly correlated with the national walkability index (see figure below), we decided to keep the list of features low.
 
-[Fig. 10](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_silhouette_score.png)
+![Fig. 10](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_silhouette_score.png)
 
-[Fig. 11](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_walkability_corr_plot.png)
+![Fig. 11](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_walkability_corr_plot.png)
 
 
 This also helped us have a conceptual understanding of the unique characteristics of each cluster. The features on the model are: **Total county land acreage** , **D3B** (Street intersection density), the number of street intersections per square mile, which is a good proxy for understanding the urban density of a county, **D4BO50** , Proportion of CBG employment within a square mile of fixed-guideway transit stop, which provides a measure of the public transit availability in commercial centers, and **National Walkability Index.**
 
-[Fig. 12](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_walkability_feature_plot.png)
+![Fig. 12](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_walkability_feature_plot.png)
 
 
 
@@ -324,7 +324,7 @@ Based on the silhouette optimized model, the model parameters and centroids are 
 
 The second model's goal is to understand how individuals within a specific county have access to food- either through vehicle travel or walking. This will be used to understand the impact that food availability has on housing prices and market stability in a regional context. The features we selected are less auto-correlated than the smart location dataset and do not necessarily require principal component analysis.
 
-[Fig. 13](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_walkability_cluster_plot.png)
+![Fig. 13](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_walkability_cluster_plot.png)
 
 The features for clustering by food availability are as follows:
 
@@ -333,7 +333,7 @@ The features for clustering by food availability are as follows:
 3. The aggregate percent of urban tracts that are within a county
 4. The aggregate percent of tracts that have low access to food and have low vehicle ownership. This is defined as tracts where \>= 100 of households do not have a vehicle, and beyond 1/2 mile from supermarket; or \>= 500 individuals are beyond 20 miles from supermarket ; or \>= 33% of individuals are beyond 20 miles from supermarkets
 
-[Fig. 14](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_cluster_map.png)
+![Fig. 14](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_cluster_map.png)
 
 
 

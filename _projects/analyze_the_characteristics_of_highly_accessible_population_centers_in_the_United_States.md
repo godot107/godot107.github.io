@@ -14,7 +14,7 @@ In the US, cars are the most utilized modes of transportation for every day acti
 
 The outcome of this report is to identify the characteristics which makes a city more accessible than others to create models that predict the accessibility of a population center with those characteristics. Realizing that the scope is beyond the allotted time, we decided to focus on _walkability_ as our metric for accessibility.
 
-[Source Code] (https://github.com/godot107/SIADS696)
+[Source Code](https://github.com/godot107/SIADS696)
 
 # Related Work
 
@@ -103,11 +103,6 @@ HalvingGridSearchCV was used for RandomForest models because of the independent 
 
 The Hyperopt library with Tree-based Parzen Estimators (TPE) was selected for XGBoost as a result of XGBoost being not quite as parallelizable as RandomForest, due to its boosting process being sequential (though its node splitting process is parallelized). The Hyperopt TPE method implements an iterative Bayesian optimization process that was able to search through a grid space efficiently and determine the most effective model with substantially fewer iterations than HalvingGridSearchCV. This optimization process can be seen in Fig. 1 below, where promising hyperparameters are discovered early in the process, and the variability of MAE scores decreases as parameters are refined.
 
-![](RackMultipart20231020-1-cxpey8_html_5623da23428abdfe.png)
-
-![Shape 2](RackMultipart20231020-1-cxpey8_html_7ca98a122de74044.gif)
-
-Fig. 1
 
 The standard ParameterGrid method from Scikit-Learn was used for hypertuning the PyTorch model. This particular model required a large amount of fine tuning and tweaking of the parameter grid space for the number of hidden nodes, learning rate and dropout percentages, which meant it was more efficient to iterate over every permutation in the space to discover the optimal parameters, which is what the standard ParameterGrid method allowed. This model did have an advantage in that it could use GPU resources, which reduced the overall training time required. A [visualization](#_es9wik286it) is available in [Appendix E](#kipwtc1u6agx), showing the results of the 5-Fold cross validation used to generate the best Neural Net model, with the various spikes in each fold indicating the impact of dropout, and the differing number of epochs per fold illustrating the early stopping method preventing the model from hitting the maximum 1000 epoch limit, preventing overfitting.
 
@@ -148,8 +143,7 @@ Shapely Additive Explanations (SHAP) was used to calculate the overall importanc
 
 The SHAP "Beeswarm" plot in Fig. 2 indicates that the _Urban_Pct_feature is by far the most important, followed by \_LATracts_half_Pct_ and _Home Value_.
 
-(accessible_populations_shap_beeswarm_plot.png)
-
+(https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_shap_beeswarm_plot.png?raw=true)
 Fig. 2
 
 Taking a closer look at the dependency plot for the _Urban_Pct_ feature (colored by _Home Value_ in Fig. 3), we can see that it has a non-linear impact on the SHAP values. For observations with small _Urban_Pct_ values, the impact to SHAP is nearly -1, which slowly increases to 0 when the values of the feature reach roughly 0.33. At this point, there is a plateau from ~0.33 to ~0.75, after which the impact to the SHAP value increases dramatically from 0 to 4+.
@@ -159,11 +153,11 @@ Per SHAP's interaction values, the feature that has the most interactive effects
 
 ###
 
-(accessible_populations_shap_dependency_plot)
+(https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_shap_dependency_plot.png?raw=true)
 
 Fig. 3
 
-(accessible_populations_shap_dependency_plot_4_5.png)
+(https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_shap_dependency_plot_4_5.png?raw=true)
 
 Fig. 4 & 5
 
@@ -208,13 +202,13 @@ Key Findings:
 
 ### Hyperparameter Sensitivity 
 
-(accessible_populations_5_fold_CV_mean.png)
+(https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_5_fold_CV_mean.png?raw=true)
 
 Fig. 6
 
 With Hyperopt selecting the optimal parameters used for the training of the XGBoost model, it was important to look at how sensitive some parameters were to being changed. A model that is exceptionally sensitive to slight parameter changes indicates it might be over-fitted and would perform poorly when making predictions on unseen data. All other parameters were held constant when performing these tests.
 
-(accessible_populations_5_fold_CV_max_depth.png)
+(https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_5_fold_CV_max_depth.png?raw=true)
 
 Fig. 7
 
@@ -227,7 +221,7 @@ Performing a similar analysis on the max_depth hyperparameter (Fig. #) shows neg
 1. Data leakage occurred during initial regression model development due to the time series nature of the Zillow data Observations for single FIPS codes were appearing in both Train and Test datasets, and the FIPS code categorical variable was included in the dataset as well. This caused exceptionally good MAE scores that were suspicious. Selecting a single month of observations (Jan 2023) and removing FIPS codes from training datasets remediated this issue.
 2. The worst performing under prediction was for FIPS code 31043, which corresponds to the Sioux City metropolitan region in South Dakota. Looking at the SHAP force plot (Figure #) gives us an idea of the reasons for the prediction of 6.18, which is a 5.34 point miss from the actual NWI score of 11.51. The reasoning for this discrepancy comes down to issues with aggregating data up to the grain of State/County for the FIPS codes, so the Zillow _Home Value_ feature can be added to the analysis. The Smart Location Database (SLD) has very granular data, with their FIPS codes going down to the Census Block Group level, while the Food Atlas is slightly less granular at the Census Tract level. Both have to be aggregated upwards to accommodate the Zillow data.
 
-(accessible_populations_walkability_color_bar.png)
+(https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_walkability_color_bar.png?raw=true)
 
 Fig.8
 
@@ -295,7 +289,7 @@ This process produced mediocre results (MAE 1.253 ± 0.043), so we pivoted from 
 
 A major complication to our analysis was the lack of alignment in the granularity of data between the Zillow ZHVI, SLD and Food Atlas data sources. Rolling up our dependent variable (NWI) by two levels inherently introduced a degree of inaccuracy into the predictions from the start. Despite this issue, the model was ![](RackMultipart20231020-1-cxpey8_html_e989d45976da4065.png)surprisingly successful in predicting the NWI, with a clear normalized curve in the predictions, and an overall mean of differences in NWI actuals versus predictions of 0.034 ± 0.967.
 
-(accessible_populations_SHAP_force_plot.png)
+(https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_SHAP_force_plot.png?raw=true)
 
 Fig. 9
 
@@ -313,17 +307,17 @@ And finally, building a slightly more complex PyTorch Neural Network would almos
 
 The first model's goal was to understand the different levels of transit infrastructure (such as availability to public transportation) and urban density amongst different U.S. counties. In order to do this, several factors were selected from the smart location database. Since many of the factors are highly correlated with the national walkability index (see figure below), we decided to keep the list of features low.
 
-(accessible_populations_silhouette_score.png)
+(https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_silhouette_score.png?raw=true)
 
 Fig. 10
 
-(accessible_populations_walkability_corr_plot.png)
+(https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_walkability_corr_plot.png?raw=true)
 
 Fig. 11
 
 This also helped us have a conceptual understanding of the unique characteristics of each cluster. The features on the model are: **Total county land acreage** , **D3B** (Street intersection density), the number of street intersections per square mile, which is a good proxy for understanding the urban density of a county, **D4BO50** , Proportion of CBG employment within a square mile of fixed-guideway transit stop, which provides a measure of the public transit availability in commercial centers, and **National Walkability Index.**
 
-(accessible_populations_walkability_feature_plot.png)
+(https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_walkability_feature_plot.png?raw=true)
 
 Fig. 12
 
@@ -333,7 +327,7 @@ Based on the silhouette optimized model, the model parameters and centroids are 
 
 The second model's goal is to understand how individuals within a specific county have access to food- either through vehicle travel or walking. This will be used to understand the impact that food availability has on housing prices and market stability in a regional context. The features we selected are less auto-correlated than the smart location dataset and do not necessarily require principal component analysis.
 
-(accessible_populations_walkability_cluster_plot.png)
+(https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_walkability_cluster_plot.png?raw=true)
 Fig. 13
 
 
@@ -344,7 +338,7 @@ The features for clustering by food availability are as follows:
 3. The aggregate percent of urban tracts that are within a county
 4. The aggregate percent of tracts that have low access to food and have low vehicle ownership. This is defined as tracts where \>= 100 of households do not have a vehicle, and beyond 1/2 mile from supermarket; or \>= 500 individuals are beyond 20 miles from supermarket ; or \>= 33% of individuals are beyond 20 miles from supermarkets
 
-(accessible_populations_cluster_map.png)
+(https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_cluster_map.png?raw=true)
 
 Fig. 14
 

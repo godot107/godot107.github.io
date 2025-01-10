@@ -25,9 +25,13 @@ Inspired by Ted Mei's "Demystifying TF-IDF in Indexing and Ranking," I construct
 
 The visualization uses TileBars, where each column represents a text paragraph, and rows represent the query terms. Tooltips provide details about term occurrences, counts, and line IDs, enhancing interactivity. This gradient-based visualization ensures that even documents with low term counts can be meaningfully represented. The tool allows users to gain insights at a glance while offering the granularity needed for deeper exploration.
 
-**Notebook**
-<iframe src="https://colab.research.google.com/drive/1ffjWWK-XXGChGaaE4gx71aSNWl8GuOs2#scrollTo=3P6JpjlIw_Tp?embedded=true" width="100%" height="600px"></iframe>
+[tilebar]((https://github.com/godot107/godot107.github.io/blob/main/assets/img/tf-idf_demo_img.png)
 
+
+**Notebook**
+[View Interactive Colab Notebook](https://colab.research.google.com/drive/1ffjWWK-XXGChGaaE4gx71aSNWl8GuOs2#scrollTo=3P6JpjlIw_Tp)
+
+<a href = "https://github.com/godot107/tf-idf-app">Source Code</a>
 
 **Future Improvements**
 

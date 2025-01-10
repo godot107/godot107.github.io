@@ -1,5 +1,6 @@
 ---
-layout:Visualizing Information Retrieval: A TF-IDF Approach with TileBars
+layout: page
+title: Visualizing Information Retrieval - A TF-IDF Approach with TileBars
 description: This article explores a TF-IDF-based visual query system using TileBars to retrieve and rank research documents efficiently. By leveraging metadata and the first three paragraphs of each document, it combines preprocessing, normalization, and intuitive visualizations to present relevant results. Future improvements, including lemmatization and sparse matrices, are also discussed.
 img: https://images.unsplash.com/photo-1554906493-4812e307243d?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
 importance: 2
@@ -21,11 +22,14 @@ TF-IDF (Term Frequency-Inverse Document Frequency) is the backbone of this query
 
 Inspired by Ted Mei's "Demystifying TF-IDF in Indexing and Ranking," I constructed a framework to compute TF-IDF scores and rank documents based on cosine similarity between the query and document vectors. This approach enhances the relevance and context of the results. To normalize the influence of document length, z-score normalization is applied, which adjusts term counts based on their mean and standard deviation within the corpus. This ensures that shorter documents are not unfairly penalized while maintaining the robustness of the ranking mechanism.
 
-**Visualization and Insights**
+![tilebar_demo](https://github.com/godot107/godot107.github.io/blob/main/assets/img/tf_idf_gif.gif)
+
+
+**Visualization**
 
 The visualization uses TileBars, where each column represents a text paragraph, and rows represent the query terms. Tooltips provide details about term occurrences, counts, and line IDs, enhancing interactivity. This gradient-based visualization ensures that even documents with low term counts can be meaningfully represented. The tool allows users to gain insights at a glance while offering the granularity needed for deeper exploration.
 
-[tilebar]((https://github.com/godot107/godot107.github.io/blob/main/assets/img/tf-idf_demo_img.png)
+![tilebar](https://github.com/godot107/godot107.github.io/blob/main/assets/img/tf_idf_demo_img.png)
 
 
 **Notebook**

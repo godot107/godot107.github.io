@@ -22,17 +22,16 @@ TF-IDF (Term Frequency-Inverse Document Frequency) is the backbone of this query
 
 Inspired by Ted Mei's "Demystifying TF-IDF in Indexing and Ranking," I constructed a framework to compute TF-IDF scores and rank documents based on cosine similarity between the query and document vectors. This approach enhances the relevance and context of the results. To normalize the influence of document length, z-score normalization is applied, which adjusts term counts based on their mean and standard deviation within the corpus. This ensures that shorter documents are not unfairly penalized while maintaining the robustness of the ranking mechanism.
 
-![tilebar_demo](https://github.com/godot107/godot107.github.io/blob/main/assets/img/tf_idf_gif.gif)
+![tilebar_demo](https://github.com/godot107/godot107.github.io/blob/main/assets/img/tf_idf_gif.gif?raw=true)
 
 
 **Visualization**
 
 The visualization uses TileBars, where each column represents a text paragraph, and rows represent the query terms. Tooltips provide details about term occurrences, counts, and line IDs, enhancing interactivity. This gradient-based visualization ensures that even documents with low term counts can be meaningfully represented. The tool allows users to gain insights at a glance while offering the granularity needed for deeper exploration.
 
-![tilebar](https://github.com/godot107/godot107.github.io/blob/main/assets/img/tf_idf_demo_img.png)
+![tilebar](https://github.com/godot107/godot107.github.io/blob/main/assets/img/tf-idf_demo_img.png?raw=true)
 
 
-**Notebook**
 [View Interactive Colab Notebook](https://colab.research.google.com/drive/1ffjWWK-XXGChGaaE4gx71aSNWl8GuOs2#scrollTo=3P6JpjlIw_Tp)
 
 <a href = "https://github.com/godot107/tf-idf-app">Source Code</a>

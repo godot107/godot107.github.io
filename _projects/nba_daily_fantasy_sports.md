@@ -6,7 +6,6 @@ img: assets/img/nba_daily_Fantasy.png
 importance: 3
 category: work
 ---
-# My NBA Daily Fantasy Sports (DFS) Project: Competing for Pocket Cash
 
 ## Background
 

@@ -4,12 +4,12 @@ title: about
 permalink: /
 subtitle: <a href='https://linktr.ee/williemaize'>Affiliations</a>. <a href='https://hihello.me/p/e51e021a-872b-4c2c-9c66-88bd9e69c354'>Contacts</a>. All Things Data
 
-#profile:
-#  align: right
-#  image: prof_pic.jpg
-#  image_circular: false # crops the image to make it circular
-#  more_info: >
-#    <p>Greater Houston, Texas</p>
+profile:
+  align: right
+  image: prof_pic.jpg
+  image_circular: false # crops the image to make it circular
+  more_info: >
+    <p>Greater Houston, Texas</p>
 
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"

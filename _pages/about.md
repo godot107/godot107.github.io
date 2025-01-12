@@ -4,12 +4,12 @@ title: about
 permalink: /
 subtitle: <a href='https://linktr.ee/williemaize'>Affiliations</a>. <a href='https://hihello.me/p/e51e021a-872b-4c2c-9c66-88bd9e69c354'>Contacts</a>. All Things Data
 
-profile:
-  align: right
-  image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
-  more_info: >
-    <p>Greater Houston, Texas</p>
+#profile:
+#  align: right
+#  image: prof_pic.jpg
+#  image_circular: false # crops the image to make it circular
+#  more_info: >
+#    <p>Greater Houston, Texas</p>
 
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
@@ -18,17 +18,6 @@ social: true # includes social icons at the bottom of the page
 
 Welcome to my website! I created this space to share my journey in data, AI, and machine learning through blogs and projects, while also offering a glimpse into my life outside of work. Whether you're in the industry exploring my professional skills or someone curious about my hobbies—like baking, traveling, or stories about my dog—I hope you find something here that resonates. Thank you for taking the time to visit and learn more about me!
 
-
----
-layout: default
-title: About
-permalink: /about/
-
----
-
-## About Me
-
-Welcome to my GitHub Page! Here's a carousel of featured web pages:
 
 <div id="carousel" style="position:relative; width:300px; height:200px; overflow:hidden;">
   <div class="carousel-container" style="display:flex; transition: transform 0.5s ease; width: 300%; height: 100%;">

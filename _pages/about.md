@@ -16,22 +16,22 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-Welcome to my website! I created this space to share my journey in data, AI, and machine learning through blogs and projects, while also offering a glimpse into my life outside of work. Whether you're in the industry exploring my professional skills or someone curious about my hobbies—like baking, traveling, or stories about my dog—I hope you find something here that resonates. Thank you for taking the time to visit and learn more about me!
+Welcome to my creation space where I share my journey in data, AI, and machine learning through blogs and projects, while also offering a glimpse into my life outside of work. Whether you're in the industry exploring my professional skills or someone curious about my hobbies—like baking, traveling, or stories about my dog—I hope you find something here that resonates. Thank you for taking the time to visit and learn more about me!
 
-
+<h2>Featured</h2>
 <div id="carousel" style="position:relative; width:300px; height:200px; overflow:hidden;">
   <div class="carousel-container" style="display:flex; transition: transform 0.5s ease; width: 300%; height: 100%;">
     <!-- First Image with Link -->
-    <a href="https://en.wikipedia.org/wiki/Houston_Astros" target="_blank" style="width: 300px; height: 200px; display: block;">
-      <img class="carousel-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Houston-Astros-Logo.svg/150px-Houston-Astros-Logo.svg.png" alt="Image 1" style="width: 100%; height: 100%; object-fit: cover;">
+    <a href="https://godot107.github.io/projects/apple_cultivars_climate_change/" target="_blank" style="width: 300px; height: 200px; display: block;">
+      <img class="carousel-img" src="https://godot107.github.io/assets/img/apple_cultivars_thumbnail.png" alt="Apple Cultirvars" style="width: 100%; height: 100%; object-fit: cover;">
     </a>
     <!-- Second Image with Link -->
-    <a href="https://en.wikipedia.org/wiki/Houston_Texans" target="_blank" style="width: 300px; height: 200px; display: block;">
-      <img class="carousel-img" src="https://upload.wikimedia.org/wikipedia/en/thumb/2/28/Houston_Texans_logo.svg/150px-Houston_Texans_logo.svg.png" alt="Image 2" style="width: 100%; height: 100%; object-fit: cover;">
+    <a href="https://medium.com/@manwill/dogs-vs-cats-audio-classification-56175ce58429" target="_blank" style="width: 300px; height: 200px; display: block;">
+      <img class="carousel-img" src="https://miro.medium.com/v2/resize:fit:720/format:webp/0*waJB0GOUm-sjj_C8" alt="Dogs vs Cats Audio Classification" style="width: 100%; height: 100%; object-fit: cover;">
     </a>
     <!-- Third Image with Link -->
-    <a href="https://en.wikipedia.org/wiki/Houston_Rockets" target="_blank" style="width: 300px; height: 200px; display: block;">
-      <img class="carousel-img" src="https://upload.wikimedia.org/wikipedia/en/thumb/2/28/Houston_Rockets.svg/255px-Houston_Rockets.svg.png" alt="Image 3" style="width: 100%; height: 100%; object-fit: cover;">
+    <a href="https://www.instagram.com/ladybirdbakingcompany/" target="_blank" style="width: 300px; height: 200px; display: block;">
+      <img class="carousel-img" src="ttps://github.com/godot107/godot107.github.io/blob/main/assets/img/carousel/LB_thumbnail.jpg" alt="Lady Bird Baking Co Thumbnail" style="width: 100%; height: 100%; object-fit: cover;">
     </a>
   </div>
   

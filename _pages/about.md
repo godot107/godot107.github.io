@@ -49,13 +49,13 @@ Welcome to my creation space where I share my journey in data, AI, and machine l
   class="carousel-nav left" 
   onclick="navigateCarousel(-1)" 
   style="position:absolute; top:50%; left:10px; transform:translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer; z-index: 10;">
-  
+  ←
 </button>
 <button 
   class="carousel-nav right" 
   onclick="navigateCarousel(1)" 
   style="position:absolute; top:50%; right:10px; transform:translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer; z-index: 10;">
-  
+  →
 </button>
 
 </div>
@@ -75,7 +75,11 @@ Welcome to my creation space where I share my journey in data, AI, and machine l
   // Function to navigate the carousel with buttons
   function navigateCarousel(direction) {
     currentIndex = (currentIndex + direction + images.length) % images.length;
-    container.style.transform = `translateX(-${currentIndex * 100 / images.length}%)`;
+    
+    //container.style.transform = `translateX(-${currentIndex * 100 / images.length}%)`; // old
+
+    // Move the carousel container to show the correct image
+    container.style.transform = `translateX(-${currentIndex * 100}%)`;
   }
 
   // Start the carousel interval

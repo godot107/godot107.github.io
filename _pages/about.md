@@ -44,7 +44,7 @@ Welcome to my creation space where I share my journey in data, AI, and machine l
     </a>
   </div>
   
-  <!-- Left and Right Navigation Buttons -->
+ <!-- Left and Right Navigation Buttons -->
   <button class="carousel-nav left" onclick="navigateCarousel(-1)" style="position:absolute; top:50%; left:0; transform:translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer;">←</button>
   <button class="carousel-nav right" onclick="navigateCarousel(1)" style="position:absolute; top:50%; right:0; transform:translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer;">→</button>
 </div>

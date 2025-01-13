@@ -16,6 +16,8 @@ Here, I share thoughts and reflections on books I've read, many of which are bor
 
 
 <!-- pages/books.md -->
+
+{% if page.display_categories %}
 <div class="books">
   <!-- Display categorized books -->
   {% for category in page.display_categories %}

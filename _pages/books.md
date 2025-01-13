@@ -26,18 +26,18 @@ Here, I share thoughts and reflections on books I've read, many of which are bor
   </a>
   {% assign categorized_books = site.books | where: "category", category %}
   {% assign sorted_books = categorized_books | sort: "importance" %}
-  <!-- Generate cards for each project -->
+  <!-- Generate cards for each book -->
   {% if page.horizontal %}
   <div class="container">
     <div class="row row-cols-1 row-cols-md-2">
-    {% for project in sorted_books %}
+    {% for book in sorted_books %}
       {% include books_horizontal.liquid %}
     {% endfor %}
     </div>
   </div>
   {% else %}
   <div class="row row-cols-1 row-cols-md-3">
-    {% for project in sorted_books %}
+    {% for book in sorted_books %}
       {% include books.liquid %}
     {% endfor %}
   </div>
@@ -50,20 +50,20 @@ Here, I share thoughts and reflections on books I've read, many of which are bor
 
 {% assign sorted_books = site.books | sort: "importance" %}
 
-  <!-- Generate cards for each project -->
+  <!-- Generate cards for each book -->
 
 {% if page.horizontal %}
 
   <div class="container">
     <div class="row row-cols-1 row-cols-md-2">
-    {% for project in sorted_books %}
+    {% for book in sorted_books %}
       {% include books_horizontal.liquid %}
     {% endfor %}
     </div>
   </div>
   {% else %}
   <div class="row row-cols-1 row-cols-md-3">
-    {% for project in sorted_books %}
+    {% for book in sorted_books %}
       {% include books.liquid %}
     {% endfor %}
   </div>

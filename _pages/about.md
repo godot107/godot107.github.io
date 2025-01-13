@@ -20,7 +20,7 @@ Welcome to my creation space where I share my journey in data, AI, and machine l
 
 <h2>Featured</h2>
 
-div id="carousel" style="position: relative; width: 300px; height: 200px; overflow: hidden;">
+<div id="carousel" style="position: relative; width: 300px; height: 200px; overflow: hidden;">
   <div class="carousel-container" style="display: flex; position: absolute; transition: transform 0.5s ease; height: 100%; width: 100%;">
     <!-- First Image with Link -->
     <div class="carousel-slide" style="position: absolute; width: 100%; height: 100%;">

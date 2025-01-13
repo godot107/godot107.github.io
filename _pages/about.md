@@ -31,7 +31,7 @@ Welcome to my creation space where I share my journey in data, AI, and machine l
     </a>
     <!-- Third Image with Link -->
     <a href="https://www.instagram.com/ladybirdbakingcompany/" target="_blank" style="width: 300px; height: 200px; display: block;">
-      <img class="carousel-img" src="ttps://github.com/godot107/godot107.github.io/blob/main/assets/img/carousel/LB_thumbnail.jpg" alt="Lady Bird Baking Co Thumbnail" style="width: 100%; height: 100%; object-fit: cover;">
+      <img class="carousel-img" src="https://raw.githubusercontent.com/godot107/godot107.github.io/refs/heads/main/assets/img/carousel/LB_thumbnail.jpg" alt="Lady Bird Baking Co Thumbnail" style="width: 100%; height: 100%; object-fit: cover;">
     </a>
   </div>
   

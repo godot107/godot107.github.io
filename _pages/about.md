@@ -19,61 +19,91 @@ social: true # includes social icons at the bottom of the page
 Welcome to my creation space where I share my journey in data, AI, and machine learning through blogs and projects, while also offering a glimpse into my life outside of work. Whether you're in the industry exploring my professional skills or someone curious about my hobbies—like baking, traveling, or stories about my dog—I hope you find something here that resonates. Thank you for taking the time to visit and learn more about me!
 
 <h2>Featured</h2>
-
 <div id="carousel" style="position:relative; width:300px; height:200px; overflow:hidden;">
   <div class="carousel-container" style="display:flex; transition: transform 0.5s ease; width: 300%; height: 100%;">
-    <a href="https://godot107.github.io/projects/apple_cultivars_climate_change/" style="width: 300px; height: 200px;">
-      <img src="https://godot107.github.io/assets/img/apple_cultivars_thumbnail.png" alt="Image 1" style="width: 100%; height: 100%; object-fit: cover;">
+    <!-- First Image with Link -->
+    <a href="https://godot107.github.io/projects/apple_cultivars_climate_change/" target="_blank" style="width: 300px; height: 200px; display: block;">
+      <img class="carousel-img" src="https://godot107.github.io/assets/img/apple_cultivars_thumbnail.png" alt="Apple Cultirvars" style="width: 100%; height: 100%; object-fit: cover;">
+      <div class="banner" style="position: absolute; bottom: 0; width: 100%; background: rgba(0, 0, 0, 0.7); color: white; text-align: center; padding: 5px;">
+        Apple Cultivars and Climate Change
+      </div>
     </a>
-    <a href="https://medium.com/@manwill/dogs-vs-cats-audio-classification-56175ce58429" style="width: 300px; height: 200px;">
-      <img src="https://miro.medium.com/v2/resize:fit:720/format:webp/0*waJB0GOUm-sjj_C8" alt="Image 2" style="width: 100%; height: 100%; object-fit: cover;">
+    <!-- Second Image with Link -->
+    <a href="https://medium.com/@manwill/dogs-vs-cats-audio-classification-56175ce58429" target="_blank" style="width: 300px; height: 200px; display: block;">
+      <img class="carousel-img" src="https://miro.medium.com/v2/resize:fit:720/format:webp/0*waJB0GOUm-sjj_C8" alt="Dogs vs Cats Audio Classification" style="width: 100%; height: 100%; object-fit: cover;">
+      <div class="banner" style="position: absolute; bottom: 0; width: 100%; background: rgba(0, 0, 0, 0.7); color: white; text-align: center; padding: 5px;">
+        Dogs vs. Cats Audio Classification
+      </div>
     </a>
-    <a href="https://www.instagram.com/ladybirdbakingcompany/" style="width: 300px; height: 200px;">
-      <img src="https://raw.githubusercontent.com/godot107/godot107.github.io/refs/heads/main/assets/img/carousel/LB_thumbnail.jpg" alt="Image 3" style="width: 100%; height: 100%; object-fit: cover;">
+    <!-- Third Image with Link -->
+    <a href="https://www.instagram.com/ladybirdbakingcompany/" target="_blank" style="width: 300px; height: 200px; display: block;">
+      <img class="carousel-img" src="https://raw.githubusercontent.com/godot107/godot107.github.io/refs/heads/main/assets/img/carousel/LB_thumbnail.jpg" alt="Lady Bird Baking Co Thumbnail" style="width: 100%; height: 100%; object-fit: cover;">
+      <div class="banner" style="position: absolute; bottom: 0; width: 100%; background: rgba(0, 0, 0, 0.7); color: white; text-align: center; padding: 5px;">
+        Lady Bird Baking Company
+      </div>
     </a>
   </div>
-  <button class="carousel-nav left" onclick="navigateCarousel(-1)">←</button>
-  <button class="carousel-nav right" onclick="navigateCarousel(1)">→</button>
+  
+<!-- Left and Right Navigation Buttons -->
+<button 
+  class="carousel-nav left" 
+  onclick="navigateCarousel(-1)" 
+  style="position:absolute; top:50%; left:10px; transform:translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer; z-index: 10;">
+  ←
+</button>
+<button 
+  class="carousel-nav right" 
+  onclick="navigateCarousel(1)" 
+  style="position:absolute; top:50%; right:10px; transform:translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer; z-index: 10;">
+  →
+</button>
+
 </div>
-<div id="text-banner" style="text-align: center; margin-top: 10px;">Apple Cultivars and Climate Change</div>
 
 <script>
-  const banners = [
-      "Apple Cultivars and Climate Change",
-      "Dogs vs Cats Audio Classification",
-      "Lady Bird Baking Co.",
-  ];
   let container = document.querySelector('.carousel-container');
-  let images = document.querySelectorAll('.carousel-container a');
+  let images = document.querySelectorAll('.carousel-img');
   let currentIndex = 0;
   let carouselInterval;
 
+  // Function to rotate the carousel
   function rotateCarousel() {
-      currentIndex = (currentIndex + 1) % images.length;
-      container.style.transform = `translateX(-${currentIndex * 100}%)`;
-      document.getElementById('text-banner').textContent = banners[currentIndex];
+    currentIndex = (currentIndex + 1) % images.length;
+    container.style.transform = `translateX(-${currentIndex * 100 / images.length}%)`;
   }
 
+  // Function to navigate the carousel with buttons
   function navigateCarousel(direction) {
-      currentIndex = (currentIndex + direction + images.length) % images.length;
-      container.style.transform = `translateX(-${currentIndex * 100}%)`;
-      document.getElementById('text-banner').textContent = banners[currentIndex];
+    currentIndex = (currentIndex + direction + images.length) % images.length;
+    
+    //container.style.transform = `translateX(-${currentIndex * 100 / images.length}%)`; // old
+
+    // Move the carousel container to show the correct image
+    container.style.transform = `translateX(-${currentIndex * 100}%)`;
   }
 
+  // Start the carousel interval
   function startCarousel() {
-      carouselInterval = setInterval(rotateCarousel, 3000);
+    carouselInterval = setInterval(rotateCarousel, 3000); // Rotate every 3 seconds
   }
 
+  // Pause the carousel on hover
   function pauseCarousel() {
-      clearInterval(carouselInterval);
+    clearInterval(carouselInterval);
   }
 
-  document.getElementById('carousel').addEventListener('mouseenter', pauseCarousel);
-  document.getElementById('carousel').addEventListener('mouseleave', startCarousel);
+  // Resume the carousel when the mouse leaves the carousel
+  function resumeCarousel() {
+    startCarousel();
+  }
 
+  // Add hover event listeners
+  document.getElementById('carousel').addEventListener('mouseenter', pauseCarousel);
+  document.getElementById('carousel').addEventListener('mouseleave', resumeCarousel);
+
+  // Start the carousel when the page loads
   startCarousel();
 </script>
-
 
 
 

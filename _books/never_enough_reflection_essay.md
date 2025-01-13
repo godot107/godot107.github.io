@@ -1,10 +1,10 @@
 ---
 layout: page
 title: Never Enough 
-description: coming soon
-img: assets/img/1.jpg
+description: Through a penetrating look at Never Enough, this review examines how America's obsession with academic achievement shapes our children's futures and sense of self-worth. Drawing from personal experience and cross-cultural insights, it challenges parents to question whether our pursuit of excellence has gone too far.
+img: https://m.media-amazon.com/images/I/816Sqs9RUuL._SL1500_.jpg
 importance: 1
-category: contemporate
+category: parenting
 ---
 
 # Book Review: *Never Enough*—A Reflection on Parenting and Education in America

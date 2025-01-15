@@ -56,8 +56,9 @@
     {
       "organization": "Sugar Land Family Church",
       "location": "Sugar Land, Texas",
-      "position": "volunteer",
+      "position": "Volunteer",
       "url": "https://www.slfc.co/",
+      "startDate:" "2023"
       "summary": "",
       "highlights": ["Bible Study Leader", "Broadcast Team member", "youth volunteer"]
     },
@@ -66,10 +67,10 @@
       "location": "Austin, Texas",
       "position": "Servant Leader",
       "url": "https://austin.hmcc.net/",
-      "startDate": "",
+      "startDate": "2012",
       "endDate": "2020",
       "summary": "",
-      "highlights": [""]
+      "highlights": ["Community Summers Missions Project - 2016"]
     }
   ],
   "education": [
@@ -88,7 +89,7 @@
       "institution": "University of Texas",
       "location": "Austin, Texas",
       "url": "https://www.utexas.edu/",
-      "area": ["Biochemestry", "Business", "Computer Science", "Health IT"],
+      "area": ["Biochemestry, ", "Business, ", "Computer Science, ", "Health IT"],
       "studyType": ["Bachelors, ", "Minors, ", "Certification"],
       "startDate": "2011-08",
       "endDate": "2015-05",
@@ -227,6 +228,41 @@
     ]
   }
   ],
+  "Technical":[
+    {
+      "name":"Programming Language",
+      "keywords": 
+          ["Python",
+          "Java",
+          "SQL",
+          "R"
+      ]
+    },
+    {
+      "name": "Cloud Services",
+      "keywords":[
+        "AWS SageMaker",
+        "AWS Kinesis",
+        "AWS Glue",
+        "AWS Athena"
+        "Azure Machine Learning",
+        "Azure Synapse",
+        "Azure Data Factory"
+      ]
+    },
+    {
+      "name":"Technology",
+      "keywords":[
+        "ServiceNow",
+        "MS Suite (Access, Excel, Visio, Power BI, Power Query)",
+        "Tableau",
+        "Visual Studio",
+        "Docker",
+        "GIT",
+        "Trello"
+      ]
+    }
+],
   "languages": [
     {
       "language": "English",

@@ -58,7 +58,7 @@
       "location": "Sugar Land, Texas",
       "position": "Volunteer",
       "url": "https://www.slfc.co/",
-      "startDate:" "2023"
+      "startDate": "2023",
       "summary": "",
       "highlights": ["Bible Study Leader", "Broadcast Team member", "youth volunteer"]
     },
@@ -244,7 +244,7 @@
         "AWS SageMaker",
         "AWS Kinesis",
         "AWS Glue",
-        "AWS Athena"
+        "AWS Athena",
         "Azure Machine Learning",
         "Azure Synapse",
         "Azure Data Factory"

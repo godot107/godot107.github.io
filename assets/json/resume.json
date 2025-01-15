@@ -245,6 +245,8 @@
         "AWS Kinesis",
         "AWS Glue",
         "AWS Athena",
+        "AWS EC2",
+        "AWS ECR",
         "Azure Machine Learning",
         "Azure Synapse",
         "Azure Data Factory"

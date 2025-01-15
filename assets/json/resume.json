@@ -231,6 +231,8 @@
   "technology":[
     {
       "name":"Programming Language",
+      "level":"Expert",
+      "icon": "fa-solid fa-hashtag",
       "keywords": 
           ["Python",
           "Java",
@@ -241,6 +243,8 @@
     },
     {
       "name": "Cloud Services",
+      "level":"Expert",
+      "icon": "fa-solid fa-hashtag",
       "keywords":[
         "AWS SageMaker",
         "AWS Kinesis",
@@ -255,6 +259,8 @@
     },
     {
       "name":"Applications",
+      "level":"Expert",
+      "icon": "fa-solid fa-hashtag",
       "keywords":[
         "ServiceNow",
         "MS Suite (Access, Excel, Visio, Power BI, Power Query)",

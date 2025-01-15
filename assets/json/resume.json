@@ -228,14 +228,15 @@
     ]
   }
   ],
-  "Technical":[
+  "technology":[
     {
       "name":"Programming Language",
       "keywords": 
           ["Python",
           "Java",
           "SQL",
-          "R"
+          "R",
+          "liquid"
       ]
     },
     {

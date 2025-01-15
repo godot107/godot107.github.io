@@ -48,7 +48,7 @@ Comer introduces a framework for living out the practices of Jesus in daily life
 
 These practices are deeply countercultural, particularly in our hustle-driven world. For example, truly observing the Sabbath requires cutting out distractions—sports, streaming shows, and even well-intentioned career pursuits. While these sacrifices may seem significant, they pale in comparison to the eternal rest and joy promised in Christ (*Hebrews 4:9-11*).
 
-*Practicing the Way* is a book I’ll revisit often, as its message challenges me to align my life more closely with Jesus’ teachings. I’m grateful to the Fort Bend County Library for carrying this book and others by John Mark Comer, making these transformative ideas accessible.
+*Practicing the Way* is a book I’ll revisit often, as its message challenges me to align my life more closely with Jesus’ teachings. I’m grateful to the [Fort Bend County Library](https://www.instagram.com/fbclibraries/) for carrying this book and others by John Mark Comer, making these transformative ideas accessible.
 
 For more on Comer’s teachings, visit:  
 - [Practicing the Way Website](https://www.practicingtheway.org/)  

@@ -240,8 +240,37 @@
           "R",
           "liquid"
       ]
+    },
+    {
+      "name": "Cloud Services",
+      "level":"Expert",
+      "icon": "fa-solid fa-hashtag",
+      "keywords":[
+        "AWS SageMaker",
+        "AWS Kinesis",
+        "AWS Glue",
+        "AWS Athena",
+        "AWS EC2",
+        "AWS ECR",
+        "Azure Machine Learning",
+        "Azure Synapse",
+        "Azure Data Factory"
+      ]
+    },
+    {
+      "name":"Applications",
+      "level":"Expert",
+      "icon": "fa-solid fa-hashtag",
+      "keywords":[
+        "ServiceNow",
+        "MS Suite (Access, Excel, Visio, Power BI, Power Query)",
+        "Tableau",
+        "Visual Studio",
+        "Docker",
+        "GIT",
+        "Trello"
+      ]
     }
-    
 ],
   "languages": [
     {

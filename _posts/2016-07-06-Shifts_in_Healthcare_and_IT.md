@@ -3,7 +3,7 @@ layout: post
 title: Shifts in Healthcare and Information Technology Align to Support Industry Transformation
 date: 2016-07-06 16:40:16
 description: 
-tags: [external-services]
+tags: [healthcare]
 categories: 
 thumbnail:
 ---

@@ -3,7 +3,7 @@ layout: post
 title: Design and Testing of an EHR-Integrated, Busulfan Pharmacokinetic Decision Support Tool for the Point-of-Care Clinician.
 date: 2016-04-29 16:40:16
 description: 
-tags: [external-services]
+tags: [healthcare]
 categories: 
 thumbnail:
 ---

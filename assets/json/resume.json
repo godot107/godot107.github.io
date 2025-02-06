@@ -110,12 +110,21 @@
     "date": "2021-2024",
     "awarder": "Capgemini",
     "url": ""
-  },
-  {"title": "Academic Scholarship",
-  "date": "2021",
-  "awarder": "University of Michigan",
-  "url": ""
-  }
+    },
+    {"title": "Academic Scholarship",
+    "date": "2021",
+    "awarder": "University of Michigan",
+    "url": ""
+    },
+    {"title": "Full-Marathon Finisher",
+    "date": "2016 - 2017",
+    "awarder": "Austin"
+    },
+
+    {"title": "Half-Marathon Finisher",
+    "date": "2015, 2018 - 2019",
+    "awarder": "Austin"
+    }
 
   ],
   "certificates": [

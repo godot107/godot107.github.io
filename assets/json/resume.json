@@ -312,7 +312,7 @@
   "projects": [
     {
       "name": "Apple cultivars and climate change in the US",
-      "summary": "Quantum computing is the use of quantum-mechanical phenomena such as superposition and entanglement to perform computation. Computers that perform quantum computations are known as quantum computers.",
+      "summary": "",
       "highlights": ["Geospatial Analysis", "Time Series", "Climate Change", "webscraping"],
       "startDate": "2024-03-01",
       "endDate": "2024-05-01",

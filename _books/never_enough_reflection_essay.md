@@ -32,7 +32,7 @@ As a young parent, I’m still learning and growing in how I approach parenting 
 
 <div class="text-center mt-5 mb-5">
   <p>Continue the journey in the next essay:</p>
-  <a href="{% link _books/subpages/never_enough_reflection_essay-part2.md %}" class="btn btn-outline-primary btn-lg">
+  <a href="{% link _books/subpages/never_enough_reflection_essay_part2.md %}" class="btn btn-outline-primary btn-lg">
     Read Part 2: Never Enough Reflection &rarr;
   </a>
 </div>

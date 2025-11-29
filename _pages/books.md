@@ -4,7 +4,7 @@ permalink: /books/
 title: books
 description: Books Reviews and Essays
 nav: true
-display_categories: [parenting, faith, misc]
+display_categories: [parenting, faith, inner_journey, misc]
 horizontal: false
 nav_order: 6
 ---

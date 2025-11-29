@@ -4,7 +4,7 @@ title: The Unseen Crisis: Why I Finally Read 'How to Know a Person'
 description: The title, Practicing the Way, draws from the concept of apprenticeship. Jesus, known not only as the Son of God but also as a Rabbi, called ordinary people—fishermen, tax collectors, and zealots—to follow Him as disciples. In Jesus’ time, disciples were typically well-versed in the Torah and aspired to become like their rabbi in every way. Comer invites us to imagine the same goal today - to become like Jesus through the empowerment of the Holy Spirit, bringing heaven to earth in both ordinary and extraordinary ways.
 img: https://m.media-amazon.com/images/I/81Gvt3v-J3L._SL1500_.jpg
 importance: 1
-category: inner_journey
+category: reads
 
 ---
 

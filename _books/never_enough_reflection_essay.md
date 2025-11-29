@@ -27,3 +27,12 @@ In conclusion, *Never Enough* challenges parents to reconsider the values we are
 
 ### Disclaimer
 As a young parent, I’m still learning and growing in how I approach parenting and life. My reflections are not meant to suggest that I have all the answers or to place myself above others. Rather, they are an attempt to communicate values that resonate with me and that I hope to strive for in my journey.
+
+<hr>
+
+<div class="text-center mt-5 mb-5">
+  <p>Continue the journey in the next essay:</p>
+  <a href="{% link _books/subpages/never_enough_reflection_essay_part2.md %}" class="btn btn-outline-primary btn-lg">
+    Read Part 2: Never Enough Reflection &rarr;
+  </a>
+</div>

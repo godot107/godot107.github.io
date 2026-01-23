@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Humour Seriously: A Reflection Essay
+title: Humour Seriously - A Reflection Essay
 description: This reflection explores the intellectual depth of comedy, the balance between levity and gravity, and the profound benefits of laughter in personal and professional life, inspired by David Brooks' insights.
 img: https://m.media-amazon.com/images/I/719DC8trU+L._SL1500_.jpg
 importance: 2

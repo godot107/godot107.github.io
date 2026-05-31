@@ -2,11 +2,12 @@
 layout: post
 title: SocialGood Hackathon Roundup
 date: 2018-08-31 01:40:16
-description: 
-tags: 
-categories: 
+description:
+tags:
+categories:
 thumbnail: assets/img/social_good_hackathon_team.png
 ---
+
 This month I've participated in a company-sponsored Hackathon with the theme of social good, attempting to solve social problems with technology.  There were about 80 participants many were students, graduates, and industry professionals.  We were also supported by mentors and corporate sponsors to help us use their tools for our code and application.
 
 Challenge:
@@ -57,6 +58,3 @@ I've networked with organizers and could seek them for support and advice.
 ![Social Good Recruiting App Demo](https://raw.githubusercontent.com/godot107/godot107.github.io/refs/heads/main/assets/img/social_good_recruiting_app_demo.png)
 
 As a reference, here is our <a href = "https://github.com/joannesong/socialChangeHackathon.git" >GitHub repo</a> and <a href = "https://socialgoodhack.devpost.com/">DEV post</a> of the hackathon.
-
-
-

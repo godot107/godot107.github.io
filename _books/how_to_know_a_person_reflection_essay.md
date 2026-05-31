@@ -5,7 +5,6 @@ description: The title, Practicing the Way, draws from the concept of apprentice
 img: https://m.media-amazon.com/images/I/81Gvt3v-J3L._SL1500_.jpg
 importance: 1
 category: reads
-
 ---
 
 # The Unseen Crisis: Why I Finally Read 'How to Know a Person'
@@ -16,7 +15,7 @@ category: reads
 
 My initial reaction to that title was a dismissive eye-roll. Seriously? I've been navigating this world long enough. I have friends. I can hold a conversation. I can read an article and understand a biography. Why on earth would I need a book to teach me something so fundamental?
 
-But I picked up David Brooks's *How to Know a Person* anyway. And I couldn’t put it down.
+But I picked up David Brooks's _How to Know a Person_ anyway. And I couldn’t put it down.
 
 I found myself struggling with a deeper question—one that felt sudden but was, of course, years in the making: **How did we get here?**
 
@@ -24,7 +23,7 @@ I’m talking about the atmosphere of political violence and the relentless trib
 
 Listening to Brooks discuss this on NPR, I was intrigued by his final note of hope. He suggested the antidote to this existential polarization wasn't a policy shift, but something far more intimate: **a change in how we see each other.**
 
-Coincidentally, this quest for connection was also hitting close to home. Between my full-remote work and a changing life stage, I was struggling to genuinely *socialize* with people. The book hit me right in the soul: everyone on this planet yearns to be seen—not just physically, but **inwardly**—to be **valued, heard, and understood**.
+Coincidentally, this quest for connection was also hitting close to home. Between my full-remote work and a changing life stage, I was struggling to genuinely _socialize_ with people. The book hit me right in the soul: everyone on this planet yearns to be seen—not just physically, but **inwardly**—to be **valued, heard, and understood**.
 
 ## The Guilt of the 'Brand'
 
@@ -76,10 +75,10 @@ In the end, I’ve found a renewed desire to rediscover what it means to be huma
 
 Thank you, [David Brooks](https://www.nytimes.com/by/david-brooks), for intersecting various disciplines and compelling stories into a cohesive journey. This is a book I will be returning to often.
 
-***
+---
 
 **What is a book you've read that fundamentally changed how you interact with people?**
 
-Consider a read by [purchasing](https://www.amazon.com/How-Know-Person-Seeing-Others/dp/0593230078/ref=sr_1_1?crid=ZZ3KNO4R2ZOV&dib=eyJ2IjoiMSJ9.8sge6aX_JyCRvGmi6NM5pZjeKokOT-pQQgmYPWR3DaoU3i6_pn24PiCbavqt_PdqZEtdWD7gT45B3ntw38DpghkzUkJ7eBE1KxP5QT5l03pmpN9jhAQwBp08fiFHRzk57e5kezvi7JAQqX90EbiWx854uLrPayfHZEXN_bKMma1CXLINKV8Fp2Tq0IXOPABokdy8r_6SY8OFRl78W4ZplhvRve-5xe8oIJDAKus6AA8.yLFLlJPTpo8IvnhUUyZ1I2-jvcTryTK-Ms1V0aYhShY&dib_tag=se&keywords=how+to+know+a+person+david+brooks&qid=1764396608&sprefix=how+to+know+a+person%2Caps%2C245&sr=8-1) or borrowing from your local library. 
+Consider a read by [purchasing](https://www.amazon.com/How-Know-Person-Seeing-Others/dp/0593230078/ref=sr_1_1?crid=ZZ3KNO4R2ZOV&dib=eyJ2IjoiMSJ9.8sge6aX_JyCRvGmi6NM5pZjeKokOT-pQQgmYPWR3DaoU3i6_pn24PiCbavqt_PdqZEtdWD7gT45B3ntw38DpghkzUkJ7eBE1KxP5QT5l03pmpN9jhAQwBp08fiFHRzk57e5kezvi7JAQqX90EbiWx854uLrPayfHZEXN_bKMma1CXLINKV8Fp2Tq0IXOPABokdy8r_6SY8OFRl78W4ZplhvRve-5xe8oIJDAKus6AA8.yLFLlJPTpo8IvnhUUyZ1I2-jvcTryTK-Ms1V0aYhShY&dib_tag=se&keywords=how+to+know+a+person+david+brooks&qid=1764396608&sprefix=how+to+know+a+person%2Caps%2C245&sr=8-1) or borrowing from your local library.
 
 **AI Transparency Note:** This article was edited and polished using Generative AI. All opinions expressed are solely my own, and I remain entirely responsible for the final content and accuracy.

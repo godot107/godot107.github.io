@@ -52,8 +52,10 @@ Welcome to my creation space where I share my journey in data, AI, and machine l
   </div>
 
   <!-- Navigation Buttons -->
-  <button class="carousel-nav left" onclick="navigateCarousel(-1)" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer; z-index: 10;">←</button>
-  <button class="carousel-nav right" onclick="navigateCarousel(1)" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer; z-index: 10;">→</button>
+
+<button class="carousel-nav left" onclick="navigateCarousel(-1)" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer; z-index: 10;">←</button>
+<button class="carousel-nav right" onclick="navigateCarousel(1)" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer; z-index: 10;">→</button>
+
 </div>
 
 <script>
@@ -99,7 +101,6 @@ document.getElementById('carousel').addEventListener('mouseleave', resumeCarouse
 updateSlides(); // Set initial positions
 startCarousel();
 </script>
-
 
 <!---
 Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.

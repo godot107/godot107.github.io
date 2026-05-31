@@ -1,15 +1,15 @@
 ---
 layout: page
-title: Never Enough 
+title: Never Enough
 description: Through a penetrating look at Never Enough, this review examines how America's obsession with academic achievement shapes our children's futures and sense of self-worth. Drawing from personal experience and cross-cultural insights, it challenges parents to question whether our pursuit of excellence has gone too far.
 img: https://m.media-amazon.com/images/I/816Sqs9RUuL._SL1500_.jpg
 importance: 1
 category: parenting
 ---
 
-# Book Review: *Never Enough*—A Reflection on Parenting and Education in America
+# Book Review: _Never Enough_—A Reflection on Parenting and Education in America
 
-As parents navigating the American education system, *Never Enough* offers a thought-provoking critique of the relentless pursuit of achievement and social standing that has come to define success in our schools and society. Through anecdotes, data, and cultural comparisons, the book sheds light on the pressures that shape both parents and children, offering a sobering look at how we value education and achievement.
+As parents navigating the American education system, _Never Enough_ offers a thought-provoking critique of the relentless pursuit of achievement and social standing that has come to define success in our schools and society. Through anecdotes, data, and cultural comparisons, the book sheds light on the pressures that shape both parents and children, offering a sobering look at how we value education and achievement.
 
 One of the book’s key insights is the concept of **“social safeguarding,”** which refers to how parents and communities attempt to secure their children’s social and academic futures. This often creates a “scarcity mentality” around social standing, driving decisions like moving to highly-rated school districts or investing heavily in tutoring and enrichment programs—not just to maintain performance but to gain a competitive edge.
 
@@ -21,11 +21,12 @@ A poignant theme throughout the book is the cultural variation in how parents co
 
 The book left me reflecting deeply on my own approach to parenting. How do we show our children that they matter—regardless of their achievements? How do we resist the societal pressures that equate self-worth with grades, test scores, and college admissions? For me, being part of a campus ministry instilled an important lesson: **our value does not come from our works.** This belief has helped me maintain a healthier perspective, even as society continues to push for measurable success in every aspect of life.
 
-In conclusion, *Never Enough* challenges parents to reconsider the values we are instilling in our children. It urges us to reflect on the sacrifices we make for success, the messages we send about worth, and the kind of world we are shaping for the next generation. For anyone raising children in today’s high-pressure education system, this book is a must-read—a mirror to our anxieties and a call for a more balanced approach.
+In conclusion, _Never Enough_ challenges parents to reconsider the values we are instilling in our children. It urges us to reflect on the sacrifices we make for success, the messages we send about worth, and the kind of world we are shaping for the next generation. For anyone raising children in today’s high-pressure education system, this book is a must-read—a mirror to our anxieties and a call for a more balanced approach.
 
 ---
 
 ### Disclaimer
+
 As a young parent, I’m still learning and growing in how I approach parenting and life. My reflections are not meant to suggest that I have all the answers or to place myself above others. Rather, they are an attempt to communicate values that resonate with me and that I hope to strive for in my journey.
 
 <hr>

@@ -33,7 +33,6 @@ She's also scared of fireworks and thunderstorms, and she loves chasing small an
 Lady Bird has taught us patience and, in many ways, helped prepare us for the arrival of our newborn. She has a soft, gentle energy and would never hurt anyone. I'd like to think she has emotional intelligence - when a guest is sharing something difficult, she'll lean her body against them as if to offer comfort.
 Lady Bird Emotional Support
 
-
 **Lady Bird and Kids**
 Lady Bird is wonderful with kids. They treat her like a petting zoo animal, and she patiently endures until she needs a break. When she's had enough, she'll retreat under the table or to one of her three beds around the house.
 

@@ -7,6 +7,7 @@ tags: [community, faith]
 categories: slice-of-life
 thumbnail: assets/img/2016_arise.png
 ---
+
 2016
 
 Call me the minority but I think 2016 would be one I would look at back with fondness... Politics aside. There are different highlights with this year. I wanted to take this time to share my year in a nutshell. Be forewarned, I try to be genuine and accurate. That's how I am, trying to be transparent in an open book.

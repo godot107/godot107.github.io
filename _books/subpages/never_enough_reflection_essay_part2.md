@@ -9,19 +9,19 @@ hidden: true
 
 # 🕊️ Parenting with Grace: Finding Balance in a Culture of Pressure
 
-## The modern ideal of “intensive parenting” is leading to anxiety, isolation, and burnout. Here’s what *Never Enough* taught me about replacing control with trust.
+## The modern ideal of “intensive parenting” is leading to anxiety, isolation, and burnout. Here’s what _Never Enough_ taught me about replacing control with trust.
 
 ---
 
 ### The Trap of 'Intensive Parenting'
 
-The book *Never Enough* by Jennifer Breheny Wallace explores the societal shift toward **“intensive parenting,”** a style characterized by extreme involvement in children’s lives, often to the point of detriment.
+The book _Never Enough_ by Jennifer Breheny Wallace explores the societal shift toward **“intensive parenting,”** a style characterized by extreme involvement in children’s lives, often to the point of detriment.
 
 This phenomenon is deeply tied to **privilege**. It is most prevalent among parents with ample resources, such as those who hold college degrees or have stable family structures. Yet, the stresses of this approach transcend privilege, revealing a universal struggle among parents to balance:
 
-* Involvement with **autonomy**.
-* Fear with **trust**.
-* Control with **grace**.
+- Involvement with **autonomy**.
+- Fear with **trust**.
+- Control with **grace**.
 
 The author connects intensive parenting to broader societal trends, particularly the **“bowling alone”** effect—the breakdown of supportive networks like extended families and close-knit communities. This isolation leaves parents feeling solely responsible for their children’s success, creating immense pressure to be self-sufficient and "owe nothing to anyone."
 
@@ -47,7 +47,7 @@ This struck a chord with me, reminding me of Jesus’ teachings on unconditional
 
 One of the most practical takeaways from the book is the importance of **NOFAs**—**N**on-**O**ptional **F**amily **A**ctivities—such as game nights or shared meals.
 
-These simple, consistent moments communicate the value of simply *being together*, creating a safe space for joy and connection that is not tied to performance.
+These simple, consistent moments communicate the value of simply _being together_, creating a safe space for joy and connection that is not tied to performance.
 
 It is heartbreaking to read about the mental health struggles many children face today, striving for perfection in body image, academics, or athletics, and sometimes feeling so overwhelmed that they contemplate suicide. The book reminds us that safe spaces to talk, laugh, and connect are more vital than ever.
 
@@ -57,6 +57,6 @@ Reading this chapter has left me both convicted and profoundly grateful. I’m r
 
 **A Note on Reflection:** As a young parent, I’m still learning and growing in how I approach parenting and life. My reflections here are not meant to suggest that I have all the answers or to place myself above others. Rather, they are an attempt to communicate values that resonate with me and that I hope to strive for in my own journey.
 
-***
+---
 
 **AI Transparency Note:** This article was edited and polished using Generative AI. All opinions expressed are solely my own, and I remain entirely responsible for the final content and accuracy.

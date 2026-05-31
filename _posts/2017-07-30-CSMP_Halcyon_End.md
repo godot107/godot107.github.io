@@ -10,7 +10,7 @@ thumbnail: assets/img/csmp_team_end_photo.jpg
 
 Now that I have returned to Austin, I was able to process and reflect a bit.
 
-*** What did I learn? ***
+**_ What did I learn? _**
 
 With what gifts and talents in my disposal, I am enabled to empower others.  However, I learned about myself in regards to my shortcomings and insecurities. But I am learning that it is alright because you don't have to be perfect and that's what team members are to make up what you lacked.  That is what people around you are for to help disciple, train, and raise you up.
 
@@ -20,7 +20,7 @@ From what I was told and affirmed, my leadership style is less than of the front
 
 However, after reading my team's farewell/encouragement cards, I was so humbled by them.  As much as they made an impact on me, I have done the same to my team members.  I didn't think I made such an effect on them because I was just being myself making the most of the time I had there.
 
-*** What will I miss? ***
+**_ What will I miss? _**
 
 I am going to miss the life group, the leadership team, and my sub-teams there.
 
@@ -48,7 +48,7 @@ I am going to miss the times being confronted and corrected when I made mistakes
 
 I am going to miss those days of partnership with the team.
 
-*** What is next? ***
+**_ What is next? _**
 
 God moves whether I am there or not.  The saddest part of leaving is that I won't be able to actively follow up with the people I've met since there is a geographical barrier.  I will miss my team members a lot.  They changed and grew so much since I last met them in June.  I am sad that I will not be able to see the results as they live out in their spheres of influence.  I am content with the outcome.  As I mentioned before, God moves whether I am there or not.
 

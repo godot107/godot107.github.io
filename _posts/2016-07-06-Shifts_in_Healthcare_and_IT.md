@@ -2,9 +2,9 @@
 layout: post
 title: Shifts in Healthcare and Information Technology Align to Support Industry Transformation
 date: 2016-07-06 16:40:16
-description: 
+description:
 tags: [healthcare]
-categories: 
+categories:
 thumbnail:
 ---
 
@@ -24,7 +24,7 @@ The ACA has restructured how healthcare is paid for, creating a demand for big d
 
 #### Financial Incentives and ACOs
 
-The ACA provides financial incentives to move away from the fee-for-service model by introducing Medicare Shared Savings and Accountable Care Organizations (ACOs). ACOs utilize claims data to differentiate patients with chronic and degenerative diseases. 
+The ACA provides financial incentives to move away from the fee-for-service model by introducing Medicare Shared Savings and Accountable Care Organizations (ACOs). ACOs utilize claims data to differentiate patients with chronic and degenerative diseases.
 
 This requires health IT (HIT) investments to:
 

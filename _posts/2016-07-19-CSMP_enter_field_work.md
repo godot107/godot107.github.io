@@ -7,6 +7,7 @@ tags: [community, faith]
 categories: slice-of-life
 thumbnail: assets/img/csmp_field_work_1.jpg
 ---
+
 We flew into Ann Arbor, Michigan and met the rest of the team. This was the first time meeting them in person other than the brief Skype call a couple of weeks before.  Prior to meeting everyone, the challenge was to come together and function as a team.  The team consisted of 33 members of various education background, home origins, and personalities. The larger Ann Arbor team has been meeting up since February but the Austin team, where I am in,  haven't joined until in late June.  We had a very short amount of time of a month to get to know each other personally and understand work style.  As you expect, there will be conflicts in decision making and struggles of creative control.  I want to stress that conflicts are not bad.  They are inevitable.  We all have opinions and make different judgement but I do believe that by working together we can find the best solution.
 
 Something I was praying earnestly about was having team unity since how CSMP is structured, there will be some members in the team where I will not have much context with or interaction with.  I also prayed for future grace, since with the inevitable conflicts, that we would overcome these things and not take things personal.  That said, I have confidence that as we stick towards our goal and the mission and keep Christ in the center.   This will all work out.
@@ -19,8 +20,7 @@ In addition, we woke up early in the morning for physical training exercises whi
 
 ![CSMP Team Photo](https://github.com/godot107/godot107.github.io/blob/cb56b5f3541bb183842cbca9893a9e8f070f6cdc/assets/img/csmp_field_work_2.jpg?raw=true)
 
-
-*** Enter Field Work: *** 
+**_ Enter Field Work: _**
 
 We offering an English program called Excel English to international children from ages 4 - 12.  The purpose of these classes was to teach English and to share the Gospel to these kids. Our team was split to smaller teams that will offer curriculum classes such as the puppet team, crafts, bible study, and games.  When we are not in our curriculum, members were to go help out classes that were split by age and grade level.
 
@@ -40,7 +40,7 @@ For example, I would be pretty bad at explaining some of the games and they woul
 
 One of the hardest day is when my Frog class went outside for their own gym class.  Normally, they are not scheduled for outdoor activity. That is up to the teachers.  But when they came, they disrupted our field a little and we had to set it up again.  This delayed our initial gym class, however, by doing so would distract the kids and we would lose control of them.  I felt really bad because I felt that I did not support the MC leading gym time.  But it was a work in progress that we were learning and improving.  I remembered in one of our debrief meetings that we had a good honest talk and I think that turned things around.  What I realized that everyone was acting out of inadequacy, hence the reason in doing many things that may come across as "controlling".
 
-*** Parting Thoughts: *** 
+**_ Parting Thoughts: _**
 
 All and all, it was a great experience thus far. 10/10 would do it again.  I am thankful for the partnership we have with the CSMP team, the teachers, and volunteers that made this possible.
 

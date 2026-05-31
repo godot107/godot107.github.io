@@ -72,6 +72,7 @@ One of the hardest lessons I’ve learned is to **avoid becoming attached** to c
 ### The Unpredictability of NBA Games
 
 NBA games are inherently unpredictable. Even when everything seems to align—like a favorable matchup and strong player stats—there are external factors beyond our control:
+
 - **Travel schedules** and the impact of back-to-back games.
 - **Player motivation** (e.g., contract years, playing against former teams).
 - **Injuries** during games can completely alter a player’s performance.

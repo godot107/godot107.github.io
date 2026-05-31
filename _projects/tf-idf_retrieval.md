@@ -5,7 +5,6 @@ description: This article explores a TF-IDF-based visual query system using Tile
 img: https://images.unsplash.com/photo-1554906493-4812e307243d?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
 importance: 2
 category: work
-
 ---
 
 **Information Retrieval and Visualization Using TF-IDF**
@@ -24,13 +23,11 @@ Inspired by Ted Mei's "Demystifying TF-IDF in Indexing and Ranking," I construct
 
 ![tilebar_demo](https://github.com/godot107/godot107.github.io/blob/main/assets/img/tf_idf_gif.gif?raw=true)
 
-
 **Visualization**
 
 The visualization uses TileBars, where each column represents a text paragraph, and rows represent the query terms. Tooltips provide details about term occurrences, counts, and line IDs, enhancing interactivity. This gradient-based visualization ensures that even documents with low term counts can be meaningfully represented. The tool allows users to gain insights at a glance while offering the granularity needed for deeper exploration.
 
 ![tilebar](https://github.com/godot107/godot107.github.io/blob/main/assets/img/tf-idf_demo_img.png?raw=true)
-
 
 [View Interactive Colab Notebook](https://colab.research.google.com/drive/1ffjWWK-XXGChGaaE4gx71aSNWl8GuOs2#scrollTo=3P6JpjlIw_Tp)
 
@@ -51,4 +48,3 @@ Resources
 <a href = "https://ted-mei.medium.com/demystify-tf-idf-in-indexing-and-ranking-5c3ae88c3fa0">Demystify TF-IDF in Indexing and Ranking by Ted Mei</a>
 
 <a href = "https://stackoverflow.com/questions/27298178/concatenate-strings-from-several-rows-using-pandas-groupby">Concatenate Strings from Several Rows Using Pandas GroupBy</a>
-

@@ -9,7 +9,7 @@ category: fun
 
 My Baking Journey
 
-I discovered my love for baking after binge-watching a few seasons of *The Great British Bake Off*. It wasn’t just the charming accents or the intricate desserts that drew me in—it was the warmth and connection that baking seemed to inspire. 
+I discovered my love for baking after binge-watching a few seasons of _The Great British Bake Off_. It wasn’t just the charming accents or the intricate desserts that drew me in—it was the warmth and connection that baking seemed to inspire.
 
 ## Why I Started Baking
 
@@ -47,4 +47,3 @@ Baking at home, however, has its own special charm. It’s like knitting—every
 ## Join Me on My Journey
 
 If you’re curious about my baking adventures, feel free to check out our Instagram page, [@ladybirdbakingcompany](https://www.instagram.com/ladybirdbakingcompany/). It’s been a messy, sometimes frustrating, but ultimately rewarding journey, and I’m excited to see where it takes me next.
-

@@ -7,6 +7,7 @@ tags: [community, faith]
 categories: slice-of-life
 thumbnail: assets/img/csmp_excel_austin.jpg
 ---
+
 And all good things must come to an end at some point. We've concluded our missions trip this past Saturday and now returning to real life.
 
 Both Ann Arbor and Detroit Teams served the Austin youth, the difference is the locations that we partnered.  Detroit partnered with Side by Side Kids at the For the City center while Ann Arbor went to Santa Rita Courts at East Austin.

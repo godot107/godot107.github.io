@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Analyze the characteristics of highly accessible population centers in the United States
-description:  This project seeks to improve accessibility to jobs, entertainment, and shopping
+description: This project seeks to improve accessibility to jobs, entertainment, and shopping
 img: assets/img/accessible_populations_walkability.jpg
 importance: 1
 category: work
@@ -103,7 +103,6 @@ HalvingGridSearchCV was used for RandomForest models because of the independent 
 
 The Hyperopt library with Tree-based Parzen Estimators (TPE) was selected for XGBoost as a result of XGBoost being not quite as parallelizable as RandomForest, due to its boosting process being sequential (though its node splitting process is parallelized). The Hyperopt TPE method implements an iterative Bayesian optimization process that was able to search through a grid space efficiently and determine the most effective model with substantially fewer iterations than HalvingGridSearchCV. This optimization process can be seen in Fig. 1 below, where promising hyperparameters are discovered early in the process, and the variability of MAE scores decreases as parameters are refined.
 
-
 The standard ParameterGrid method from Scikit-Learn was used for hypertuning the PyTorch model. This particular model required a large amount of fine tuning and tweaking of the parameter grid space for the number of hidden nodes, learning rate and dropout percentages, which meant it was more efficient to iterate over every permutation in the space to discover the optimal parameters, which is what the standard ParameterGrid method allowed. This model did have an advantage in that it could use GPU resources, which reduced the overall training time required. A [visualization](#_es9wik286it) is available in [Appendix E](#kipwtc1u6agx), showing the results of the 5-Fold cross validation used to generate the best Neural Net model, with the various spikes in each fold indicating the impact of dropout, and the differing number of epochs per fold illustrating the early stopping method preventing the model from hitting the maximum 1000 epoch limit, preventing overfitting.
 
 ## Evaluation
@@ -111,7 +110,6 @@ The standard ParameterGrid method from Scikit-Learn was used for hypertuning the
 ### Loss Function & Evaluation Metric
 
 The Mean Absolute Error (MAE) method was used as the objective function and the evaluation metric in our analysis across all models. This selection was driven by the fact that the values returned by MAE are in the same unit of measure as the dependent variable, and were consequently easily interpreted against the NWI.
-
 
 Table 1
 
@@ -123,7 +121,6 @@ Table 1
 | PyTorch NN       | 0.798                | ±0.050      | 240                         | 706                   |
 
 ### Model Evaluation and Determination
-
 
 Table 1
 
@@ -145,31 +142,23 @@ The SHAP "Beeswarm" plot in Fig. 2 indicates that the _Urban_Pct_feature is by f
 
 ![Fig. 2](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_shap_beeswarm_plot.png)
 
-
 Taking a closer look at the dependency plot for the _Urban_Pct_ feature (colored by _Home Value_ in Fig. 3), we can see that it has a non-linear impact on the SHAP values. For observations with small _Urban_Pct_ values, the impact to SHAP is nearly -1, which slowly increases to 0 when the values of the feature reach roughly 0.33. At this point, there is a plateau from ~0.33 to ~0.75, after which the impact to the SHAP value increases dramatically from 0 to 4+.
 
-Per SHAP's interaction values, the feature that has the most interactive effects with _Urban_Pct_ is _LATracts_half_Pct_. Looking at the interactive effects dependency plot for those two features (Fig.4) indicates a negligible impact to the SHAP value from the combination until the values of both features reach roughly 0.7, which then results in a mostly positive, but slight (maximum 0.4+) increase to the SHAP value. 
-
+Per SHAP's interaction values, the feature that has the most interactive effects with _Urban_Pct_ is _LATracts_half_Pct_. Looking at the interactive effects dependency plot for those two features (Fig.4) indicates a negligible impact to the SHAP value from the combination until the values of both features reach roughly 0.7, which then results in a mostly positive, but slight (maximum 0.4+) increase to the SHAP value.
 
 ###
 
 ![Fig. 3](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_shap_dependency_plot.png)
 
-
-
 ![Fig. 4 & 5](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_shap_dependency_plot_4_5.png)
-
-
 
 ###
 
 ### Model Accuracy
 
-
 The MAE results of 0.757 ± 0.026 indicated that the model should be capable of providing reasonable results at predicting the aggregated National Walkability Index (NWI), which has a possible range of 1 to 15.96 points. The scatterplot results in Fig. 5 has the dependent variable (_NatWalkInd_) on the X axis, the feature with the highest SHAP value (_Urban_Pct_) on the Y axis, and the plot is colored by the difference between the actual NWI values and our predicted values. The shape of the data is similar to a sigmoidal curve, and our model has clearly captured this non-linearity, as evidenced by observing the narrow band of green in the diagram, which represents a near zero difference in actuals versus predictions. ![](RackMultipart20231020-1-cxpey8_html_aa735820d6138971.png)
 
 ### Ablative Analysis of Top 5 Features
-
 
 # Table 2
 
@@ -191,7 +180,6 @@ While holding the XGBoost model parameters static, each feature(s) in the table 
 | Urban_Pct, Home Value, LATracts_half_Pct, LATracts10_Pct                  | 0.9005              | ±0.0302     | -0.1435                          | -18.96%                                  |
 | Urban_Pct, Home Value, LATracts_half_Pct, LATracts10_Pct, LAhalfand10_Pct | 1.1205              | ±0.0215     | -0.3635                          | -48.03%                                  |
 
-
 # Table 3
 
 Key Findings:
@@ -200,17 +188,13 @@ Key Findings:
 2. Despite the loss of both _Urban_Pct_ and _Home Value_, the model is still fairly resilient, with an accuracy drop of only -15.29%. The resulting mean MAE of 0.8727 is still better than the Ridge regression model's baseline score of 1.1 MAE with all of the features. This is an indication that there is likely a good amount of multicollinearity involved in this data.
 3. It is not until the top 5 features (_Urban_Pct_, _Home Value_, _LATracts_half_Pct_, _LATracts10_Pct_, _LAhalfand10_Pct_), as reported by the XGBoost Feature Importance variable, until there is significant decay in the MAE score. It is at this point that the XGBoost model performance is worse than the Ridge Regression Baseline (MAE 1.1 ± 0.25).
 
-### Hyperparameter Sensitivity 
+### Hyperparameter Sensitivity
 
 ![Fig. 6](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_5_fold_CV_mean.png)
-
-
 
 With Hyperopt selecting the optimal parameters used for the training of the XGBoost model, it was important to look at how sensitive some parameters were to being changed. A model that is exceptionally sensitive to slight parameter changes indicates it might be over-fitted and would perform poorly when making predictions on unseen data. All other parameters were held constant when performing these tests.
 
 ![Fig. 7](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_5_fold_CV_max_depth.png)
-
-
 
 With regards to the L1 regularization parameter (reg_alpha), Hyperopt selected the value of "1" as being the most optimal value, but this indicates there is little Lasso regression occurring in our model. According to the tests (Fig. #), our model is moderately insensitive to changing the reg_alpha parameter from 1 to 100, resulting in a change from MAE 0.757 ± 0.03 to an MAE of 0.83 ± 0.03. Of course, since regularization by definition is making the model more generalizable, this result is not unexpected, and scaling from 1 to 100 is a fairly large change.
 
@@ -222,8 +206,6 @@ Performing a similar analysis on the max_depth hyperparameter (Fig. #) shows neg
 2. The worst performing under prediction was for FIPS code 31043, which corresponds to the Sioux City metropolitan region in South Dakota. Looking at the SHAP force plot (Figure #) gives us an idea of the reasons for the prediction of 6.18, which is a 5.34 point miss from the actual NWI score of 11.51. The reasoning for this discrepancy comes down to issues with aggregating data up to the grain of State/County for the FIPS codes, so the Zillow _Home Value_ feature can be added to the analysis. The Smart Location Database (SLD) has very granular data, with their FIPS codes going down to the Census Block Group level, while the Food Atlas is slightly less granular at the Census Tract level. Both have to be aggregated upwards to accommodate the Zillow data.
 
 ![Fig.8](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_walkability_color_bar.png)
-
-
 
 In the case of FIPS 31043, it contains a large number of Census Block Groups in the SLD that have a very high National Walkability Index (8 out of 13 CBGs have an NWI \> 12), pushing the actual NWI mean number quite high. Looking at the features data, only two of the four Food Atlas Census Tracts for this FIPS are considered "Urban", so the critical _Urban_Pct_ feature produces a fairly low score of 0.5. This is further exacerbated by the fairly low _Home Value_ for a metropolitan area, as seen in the force plot, and a high score (0.75) for the Low Accessibility to grocery stores at 1 mile for Urban or 10 miles for Rural feature (_LA1and10_Pct_). These factors combined mean the prediction fails quite badly in this scenario.
 
@@ -291,8 +273,6 @@ A major complication to our analysis was the lack of alignment in the granularit
 
 ![Fig. 9](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_SHAP_force_plot.png)
 
-
-
 Another surprising aspect of this analysis was the exceptionally strong correlation (0.86) between the _Urban_Pct_ feature and the _D3B_Ranked_ variable from the SLD. _DB3_Ranked_ is a street intersection density ranking, and it is one of the 4 indexes that is used to build the NWI. These two data points come from completely different resources, where _D3B_Ranked_ is built based on mapping data from NAVSTREETS product, the Urban flag in the Food Atlas is determined by a simple calculation of whether or not the geographic centroid of the census tract contains more or less than 2500 people. The strength of this correlation that was the reason that _Urban_Pct_ was the most important feature, according SHAP.
 
 After the feature ablation tests were performed, it was clear that the Zillow _Home Value_ feature was not providing enough value (3.29%) to justify the complexities caused by the aggregation, and that a finer grain of data could potentially provide better predictions. The NWI would still need to be rolled up, but only one step, from Census Block Group to Tract level, in order to be joined with the features from the Food Atlas This would only reduce the NWI range by a minimal amount, 1 to 19.83 (instead of the 1 to 15.96 caused by the two steps roll up), which is a more accurate reflection of the actual 1 to 20 range. That being said, model times would also increase as a result of the increased number of records available for training (roughly a 2,400% increase), so there is a potential tradeoff between time to train and accuracy to be considered.
@@ -311,12 +291,9 @@ The first model's goal was to understand the different levels of transit infrast
 
 ![Fig. 11](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_walkability_corr_plot.png)
 
-
 This also helped us have a conceptual understanding of the unique characteristics of each cluster. The features on the model are: **Total county land acreage** , **D3B** (Street intersection density), the number of street intersections per square mile, which is a good proxy for understanding the urban density of a county, **D4BO50** , Proportion of CBG employment within a square mile of fixed-guideway transit stop, which provides a measure of the public transit availability in commercial centers, and **National Walkability Index.**
 
 ![Fig. 12](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_walkability_feature_plot.png)
-
-
 
 Based on the silhouette optimized model, the model parameters and centroids are defined below. Low acreage counties generally correspond to high transit availability and walkability (cluster 0). Clusters 1 and 2 differentiate high acreage counties between their unique transit characteristics. In this case, cluster 1 represents rural counties with limited walkability and transit availability where cluster 2 represents suburban counties that are connected to urban centers by transit infrastructure.
 
@@ -335,8 +312,6 @@ The features for clustering by food availability are as follows:
 
 ![Fig. 14](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_cluster_map.png)
 
-
-
 Based on the silhouette optimized model, the model parameters and centroids are defined below. In this case, there are 8 clusters within the optimal model. There are several unique clusters of note. First, cluster 0 represents a high income, urban county with high accessibility to food. We may expect these areas to have more robust housing markets. On the contrary, cluster 1 consists of counties with a poorer population that have significantly limited accessibility to food. One interesting feature on the below clusters is that food availability related to vehicle ownership does not seem to be concentrated in poorer areas. In fact, certain wealthier counties seem to have low food accessibility and vehicle ownership.
 
 ### Housing Market Health
@@ -346,10 +321,9 @@ The goal of the 3rd model is to understand the health of housing markets within 
 1. Home value- the average normalized home value within a specific county (most recent FYE)
 2. pct \_change_diff_low- the average percent change in home value compared to the U.S. percent change in home value during periods of negative growth in the U.S. housing market (between 2013 and 2022)
 3. pct \_change_diff_med- the average percent change in home value compared to the U.S. percent change in home value during periods of low to no growth in the U.S. housing market (between 2013 and 2022)
-4. pct \_change_diff_high- the average percent change in home value compared to the U.S. percent change in home value during periods of high growth in the U.S. housing market (between 2013 and 2022) 
+4. pct \_change_diff_high- the average percent change in home value compared to the U.S. percent change in home value during periods of high growth in the U.S. housing market (between 2013 and 2022)
 
 We generally define healthy regional housing markets as those with resilient home values during periods of economic decline and perform on par with national trends during high and no growth periods. Additionally, we have reduced all the features above, using Principal Component Analysis to further understand where each cluster is separated visually. Based on the silhouette optimized model, the model parameters and centroids are defined below. Unlike the transit model, this model contains (n=7) clusters.
-
 
 **Cluster relatedness and takeaways**
 

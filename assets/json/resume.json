@@ -106,26 +106,11 @@
       "url": "",
       "summary": "A Data Detective is a highly analytical professional with a knack for uncovering the root causes of issues and identifying patterns hidden within complex and disparate datasets. This individual combines technical expertise with critical thinking to piece together information from diverse sources, constructing a clear narrative or solution where ambiguity once reigned. Their skill set often includes advanced data analysis, a deep understanding of business processes, and the ability to ask the right questions to get to the bottom of problems."
     },
-    {"title": "Education Assistance Program",
-    "date": "2021-2024",
-    "awarder": "Capgemini",
-    "url": ""
-    },
-    {"title": "Academic Scholarship",
-    "date": "2021",
-    "awarder": "University of Michigan",
-    "url": ""
-    },
-    {"title": "Full-Marathon Finisher",
-    "date": "2016 - 2017",
-    "awarder": "Austin"
-    },
+    { "title": "Education Assistance Program", "date": "2021-2024", "awarder": "Capgemini", "url": "" },
+    { "title": "Academic Scholarship", "date": "2021", "awarder": "University of Michigan", "url": "" },
+    { "title": "Full-Marathon Finisher", "date": "2016 - 2017", "awarder": "Austin" },
 
-    {"title": "Half-Marathon Finisher",
-    "date": "2015, 2018 - 2019",
-    "awarder": "Austin"
-    }
-
+    { "title": "Half-Marathon Finisher", "date": "2015, 2018 - 2019", "awarder": "Austin" }
   ],
   "certificates": [
     {
@@ -199,19 +184,11 @@
       "name": "Data",
       "level": "Profecient",
       "icon": "fa-solid fa-hashtag",
-      "keywords": [
-        "Data Analytics",
-        "Data Visualization",
-        "Data Engineering",
-        "Data Munging",
-        "Data Quality",
-        "Governance",
-        "Architecture"
-      ]
+      "keywords": ["Data Analytics", "Data Visualization", "Data Engineering", "Data Munging", "Data Quality", "Governance", "Architecture"]
     },
     {
       "name": "Consulting",
-      "level":"Expert",
+      "level": "Expert",
       "icon": "fa-solid fa-hashtag",
       "keywords": [
         "People Management",
@@ -223,38 +200,26 @@
         "Cross-functinoal Collaboration",
         "Decision Support"
       ]
-  },
-  {
-    "name": "Information Technology (IT)",
-    "level": "Expert",
-    "icon": "fa-solid fa-hashtag",
-    "keywords": [
-        "ITIL",
-        "Configuration Management Database (CMDB)",
-        "ITSM",
-        "Cloud Computing",
-        "System Administration"
-    ]
-  }
+    },
+    {
+      "name": "Information Technology (IT)",
+      "level": "Expert",
+      "icon": "fa-solid fa-hashtag",
+      "keywords": ["ITIL", "Configuration Management Database (CMDB)", "ITSM", "Cloud Computing", "System Administration"]
+    }
   ],
   "technology": [
     {
-      "name":"Programming Language",
-      "level":"Expert",
+      "name": "Programming Language",
+      "level": "Expert",
       "icon": "fa-solid fa-hashtag",
-      "keywords": 
-          ["Python",
-          "Java",
-          "SQL",
-          "R",
-          "liquid"
-      ]
+      "keywords": ["Python", "Java", "SQL", "R", "liquid"]
     },
     {
       "name": "Cloud Services",
-      "level":"Expert",
+      "level": "Expert",
       "icon": "fa-solid fa-hashtag",
-      "keywords":[
+      "keywords": [
         "AWS SageMaker",
         "AWS Kinesis",
         "AWS Glue",
@@ -267,20 +232,12 @@
       ]
     },
     {
-      "name":"Applications",
-      "level":"Expert",
+      "name": "Applications",
+      "level": "Expert",
       "icon": "fa-solid fa-hashtag",
-      "keywords":[
-        "ServiceNow",
-        "MS Suite (Access, Excel, Visio, Power BI, Power Query)",
-        "Tableau",
-        "Visual Studio",
-        "Docker",
-        "GIT",
-        "Trello"
-      ]
+      "keywords": ["ServiceNow", "MS Suite (Access, Excel, Visio, Power BI, Power Query)", "Tableau", "Visual Studio", "Docker", "GIT", "Trello"]
     }
-],
+  ],
   "languages": [
     {
       "language": "English",
@@ -292,20 +249,10 @@
     {
       "name": "Health",
       "icon": "fa-solid fa-tag",
-      "keywords": [
-        "Running",
-        "Mental Health",
-        "Strength",
-        "Flexibility"
-      ],
+      "keywords": ["Running", "Mental Health", "Strength", "Flexibility"],
       "name": "Food",
       "icon": "fa-solid fa-tag",
-      "keywords": [
-        "Cooking",
-        "Coffee",
-        "Baking"
-      ]
-
+      "keywords": ["Cooking", "Coffee", "Baking"]
     }
   ],
   "references": [],

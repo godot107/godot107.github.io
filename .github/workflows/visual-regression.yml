@@ -1,11 +1,9 @@
 name: Visual regression checks
 
 on:
-  # Visual regression requires shared git history with upstream (v0.16.3 tag).
-  # Disabled for this fork — re-enable if history is reconciled with upstream.
+  # Disabled: requires upstream git history (v0.16.3 tag not in this fork).
+  # Re-enable by restoring pull_request and push triggers below.
   workflow_dispatch:
-      - "Gemfile"
-      - "Gemfile.lock"
   push:
     branches: [v1.0-dev]
     paths:

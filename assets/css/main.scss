@@ -1,0 +1,24 @@
+---
+# Local CSS overrides. This file compiles to /assets/css/main.css, which the
+# theme loads AFTER tailwind.css, so rules here win for equal specificity.
+---
+
+/*
+ * Fix: navbar offset / misalignment with page body.
+ *
+ * The al_folio_core gem's compiled tailwind.css emits a broken `.fixed-top`
+ * rule where top/right/left resolve to `calc(var( -  - spacing)*0)` — an
+ * invalid var() reference (a Tailwind v4 build artifact). Those declarations
+ * are dropped, so the fixed navbar loses left:0/right:0, collapses to
+ * shrink-to-fit, and pins to the viewport's left edge. Its inner .container
+ * can then no longer center at --max-content-width like the body does,
+ * making the nav tabs appear offset to the left.
+ *
+ * Restoring the intended `0` values makes the navbar span full width again,
+ * so its .container centers and aligns with the main content container.
+ */
+.fixed-top {
+  top: 0;
+  right: 0;
+  left: 0;
+}

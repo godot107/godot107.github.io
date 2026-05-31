@@ -4,20 +4,6 @@ on:
   # Visual regression requires shared git history with upstream (v0.16.3 tag).
   # Disabled for this fork — re-enable if history is reconciled with upstream.
   workflow_dispatch:
-  pull_request:
-    branches: []
-    paths:
-      - "_config.yml"
-      - "_data/**"
-      - "_bibliography/**"
-      - "_pages/**"
-      - "_posts/**"
-      - "_projects/**"
-      - "assets/**"
-      - "test/visual/**"
-      - ".github/workflows/visual-regression.yml"
-      - "package.json"
-      - "package-lock.json"
       - "Gemfile"
       - "Gemfile.lock"
   push:

@@ -6,6 +6,7 @@ on:
       - master
       - main
       - v1.0-dev
+      - migrate/v1
     paths:
       - "Gemfile"
       - "Gemfile.lock"

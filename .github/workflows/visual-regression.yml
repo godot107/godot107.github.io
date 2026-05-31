@@ -1,8 +1,11 @@
 name: Visual regression checks
 
 on:
+  # Visual regression requires shared git history with upstream (v0.16.3 tag).
+  # Disabled for this fork — re-enable if history is reconciled with upstream.
+  workflow_dispatch:
   pull_request:
-    branches: [main, master, v1.0-dev]
+    branches: []
     paths:
       - "_config.yml"
       - "_data/**"

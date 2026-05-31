@@ -1,21 +1,67 @@
 ---
-# Local CSS overrides. This file compiles to /assets/css/main.css, which the
-# theme loads AFTER tailwind.css, so rules here win for equal specificity.
+# Only the main Sass file needs front matter (the dashes are enough)
 ---
+@charset "utf-8";
+
+// =============================================================================
+// LOCAL OVERRIDE of al_folio_core's assets/css/main.scss (gem v1.0.9).
+//
+// This file shadows the gem's main.scss because main.css is the designated
+// user stylesheet (see the gem's _includes/head.liquid). The @use block below
+// is copied verbatim from the gem so the full theme CSS (~29KB: theme tokens,
+// dark mode, navbar, blog, cv, etc.) is preserved. Local overrides are appended
+// AFTER the @use block.
+//
+// ⚠️  If al_folio_core is upgraded, re-sync this @use block with the gem's
+//     assets/css/main.scss, then run `bundle exec al-folio upgrade overrides audit`.
+// =============================================================================
+
+/* Built-in Sass modules you’ll likely use across partials */
+@use "sass:math";
+@use "sass:string";
+
+/* Configure your design tokens BEFORE loading any of your partials.
+   Make sure `_sass/_variables.scss` declares `$max-content-width: 72rem !default;` */
+@use "variables" with (
+  $max-content-width: {{ site.max_width | default:  "930px" }}
+);
+
+/* Your project partials — convert these files to `@use "variables";`
+   (or `@use "variables" as *;`) inside each file and qualify variables if needed. */
+@use "themes";
+@use "layout";
+
+// Core styles organized by usage
+@use "typography";
+@use "navbar";
+@use "footer";
+@use "blog";
+@use "publications";
+@use "components";
+@use "utilities";
+
+// Other specialized styles
+@use "tabs";
+@use "teachings";
+@use "typograms";
+
+// =============================================================================
+// LOCAL OVERRIDES (appended after gem @use block)
+// =============================================================================
 
 /*
  * Fix: navbar offset / misalignment with page body.
  *
- * The al_folio_core gem's compiled tailwind.css emits a broken `.fixed-top`
- * rule where top/right/left resolve to `calc(var( -  - spacing)*0)` — an
- * invalid var() reference (a Tailwind v4 build artifact). Those declarations
- * are dropped, so the fixed navbar loses left:0/right:0, collapses to
- * shrink-to-fit, and pins to the viewport's left edge. Its inner .container
- * can then no longer center at --max-content-width like the body does,
- * making the nav tabs appear offset to the left.
+ * The gem's compiled tailwind.css emits a broken `.fixed-top` rule where
+ * top/right/left resolve to `calc(var( -  - spacing)*0)` — an invalid var()
+ * reference (a Tailwind v4 build artifact). Those declarations are dropped, so
+ * the fixed navbar loses left:0/right:0, collapses to shrink-to-fit, and pins
+ * to the viewport's left edge. Its inner .container can then no longer center
+ * at --max-content-width like the body does, offsetting the nav tabs left.
  *
- * Restoring the intended `0` values makes the navbar span full width again,
- * so its .container centers and aligns with the main content container.
+ * Restoring the intended `0` values makes the navbar span full width again, so
+ * its .container centers and aligns with the main content container. This file
+ * (main.css) loads after tailwind.css, so this rule wins.
  */
 .fixed-top {
   top: 0;

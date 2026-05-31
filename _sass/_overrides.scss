@@ -1,0 +1,10 @@
+// Restore horizontal padding on .container elements.
+// The al_folio_core gem sets max-width on .container but not horizontal padding.
+// With bootstrap compat disabled, Bootstrap's default 0.75rem gutter is absent,
+// causing the navbar tabs to sit flush-left while page content has padding.
+.container {
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+  margin-right: auto;
+  margin-left: auto;
+}

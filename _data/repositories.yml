@@ -4,5 +4,11 @@ github_users:
 repo_description_lines_max: 2
 
 github_repos:
-  - godot107/public
+  - godot107/UM-Apple-Cultivars-Climate-Change
+  - godot107/tf-idf-app
+  - godot107/amazon_sentiment
+  - godot107/robinhood_algo_trading
+  - godot107/yahoo_basketball_dfs
   - godot107/azureml-public
+  - godot107/azure-databricks-public
+  - godot107/learn_flask

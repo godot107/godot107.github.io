@@ -212,9 +212,7 @@
       "level": "Expert",
       "icon": "fa-solid fa-hashtag",
       "keywords": ["ITIL", "Configuration Management Database (CMDB)", "ITSM", "Cloud Computing", "System Administration"]
-    }
-  ],
-  "technology": [
+    },
     {
       "name": "Programming Languages",
       "level": "Expert",

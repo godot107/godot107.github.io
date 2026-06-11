@@ -15,14 +15,19 @@
 - title: Education
   type: time_table
   contents:
-    - title: Masters of Applied Data Science
+    - title: Master of Applied Data Science (MADS)
       institution: University of Michigan, Ann Arbor, MI
       year: 2021 - 2024
+      description:
+        - 38-credit graduate program at the University of Michigan School of Information, taught entirely in Python.
+        - Relevant coursework&#58; machine learning, natural language processing, data manipulation and visualization, big data analytics, and experiment design.
+        - Completed milestone and capstone projects applying end-to-end data science workflows — data collection, processing, modeling, and communicating results — to real-world problems.
     - title: Bachelor of Science in Biochemistry
       institution: University of Texas, Austin, TX
       year: 2011 - 2015
       description:
-        - Minors in Business, Computer Science, and Information Technology
+        - Minors in Business, Computer Science, and Information Technology.
+        - Comprehensive training across organic, physical, analytical, and biological chemistry, with a quantitative foundation in calculus and laboratory research.
 
 - title: Certifications
   type: list
@@ -39,9 +44,10 @@
       year: 2018 - Present
       description:
         - Promoted to lead data quality improvement projects, owning the strategy, roadmap, and delivery of key initiatives. Managed a team and external vendors across multiple projects.
+        - Subject Matter Expert (SME) for ServiceNow IRE (Identification and Reconciliation Engine), IBM Apptio, and the Databricks platform, spanning project management, engineering, and analysis in a fast-paced environment.
+        - Led the modernization of a ~10-year-old tech stack, delivering a scalable replacement in roughly 9 months.
         - Architected and implemented a Java-based data quality reporting application, driving significant improvement in data health.
         - Led an ETL workstream generating revenue and saving $2M annually by automating data processes for hundreds of thousands of records and millions of monthly updates.
-        - Leading the scoping and planning of a ServiceNow ETL implementation, replacing the existing data management tool with a more scalable solution.
     - title: IT Financial Business Analyst
       institution: Capgemini, Austin, TX
       year: 2016 - 2018
@@ -52,19 +58,26 @@
 - title: Technical Skills
   type: nested_list
   contents:
-    - title: Languages
+    - title: Programming Languages
       items:
-        - Python, JavaScript, SQL (Postgres, MySQL), HTML/CSS, R
+        - Python, SQL (Postgres, MySQL), JavaScript
+        - HTML/CSS, R
+    - title: Python Frameworks
+      items:
+        - PySpark, pandas, numpy, scikit-learn, PyTorch, Keras, Hugging Face
+    - title: GenAI & AI Tools
+      items:
+        - Claude, Google Gemini, GitHub Copilot
     - title: Cloud & Data Platforms
       items:
         - AWS SageMaker, Azure Machine Learning, Azure Synapse, AWS Kinesis
-        - Azure Data Factory, Databricks, AWS Glue, AWS Athena, ServiceNow
+        - Azure Data Factory, Databricks, AWS Glue, AWS Athena
+        - ServiceNow (IRE), IBM Apptio
     - title: Tools & Frameworks
       items:
         - Git, Docker, Tableau, Power BI, Power Query, MS Access, Excel, Visio
     - title: ML / Data Libraries
       items:
-        - pandas, numpy, sklearn, keras, pytorch, huggingface, pyspark
         - mlflow, gensim, networkx, BeautifulSoup, selenium, boto3, SciPy
 
 - title: Projects

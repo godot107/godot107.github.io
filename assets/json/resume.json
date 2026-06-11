@@ -53,11 +53,19 @@
   ],
   "volunteer": [
     {
+      "organization": "Pillar HTX",
+      "location": "Houston, Texas",
+      "position": "Audio-Visual Team",
+      "startDate": "2026-01",
+      "highlights": ["Audio-visual production and live broadcast support for weekend services."]
+    },
+    {
       "organization": "Sugar Land Family Church",
       "location": "Sugar Land, Texas",
       "position": "Volunteer",
       "url": "https://www.slfc.co/",
       "startDate": "2023",
+      "endDate": "2025",
       "summary": "",
       "highlights": ["Bible Study Leader", "Broadcast Team member", "youth volunteer"]
     },

@@ -5,7 +5,7 @@ date: 2016-04-29 16:40:16
 description:
 tags: [healthcare]
 categories:
-thumbnail:
+thumbnail: assets/img/healthcare_tdm_busulfan_thumbnail.png
 ---
 
 Introduction:

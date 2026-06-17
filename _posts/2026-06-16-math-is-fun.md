@@ -6,10 +6,10 @@ description: A deep dive into the math behind CNNs and the FFT using the AGY CLI
 tags: machine-learning math signal-processing
 categories: tutorial
 giscus_comments: true
-related_posts: false
+related_posts: true
 ---
 
-*This post is a direct continuation of my work on the [CWRU Predictive Maintenance pipeline](https://github.com/godot107/predictive-maintenance-cwru). While I successfully built a CNN that scored 100% accuracy, writing the code and actually understanding the deep applied mathematics behind it are two very different things.*
+*This post is a direct continuation of my work on the [CWRU Predictive Maintenance pipeline](https://github.com/godot107/predictive-maintenance-cwru) — see the companion write-up, [Teaching a Neural Network to Hear a Failing Bearing]({% post_url 2026-06-15-teaching-a-neural-network-to-hear-a-failing-bearing %}). While I successfully built a CNN that scored 100% accuracy, writing the code and actually understanding the deep applied mathematics behind it are two very different things.*
 
 ---
 

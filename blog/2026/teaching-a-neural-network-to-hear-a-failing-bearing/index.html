@@ -1,1 +1,538 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"> <html><body> <p>Walk through any refinery, power plant, or pump station and you’re surrounded by machines that spin: motors, compressors, turbines, gearboxes. Almost all of them ride on <strong>bearings</strong> — and when a bearing starts to fail, it doesn’t send a calendar invite. A cracked race or a spalled ball can take a multimillion-dollar compressor offline in minutes, halt a production line, or turn into a genuine safety incident.</p> <p>The good news: a failing bearing <strong>whispers before it screams</strong>. Long before a human can hear or feel anything, the vibration signature changes in tiny, repeating ways. <strong>Predictive maintenance (PdM)</strong> is the art of listening for those whispers. This is the story of building a system that does exactly that — and of a plot twist that taught me more than the model did.</p> <blockquote>This article is the narrated version of a project on GitHub: <a href="https://github.com/godot107/predictive-maintenance-cwru" rel="external nofollow noopener" target="_blank">github.com/godot107/predictive-maintenance-cwru</a>. Everything here is reproducible from that repo.</blockquote> <h3>The data: four bearings, four fates</h3> <p>I used the <strong>Case Western Reserve University (CWRU) Bearing Dataset</strong>, a benchmark in the condition-monitoring world. An accelerometer sampled at 12 kHz records the vibration of a motor’s drive-end bearing under four conditions:</p> <p>The goal: feed the model a slice of raw vibration and have it name the fault.</p> <p>But you can’t just throw a wiggly line at a neural network and hope. The signal has to be transformed into something a network can <em>see</em>. That’s where two analogies make everything click.</p> <h3>Two analogies that make signal processing click</h3> <h3>🥤 The Fourier Transform is a smoothie un-blender</h3> <p>A raw vibration signal is like a <strong>smoothie</strong>: strawberry, banana, and spinach all blended into one. Looking at the smoothie, you can’t tell what went in.</p> <p>The <strong>Fast Fourier Transform (FFT)</strong> is a magic blender run in reverse. Pour in the smoothie and it hands back the ingredients — <em>“30% strawberry, 50% banana, 20% spinach.”</em> For a bearing, those ingredients are <strong>frequencies</strong>, and a fault adds a specific new “flavour” that shouldn’t be there.</p> <h4>How it works in code (and physics)</h4> <p>Physically, when a bearing is healthy, it hums along at a smooth, predictable baseline. But when a crack forms on the inner race, every time a ball bearing rolls over that crack, it creates a tiny microscopic “click” or impact. Because the motor is spinning at a constant speed, these clicks happen at a very regular interval (a specific frequency).</p> <p>The FFT takes the messy, noisy vibration wave and mathematically isolates that exact repeating “click”, plotting it as a giant spike on a graph. In Python, isolating these frequencies is incredibly elegant using NumPy’s real-valued FFT ( rfft):</p> <p>Average the FFT across many windows and the fingerprints jump out — the faults light up high-frequency bands the healthy bearing never touches:</p> <figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*iMfGi0rVqVkXgtlx.png"></figure> <h3>🎼 A spectrogram is sheet music</h3> <p>The FFT has a blind spot: it tells you <em>which</em> notes were played, but not <em>when</em>. Imagine being told a song contains a C, an E, and a G — but not the rhythm. You’d never recognize the tune.</p> <p>A <strong>spectrogram</strong> puts the notes back on a timeline. It’s sheet music: time runs left to right, frequency runs bottom to top, brightness is loudness. Now a fault isn’t a single frequency — it’s a <em>pattern of impacts repeating over time</em>, exactly the kind of 2-D structure a <strong>Convolutional Neural Network</strong> (the tech that recognizes cats in photos) is built to spot.</p> <p>So the high-level pipeline became:</p> <h4>Under the hood: the CNN architecture</h4> <p>To make the “2-D CNN” step concrete, here is the exact dataflow of the model. It’s a lightweight, 3-block architecture (only ~155,000 parameters) that uses an Adaptive Average Pooling layer. This pooling layer is a crucial design choice: it forces the feature map to a fixed 4×4 size before the classifier, meaning the network won’t break if you feed it slightly different sized spectrograms.</p> <figure><img alt="" src="https://cdn-images-1.medium.com/max/700/0*H6DOnr1MWnGMzUBA.png"></figure> <p><strong>Design consideration: avoiding the “matrix mismatch” error</strong></p> <p>If you are new to building CNNs, the hardest part is usually preventing RuntimeError: shape cannot be multiplied when transitioning from Convolutional layers to Linear layers. This architecture solves that using two rules:</p> <ol> <li> <strong>The Plumbing Rule:</strong> When stacking Conv2d layers, only the <em>channels</em> (depth) need to connect perfectly. Notice how Block 1 outputs 16 channels, and Block 2 takes in 16 channels. It's like plumbing - the output pipes must match the input valves.</li> <li> <strong>The “Cheat Code” (Adaptive Pooling):</strong> MaxPool2d halves the height and width of the spectrogram at every block. Normally, you have to manually calculate the exact final grid size to feed into the Linear layer. If your input image changes size, the math breaks and the code crashes. By inserting AdaptiveAvgPool2d((4, 4)) right before flattening, we tell PyTorch: <em>"I don't care what the height and width are at this point. Mathematically squish whatever you have into a 4×4 grid."</em> This permanently locks our flattened size to exactly 64 channels × 4 × 4 = 1024, completely eliminating shape mismatch errors.</li> </ol> <blockquote> <strong>Academic credit:</strong> The math that makes “Adaptive Pooling” possible — allowing CNNs to accept images of any size without breaking the fully connected layers — was pioneered by Kaiming He et al. in the landmark 2014 paper <a href="https://arxiv.org/abs/1406.4729" rel="external nofollow noopener" target="_blank">Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition</a>. Furthermore, the practice of heavily pooling spatial dimensions to drastically reduce the parameter count of Linear layers was famously introduced by Lin et al. in the 2013 paper <a href="https://arxiv.org/abs/1312.4400" rel="external nofollow noopener" target="_blank">Network In Network</a>.</blockquote> <p>I wired it up in PyTorch, trained on an NVIDIA GPU, and wrapped it in a Streamlit dashboard that shows the raw signal, the FFT, the spectrogram, and the model’s live verdict. It worked. The test accuracy came back at <strong>100%</strong>.</p> <figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*zIwRTyHTFgOL6msW.png"></figure> <blockquote> <em>🚀 </em><strong><em>Try it live:</em></strong><em> the dashboard is deployed on Streamlit Community Cloud — </em><a href="https://2vcmmt4mqfryhgfbqw9xmk.streamlit.app/" rel="external nofollow noopener" target="_blank"><em>launch the live demo</em></a><em> and diagnose a bearing fault yourself.</em> </blockquote> <p>And that’s where the project got interesting.</p> <h3>The plot twist: when 100% is a red flag</h3> <p>A perfect score should make you <em>suspicious</em>, not proud. Real-world classifiers don’t hit 100% — so either the problem is trivially easy, or something is leaking.</p> <p>Classic overfitting looks like <strong>high training accuracy, low test accuracy</strong> — a gap. But here training <em>and</em> test were both ~100%, with no gap. That pointed at the second culprit: <strong>data leakage</strong>.</p> <p>Here was the bug in my evaluation. Each fault class is one long continuous recording. I chopped it into overlapping windows and then split those windows <strong>randomly</strong> into train and test. Because the windows overlapped, near-duplicate slices ended up on <em>both</em> sides of the split. The model wasn’t generalizing — it was recognizing windows it had half-seen in training. The test set was lying to me.</p> <p>So I rebuilt the evaluation the way it should have been done from the start:</p> <ol> <li> <strong>Leakage-free splitting</strong> — cut each <em>raw recording</em> into train/validation/test spans <strong>by time</strong> (with a guard gap) <em>before</em> windowing, so no slice is shared.</li> <li> <strong>A validation set + early stopping</strong> — stop on validation loss, report on a test set the model never touched.</li> <li> <strong>5-fold cross-validation</strong> — for a stable estimate instead of one lucky split.</li> </ol> <p>The payoff was immediate and humbling. With honest splitting, the early training epochs now showed <strong>training accuracy at 1.00 while validation sat at 0.25 — random chance.</strong> That genuine overfitting had been completely <em>hidden</em> by the leaky split. The methodology upgrade was doing real work.</p> <h3>The deeper twist: it was still 100%</h3> <p>Here’s what I didn’t expect. Even after removing every trace of leakage, and across all five cross-validation folds, the score held: <strong>1.000 ± 0.000</strong>.</p> <p>So leakage wasn’t the main story. To understand why, I did what I should have done <em>first</em>: I stopped modeling and <strong>explored the data</strong>.</p> <p>I computed a set of classic vibration features (RMS, <strong>kurtosis</strong>, crest factor — all interpretable measures of how “impulsive” a signal is) and projected them to two dimensions with t-SNE. The picture explains everything:</p> <figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*prvQKcghXVuIP9lt.png"></figure> <p>Four clean, perfectly separated clusters. At a <em>single operating condition</em> — one load, one speed — each fault’s signature is so distinct that the classes barely overlap. To prove the point, I trained a plain <strong>Random Forest</strong> on those hand-crafted features (no deep learning at all). It also scored <strong>1.000</strong>.</p> <p>The lesson: <strong>100% wasn’t a triumph of my model — it was a sign the benchmark was easy.</strong> And knowing the difference is the whole job.</p> <h3>Asking the bearing to confirm its own diagnosis</h3> <p>There was one more thing I wanted: proof the model was learning <em>real physics</em>, not an artifact. Bearing engineering gives us a beautiful test.</p> <p>The CWRU drive-end bearing is an <strong>SKF 6205</strong>, and its geometry fixes the exact frequencies at which each defect “rings” — the ball-pass frequencies of the outer race (BPFO), inner race (BPFI), and so on, all set by the shaft speed. Using <strong>envelope analysis</strong> (the demodulation technique vibration engineers actually use), I extracted the impact-repetition rate from each fault and checked it against theory:</p> <figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*rbbIpoGx8keNcnHJ.png"></figure> <p>The peaks land exactly where the physics predicts: the <strong>Outer Race</strong> fault rings at <strong>BPFO (107 Hz)</strong>, the <strong>Inner Race</strong> fault at <strong>BPFI (162 Hz)</strong>. The signal carries genuine, explainable diagnostic content — and, honestly, the <strong>Ball</strong> fault is the subtle one, with a weak envelope signature, which is precisely what bearing theory says to expect. Even the exceptions agreed with the textbook.</p> <h3>What this project actually demonstrates</h3> <p>The deliverable people <em>see</em> is a dashboard that classifies bearing faults. The deliverable that matters is the <strong>judgment</strong> around it:</p> <ul> <li> <strong>Engineering it end-to-end</strong> — data ingestion, signal processing, a GPU-trained CNN, and an explainable UI.</li> <li> <strong>Distrusting a good result</strong> until the evaluation earns that trust — and knowing that leakage, not the model, is usually the thing to interrogate first.</li> <li> <strong>Explaining it in plain language</strong> — to a recruiter with a smoothie, to an engineer with an envelope spectrum.</li> </ul> <p>That last part is the heart of an <strong>AI Solutioning Consultant’s</strong> job: translating between the business problem (“don’t let the compressor fail”) and the technical reality (“here’s what the data can and can’t tell us, and here’s how I know”).</p> <p>So I ran the benchmark I’d been saving for last — the genuinely <em>hard</em> one: <strong>cross-load generalization</strong>. CWRU recorded each fault at four motor loads, so I trained on three and tested on a load the model had never seen — a true change of operating condition, not just a clean split. I expected the accuracy to finally crack.</p> <p>It didn’t. Leave-one-load-out held at <strong>1.000 ± 0.000</strong>, and even training on a <em>single</em> load and testing on the most distant one stayed at <strong>0.998</strong>. The physics explains it: a defect’s frequencies are fixed by the bearing’s <em>geometry</em>, which barely shifts across this ~4% speed range, while the per-window normalization removes the amplitude changes the load <em>does</em> cause. What survives is the fault-frequency <em>pattern</em> — exactly what the CNN keys on. Load transfer simply isn’t the bottleneck for naming the fault <em>type</em>.</p> <p>So the genuinely open problems lie elsewhere: <strong>severity grading</strong> (telling a 0.007″ defect from a 0.021″ one of the <em>same</em> fault type) and noisy, multi-fault field data. Knowing <em>where</em> the difficulty actually lives — and where it doesn’t — turned out to be the most useful thing the whole exercise produced. It’s the next milestone in the repo.</p> <h3>Try it yourself</h3> <p>If you take one thing from this: when your model scores 100%, don’t celebrate — <em>investigate</em>. The most valuable result in this whole project was the one that looked too good to be true.</p> <h3>Appendix: Glossary of terms</h3> <p>If you’re new to the signal processing or machine learning terminology used in this article, here is a quick guide to help clarify the concepts:</p> <ul> <li> <strong>Predictive Maintenance (PdM)</strong>: The practice of continuously monitoring equipment condition (like vibration or temperature) to predict when it will fail. This allows maintenance to be scheduled right before failure, avoiding both unexpected breakdowns and unnecessary routine part replacements.</li> <li> <strong>Fast Fourier Transform (FFT)</strong>: A mathematical algorithm that takes a raw signal measured over time (like a complex vibration wave) and breaks it down into the individual frequencies that make it up. Think of it as a recipe that tells you exactly how much of each “pitch” is in a sound.</li> <li> <strong>Spectrogram</strong>: A visual representation of frequencies as they change over time. If an FFT gives you the specific notes played in a single chord, a spectrogram is the sheet music for the entire song, showing when each note is played and how loud it is.</li> <li> <strong>Data Leakage</strong>: A fundamental mistake in machine learning where the model accidentally has access to the test data during training. In this project’s initial approach, overlapping time windows were randomly split, meaning near-identical slices ended up in both the training and test sets. The model essentially “memorized” the answers rather than learning to generalize.</li> <li> <strong>t-SNE (t-Distributed Stochastic Neighbor Embedding)</strong>: A technique used to visualize highly complex data by grouping similar data points together on a 2D map. In this article, it visually proves that the different bearing faults are so mathematically distinct that they form their own isolated “islands,” explaining why the model easily scored 100%.</li> <li> <strong>Envelope Analysis (Demodulation)</strong>: A signal processing technique that strips away the loud, high-frequency “carrier” noise of a machine to isolate and reveal the quieter, lower-frequency repeating impacts — such as a bearing ball repeatedly hitting a crack on the inner race.</li> <li> <strong>Cross-load Generalization (Cross-load Benchmark)</strong>: The process of training a model on data from a machine operating under one set of conditions (e.g., a 1 horsepower load) and testing it on data from a different condition (e.g., 2 or 3 horsepower). Because machine vibrations inherently change under different physical loads, testing “cross-load” proves whether the model actually learned the physics of a failure, or if it just overfit to the exact sound of a 1 HP motor.</li> </ul> <p><em>Originally published at </em><a href="https://godot107.github.io/blog/2026/teaching-a-neural-network-to-hear-a-failing-bearing/"><em>https://godot107.github.io</em></a><em>.</em></p> <p><img src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=bec15bf2ae14" width="1" height="1" alt=""></p> </body></html>
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Teaching a Neural Network to Hear a Failing Bearing | Willie Man </title> <meta name="author" content="Willie Man"> <meta name="description" content="Building an end-to-end predictive-maintenance pipeline on the CWRU bearing dataset — and why hitting 100% accuracy made me trust it less."> <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>:root{--max-content-width:930px}</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=d41d8cd98f00b204e9800998ecf8427e"> <link rel="canonical" href="https://godot107.github.io/blog/2026/teaching-a-neural-network-to-hear-a-failing-bearing/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Willie Man </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/repositories/">repositories </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">cv </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-nav-dropdown-toggle="true" aria-haspopup="true" aria-expanded="false">submenus </a> <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> <a class="dropdown-item " href="/books/">books</a> <div class="dropdown-divider"></div> <a class="dropdown-item " href="/projects/">projects</a> <div class="dropdown-divider"></div> <a class="dropdown-item " href="/blog/">blog</a> </div> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Teaching a Neural Network to Hear a Failing Bearing</h1> <p class="post-meta"> Created on June 15, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/machine-learning"> <i class="fa-solid fa-hashtag fa-sm"></i> machine-learning</a>   <a href="/blog/tag/signal-processing"> <i class="fa-solid fa-hashtag fa-sm"></i> signal-processing</a>   <a href="/blog/tag/predictive-maintenance"> <i class="fa-solid fa-hashtag fa-sm"></i> predictive-maintenance</a>   <a href="/blog/tag/deep-learning"> <i class="fa-solid fa-hashtag fa-sm"></i> deep-learning</a>   ·   <a href="/blog/category/project"> <i class="fa-solid fa-tag fa-sm"></i> project</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p><em>How I built an end-to-end predictive-maintenance pipeline — and why hitting 100% accuracy made me trust it <strong>less</strong>.</em></p> <hr> <p>Walk through any refinery, power plant, or pump station and you’re surrounded by machines that spin: motors, compressors, turbines, gearboxes. Almost all of them ride on <strong>bearings</strong> — and when a bearing starts to fail, it doesn’t send a calendar invite. A cracked race or a spalled ball can take a multimillion-dollar compressor offline in minutes, halt a production line, or turn into a genuine safety incident.</p> <p>The good news: a failing bearing <strong>whispers before it screams</strong>. Long before a human can hear or feel anything, the vibration signature changes in tiny, repeating ways. <strong>Predictive maintenance (PdM)</strong> is the art of listening for those whispers. This is the story of building a system that does exactly that — and of a plot twist that taught me more than the model did.</p> <blockquote> <p><em>This article is the narrated version of a project on GitHub: <a href="https://github.com/godot107/predictive-maintenance-cwru" rel="external nofollow noopener" target="_blank">github.com/godot107/predictive-maintenance-cwru</a>. Everything here is reproducible from that repo.</em></p> </blockquote> <hr> <h2 id="the-data-four-bearings-four-fates">The data: four bearings, four fates</h2> <p>I used the <strong>Case Western Reserve University (CWRU) Bearing Dataset</strong>, a benchmark in the condition-monitoring world. An accelerometer sampled at 12 kHz records the vibration of a motor’s drive-end bearing under four conditions:</p> <ul> <li> <strong>Normal</strong> (healthy)</li> <li> <strong>Inner Race</strong> fault</li> <li> <strong>Ball</strong> fault</li> <li> <strong>Outer Race</strong> fault</li> </ul> <p>The goal: feed the model a slice of raw vibration and have it name the fault.</p> <p>But you can’t just throw a wiggly line at a neural network and hope. The signal has to be transformed into something a network can <em>see</em>. That’s where two analogies make everything click.</p> <hr> <h2 id="two-analogies-that-make-signal-processing-click">Two analogies that make signal processing click</h2> <h3 id="-the-fourier-transform-is-a-smoothie-un-blender">🥤 The Fourier Transform is a smoothie un-blender</h3> <p>A raw vibration signal is like a <strong>smoothie</strong>: strawberry, banana, and spinach all blended into one. Looking at the smoothie, you can’t tell what went in.</p> <p>The <strong>Fast Fourier Transform (FFT)</strong> is a magic blender run in reverse. Pour in the smoothie and it hands back the ingredients — <em>“30% strawberry, 50% banana, 20% spinach.”</em> For a bearing, those ingredients are <strong>frequencies</strong>, and a fault adds a specific new “flavour” that shouldn’t be there.</p> <h4 id="how-it-works-in-code-and-physics">How it works in code (and physics)</h4> <p>Physically, when a bearing is healthy, it hums along at a smooth, predictable baseline. But when a crack forms on the inner race, every time a ball bearing rolls over that crack, it creates a tiny microscopic “click” or impact. Because the motor is spinning at a constant speed, these clicks happen at a very regular interval (a specific frequency).</p> <p>The FFT takes the messy, noisy vibration wave and mathematically isolates that exact repeating “click”, plotting it as a giant spike on a graph. In Python, isolating these frequencies is incredibly elegant using NumPy’s real-valued FFT (<code class="language-plaintext highlighter-rouge">rfft</code>):</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="c1"># 'segment' is a slice of our raw vibration array
+# 'fs' is our sampling rate (12,000 Hz)
+</span><span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">segment</span><span class="p">)</span>
+
+<span class="c1"># 1. Get the X-axis (the exact frequency values in Hz)
+</span><span class="n">frequencies_hz</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">fft</span><span class="p">.</span><span class="nf">rfftfreq</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">fs</span><span class="p">)</span>
+
+<span class="c1"># 2. Get the Y-axis (the magnitude/loudness of each frequency)
+</span><span class="n">magnitude</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">abs</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">fft</span><span class="p">.</span><span class="nf">rfft</span><span class="p">(</span><span class="n">segment</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+</code></pre></div></div> <p>Average the FFT across many windows and the fingerprints jump out — the faults light up high-frequency bands the healthy bearing never touches:</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/predictive-maintenance-cwru/eda_avg_fft-480.webp 480w,/assets/img/predictive-maintenance-cwru/eda_avg_fft-800.webp 800w,/assets/img/predictive-maintenance-cwru/eda_avg_fft-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/predictive-maintenance-cwru/eda_avg_fft.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="Class-averaged FFT spectrum: each fault lights up high-frequency bands the healthy bearing never touches." loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <h3 id="-a-spectrogram-is-sheet-music">🎼 A spectrogram is sheet music</h3> <p>The FFT has a blind spot: it tells you <em>which</em> notes were played, but not <em>when</em>. Imagine being told a song contains a C, an E, and a G — but not the rhythm. You’d never recognize the tune.</p> <p>A <strong>spectrogram</strong> puts the notes back on a timeline. It’s sheet music: time runs left to right, frequency runs bottom to top, brightness is loudness. Now a fault isn’t a single frequency — it’s a <em>pattern of impacts repeating over time</em>, exactly the kind of 2-D structure a <strong>Convolutional Neural Network</strong> (the tech that recognizes cats in photos) is built to spot.</p> <p>So the high-level pipeline became:</p> <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Raw vibration  ─▶  Spectrogram  ─▶  2-D CNN (on GPU)  ─▶  Fault diagnosis
+</code></pre></div></div> <h4 id="under-the-hood-the-cnn-architecture">Under the hood: the CNN architecture</h4> <p>To make the “2-D CNN” step concrete, here is the exact dataflow of the model. It’s a lightweight, 3-block architecture (only ~155,000 parameters) that uses an Adaptive Average Pooling layer. This pooling layer is a crucial design choice: it forces the feature map to a fixed 4×4 size before the classifier, meaning the network won’t break if you feed it slightly different sized spectrograms.</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/predictive-maintenance-cwru/cnn_architecture-480.webp 480w,/assets/img/predictive-maintenance-cwru/cnn_architecture-800.webp 800w,/assets/img/predictive-maintenance-cwru/cnn_architecture-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/predictive-maintenance-cwru/cnn_architecture.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="The 3-block CNN: stacked Conv → BatchNorm → ReLU → MaxPool blocks, an AdaptiveAvgPool2d(4×4) bottleneck, then a Linear classifier into 4 fault classes." loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <p><strong>Design consideration: avoiding the “matrix mismatch” error</strong></p> <p>If you are new to building CNNs, the hardest part is usually preventing <code class="language-plaintext highlighter-rouge">RuntimeError: shape cannot be multiplied</code> when transitioning from Convolutional layers to Linear layers. This architecture solves that using two rules:</p> <ol> <li> <strong>The Plumbing Rule:</strong> When stacking <code class="language-plaintext highlighter-rouge">Conv2d</code> layers, only the <em>channels</em> (depth) need to connect perfectly. Notice how Block 1 outputs 16 channels, and Block 2 takes in 16 channels. It’s like plumbing — the output pipes must match the input valves.</li> <li> <strong>The “Cheat Code” (Adaptive Pooling):</strong> <code class="language-plaintext highlighter-rouge">MaxPool2d</code> halves the height and width of the spectrogram at every block. Normally, you have to manually calculate the exact final grid size to feed into the <code class="language-plaintext highlighter-rouge">Linear</code> layer. If your input image changes size, the math breaks and the code crashes. By inserting <code class="language-plaintext highlighter-rouge">AdaptiveAvgPool2d((4, 4))</code> right before flattening, we tell PyTorch: <em>“I don’t care what the height and width are at this point. Mathematically squish whatever you have into a 4×4 grid.”</em> This permanently locks our flattened size to exactly 64 channels × 4 × 4 = 1024, completely eliminating shape mismatch errors.</li> </ol> <blockquote> <p><em><strong>Academic credit:</strong> The math that makes “Adaptive Pooling” possible — allowing CNNs to accept images of any size without breaking the fully connected layers — was pioneered by Kaiming He et al. in the landmark 2014 paper <a href="https://arxiv.org/abs/1406.4729" rel="external nofollow noopener" target="_blank">Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition</a>. Furthermore, the practice of heavily pooling spatial dimensions to drastically reduce the parameter count of Linear layers was famously introduced by Lin et al. in the 2013 paper <a href="https://arxiv.org/abs/1312.4400" rel="external nofollow noopener" target="_blank">Network In Network</a>.</em></p> </blockquote> <p>I wired it up in PyTorch, trained on an NVIDIA GPU, and wrapped it in a Streamlit dashboard that shows the raw signal, the FFT, the spectrogram, and the model’s live verdict. It worked. The test accuracy came back at <strong>100%</strong>.</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/predictive-maintenance-cwru/dashboard_fault-480.webp 480w,/assets/img/predictive-maintenance-cwru/dashboard_fault-800.webp 800w,/assets/img/predictive-maintenance-cwru/dashboard_fault-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/predictive-maintenance-cwru/dashboard_fault.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="The Streamlit dashboard diagnosing an inner-race fault." loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <blockquote> <p>🚀 <strong>Try it live:</strong> the dashboard is deployed on Streamlit Community Cloud — <a href="https://2vcmmt4mqfryhgfbqw9xmk.streamlit.app/" rel="external nofollow noopener" target="_blank">launch the live demo</a> and diagnose a bearing fault yourself.</p> </blockquote> <p>And that’s where the project got interesting.</p> <hr> <h2 id="the-plot-twist-when-100-is-a-red-flag">The plot twist: when 100% is a red flag</h2> <p>A perfect score should make you <em>suspicious</em>, not proud. Real-world classifiers don’t hit 100% — so either the problem is trivially easy, or something is leaking.</p> <p>Classic overfitting looks like <strong>high training accuracy, low test accuracy</strong> — a gap. But here training <em>and</em> test were both ~100%, with no gap. That pointed at the second culprit: <strong>data leakage</strong>.</p> <p>Here was the bug in my evaluation. Each fault class is one long continuous recording. I chopped it into overlapping windows and then split those windows <strong>randomly</strong> into train and test. Because the windows overlapped, near-duplicate slices ended up on <em>both</em> sides of the split. The model wasn’t generalizing — it was recognizing windows it had half-seen in training. The test set was lying to me.</p> <p>So I rebuilt the evaluation the way it should have been done from the start:</p> <ol> <li> <strong>Leakage-free splitting</strong> — cut each <em>raw recording</em> into train/validation/test spans <strong>by time</strong> (with a guard gap) <em>before</em> windowing, so no slice is shared.</li> <li> <strong>A validation set + early stopping</strong> — stop on validation loss, report on a test set the model never touched.</li> <li> <strong>5-fold cross-validation</strong> — for a stable estimate instead of one lucky split.</li> </ol> <p>The payoff was immediate and humbling. With honest splitting, the early training epochs now showed <strong>training accuracy at 1.00 while validation sat at 0.25 — random chance.</strong> That genuine overfitting had been completely <em>hidden</em> by the leaky split. The methodology upgrade was doing real work.</p> <hr> <h2 id="the-deeper-twist-it-was-still-100">The deeper twist: it was <em>still</em> 100%</h2> <p>Here’s what I didn’t expect. Even after removing every trace of leakage, and across all five cross-validation folds, the score held: <strong>1.000 ± 0.000</strong>.</p> <p>So leakage wasn’t the main story. To understand why, I did what I should have done <em>first</em>: I stopped modeling and <strong>explored the data</strong>.</p> <p>I computed a set of classic vibration features (RMS, <strong>kurtosis</strong>, crest factor — all interpretable measures of how “impulsive” a signal is) and projected them to two dimensions with t-SNE. The picture explains everything:</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/predictive-maintenance-cwru/eda_tsne-480.webp 480w,/assets/img/predictive-maintenance-cwru/eda_tsne-800.webp 800w,/assets/img/predictive-maintenance-cwru/eda_tsne-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/predictive-maintenance-cwru/eda_tsne.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="t-SNE of engineered features: four clean, perfectly separated clusters at a single operating condition." loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <p>Four clean, perfectly separated clusters. At a <em>single operating condition</em> — one load, one speed — each fault’s signature is so distinct that the classes barely overlap. To prove the point, I trained a plain <strong>Random Forest</strong> on those hand-crafted features (no deep learning at all). It also scored <strong>1.000</strong>.</p> <p>The lesson: <strong>100% wasn’t a triumph of my model — it was a sign the benchmark was easy.</strong> And knowing the difference is the whole job.</p> <hr> <h2 id="asking-the-bearing-to-confirm-its-own-diagnosis">Asking the bearing to confirm its own diagnosis</h2> <p>There was one more thing I wanted: proof the model was learning <em>real physics</em>, not an artifact. Bearing engineering gives us a beautiful test.</p> <p>The CWRU drive-end bearing is an <strong>SKF 6205</strong>, and its geometry fixes the exact frequencies at which each defect “rings” — the ball-pass frequencies of the outer race (BPFO), inner race (BPFI), and so on, all set by the shaft speed. Using <strong>envelope analysis</strong> (the demodulation technique vibration engineers actually use), I extracted the impact-repetition rate from each fault and checked it against theory:</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/predictive-maintenance-cwru/eda_envelope-480.webp 480w,/assets/img/predictive-maintenance-cwru/eda_envelope-800.webp 800w,/assets/img/predictive-maintenance-cwru/eda_envelope-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/predictive-maintenance-cwru/eda_envelope.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="Envelope spectra vs. SKF-6205 characteristic frequencies: the peaks land exactly where the physics predicts." loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <p>The peaks land exactly where the physics predicts: the <strong>Outer Race</strong> fault rings at <strong>BPFO (107 Hz)</strong>, the <strong>Inner Race</strong> fault at <strong>BPFI (162 Hz)</strong>. The signal carries genuine, explainable diagnostic content — and, honestly, the <strong>Ball</strong> fault is the subtle one, with a weak envelope signature, which is precisely what bearing theory says to expect. Even the exceptions agreed with the textbook.</p> <hr> <h2 id="what-this-project-actually-demonstrates">What this project actually demonstrates</h2> <p>The deliverable people <em>see</em> is a dashboard that classifies bearing faults. The deliverable that matters is the <strong>judgment</strong> around it:</p> <ul> <li> <strong>Engineering it end-to-end</strong> — data ingestion, signal processing, a GPU-trained CNN, and an explainable UI.</li> <li> <strong>Distrusting a good result</strong> until the evaluation earns that trust — and knowing that leakage, not the model, is usually the thing to interrogate first.</li> <li> <strong>Explaining it in plain language</strong> — to a recruiter with a smoothie, to an engineer with an envelope spectrum.</li> </ul> <p>That last part is the heart of an <strong>AI Solutioning Consultant’s</strong> job: translating between the business problem (“don’t let the compressor fail”) and the technical reality (“here’s what the data can and can’t tell us, and here’s how I know”).</p> <p>So I ran the benchmark I’d been saving for last — the genuinely <em>hard</em> one: <strong>cross-load generalization</strong>. CWRU recorded each fault at four motor loads, so I trained on three and tested on a load the model had never seen — a true change of operating condition, not just a clean split. I expected the accuracy to finally crack.</p> <p>It didn’t. Leave-one-load-out held at <strong>1.000 ± 0.000</strong>, and even training on a <em>single</em> load and testing on the most distant one stayed at <strong>0.998</strong>. The physics explains it: a defect’s frequencies are fixed by the bearing’s <em>geometry</em>, which barely shifts across this ~4% speed range, while the per-window normalization removes the amplitude changes the load <em>does</em> cause. What survives is the fault-frequency <em>pattern</em> — exactly what the CNN keys on. Load transfer simply isn’t the bottleneck for naming the fault <em>type</em>.</p> <p>So the genuinely open problems lie elsewhere: <strong>severity grading</strong> (telling a 0.007″ defect from a 0.021″ one of the <em>same</em> fault type) and noisy, multi-fault field data. Knowing <em>where</em> the difficulty actually lives — and where it doesn’t — turned out to be the most useful thing the whole exercise produced. It’s the next milestone in the repo.</p> <hr> <h2 id="try-it-yourself">Try it yourself</h2> <ul> <li> <strong>Live dashboard:</strong> <a href="https://2vcmmt4mqfryhgfbqw9xmk.streamlit.app/" rel="external nofollow noopener" target="_blank">launch the Streamlit app</a> </li> <li> <strong>Code &amp; full write-up:</strong> <a href="https://github.com/godot107/predictive-maintenance-cwru" rel="external nofollow noopener" target="_blank">github.com/godot107/predictive-maintenance-cwru</a> </li> <li> <strong>Dataset:</strong> <a href="https://engineering.case.edu/bearingdatacenter" rel="external nofollow noopener" target="_blank">CWRU Bearing Data Center</a> </li> <li> <strong>The best 20 minutes on Fourier transforms:</strong> <a href="https://www.youtube.com/watch?v=spUNpyF58BY" rel="external nofollow noopener" target="_blank">3Blue1Brown</a> </li> </ul> <p>If you take one thing from this: when your model scores 100%, don’t celebrate — <em>investigate</em>. The most valuable result in this whole project was the one that looked too good to be true.</p> <hr> <h2 id="appendix-glossary-of-terms">Appendix: Glossary of terms</h2> <p>If you’re new to the signal processing or machine learning terminology used in this article, here is a quick guide to help clarify the concepts:</p> <ul> <li> <strong>Predictive Maintenance (PdM)</strong>: The practice of continuously monitoring equipment condition (like vibration or temperature) to predict when it will fail. This allows maintenance to be scheduled right before failure, avoiding both unexpected breakdowns and unnecessary routine part replacements.</li> <li> <strong>Fast Fourier Transform (FFT)</strong>: A mathematical algorithm that takes a raw signal measured over time (like a complex vibration wave) and breaks it down into the individual frequencies that make it up. Think of it as a recipe that tells you exactly how much of each “pitch” is in a sound.</li> <li> <strong>Spectrogram</strong>: A visual representation of frequencies as they change over time. If an FFT gives you the specific notes played in a single chord, a spectrogram is the sheet music for the entire song, showing when each note is played and how loud it is.</li> <li> <strong>Data Leakage</strong>: A fundamental mistake in machine learning where the model accidentally has access to the test data during training. In this project’s initial approach, overlapping time windows were randomly split, meaning near-identical slices ended up in both the training and test sets. The model essentially “memorized” the answers rather than learning to generalize.</li> <li> <strong>t-SNE (t-Distributed Stochastic Neighbor Embedding)</strong>: A technique used to visualize highly complex data by grouping similar data points together on a 2D map. In this article, it visually proves that the different bearing faults are so mathematically distinct that they form their own isolated “islands,” explaining why the model easily scored 100%.</li> <li> <strong>Envelope Analysis (Demodulation)</strong>: A signal processing technique that strips away the loud, high-frequency “carrier” noise of a machine to isolate and reveal the quieter, lower-frequency repeating impacts — such as a bearing ball repeatedly hitting a crack on the inner race.</li> <li> <strong>Cross-load Generalization (Cross-load Benchmark)</strong>: The process of training a model on data from a machine operating under one set of conditions (e.g., a 1 horsepower load) and testing it on data from a different condition (e.g., 2 or 3 horsepower). Because machine vibrations inherently change under different physical loads, testing “cross-load” proves whether the model actually learned the physics of a failure, or if it just overfit to the exact sound of a 1 HP motor.</li> </ul> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/applying-word2vec-to-news-articles-338ac1344099?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Applying Word2Vec to News Articles</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/dogs-vs-cats-audio-classification-56175ce58429?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Dogs vs Cats Audio Classification</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/dogs-and-cats-image-classification-4277af51692d?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Dogs and Cats Image Classification</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/the-global-refugee-crisis-9ca91bc01943?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">The Global Refugee Crisis</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/reflections-on-2024-struggles-wins-and-lessons-c3d65c128ae1?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Reflections on 2024: Struggles, Wins, and Lessons</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/dont-get-a-rescue-dog-4fb1968ec530?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Don’t get a (rescue) dog</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/sentiment-analysis-with-tf-idf-and-logistic-regression-f4cd86f359a1?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Sentiment Analysis with TF-IDF and Logistic Regression</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/the-unseen-crisis-why-i-finally-read-how-to-know-a-person-5d845aacf052?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">The Unseen Crisis: Why I Finally Read ‘How to Know a Person’</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/humour-seriously-a-reflection-essay-30d6ad23dfc8?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Humour Seriously — A Reflection Essay</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/math-is-fun/">Applied Math for Engineers: Deconstructing the FFT and CNNs</a> </li> </ul> <div id="giscus_thread" style="max-width: 930px; margin: 0 auto;"> <br> <script>
+    (function setupGiscus() {
+      function determineGiscusTheme() {
+        var theme = localStorage.getItem("theme") || document.documentElement.getAttribute("data-theme") || "system";
+if (theme === "dark") return "dark";
+if (theme === "light") return "light";
+var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+return prefersDark ? "dark" : "light";
+
+      }
+
+      var giscusTheme = determineGiscusTheme();
+      var attrs = {
+        src: "https://giscus.app/client.js",
+        "data-repo": "godot107/godot107.github.io",
+        "data-repo-id": "R_kgDONUwEbg",
+        "data-category": "Announcements",
+        "data-category-id": "DIC_kwDONUwEbs4C_TYq",
+        "data-mapping": "title",
+        "data-strict": "1",
+        "data-reactions-enabled": "1",
+        "data-emit-metadata": "0",
+        "data-input-position": "bottom",
+        "data-theme": giscusTheme,
+        "data-lang": "en",
+        crossorigin: "anonymous",
+        async: true
+      };
+
+      var giscusScript = document.createElement("script");
+      Object.entries(attrs).forEach(function(entry) { giscusScript.setAttribute(entry[0], entry[1]); });
+      var host = document.getElementById("giscus_thread");
+      if (host) host.appendChild(giscusScript);
+    })();
+  </script> <noscript> Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments powered by giscus.</a> </noscript> </div> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Willie Man. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3H4T9PEFL"></script> <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-X3H4T9PEFL");
+</script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-blog",
+          title: "blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-projects",
+          title: "projects",
+          description: "Projects related to Machine Learning, AI, and Data Sciences (plus fun stuff)",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-repositories",
+          title: "repositories",
+          description: "Repositories",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/repositories/";
+          },
+        },{id: "nav-cv",
+          title: "cv",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "Books Reviews and Essays",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "dropdown-books",
+              title: "books",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/books/";
+              },
+            },{id: "dropdown-projects",
+              title: "projects",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/projects/";
+              },
+            },{id: "dropdown-blog",
+              title: "blog",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/blog/";
+              },
+            },{id: "post-applied-math-for-engineers-deconstructing-the-fft-and-cnns",
+        
+          title: "Applied Math for Engineers: Deconstructing the FFT and CNNs",
+        
+        description: "A deep dive into the math behind CNNs and the FFT using the AGY CLI.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/math-is-fun/";
+          
+        },
+      },{id: "post-teaching-a-neural-network-to-hear-a-failing-bearing",
+        
+          title: "Teaching a Neural Network to Hear a Failing Bearing",
+        
+        description: "Building an end-to-end predictive-maintenance pipeline on the CWRU bearing dataset — and why hitting 100% accuracy made me trust it less.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/teaching-a-neural-network-to-hear-a-failing-bearing/";
+          
+        },
+      },{id: "post-humour-seriously-a-reflection-essay",
+        
+          title: 'Humour Seriously — A Reflection Essay <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/humour-seriously-a-reflection-essay-30d6ad23dfc8?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-the-unseen-crisis-why-i-finally-read-how-to-know-a-person",
+        
+          title: 'The Unseen Crisis: Why I Finally Read ‘How to Know a Person’ <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/the-unseen-crisis-why-i-finally-read-how-to-know-a-person-5d845aacf052?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-sentiment-analysis-with-tf-idf-and-logistic-regression",
+        
+          title: 'Sentiment Analysis with TF-IDF and Logistic Regression <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/sentiment-analysis-with-tf-idf-and-logistic-regression-f4cd86f359a1?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-don-t-get-a-rescue-dog",
+        
+          title: 'Don’t get a (rescue) dog <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/dont-get-a-rescue-dog-4fb1968ec530?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-reflections-on-2024-struggles-wins-and-lessons",
+        
+          title: 'Reflections on 2024: Struggles, Wins, and Lessons <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/reflections-on-2024-struggles-wins-and-lessons-c3d65c128ae1?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-the-global-refugee-crisis",
+        
+          title: 'The Global Refugee Crisis <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/the-global-refugee-crisis-9ca91bc01943?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-dogs-and-cats-image-classification",
+        
+          title: 'Dogs and Cats Image Classification <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/dogs-and-cats-image-classification-4277af51692d?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-dogs-vs-cats-audio-classification",
+        
+          title: 'Dogs vs Cats Audio Classification <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/dogs-vs-cats-audio-classification-56175ce58429?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-applying-word2vec-to-news-articles",
+        
+          title: 'Applying Word2Vec to News Articles <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/applying-word2vec-to-news-articles-338ac1344099?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-a-post-with-giscus-comments",
+        
+          title: "a post with giscus comments",
+        
+        description: "an example of a blog post with giscus comments",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2022/giscus-comments/";
+          
+        },
+      },{id: "post-socialgood-hackathon-roundup",
+        
+          title: "SocialGood Hackathon Roundup",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2018/Social_Good_Hackathon/";
+          
+        },
+      },{id: "post-2016-in-review",
+        
+          title: "2016 in Review",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Life_Group/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-halcyon-end",
+        
+          title: "Community Summer Missions Project (CSMP) - Halcyon End",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Halcyon_End/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-excel-enrich-in-austin",
+        
+          title: "Community Summer Missions Project (CSMP) - Excel Enrich in Austin",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Excel_Austin/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-life-group",
+        
+          title: "Community Summer Missions Project (CSMP) - Life Group",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/2016_in_review/";
+          
+        },
+      },{id: "post-shifts-in-healthcare-and-information-technology-align-to-support-industry-transformation",
+        
+          title: "Shifts in Healthcare and Information Technology Align to Support Industry Transformation",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Shifts_in_Healthcare_and_IT/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-enter-intensive-and-field-work",
+        
+          title: "Community Summer Missions Project (CSMP) - Enter Intensive and Field Work",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_enter_field_work/";
+          
+        },
+      },{id: "post-enter-missions-csmp-2016",
+        
+          title: "Enter Missions - CSMP 2016",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Enter_Missions_csmp_2016/";
+          
+        },
+      },{id: "post-nba-graphs-2015-playoffs-with-r-studio",
+        
+          title: "NBA Graphs - 2015 Playoffs with R studio",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/NBA_graphs_2015/";
+          
+        },
+      },{id: "post-design-and-testing-of-an-ehr-integrated-busulfan-pharmacokinetic-decision-support-tool-for-the-point-of-care-clinician",
+        
+          title: "Design and Testing of an EHR-Integrated, Busulfan Pharmacokinetic Decision Support Tool for the...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Design-and-Testing-of-an-EHR-Integrated/";
+          
+        },
+      },{id: "post-a-post-with-disqus-comments",
+        
+          title: "a post with disqus comments",
+        
+        description: "an example of a blog post with disqus comments",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/disqus-comments/";
+          
+        },
+      },{id: "books-the-unseen-crisis-why-i-finally-read-39-how-to-know-a-person-39",
+          title: 'The Unseen Crisis - Why I Finally Read &amp;#39;How to Know a Person&amp;#39;...',
+          description: "The title, Practicing the Way, draws from the concept of apprenticeship. Jesus, known not only as the Son of God but also as a Rabbi, called ordinary people—fishermen, tax collectors, and zealots—to follow Him as disciples. In Jesus’ time, disciples were typically well-versed in the Torah and aspired to become like their rabbi in every way. Comer invites us to imagine the same goal today - to become like Jesus through the empowerment of the Holy Spirit, bringing heaven to earth in both ordinary and extraordinary ways.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/how_to_know_a_person_reflection_essay/";
+            },},{id: "books-humour-seriously-a-reflection-essay",
+          title: 'Humour Seriously - A Reflection Essay',
+          description: "This reflection explores the intellectual depth of comedy, the balance between levity and gravity, and the profound benefits of laughter in personal and professional life, inspired by David Brooks&#39; insights.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/humor_seriously_reflection_essay/";
+            },},{id: "books-never-enough",
+          title: 'Never Enough',
+          description: "Through a penetrating look at Never Enough, this review examines how America&#39;s obsession with academic achievement shapes our children&#39;s futures and sense of self-worth. Drawing from personal experience and cross-cultural insights, it challenges parents to question whether our pursuit of excellence has gone too far.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/never_enough_reflection_essay/";
+            },},{id: "books-practicing-the-way-book-reflection",
+          title: 'Practicing the Way - Book Reflection',
+          description: "The title, Practicing the Way, draws from the concept of apprenticeship. Jesus, known not only as the Son of God but also as a Rabbi, called ordinary people—fishermen, tax collectors, and zealots—to follow Him as disciples. In Jesus’ time, disciples were typically well-versed in the Torah and aspired to become like their rabbi in every way. Comer invites us to imagine the same goal today - to become like Jesus through the empowerment of the Holy Spirit, bringing heaven to earth in both ordinary and extraordinary ways.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/practicing_the_way_reflection_essay/";
+            },},{id: "books-never-enough-part-2-parenting-with-grace",
+          title: 'Never Enough Part 2 - Parenting with Grace',
+          description: "Through a penetrating look at Never Enough, this review examines how America&#39;s obsession with academic achievement shapes our children&#39;s futures and sense of self-worth. Drawing from personal experience and cross-cultural insights, it challenges parents to question whether our pursuit of excellence has gone too far.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/never_enough_reflection_essay_part2/";
+            },},{id: "news-new-website-launched",
+          title: 'New Website Launched!',
+          description: "",
+          section: "News",},{id: "news-welcome",
+          title: 'Welcome',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2/";
+            },},{id: "news-tune-in-for-more-content",
+          title: '🚧 Tune in for more content 🚧',
+          description: "",
+          section: "News",},{id: "projects-analyze-the-characteristics-of-highly-accessible-population-centers-in-the-united-states",
+          title: 'Analyze the characteristics of highly accessible population centers in the United States',
+          description: "This project seeks to improve accessibility to jobs, entertainment, and shopping",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/analyze_the_characteristics_of_highly_accessible_population_centers_in_the_United_States/";
+            },},{id: "projects-apple-cultivars-and-climate-change-in-the-eastern-mountain-region-of-the-united-states",
+          title: 'Apple cultivars and climate change in the Eastern Mountain region of the United...',
+          description: "Extensive research exists regarding the effects of climate change on agriculture. However, there is often a gap between researchers and decision makers, particularly in industries with limited resources. The apple industry is one such example. Though apples are the most consumed fruit in the United States, apple orchards occupy less than 1% of the 880 million acres of United States farmland (Industry at a Glance, n.d.; National Agricultural Statistics Service, 2024).",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/apple_cultivars_climate_change/";
+            },},{id: "projects-head-in-the-cloud-technology",
+          title: 'Head in the Cloud (Technology)',
+          description: "My Journey in Learning the Cloud - AWS and Azure",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/cloud_learning_journey/";
+            },},{id: "projects-don-39-t-get-a-rescue-dog",
+          title: 'Don&amp;#39;t get a (rescue) dog',
+          description: "Unless you want to make an Impact.Cross-Post from Medium Blog",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ladybird_separation_anxiety_journey/";
+            },},{id: "projects-my-baking-journey",
+          title: 'My Baking Journey',
+          description: "Baking as a gesture of goodwill",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ladybirdbakingco_intro/";
+            },},{id: "projects-nba-daily-fantasy-sports-dfs-project-competing-for-pocket-cash",
+          title: 'NBA Daily Fantasy Sports (DFS) Project - Competing for Pocket Cash',
+          description: "Yahoo NBA Daily Fantasy Sports",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/nba_daily_fantasy_sports/";
+            },},{id: "projects-visualizing-information-retrieval-a-tf-idf-approach-with-tilebars",
+          title: 'Visualizing Information Retrieval - A TF-IDF Approach with TileBars',
+          description: "This article explores a TF-IDF-based visual query system using TileBars to retrieve and rank research documents efficiently. By leveraging metadata and the first three paragraphs of each document, it combines preprocessing, normalization, and intuitive visualizations to present relevant results. Future improvements, including lemmatization and sparse matrices, are also discussed.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/tf-idf_retrieval/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%77%69%6C%6C%69%65%6D%61%69%7A%65%38%32%38@%67%6D%61%69%6C.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/godot107", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/willieman828", "_blank");
+        },
+      },{
+        id: 'social-x',
+        title: 'X',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://twitter.com/WillieMaize828", "_blank");
+        },
+      },{
+        id: 'social-mastodon',
+        title: 'Mastodon',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://mastodon.social/@williemaize", "_blank");
+        },
+      },{
+        id: 'social-bluesky',
+        title: 'Bluesky',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://bsky.app/profile/williemaize.bsky.social", "_blank");
+        },
+      },{
+        id: 'social-medium',
+        title: 'Medium',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://medium.com/@manwill", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>

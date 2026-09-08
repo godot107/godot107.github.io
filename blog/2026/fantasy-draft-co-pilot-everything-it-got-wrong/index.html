@@ -1,0 +1,554 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> I built a fantasy draft co-pilot, and the interesting part was everything it got wrong | Willie Man </title> <meta name="author" content="Willie Man"> <meta name="description" content="A read-only Sleeper draft assistant built on VONA and opponent survival modelling — and the four times its most authoritative numbers turned out to be measuring something else."> <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>:root{--max-content-width:930px}</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=d41d8cd98f00b204e9800998ecf8427e"> <link rel="canonical" href="https://godot107.github.io/blog/2026/fantasy-draft-co-pilot-everything-it-got-wrong/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Willie Man </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/repositories/">repositories </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">cv </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-nav-dropdown-toggle="true" aria-haspopup="true" aria-expanded="false">submenus </a> <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> <a class="dropdown-item " href="/books/">books</a> <div class="dropdown-divider"></div> <a class="dropdown-item " href="/projects/">projects</a> <div class="dropdown-divider"></div> <a class="dropdown-item " href="/blog/">blog</a> </div> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">I built a fantasy draft co-pilot, and the interesting part was everything it got wrong</h1> <p class="post-meta"> Created on September 07, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/datascience"> <i class="fa-solid fa-hashtag fa-sm"></i> datascience</a>   <a href="/blog/tag/sports-analytics"> <i class="fa-solid fa-hashtag fa-sm"></i> sports-analytics</a>   ·   <a href="/blog/category/project"> <i class="fa-solid fa-tag fa-sm"></i> project</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p><em>A read-only draft assistant for Sleeper, grounded in Isaac T. Petersen’s</em> Fantasy Football Analytics. <em>Source: <a href="https://github.com/godot107/sleeper-drafter" rel="external nofollow noopener" target="_blank">github.com/godot107/sleeper-drafter</a>.</em></p> <hr> <p>Every fantasy football ranking answers the same question: <strong>who is good?</strong></p> <p>That is not the question you have on the clock. On the clock the question is <strong>who will still be here in twenty-two picks?</strong> — and those are different questions with different answers. The tight end you want will last two more rounds. The running back ranked one slot below him will not. A list sorted by projected points cannot tell you which is which, because the list does not know who picks next or what they need.</p> <p>So I built something that does. It watches a live Sleeper draft, models what each opponent is likely to take before my turn comes around again, and ranks my options by what it costs me to wait.</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/dashboard-480.webp 480w,/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/dashboard-800.webp 800w,/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/dashboard-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/dashboard.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="The browser dashboard mid-draft: slot 12, pick 6.01, twenty-two picks until the next turn" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <p>There is a terminal version too, which is the one I actually trust — one process, no browser, no JavaScript between me and the numbers.</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/terminal-480.webp 480w,/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/terminal-800.webp 800w,/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/terminal-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/terminal.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="The terminal dashboard at the same pick" loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <p>What I did not expect — and the reason this post exists — is how many of the numbers that felt authoritative turned out to be measuring something other than what I thought. The pattern repeated often enough to be the real subject here: each one was caught not by thinking harder about the formula, but by checking it against something outside the formula.</p> <hr> <h2 id="the-grounding-someone-already-did-the-theory">The grounding: someone already did the theory</h2> <p>I did not want to invent a valuation model. Fantasy football analytics has a serious, methodical, open-source treatment, and it is <strong><a href="https://isaactpetersen.github.io/Fantasy-Football-Analytics-Textbook/" rel="external nofollow noopener" target="_blank">Isaac T. Petersen’s <em>Fantasy Football Analytics: Statistics for Fantasy Football</em></a></strong> — a free online textbook covering projection, uncertainty, replacement level, tiering and draft strategy with actual statistics rather than podcast intuition. The book is the reason this project has opinions I can defend instead of coefficients I made up.</p> <p>Here is the honest chapter-by-chapter accounting of what I took:</p> <table> <thead> <tr> <th>What</th> <th>Where it comes from</th> <th>How it’s implemented here</th> </tr> </thead> <tbody> <tr> <td><strong>VORP</strong></td> <td>Ch. 6</td> <td>Value over replacement, where replacement is <em>a typical <strong>bench</strong> player</em> — not the last starter.</td> </tr> <tr> <td><strong>Dropoff</strong></td> <td>Ch. 6, 7</td> <td>Points minus the next-best player at the same position. Measured, not thresholded.</td> </tr> <tr> <td><strong>Tiers</strong></td> <td>Ch. 21</td> <td>Cluster analysis on projected points.</td> </tr> <tr> <td><strong>Uncertainty</strong></td> <td>Ch. 6, Eq. 6.1</td> <td>CV = s/x̄. <em>This is the one that failed — see below.</em> </td> </tr> <tr> <td><strong>K/DEF go late</strong></td> <td>§7.4.1</td> <td>Kickers and defenses have the lowest measured dropoff, so waiting there is free.</td> </tr> <tr> <td><strong>Don’t join a run mid-stream</strong></td> <td>Ch. 7</td> <td>Why the “deny your opponent” term is deliberately weak.</td> </tr> </tbody> </table> <p>Two implementation choices worth naming, because they are places where a textbook idea meets a draft clock.</p> <p><strong>Replacement level is a bench cohort, not a rank.</strong> In a 12-team league with two starting running backs, the naive replacement level is RB24. But RB24 is one player having one projected season, and pinning a league-wide baseline to a single row makes every VORP in the position wobble when that row moves. So replacement is the <em>median of the twelve players immediately past the starter cutoff</em> — the same idea, less sensitive to any one projection.</p> <p><strong>Tiers use Fisher-Jenks natural breaks, not k-means.</strong> This is a small decision that matters enormously in practice. k-means has a random initialisation. Run it twice on the same board and you can get two different tierings. That is fine in a notebook and unacceptable when the board refreshes every two seconds while you read it with forty seconds on the clock. Fisher-Jenks is an exact dynamic program over 1-D data: same input, same tiers, every time. At ~215 wide receivers and eight tiers it runs in well under a millisecond.</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/value-cliffs-480.webp 480w,/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/value-cliffs-800.webp 800w,/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/value-cliffs-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/value-cliffs.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="Value cliffs down each position's board, with measured tier breaks" loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <p>Read those panels and the whole draft strategy falls out. Quarterback has one huge step at the very top and then a long gentle slope — which is why the one elite quarterback is worth reaching for and the next ten are close enough that reaching among them buys almost nothing. Kicker is a straight line with no cliff anywhere, which is exactly Petersen’s §7.4.1 result and exactly why you take one in the last round.</p> <hr> <h2 id="the-core-idea-vona-not-vorp">The core idea: VONA, not VORP</h2> <p>VORP is a static measure. It says <em>this player is worth 59 points more than a typical bench body at his position</em>. True, and not decision-relevant, because if I pass on him I do not get a bench body — I get <strong>whoever is best at that position when I pick again.</strong></p> <p>That is the number I actually want:</p> <blockquote> <p><strong>VONA</strong> (Value Over Next Available) = his points − the expected best player at his position at my next turn</p> </blockquote> <p>If he scores 195 and the model expects the best available receiver at my next pick to be worth 176, waiting costs me 19 points. That 19 is the entire decision. Positive means take him now; negative means the position will keep.</p> <p>To compute the second half you need a survival probability for every player — the chance he lasts through every intervening pick.</p> <h3 id="the-normalisation-that-was-missing">The normalisation that was missing</h3> <p>My original spec — which I wrote before I knew better — said:</p> <blockquote> <p>P(team <em>i</em> drafts <em>X</em> at pick <em>j</em>) ∝ Urgency × ADPWeight</p> </blockquote> <p>and never resolved the ∝. That proportional sign is doing catastrophic work. Unresolved, the “probabilities” are on an arbitrary scale, and every VONA computed from them is a number with no units.</p> <p>The fix is to notice the constraint that was there all along: <strong>exactly one player is taken at pick <em>j</em></strong>. So the scores normalise over the available pool:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>score(X, j)     = Urgency(team_at_j, pos(X)) · ADPWeight(X, j)
+P(X taken at j) = score(X, j) / Σ_{X' available} score(X', j)
+P_survives(X)   = Π_j (1 − P(X taken at j))
+</code></pre></div></div> <p>A pleasant corollary: the <code class="language-plaintext highlighter-rouge">1/√(2πσ²)</code> in front of the Gaussian ADP kernel is constant across players and cancels in the normalisation, so it can be dropped.</p> <h3 id="the-subtraction-that-is-easy-to-get-wrong">The subtraction that is easy to get wrong</h3> <p>Expected-best-available must <strong>exclude the candidate himself.</strong> If I draft Chris Olave, Chris Olave is precisely the player who will not be available at my next pick. Leaving him in the expectation makes every top player look like “the same guy you’d get later,” which quietly collapses VONA to zero exactly where it matters most.</p> <p>Doing that naively is O(n²) — rebuild the expectation once per candidate. It is actually linear, with a forward and a backward pass:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>F[i] = s[i]·p[i] + (1−s[i])·F[i+1]     F[n] = replacement level
+G[i] = Π_{l&lt;i} (1−s[l])                 every better player is gone
+H[i] = Σ_{l&lt;i} s[l]·p[l]·G[l]           value if one of them survives
+
+E[best available, excluding i] = H[i] + G[i]·F[i+1]
+</code></pre></div></div> <p>That <code class="language-plaintext highlighter-rouge">F[n] = replacement</code> tail is the second thing the spec got wrong: it summed over the ranked pool and left probability mass unaccounted for in the case where <em>nobody</em> survives. Somebody is on your roster in that case, and he is worth replacement level, not zero.</p> <p>Plot survival against VONA and the decision becomes a picture:</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/decision-scatter-480.webp 480w,/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/decision-scatter-800.webp 800w,/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/decision-scatter-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/decision-scatter.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="Survival against VONA — the take-now question in two dimensions" loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <p>Upper-left is “take him now”: expensive to wait, unlikely to last. Lower-right is just as useful — those are the players you can safely pass on this turn, and knowing that is what lets you spend the pick somewhere else. The vertical stripe at 100% is everyone the model is confident nobody wants yet.</p> <hr> <h2 id="now-the-part-where-i-was-wrong">Now the part where I was wrong</h2> <h3 id="1-the-textbooks-uncertainty-metric-measured-the-wrong-thing">1. The textbook’s uncertainty metric measured the wrong thing</h3> <p>Petersen defines uncertainty as the <strong>spread of a player’s projections across sources</strong> (Ch. 6, Eq. 6.1). Sensible: if four projection systems disagree wildly about a player, that is real uncertainty about him.</p> <p>I had one source. So I substituted <strong>week-to-week scoring variance from last season</strong> — same coefficient of variation, s/x̄, different input. It felt like a reasonable stand-in. I shipped it as a “risk profile” column: steady / neutral / volatile.</p> <p>Then I tested it, and it is not a stand-in at all:</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/cv-vs-ceiling-480.webp 480w,/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/cv-vs-ceiling-800.webp 800w,/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/cv-vs-ceiling-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/cv-vs-ceiling.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="CV terciles against points and ceiling — the volatile third has the lower ceiling" loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <p>The “volatile” third of the league has a <strong>lower</strong> 90th-percentile week than the “steady” third. Correlation between CV and points per week is <strong>−0.58</strong>, and between CV and ceiling <strong>−0.40</strong>. The label was pointing at the opposite of what a risk label is supposed to mean.</p> <p>The reason is embarrassingly simple once you see it: <strong>CV has the mean in the denominator.</strong> A player averaging 3 points a week with a 3-point standard deviation has CV 1.0 and looks wildly volatile. He is not volatile; he is bad. CV finds low-volume players whose small scores bounce around zero, not the boom-or-bust starters the draft advice is about.</p> <p>The substitution was invalid — cross-source spread and within-season variance are not the same quantity, and only one of them is about the projection. So I kept CV as a label for what it actually measures, and added two metrics that answer the questions I had been asking it:</p> <ul> <li> <strong><code class="language-plaintext highlighter-rouge">role</code></strong> — depth-chart position plus projected volume, ranked within position.</li> <li> <strong><code class="language-plaintext highlighter-rouge">ceiling</code></strong> — the player’s 90th-percentile week last season. The honest late-round upside measure.</li> </ul> <p>On the 312 players with ten or more games last season, correlation with projected points: <strong>CV −0.50, role +0.80, ceiling +0.80.</strong> The sign on the one I inherited from the formula is the wrong one.</p> <p>The failure is not Petersen’s. His metric measures what he says it measures. It is a lesson about substituting a proxy into a formula and inheriting its authority without inheriting its meaning.</p> <h3 id="2-the-survival-model-was-confidently-wrong-in-the-middle">2. The survival model was confidently wrong in the middle</h3> <p><code class="language-plaintext highlighter-rouge">--replay</code> re-runs a finished draft pick by pick and scores every survival prediction against what actually happened. Pooled across four completed drafts — 3,360 predictions:</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/survival-calibration-480.webp 480w,/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/survival-calibration-800.webp 800w,/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/survival-calibration-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/survival-calibration.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="Predicted survival against actual, before and after the correction" loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <p>Look at the left panel first. The 80–100% bucket is nearly perfect: 99% predicted, 96% actual. That bucket is also 88% of all predictions, which is why the headline Brier score looks respectable and the overall bias is only <strong>+6.7 points optimistic</strong>.</p> <p>The middle is a disaster. Players the model called 40–60% survived <strong>14%</strong> of the time. Players it called 60–80% survived <strong>32%</strong>.</p> <p>And the direction is exactly what the model’s own assumption predicts. Survival multiplies per-pick probabilities <strong>as if the picks were independent</strong>. Real drafts have <em>runs</em> — three receivers in four picks, because managers watch each other. Independence is least damaging at the extremes (nobody wants him; everybody does) and most damaging in the contested middle, which is precisely where the left panel falls apart.</p> <p>The fix is a single exponent — replace <em>p</em> with <em>p^γ</em>. An exponent rather than a linear shrink because <em>p^γ</em> fixes both 0 and 1, and a turn boundary (“the window is empty, he is certainly still there”) has to stay exactly 1.0.</p> <p><strong>The interesting part is that this was not fittable when I first wrote it up.</strong> With three drafts, solving for the γ that matched the overall mean gave γ ≈ 4 and threw the middle buckets onto the <em>other</em> side of the truth — the 60–80% bucket went from 68% predicted to 22% against an actual 30%. I concluded that one knob could not fix a bias whose size depends on where you sit in the range, published the miscalibration instead, and left it.</p> <p>That conclusion was drawn from too little data, not from too simple a model. A fourth draft — 840 more predictions — changed the answer. At <strong>γ = 4.11</strong> the same one-knob correction improves <strong>every bucket</strong>: observation-weighted mean absolute calibration error <strong>0.066 → 0.021</strong>, mean bias <strong>+0.066 → +0.005</strong>, mean Brier <strong>0.061 → 0.044</strong>. That is the right panel.</p> <p>Two things I would not have predicted. The correction still <em>undershoots</em> the low buckets — it just undershoots by much less than the raw form overshot. And it slightly <strong>worsens</strong> the one 10-team standard-scoring draft (Brier 0.071 → 0.074) while clearly helping the three 12-team half-PPR ones, which suggests γ wants to vary with league size. Four drafts is nowhere near enough to fit that, so it stays a single number with a caveat attached.</p> <p>One rule falls out of this that is easy to get backwards: <strong>never tune γ against <code class="language-plaintext highlighter-rouge">--mock</code>.</strong> Mock opponents are sampled from the selection model itself, so a simulated draft contains none of the herding the correction exists for and will score it as a regression. Live drafts are the only valid evidence, which is why <code class="language-plaintext highlighter-rouge">--replay</code> appends to a committed calibration log after every one.</p> <p>The lesson survived the fix, and it is not the one I expected to write. Publishing the miscalibration was still right — a number you know is seven points optimistic is usable, and one you merely believe is not. But “I have not fitted a correction and here is why one cannot work” was an overclaim dressed up as rigour. The honest version was always “not yet, on this much data.”</p> <h3 id="3-a-scoring-bug-that-only-a-real-draft-could-find">3. A scoring bug that only a real draft could find</h3> <p>Offline mock drafts sample opponents from <strong>the very distribution the opponent model assumes</strong>. They validate the arithmetic beautifully and can never disconfirm the model. Almost every real bug surfaced in a live Sleeper mock.</p> <p>The worst one: my roster had one FLEX slot, shared between running backs, receivers and tight ends. The code asked each position <em>independently</em> whether it had flex capacity, so with one flex slot open, RB <strong>and</strong> WR <strong>and</strong> TE each believed the slot was theirs. Tight ends won that argument, because tight end has the steepest cliff, and I finished drafts with 3.5 tight ends for one starting spot.</p> <p>Then a second bug in the same neighbourhood: an empty <em>dedicated</em> slot was credited at replacement level, but an empty <em>flex</em> slot was credited at <strong>zero</strong>. Filling a flex hole therefore appeared to be worth a player’s entire projection. Sam LaPorta scored <strong>+158.5</strong>. After the fix: <strong>+9.3</strong>. A 158-point tight end had been outranking a 190-point running back.</p> <p>Neither was a maths error. Both were a modelling error about what a roster slot <em>is</em>, and both are now pinned by tests.</p> <h3 id="4-the-board-that-was-four-minutes-old">4. The board that was four minutes old</h3> <p>Mid-draft, live, the model recommended a player who had been drafted forty picks earlier. Sleeper’s picks endpoint sits behind a CDN with <code class="language-plaintext highlighter-rouge">s-maxage=300</code>, and the response carried <code class="language-plaintext highlighter-rouge">Age: 261</code> — I was reading a board frozen at pick 3 while the draft was at pick 43. <strong>I made a recommendation off that board and did not catch it.</strong></p> <p>The fix is one line — a cache-busting query parameter — and the lesson is the expensive part: a dashboard that has quietly stopped updating is <em>worse</em> than no dashboard, because it looks exactly like a working one. The UI now states when data last changed and goes amber, then red, as that ages.</p> <hr> <h2 id="the-peer-advice-experiment">The peer-advice experiment</h2> <p>My league-mates all say the same thing: <strong>spend the first two picks on running backs and receivers, never on a quarterback.</strong> Conventional, widely held, and testable — because “where the value is” depends on <em>where you pick</em>.</p> <p>So I forced the first two picks to a given position pair, let the engine draft normally afterwards, and scored the final starting lineup. Same board, same seeds, same simulated opponents; the constraint is the only thing that varies.</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/first-two-picks-480.webp 480w,/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/first-two-picks-800.webp 800w,/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/first-two-picks-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/first-two-picks.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="First-two-picks strategies by draft slot" loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <table> <thead> <tr> <th>Forced first two picks</th> <th style="text-align: right">slot 1</th> <th style="text-align: right">slot 4</th> <th style="text-align: right">slot 8</th> <th style="text-align: right">slot 12</th> </tr> </thead> <tbody> <tr> <td> <strong>RB, RB</strong> — the advice</td> <td style="text-align: right"><strong>+1</strong></td> <td style="text-align: right">−5</td> <td style="text-align: right">−16</td> <td style="text-align: right"><strong>−15</strong></td> </tr> <tr> <td>RB, WR</td> <td style="text-align: right">−9</td> <td style="text-align: right">−14</td> <td style="text-align: right">−11</td> <td style="text-align: right">−8</td> </tr> <tr> <td> <strong>QB, RB</strong> — the heresy</td> <td style="text-align: right"><strong>−53</strong></td> <td style="text-align: right">−52</td> <td style="text-align: right">−30</td> <td style="text-align: right"><strong>−9</strong></td> </tr> <tr> <td>WR, WR</td> <td style="text-align: right">−54</td> <td style="text-align: right">−37</td> <td style="text-align: right">−36</td> <td style="text-align: right">−32</td> </tr> <tr> <td>QB, WR</td> <td style="text-align: right">−60</td> <td style="text-align: right">−55</td> <td style="text-align: right">−35</td> <td style="text-align: right">−18</td> </tr> </tbody> </table> <p><em>Points of projected starting lineup versus the engine’s own unconstrained choice. 12-team snake, 15 rounds, 16 seeds per arm, 384 simulated drafts.</em></p> <p><strong>The advice is correct, and it is correct about a seat I do not sit in.</strong></p> <p>At <strong>slot 1</strong> it is emphatically right. Forcing RB-then-RB costs nothing at all (+1, i.e. it <em>is</em> what the engine wanted), and forcing a quarterback first costs <strong>53 points</strong>. Left alone, the engine opens with a running back in 27 of its 32 early picks there.</p> <p>By <strong>slot 12</strong> the ordering has inverted. Forcing RB-then-RB now costs <strong>15 points</strong>; forcing the quarterback costs <strong>9</strong>. And unconstrained, the engine opens with a quarterback more often than anything else — 14 of its 32 first-two picks at that slot, against 9 running backs.</p> <p>The mechanism is visible on the value-cliff chart earlier in this post. Six running backs carry an ADP inside the first twelve picks, so by slot 12 what remains at the position is a flat block — the next five backs span nineteen points, and it barely matters which one you get. Meanwhile a 12-team league needs only twelve quarterbacks, so the one genuine outlier at the position is still sitting there, 35 points clear of the next one.</p> <p>The advice is not wrong. It is a statement about <strong>where value sits when you pick early</strong>, and it is being repeated in a seat where it no longer applies. That is worth more to me than the six points: it is a reason, and a reason survives a change in the player pool in a way that a rule of thumb does not.</p> <p>Caveat, stated plainly: this is one projection source and one season’s shape. It should be re-run every year, which is why it ships as a script rather than a conclusion.</p> <hr> <h2 id="it-does-not-draft-for-you-on-purpose">It does not draft for you, on purpose</h2> <p>Sleeper’s public API is <strong>read-only</strong>. There are no documented endpoints for submitting a pick, making a trade, or modifying a roster. You could get around that with session scraping or a headless browser driving the web UI. This project deliberately does not, and the constraint is written into its <code class="language-plaintext highlighter-rouge">CLAUDE.md</code> so it stays that way.</p> <p>Three reasons, in order of how much they matter:</p> <ol> <li> <strong>Terms of service.</strong> Automating writes against a platform that does not offer a write API is asking to have the account removed.</li> <li> <strong>Brittleness.</strong> A scraped session breaks at the worst possible moment, which is during the ninety seconds you have to make a pick.</li> <li> <strong>The model does not know things.</strong> Breaking injury news lands on Twitter fifteen minutes before it lands anywhere structured. Human veto is not a limitation of the design; it is the most valuable input in the system.</li> </ol> <p>So it ranks, and I click. Dashboard on one monitor, terminal on the second, Sleeper on the third.</p> <hr> <h2 id="did-it-work">Did it work?</h2> <p>Four live drafts, in order — three public mock rooms, then my actual league:</p> <table> <thead> <tr> <th>Draft</th> <th>League</th> <th>Finish</th> <th>Grade</th> <th>RB points vs league mean</th> </tr> </thead> <tbody> <tr> <td>1</td> <td>10-team</td> <td>1st</td> <td>A+</td> <td>—</td> </tr> <tr> <td>2</td> <td>12-team</td> <td>6th</td> <td>B−</td> <td>−151</td> </tr> <tr> <td>3</td> <td>12-team</td> <td>4th</td> <td>B−</td> <td>−129</td> </tr> <tr> <td>4</td> <td>12-team, slot 12 — <strong>real league</strong> </td> <td><strong>3rd</strong></td> <td><strong>A</strong></td> <td><strong>−23</strong></td> </tr> </tbody> </table> <p>The improvement between draft 3 and draft 4 was not a smarter algorithm. It was the flex fix, which stopped the engine from spending premium picks on a second elite tight end and let it take a running back at the turn instead.</p> <p>Grades are computed the same way for every team in the league: fill the best legal starting lineup from each roster, total the projected points, and rank. It is the same lineup solver the recommendation engine uses, which means the grade and the advice cannot disagree with each other.</p> <hr> <h2 id="what-i-would-tell-someone-building-this">What I would tell someone building this</h2> <p><strong>Ground it in something.</strong> The textbook is why the model has defensible positions instead of tuned constants. Where I departed from it — a bench cohort instead of a single replacement rank, Fisher-Jenks instead of k-means — I can say why, and the reason is about the draft clock rather than about taste.</p> <p><strong>A proxy does not inherit a formula’s authority.</strong> CV in Petersen’s sense and CV over weekly scores are the same three symbols measuring different things. The formula did not warn me. The data did.</p> <p><strong>Simulate to test arithmetic; go live to test the model.</strong> Mock drafts sample opponents from the model’s own assumptions. They cannot disconfirm it. Every genuinely interesting bug came from a real draft with real humans.</p> <p><strong>Publish the miscalibration.</strong> The survival chart is the least flattering thing in this repo and the most useful thing in it. Documenting where a model is wrong is not an admission that it is broken; it is the difference between a number you can reason with and a number you can only believe. And keep publishing it: the log I kept because I could not fix the bias is exactly what made a fourth draft enough to fix it.</p> <p><strong>Look at the chart.</strong> Two visual bugs — a sort order that silently did nothing and a label that ran off the frame — survived every test I had and died the moment I rendered the image and looked at it.</p> <hr> <h2 id="credits-and-links">Credits and links</h2> <ul> <li> <strong><a href="https://isaactpetersen.github.io/Fantasy-Football-Analytics-Textbook/" rel="external nofollow noopener" target="_blank">Isaac T. Petersen, <em>Fantasy Football Analytics: Statistics for Fantasy Football</em></a></strong> — the methodological backbone: replacement level, dropoff, tiering, uncertainty, and the positional strategy that follows from them. Free, rigorous, and the best thing written on this subject. If you take one link from this post, take that one.</li> <li> <strong><a href="https://docs.sleeper.com/" rel="external nofollow noopener" target="_blank">Sleeper API docs</a></strong> — public, unauthenticated, read-only, and generous. No API key required to run any of this.</li> <li>Built in Python with <code class="language-plaintext highlighter-rouge">pandas</code>, <code class="language-plaintext highlighter-rouge">numpy</code>, <code class="language-plaintext highlighter-rouge">rich</code> (terminal), and <code class="language-plaintext highlighter-rouge">dash</code> + <code class="language-plaintext highlighter-rouge">plotly</code> (browser).</li> <li>Source, tests and runbook: <strong><a href="https://github.com/godot107/sleeper-drafter" rel="external nofollow noopener" target="_blank">github.com/godot107/sleeper-drafter</a></strong> </li> </ul> <p>Everything in this post reproduces from the repo:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python scripts/fetch_projections.py         <span class="c"># real projections + ADP</span>
+python scripts/fetch_consistency.py         <span class="c"># weekly variance from last season</span>
+
+python scripts/experiment_cv.py             <span class="c"># the CV failure</span>
+python scripts/experiment_first_two.py      <span class="c"># the first-two-picks experiment</span>
+python main.py <span class="nt">--replay</span> &lt;draft_id&gt;          <span class="c"># survival calibration on a finished draft</span>
+
+python main.py <span class="nt">--web</span> <span class="nt">--mock</span> <span class="nt">--slot</span> 12       <span class="c"># the dashboard, on a simulated draft</span>
+pytest <span class="nt">-q</span>                                   <span class="c"># 163 tests</span>
+</code></pre></div></div> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/dogs-vs-cats-audio-classification-56175ce58429?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Dogs vs Cats Audio Classification</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/dogs-and-cats-image-classification-4277af51692d?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Dogs and Cats Image Classification</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/the-global-refugee-crisis-9ca91bc01943?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">The Global Refugee Crisis</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/reflections-on-2024-struggles-wins-and-lessons-c3d65c128ae1?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Reflections on 2024: Struggles, Wins, and Lessons</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/dont-get-a-rescue-dog-4fb1968ec530?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Don’t get a (rescue) dog</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/sentiment-analysis-with-tf-idf-and-logistic-regression-f4cd86f359a1?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Sentiment Analysis with TF-IDF and Logistic Regression</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/the-unseen-crisis-why-i-finally-read-how-to-know-a-person-5d845aacf052?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">The Unseen Crisis: Why I Finally Read ‘How to Know a Person’</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/humour-seriously-a-reflection-essay-30d6ad23dfc8?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Humour Seriously — A Reflection Essay</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/textbook-to-knowledge-base/">I Turned Six Years of Data Science Textbooks Into a Knowledge Base My AI Can Reason Over</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/math-is-fun/">Applied Math for Engineers: Deconstructing the FFT and CNNs</a> </li> </ul> <div id="giscus_thread" style="max-width: 930px; margin: 0 auto;"> <br> <script>
+    (function setupGiscus() {
+      function determineGiscusTheme() {
+        var theme = localStorage.getItem("theme") || document.documentElement.getAttribute("data-theme") || "system";
+if (theme === "dark") return "dark";
+if (theme === "light") return "light";
+var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+return prefersDark ? "dark" : "light";
+
+      }
+
+      var giscusTheme = determineGiscusTheme();
+      var attrs = {
+        src: "https://giscus.app/client.js",
+        "data-repo": "godot107/godot107.github.io",
+        "data-repo-id": "R_kgDONUwEbg",
+        "data-category": "Announcements",
+        "data-category-id": "DIC_kwDONUwEbs4C_TYq",
+        "data-mapping": "title",
+        "data-strict": "1",
+        "data-reactions-enabled": "1",
+        "data-emit-metadata": "0",
+        "data-input-position": "bottom",
+        "data-theme": giscusTheme,
+        "data-lang": "en",
+        crossorigin: "anonymous",
+        async: true
+      };
+
+      var giscusScript = document.createElement("script");
+      Object.entries(attrs).forEach(function(entry) { giscusScript.setAttribute(entry[0], entry[1]); });
+      var host = document.getElementById("giscus_thread");
+      if (host) host.appendChild(giscusScript);
+    })();
+  </script> <noscript> Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments powered by giscus.</a> </noscript> </div> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Willie Man. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3H4T9PEFL"></script> <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-X3H4T9PEFL");
+</script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-blog",
+          title: "blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-projects",
+          title: "projects",
+          description: "Projects related to Machine Learning, AI, and Data Sciences (plus fun stuff)",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-repositories",
+          title: "repositories",
+          description: "Repositories",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/repositories/";
+          },
+        },{id: "nav-cv",
+          title: "cv",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "Books Reviews and Essays",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "dropdown-books",
+              title: "books",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/books/";
+              },
+            },{id: "dropdown-projects",
+              title: "projects",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/projects/";
+              },
+            },{id: "dropdown-blog",
+              title: "blog",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/blog/";
+              },
+            },{id: "post-i-built-a-fantasy-draft-co-pilot-and-the-interesting-part-was-everything-it-got-wrong",
+        
+          title: "I built a fantasy draft co-pilot, and the interesting part was everything it...",
+        
+        description: "A read-only Sleeper draft assistant built on VONA and opponent survival modelling — and the four times its most authoritative numbers turned out to be measuring something else.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/fantasy-draft-co-pilot-everything-it-got-wrong/";
+          
+        },
+      },{id: "post-i-turned-six-years-of-data-science-textbooks-into-a-knowledge-base-my-ai-can-reason-over",
+        
+          title: "I Turned Six Years of Data Science Textbooks Into a Knowledge Base My...",
+        
+        description: "Building a private, local RAG system over my own library — and why I think almost everyone with a bookshelf of PDFs should do the same.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/textbook-to-knowledge-base/";
+          
+        },
+      },{id: "post-applied-math-for-engineers-deconstructing-the-fft-and-cnns",
+        
+          title: "Applied Math for Engineers: Deconstructing the FFT and CNNs",
+        
+        description: "A deep dive into the math behind CNNs and the FFT using the AGY CLI.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/math-is-fun/";
+          
+        },
+      },{id: "post-teaching-a-neural-network-to-hear-a-failing-bearing",
+        
+          title: "Teaching a Neural Network to Hear a Failing Bearing",
+        
+        description: "Building an end-to-end predictive-maintenance pipeline on the CWRU bearing dataset — and why hitting 100% accuracy made me trust it less.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/teaching-a-neural-network-to-hear-a-failing-bearing/";
+          
+        },
+      },{id: "post-humour-seriously-a-reflection-essay",
+        
+          title: 'Humour Seriously — A Reflection Essay <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/humour-seriously-a-reflection-essay-30d6ad23dfc8?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-the-unseen-crisis-why-i-finally-read-how-to-know-a-person",
+        
+          title: 'The Unseen Crisis: Why I Finally Read ‘How to Know a Person’ <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/the-unseen-crisis-why-i-finally-read-how-to-know-a-person-5d845aacf052?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-sentiment-analysis-with-tf-idf-and-logistic-regression",
+        
+          title: 'Sentiment Analysis with TF-IDF and Logistic Regression <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/sentiment-analysis-with-tf-idf-and-logistic-regression-f4cd86f359a1?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-don-t-get-a-rescue-dog",
+        
+          title: 'Don’t get a (rescue) dog <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/dont-get-a-rescue-dog-4fb1968ec530?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-reflections-on-2024-struggles-wins-and-lessons",
+        
+          title: 'Reflections on 2024: Struggles, Wins, and Lessons <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/reflections-on-2024-struggles-wins-and-lessons-c3d65c128ae1?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-the-global-refugee-crisis",
+        
+          title: 'The Global Refugee Crisis <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/the-global-refugee-crisis-9ca91bc01943?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-dogs-and-cats-image-classification",
+        
+          title: 'Dogs and Cats Image Classification <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/dogs-and-cats-image-classification-4277af51692d?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-dogs-vs-cats-audio-classification",
+        
+          title: 'Dogs vs Cats Audio Classification <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/dogs-vs-cats-audio-classification-56175ce58429?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-a-post-with-giscus-comments",
+        
+          title: "a post with giscus comments",
+        
+        description: "an example of a blog post with giscus comments",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2022/giscus-comments/";
+          
+        },
+      },{id: "post-socialgood-hackathon-roundup",
+        
+          title: "SocialGood Hackathon Roundup",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2018/Social_Good_Hackathon/";
+          
+        },
+      },{id: "post-2016-in-review",
+        
+          title: "2016 in Review",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Life_Group/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-halcyon-end",
+        
+          title: "Community Summer Missions Project (CSMP) - Halcyon End",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Halcyon_End/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-excel-enrich-in-austin",
+        
+          title: "Community Summer Missions Project (CSMP) - Excel Enrich in Austin",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Excel_Austin/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-life-group",
+        
+          title: "Community Summer Missions Project (CSMP) - Life Group",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/2016_in_review/";
+          
+        },
+      },{id: "post-shifts-in-healthcare-and-information-technology-align-to-support-industry-transformation",
+        
+          title: "Shifts in Healthcare and Information Technology Align to Support Industry Transformation",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Shifts_in_Healthcare_and_IT/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-enter-intensive-and-field-work",
+        
+          title: "Community Summer Missions Project (CSMP) - Enter Intensive and Field Work",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_enter_field_work/";
+          
+        },
+      },{id: "post-enter-missions-csmp-2016",
+        
+          title: "Enter Missions - CSMP 2016",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Enter_Missions_csmp_2016/";
+          
+        },
+      },{id: "post-nba-graphs-2015-playoffs-with-r-studio",
+        
+          title: "NBA Graphs - 2015 Playoffs with R studio",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/NBA_graphs_2015/";
+          
+        },
+      },{id: "post-design-and-testing-of-an-ehr-integrated-busulfan-pharmacokinetic-decision-support-tool-for-the-point-of-care-clinician",
+        
+          title: "Design and Testing of an EHR-Integrated, Busulfan Pharmacokinetic Decision Support Tool for the...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Design-and-Testing-of-an-EHR-Integrated/";
+          
+        },
+      },{id: "post-a-post-with-disqus-comments",
+        
+          title: "a post with disqus comments",
+        
+        description: "an example of a blog post with disqus comments",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2015/disqus-comments/";
+          
+        },
+      },{id: "books-the-unseen-crisis-why-i-finally-read-39-how-to-know-a-person-39",
+          title: 'The Unseen Crisis - Why I Finally Read &amp;#39;How to Know a Person&amp;#39;...',
+          description: "The title, Practicing the Way, draws from the concept of apprenticeship. Jesus, known not only as the Son of God but also as a Rabbi, called ordinary people—fishermen, tax collectors, and zealots—to follow Him as disciples. In Jesus’ time, disciples were typically well-versed in the Torah and aspired to become like their rabbi in every way. Comer invites us to imagine the same goal today - to become like Jesus through the empowerment of the Holy Spirit, bringing heaven to earth in both ordinary and extraordinary ways.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/how_to_know_a_person_reflection_essay/";
+            },},{id: "books-humour-seriously-a-reflection-essay",
+          title: 'Humour Seriously - A Reflection Essay',
+          description: "This reflection explores the intellectual depth of comedy, the balance between levity and gravity, and the profound benefits of laughter in personal and professional life, inspired by David Brooks&#39; insights.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/humor_seriously_reflection_essay/";
+            },},{id: "books-never-enough",
+          title: 'Never Enough',
+          description: "Through a penetrating look at Never Enough, this review examines how America&#39;s obsession with academic achievement shapes our children&#39;s futures and sense of self-worth. Drawing from personal experience and cross-cultural insights, it challenges parents to question whether our pursuit of excellence has gone too far.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/never_enough_reflection_essay/";
+            },},{id: "books-practicing-the-way-book-reflection",
+          title: 'Practicing the Way - Book Reflection',
+          description: "The title, Practicing the Way, draws from the concept of apprenticeship. Jesus, known not only as the Son of God but also as a Rabbi, called ordinary people—fishermen, tax collectors, and zealots—to follow Him as disciples. In Jesus’ time, disciples were typically well-versed in the Torah and aspired to become like their rabbi in every way. Comer invites us to imagine the same goal today - to become like Jesus through the empowerment of the Holy Spirit, bringing heaven to earth in both ordinary and extraordinary ways.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/practicing_the_way_reflection_essay/";
+            },},{id: "books-never-enough-part-2-parenting-with-grace",
+          title: 'Never Enough Part 2 - Parenting with Grace',
+          description: "Through a penetrating look at Never Enough, this review examines how America&#39;s obsession with academic achievement shapes our children&#39;s futures and sense of self-worth. Drawing from personal experience and cross-cultural insights, it challenges parents to question whether our pursuit of excellence has gone too far.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/never_enough_reflection_essay_part2/";
+            },},{id: "news-new-website-launched",
+          title: 'New Website Launched!',
+          description: "",
+          section: "News",},{id: "news-welcome",
+          title: 'Welcome',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2/";
+            },},{id: "news-tune-in-for-more-content",
+          title: '🚧 Tune in for more content 🚧',
+          description: "",
+          section: "News",},{id: "projects-analyze-the-characteristics-of-highly-accessible-population-centers-in-the-united-states",
+          title: 'Analyze the characteristics of highly accessible population centers in the United States',
+          description: "This project seeks to improve accessibility to jobs, entertainment, and shopping",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/analyze_the_characteristics_of_highly_accessible_population_centers_in_the_United_States/";
+            },},{id: "projects-apple-cultivars-and-climate-change-in-the-eastern-mountain-region-of-the-united-states",
+          title: 'Apple cultivars and climate change in the Eastern Mountain region of the United...',
+          description: "Extensive research exists regarding the effects of climate change on agriculture. However, there is often a gap between researchers and decision makers, particularly in industries with limited resources. The apple industry is one such example. Though apples are the most consumed fruit in the United States, apple orchards occupy less than 1% of the 880 million acres of United States farmland (Industry at a Glance, n.d.; National Agricultural Statistics Service, 2024).",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/apple_cultivars_climate_change/";
+            },},{id: "projects-head-in-the-cloud-technology",
+          title: 'Head in the Cloud (Technology)',
+          description: "My Journey in Learning the Cloud - AWS and Azure",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/cloud_learning_journey/";
+            },},{id: "projects-don-39-t-get-a-rescue-dog",
+          title: 'Don&amp;#39;t get a (rescue) dog',
+          description: "Unless you want to make an Impact.Cross-Post from Medium Blog",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ladybird_separation_anxiety_journey/";
+            },},{id: "projects-my-baking-journey",
+          title: 'My Baking Journey',
+          description: "Baking as a gesture of goodwill",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ladybirdbakingco_intro/";
+            },},{id: "projects-nba-daily-fantasy-sports-dfs-project-competing-for-pocket-cash",
+          title: 'NBA Daily Fantasy Sports (DFS) Project - Competing for Pocket Cash',
+          description: "Yahoo NBA Daily Fantasy Sports",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/nba_daily_fantasy_sports/";
+            },},{id: "projects-visualizing-information-retrieval-a-tf-idf-approach-with-tilebars",
+          title: 'Visualizing Information Retrieval - A TF-IDF Approach with TileBars',
+          description: "This article explores a TF-IDF-based visual query system using TileBars to retrieve and rank research documents efficiently. By leveraging metadata and the first three paragraphs of each document, it combines preprocessing, normalization, and intuitive visualizations to present relevant results. Future improvements, including lemmatization and sparse matrices, are also discussed.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/tf-idf_retrieval/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%77%69%6C%6C%69%65%6D%61%69%7A%65%38%32%38@%67%6D%61%69%6C.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/godot107", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/willieman828", "_blank");
+        },
+      },{
+        id: 'social-x',
+        title: 'X',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://twitter.com/WillieMaize828", "_blank");
+        },
+      },{
+        id: 'social-mastodon',
+        title: 'Mastodon',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://mastodon.social/@williemaize", "_blank");
+        },
+      },{
+        id: 'social-bluesky',
+        title: 'Bluesky',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://bsky.app/profile/williemaize.bsky.social", "_blank");
+        },
+      },{
+        id: 'social-medium',
+        title: 'Medium',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://medium.com/@manwill", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>

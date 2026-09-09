@@ -59,7 +59,28 @@
   <meta property="og:url" content="{{ page.url | prepend: site.baseurl | prepend: site.url | remove_first: 'index.html' }}">
   <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
   {% if page.og_image or site.og_image %}
-    <meta property="og:image" content="{% if page.og_image %}{{ page.og_image }}{% else %}{{ site.og_image }}{% endif %}">
+    {% assign og_img = page.og_image | default: site.og_image %}
+    <meta property="og:image" content="{{ og_img }}">
+    {% if og_img contains '.png' %}
+      <meta property="og:image:type" content="image/png">
+    {% elsif og_img contains '.webp' %}
+      <meta property="og:image:type" content="image/webp">
+    {% elsif og_img contains '.jpg' or og_img contains '.jpeg' %}
+      <meta property="og:image:type" content="image/jpeg">
+    {% endif %}
+    {% comment %}
+      Only the site-wide card has known dimensions. A per-page og_image could be
+      any size, and wrong width/height is worse than none.
+    {% endcomment %}
+    {% unless page.og_image %}
+      {% if site.og_image_width and site.og_image_height %}
+        <meta property="og:image:width" content="{{ site.og_image_width }}">
+        <meta property="og:image:height" content="{{ site.og_image_height }}">
+      {% endif %}
+    {% endunless %}
+    {% if site.og_image_alt %}
+      <meta property="og:image:alt" content="{{ site.og_image_alt | escape }}">
+    {% endif %}
   {% endif %}
   <meta property="og:locale" content="{{ site.lang }}">
 
@@ -68,7 +89,10 @@
   <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ title }}{% endif %}">
   <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
   {% if page.og_image or site.og_image %}
-    <meta name="twitter:image" content="{% if page.og_image %}{{ page.og_image }}{% else %}{{ site.og_image }}{% endif %}">
+    <meta name="twitter:image" content="{{ page.og_image | default: site.og_image }}">
+    {% if site.og_image_alt %}
+      <meta name="twitter:image:alt" content="{{ site.og_image_alt | escape }}">
+    {% endif %}
   {% endif %}
   {% assign x_handle = site.x_username | default: site.data.socials.x_username %}
   {% if x_handle %}

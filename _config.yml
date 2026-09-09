@@ -105,6 +105,9 @@ max_width: 930px
 serve_og_meta: true # Include Open Graph meta tags in the HTML head
 serve_schema_org: true # Include Schema.org in the HTML head
 og_image: https://willieman.com/assets/img/og-default.png # The site-wide (default for all links) Open Graph preview image
+og_image_width: 1200 # must match the real dimensions of og_image
+og_image_height: 630
+og_image_alt: Willie Man — data analyst, scientist, and engineer. willieman.com
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification

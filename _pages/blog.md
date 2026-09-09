@@ -2,6 +2,7 @@
 layout: default
 permalink: /blog/
 title: blog
+description: Essays and project write-ups on machine learning, AI engineering, data science, and the things I learn building them.
 nav: true
 nav_order: 1
 pagination:

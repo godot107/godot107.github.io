@@ -8,15 +8,16 @@ middle_name:
 last_name: Man
 contact_note: >
   Let's connect on social!
+title_tagline: Data Analyst, Scientist & Engineer # appended to the site title in <title> and og:title on the home page
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  Willie Man is a data scientist in Greater Houston, Texas, writing about machine learning,
-  AI engineering, and applied analytics. Project write-ups, experiment notes, and lessons
-  from building models that ship.
+  Willie Man is a data professional in Greater Houston, Texas, working across analytics,
+  data engineering, and machine learning. Project write-ups, experiment notes, and lessons
+  from building data systems that ship.
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
   Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a>.
-keywords: Willie Man, data scientist, machine learning, AI engineering, data science portfolio, MLOps, RAG, Houston data scientist # add your own keywords or leave empty
+keywords: Willie Man, data analyst, data scientist, data engineer, data quality, machine learning, AI engineering, analytics portfolio, Databricks, Houston # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: ⚛️ # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 

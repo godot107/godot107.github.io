@@ -3,7 +3,7 @@ layout: about
 title: about
 permalink: /
 subtitle: <a href='https://linktr.ee/williemaize'>Affiliations</a>. <a href='https://hihello.me/p/e51e021a-872b-4c2c-9c66-88bd9e69c354'>Contacts</a>. All Things Data
-description: Willie Man is a data scientist in Greater Houston, Texas. Project write-ups and notes on machine learning, AI engineering, and applied analytics.
+description: Willie Man is a data professional in Greater Houston, Texas, working across analytics, data engineering, and machine learning. Project write-ups and notes on building data systems that ship.
 
 profile:
   align: right

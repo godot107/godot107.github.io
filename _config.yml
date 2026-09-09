@@ -18,7 +18,7 @@ keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your o
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: ⚛️ # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
-url: https://godot107.github.io # the base hostname & protocol for your site
+url: https://willieman.com # the base hostname & protocol for your site
 baseurl: # the subpath of your site, e.g. /blog/. Leave blank for root
 github_username: godot107 # used by repository stats cards and trophies
 last_updated: false # set to true if you want to display last updated in the footer

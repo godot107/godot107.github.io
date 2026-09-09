@@ -2,7 +2,7 @@
 
 Personal portfolio and creation space for **Willie Man** — data professional based in Greater Houston, Texas.
 
-🌐 **Live site:** [godot107.github.io](https://godot107.github.io)
+🌐 **Live site:** [willieman.com](https://willieman.com)
 
 ---
 

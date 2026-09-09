@@ -24,8 +24,8 @@ Welcome to my creation space where I share my journey in data, AI, and machine l
   <div class="carousel-container" style="display: flex; position: absolute; transition: transform 0.5s ease; height: 100%; width: 100%;">
     <!-- First Image with Link -->
     <div class="carousel-slide" style="position: absolute; width: 100%; height: 100%;">
-      <a href="https://godot107.github.io/projects/apple_cultivars_climate_change/" target="_blank" style="display: block; height: 100%;">
-        <img class="carousel-img" src="https://godot107.github.io/assets/img/apple_cultivars_thumbnail.png" alt="Apple Cultirvars" style="width: 100%; height: 100%; object-fit: cover;">
+      <a href="{{ '/projects/apple_cultivars_climate_change/' | relative_url }}" target="_blank" style="display: block; height: 100%;">
+        <img class="carousel-img" src="{{ '/assets/img/apple_cultivars_thumbnail.png' | relative_url }}" alt="Apple Cultirvars" style="width: 100%; height: 100%; object-fit: cover;">
         <div class="banner" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.7); color: white; text-align: center; padding: 5px;">
           Apple Cultivars and Climate Change
         </div>

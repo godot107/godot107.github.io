@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://godot107.github.io/sitemap.xml
+Sitemap: https://willieman.com/sitemap.xml

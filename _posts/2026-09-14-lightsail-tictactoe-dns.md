@@ -44,6 +44,8 @@ This is everything that sits between a visitor and the game:
 The infrastructure is defined in CloudFormation, and a handful of numbered shell
 scripts run the whole deploy, from creating the server to checking the live site.
 
+{% include figure.liquid loading="lazy" path="assets/img/lightsail-tictactoe-dns/lightsail-console.png" title="The tictactoe instance running in the Lightsail console: 512 MB RAM, 2 vCPUs, 20 GB SSD on Ubuntu." class="img-fluid rounded z-depth-1" %}
+
 ## What I actually learned about DNS
 
 **You don't need Route 53.** I assumed hosting on AWS meant moving my DNS to

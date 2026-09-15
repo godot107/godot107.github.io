@@ -119,7 +119,7 @@ passed 10 of 10 checks against the live site:
 | Isolation | Two visitors play separate games; 0 of 30 reads lost a board |
 | Reboot | The site came back on its own, about 30 seconds after a reboot |
 
-{% include figure.liquid path="assets/img/lightsail-tictactoe-dns/demo.gif" title="Playing on the live site. Each incognito window keeps its own separate board." class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid avoid_scaling=true path="assets/img/lightsail-tictactoe-dns/demo.gif" title="Playing on the live site. Each incognito window keeps its own separate board." class="img-fluid rounded z-depth-1" %}
 
 ## Cost, and cleaning up
 

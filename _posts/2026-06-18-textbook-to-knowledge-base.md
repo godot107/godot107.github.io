@@ -22,7 +22,7 @@ Six years later, those books have a strange status in my life. They taught me th
 
 And I almost never open them.
 
-{% include figure.liquid loading="eager" path="assets/img/textbook-to-knowledge-base/giphy.gif" title="My most trusted references, circa every day before this project. (via GIPHY)" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid avoid_scaling=true loading="eager" path="assets/img/textbook-to-knowledge-base/giphy.gif" title="My most trusted references, circa every day before this project. (via GIPHY)" class="img-fluid rounded z-depth-1" %}
 
 The friction is too high. When I need to remember exactly how the bias–variance decomposition falls out, or the precise steps of the KDD process, or which distance metric Han recommends for mixed attribute types, I don't go digging through a 700-page PDF. I Google it. Or I ask an LLM and hope it isn't hallucinating. My best sources sit on disk, indexed by nothing, searchable only by my increasingly unreliable memory.
 
@@ -36,7 +36,7 @@ This post is about how it works, what surprised me building it, and why I think 
 
 Most people now reach for a general-purpose chatbot when they have a question. That's great for a lot of things and genuinely bad for others: the model answers from a blurry average of the whole internet, it can't cite where an answer came from, and it will occasionally invent a formula with total confidence.
 
-{% include figure.liquid loading="lazy" path="assets/img/textbook-to-knowledge-base/giphy_1.gif" title="An LLM confidently deriving a formula it doesn't actually know. (via GIPHY)" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid avoid_scaling=true loading="lazy" path="assets/img/textbook-to-knowledge-base/giphy_1.gif" title="An LLM confidently deriving a formula it doesn't actually know. (via GIPHY)" class="img-fluid rounded z-depth-1" %}
 
 Retrieval-augmented generation (RAG) flips that. Instead of asking the model to recall facts, you:
 
@@ -71,7 +71,7 @@ A few of the choices that mattered:
 
 Here's the unglamorous truth of any real RAG project. The retrieval algorithm is maybe 20% of the work. The other 80% is discovering that your data is dirtier than you think.
 
-{% include figure.liquid loading="lazy" path="assets/img/textbook-to-knowledge-base/giphy_2.gif" title="Auditing your own corpus for the first time. (via GIPHY)" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid avoid_scaling=true loading="lazy" path="assets/img/textbook-to-knowledge-base/giphy_2.gif" title="Auditing your own corpus for the first time. (via GIPHY)" class="img-fluid rounded z-depth-1" %}
 
 When I actually audited my corpus, I found:
 
@@ -99,7 +99,7 @@ I wrote a small gold set of questions tied to the books that should answer them,
 
 The reranker made things *worse* on my metric.
 
-{% include figure.liquid loading="lazy" path="assets/img/textbook-to-knowledge-base/giphy_3.gif" title="Me, watching the 'biggest precision win in RAG' make things worse. (via GIPHY)" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid avoid_scaling=true loading="lazy" path="assets/img/textbook-to-knowledge-base/giphy_3.gif" title="Me, watching the 'biggest precision win in RAG' make things worse. (via GIPHY)" class="img-fluid rounded z-depth-1" %}
 
 Now — that metric is imperfect. It checks whether the right *book* showed up, which is saturated and can't see whether a passage's *content* got more relevant (exactly what a reranker is for). So the honest reading isn't "rerankers are bad." It's "on the evidence I have, this reranker model isn't earning its place, and I will not turn it on by default and pretend it's an improvement." I left it implemented, off by default, one flag away, with a written plan to re-test it with a stronger model and a better gold set.
 
@@ -117,7 +117,7 @@ I ask about the bias–variance tradeoff and get the passage from *Practical Sta
 
 It is, functionally, a conversation with my own bookshelf — except the bookshelf has read all of itself and can cross-reference instantly.
 
-{% include figure.liquid loading="lazy" path="assets/img/textbook-to-knowledge-base/giphy_4.gif" title="Asking your bookshelf a question and watching it answer, with citations. (via GIPHY)" class="img-fluid rounded z-depth-1" %}
+{% include figure.liquid avoid_scaling=true loading="lazy" path="assets/img/textbook-to-knowledge-base/giphy_4.gif" title="Asking your bookshelf a question and watching it answer, with citations. (via GIPHY)" class="img-fluid rounded z-depth-1" %}
 
 ---
 

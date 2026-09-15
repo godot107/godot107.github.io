@@ -52,6 +52,10 @@ Using the original markdown + the mapping, write the post body:
   {% include figure.liquid loading="eager" path="assets/img/<slug>/<file>" title="<caption>" class="img-fluid rounded z-depth-1" %}
   ```
   Keep the original alt/caption text as the `title`.
+- **GIFs need `avoid_scaling=true`** in the include. The theme's `figure.liquid`
+  emits a `-480/800/1400.webp` `<source>` for `.gif` paths, but `imagemagick`
+  `input_formats` excludes GIFs, so those WebPs 404 and the browser shows a
+  broken image instead of falling back to the `<img>`.
 - **Mermaid diagrams:** the script won't grab these (they're code, not images).
   Prefer a **pre-rendered PNG already in the repo** (look in `reports/`,
   `images/`, `assets/` for a matching export, e.g. `cnn_architecture.png`) and

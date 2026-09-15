@@ -53,6 +53,8 @@ AWS. It doesn't. An A record is just "this name → this IPv4 address", and it
 works the same whichever company's nameservers publish it. I added one record
 in Spaceship's dashboard and changed nothing else.
 
+{% include figure.liquid loading="lazy" path="assets/img/lightsail-tictactoe-dns/spaceship-dns.png" title="Adding the game A record in Spaceship's Advanced DNS. The value is a placeholder for the Lightsail static IP." class="img-fluid rounded z-depth-1" %}
+
 **The IP has to be static before you point anything at it.** A Lightsail
 instance's default public IP changes when it stops and starts. A static IP stays
 the same, and it's free while attached. Point DNS at the default address, and

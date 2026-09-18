@@ -112,14 +112,23 @@ the only knob is `featured: true` in a project's front matter, which pins that
 project to the middle card. Without the flag the lowest `importance` wins.
 {% endcomment %}
 
+{%- comment -%}
+`hidden` docs are filtered out the way \_includes/books.liquid does: \_books
+holds continuation essays under subpages/ that are part of site.books but are
+not standalone reviews. They also have no `date`, and Jekyll falls back to the
+build time for an undated collection document — which made one of them sort as
+the newest book on every build.
+{%- endcomment -%}
 {%- assign latest_post = site.posts | where_exp: "p", "p.thumbnail" | first -%}
-{%- assign flagged_projects = site.projects | where: "featured", true -%}
+{%- assign visible_projects = site.projects | where_exp: "p", "p.hidden != true" -%}
+{%- assign flagged_projects = visible_projects | where: "featured", true -%}
 {%- if flagged_projects.size > 0 -%}
 {%- assign latest_project = flagged_projects | first -%}
 {%- else -%}
-{%- assign latest_project = site.projects | sort: "importance" | first -%}
+{%- assign latest_project = visible_projects | sort: "importance" | first -%}
 {%- endif -%}
-{%- assign latest_book = site.books | sort: "date" | last -%}
+{%- assign visible_books = site.books | where_exp: "b", "b.hidden != true" -%}
+{%- assign latest_book = visible_books | sort: "date" | last -%}
 
 <div class="row row-cols-1 row-cols-md-3 featured-latest">
   {% if latest_post %}

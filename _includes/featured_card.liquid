@@ -13,6 +13,11 @@
 {% endcomment %}
 
 {%- assign card_img = include.item.thumbnail | default: include.item.img -%}
+{%- comment -%}
+  An imported post carries its body in `feed_content` and often has no
+  `description`, so fall back to it rather than render a card with no blurb.
+{%- endcomment -%}
+{%- assign card_text = include.item.description | default: include.item.feed_content -%}
 {%- assign card_external = false -%}
 {%- if include.item.redirect contains '://' -%}
   {%- assign card_url = include.item.redirect -%}
@@ -48,8 +53,8 @@
           {%- if card_external %} &middot; off-site{% endif -%}
         </p>
         <h3 class="card-title">{{ include.item.title }}</h3>
-        {% if include.item.description %}
-          <p class="card-text">{{ include.item.description | strip_html | truncate: 140 }}</p>
+        {% if card_text %}
+          <p class="card-text">{{ card_text | strip_html | truncate: 140 }}</p>
         {% endif %}
       </div>
     </div>

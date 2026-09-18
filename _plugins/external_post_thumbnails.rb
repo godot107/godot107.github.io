@@ -35,6 +35,29 @@ module ExternalPostThumbnails
          .strip
   end
 
+  # Medium appends " | <site title>" to some imported titles (e.g. "…to finally
+  # understand DNS | Willie Man"), which defeats the exact title match in job 1
+  # and lets the duplicate through. Strip exactly that suffix, built from the
+  # site's own title, so a post whose title merely happens to contain a pipe is
+  # left alone.
+  def site_byline(site)
+    configured = site.config["title"].to_s.strip
+    return configured unless configured.empty?
+
+    [site.config["first_name"], site.config["last_name"]].compact.join(" ").strip
+  end
+
+  def strip_byline(title, byline)
+    return title.to_s if byline.to_s.strip.empty?
+
+    title.to_s.sub(/\s*\|\s*#{Regexp.escape(byline.strip)}\s*\z/i, "")
+  end
+
+  # Comparison key for the de-duplication match: byline stripped, then normalized.
+  def title_key(title, byline)
+    normalize_title(strip_byline(title, byline))
+  end
+
   def external?(doc)
     Array(doc.data["categories"]).map(&:to_s).include?(EXTERNAL_CATEGORY)
   end
@@ -63,8 +86,10 @@ class ExternalPostProcessor < Jekyll::Generator
   def generate(site)
     posts = site.posts.docs
 
+    byline = ExternalPostThumbnails.site_byline(site)
+
     native_titles = posts.reject { |d| ExternalPostThumbnails.external?(d) }
-                         .map { |d| ExternalPostThumbnails.normalize_title(d.data["title"]) }
+                         .map { |d| ExternalPostThumbnails.title_key(d.data["title"], byline) }
                          .to_set
 
     dropped = 0
@@ -74,7 +99,7 @@ class ExternalPostProcessor < Jekyll::Generator
     posts.reject! do |doc|
       next false unless ExternalPostThumbnails.external?(doc)
 
-      if native_titles.include?(ExternalPostThumbnails.normalize_title(doc.data["title"]))
+      if native_titles.include?(ExternalPostThumbnails.title_key(doc.data["title"], byline))
         dropped += 1
         Jekyll.logger.info "ExternalPosts:", "drop duplicate of native post -> #{doc.data['title']}"
         true # remove the Medium import; native post wins

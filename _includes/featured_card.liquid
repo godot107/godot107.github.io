@@ -10,6 +10,11 @@
   Params:
     item   (required) a post, project or book document
     kicker (required) small label above the title, e.g. "blog"
+    date              optional; pass it only where it is meaningful. Jekyll
+                      falls back to the build time for a collection document
+                      with no `date` in its front matter, so reading
+                      `item.date` here would stamp a project with the date of
+                      the last deploy.
 {% endcomment %}
 
 {%- assign card_img = include.item.thumbnail | default: include.item.img -%}
@@ -49,7 +54,7 @@
       <div class="card-body">
         <p class="featured-card-meta">
           {{ include.kicker }}
-          {%- if include.item.date %} &middot; {{ include.item.date | date: '%b %-d, %Y' }}{% endif -%}
+          {%- if include.date %} &middot; {{ include.date | date: '%b %-d, %Y' }}{% endif -%}
           {%- if card_external %} &middot; off-site{% endif -%}
         </p>
         <h3 class="card-title">{{ include.item.title }}</h3>

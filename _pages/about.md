@@ -132,13 +132,13 @@ the newest book on every build.
 
 <div class="row row-cols-1 row-cols-md-3 featured-latest">
   {% if latest_post %}
-    {% include featured_card.liquid item=latest_post kicker="blog" %}
+    {% include featured_card.liquid item=latest_post kicker="blog" date=latest_post.date %}
   {% endif %}
   {% if latest_project %}
     {% include featured_card.liquid item=latest_project kicker="project" %}
   {% endif %}
   {% if latest_book %}
-    {% include featured_card.liquid item=latest_book kicker="book" %}
+    {% include featured_card.liquid item=latest_book kicker="book" date=latest_book.date %}
   {% endif %}
 </div>
 

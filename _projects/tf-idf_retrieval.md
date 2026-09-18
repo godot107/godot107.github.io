@@ -2,7 +2,7 @@
 layout: page
 title: Visualizing Information Retrieval - A TF-IDF Approach with TileBars
 description: This article explores a TF-IDF-based visual query system using TileBars to retrieve and rank research documents efficiently. By leveraging metadata and the first three paragraphs of each document, it combines preprocessing, normalization, and intuitive visualizations to present relevant results. Future improvements, including lemmatization and sparse matrices, are also discussed.
-img: https://images.unsplash.com/photo-1554906493-4812e307243d?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+img: assets/img/projects/tf-idf-tilebars.jpg
 importance: 2
 category: work
 ---

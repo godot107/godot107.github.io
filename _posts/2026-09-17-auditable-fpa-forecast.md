@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "I let the controls fail, and they told me things I didn't know"
-date: 2026-09-18 12:00:00-0500
+date: 2026-09-17 12:00:00-0500
 description: Building an auditable FP&A forecasting pipeline on real SEC filings — and what happens when you make the integrity checks blocking.
 tags: data-science machine-learning
 categories: project

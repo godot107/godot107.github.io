@@ -36,7 +36,7 @@ invalidated a result I had already written up as a success.
 
 ### Read the write-up
 
-[I let the controls fail, and they told me things I didn't know]({% post_url 2026-09-18-auditable-fpa-forecast %})
+[I let the controls fail, and they told me things I didn't know]({% post_url 2026-09-17-auditable-fpa-forecast %})
 
 ### Source
 

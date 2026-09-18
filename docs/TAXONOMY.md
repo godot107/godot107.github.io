@@ -16,7 +16,7 @@ The taxonomy had drifted into being useless. Before this document:
 - 14 tags covered 17 posts and **8 of them appeared on exactly one post**. A tag
   page with one result is a dead end: the reader asks for "more like this" and
   is handed the post they just finished.
-- `community` and `faith` sat on the *same six posts*, so one of them carried no
+- `community` and `faith` sat on the _same six posts_, so one of them carried no
   information at all.
 - Four posts had no tags and no category.
 
@@ -24,22 +24,22 @@ The taxonomy had drifted into being useless. Before this document:
 
 **Category — what kind of post it is. Exactly one per post.**
 
-| category | meaning |
-| --- | --- |
-| `project` | something I built, normally with a repo behind it |
-| `tutorial` | explains a technique rather than reporting a build |
-| `essay` | commentary or analysis, nothing built |
-| `slice-of-life` | personal, non-technical |
+| category        | meaning                                            |
+| --------------- | -------------------------------------------------- |
+| `project`       | something I built, normally with a repo behind it  |
+| `tutorial`      | explains a technique rather than reporting a build |
+| `essay`         | commentary or analysis, nothing built              |
+| `slice-of-life` | personal, non-technical                            |
 
 **Tag — what the post is about. One to three per post, from the closed list.**
 
-| tag | posts | covers |
-| --- | --- | --- |
-| `faith` | 6 | the 2016 CSMP summer missions series |
-| `machine-learning` | 5 | models, deep learning, signal processing, NLU |
-| `data-science` | 3 | analysis and forecasting where no model is the point |
-| `healthcare` | 2 | clinical and health-IT work |
-| `cloud` | 1 | infrastructure, DNS, deployment — **provisional, see below** |
+| tag                | posts | covers                                                       |
+| ------------------ | ----- | ------------------------------------------------------------ |
+| `faith`            | 6     | the 2016 CSMP summer missions series                         |
+| `machine-learning` | 5     | models, deep learning, signal processing, NLU                |
+| `data-science`     | 3     | analysis and forecasting where no model is the point         |
+| `healthcare`       | 2     | clinical and health-IT work                                  |
+| `cloud`            | 1     | infrastructure, DNS, deployment — **provisional, see below** |
 
 ## Rules
 
@@ -50,7 +50,7 @@ The taxonomy had drifted into being useless. Before this document:
 4. **No tag that is a subset of another.** `deep-learning`,
    `signal-processing` and `predictive-maintenance` were all folded into
    `machine-learning` for this reason; splitting them again needs rule 3 to be
-   satisfied *and* the parent tag to stay useful without them.
+   satisfied _and_ the parent tag to stay useful without them.
 5. **No tag that duplicates a category.** `project` is a category, never a tag.
 6. **No two tags with the same membership.** That was the `community` / `faith`
    problem; `community` was dropped.
@@ -78,6 +78,19 @@ Record any other exception here rather than quietly breaking rule 3.
 - `comments`, `sample-posts`, `external-services` — existed only because two
   al-folio demo posts were still published. Those posts were deleted.
 
-`external-posts` is **not** part of this taxonomy: `_config.yml` assigns it to
-every Medium import, and `_plugins/external_post_thumbnails.rb` keys its
-de-duplication off it. Leave it alone.
+## Tags the importer applies
+
+Two labels are assigned by machinery, not by this taxonomy, and neither should be
+curated or removed:
+
+- **`external-posts`** — the category `_config.yml` puts on every Medium import.
+  `_plugins/external_post_thumbnails.rb` keys its de-duplication off it.
+- **`medium`** — the tag `_config.yml: external_sources` puts on the same posts.
+  Six Medium-only articles carry it and nothing else, so it is the only way to
+  reach them from `/blog/tags/`; the index renders it for that reason. It is
+  deliberately kept out of `display_tags`, because it describes where a post was
+  published rather than what it is about.
+
+Note that the counts in the table above are for the 16 posts in `_posts/`. The
+live site also serves the six Medium imports, so `/blog/tags/` reports more posts
+than this file does — it renders what exists rather than what is curated.

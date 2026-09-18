@@ -41,15 +41,28 @@
     {% endif %}
   >
     <div class="card h-100 hoverable">
+      {% comment %}
+        figure.liquid rewrites any path into `-480.webp` &c. responsive variants
+        and serves them from a <picture><source>. jekyll-imagemagick generates
+        those files for anything under assets/img/, but nothing generates them
+        for a remote URL, so the <source> 404s — and a <picture> does not fall
+        back to its <img> when the chosen source fails. A Medium import carries a
+        thumbnail hotlinked from Medium's CDN, so route absolute URLs to a plain
+        <img>, the way _pages/blog.md does.
+      {% endcomment %}
       {% if card_img %}
-        {%
-          include figure.liquid
-          loading="eager"
-          path=card_img
-          sizes="(min-width: 768px) 290px, 90vw"
-          alt=include.item.title
-          class="card-img-top"
-        %}
+        {% if card_img contains '://' %}
+          <img src="{{ card_img }}" class="card-img-top" loading="eager" alt="{{ include.item.title }}">
+        {% else %}
+          {%
+            include figure.liquid
+            loading="eager"
+            path=card_img
+            sizes="(min-width: 768px) 290px, 90vw"
+            alt=include.item.title
+            class="card-img-top"
+          %}
+        {% endif %}
       {% endif %}
       <div class="card-body">
         <p class="featured-card-meta">

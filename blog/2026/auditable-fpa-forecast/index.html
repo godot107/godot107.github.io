@@ -1,0 +1,557 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> I let the controls fail, and they told me things I didn't know | Willie Man </title> <meta name="author" content="Willie Man"> <meta name="description" content="Building an auditable FP&amp;A forecasting pipeline on real SEC filings — and what happens when you make the integrity checks blocking."> <meta name="keywords" content="Willie Man, data analyst, data scientist, data engineer, data quality, machine learning, AI engineering, analytics portfolio, Databricks, Houston"> <meta property="og:site_name" content="Willie Man"> <meta property="og:type" content="article"> <meta property="og:title" content="I let the controls fail, and they told me things I didn't know | Willie Man"> <meta property="og:url" content="https://willieman.com/blog/2026/auditable-fpa-forecast/"> <meta property="og:description" content="Building an auditable FP&amp;A forecasting pipeline on real SEC filings — and what happens when you make the integrity checks blocking."> <meta property="og:image" content="https://willieman.com/assets/img/og-default.png"> <meta property="og:image:type" content="image/png"> <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <meta property="og:image:alt" content="Willie Man — data analyst, scientist, and engineer. willieman.com"> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="I let the controls fail, and they told me things I didn't know"> <meta name="twitter:description" content="Building an auditable FP&amp;A forecasting pipeline on real SEC filings — and what happens when you make the integrity checks blocking."> <meta name="twitter:image" content="https://willieman.com/assets/img/og-default.png"> <meta name="twitter:image:alt" content="Willie Man — data analyst, scientist, and engineer. willieman.com"> <meta name="twitter:site" content="@WillieMaize828"> <meta name="twitter:creator" content="@WillieMaize828"> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Willie Man"
+        },
+        "url": "https://willieman.com/blog/2026/auditable-fpa-forecast/",
+        "@type": "BlogPosting",
+        "description": "Building an auditable FP&A forecasting pipeline on real SEC filings — and what happens when you make the integrity checks blocking.",
+        "headline": "I let the controls fail, and they told me things I didn't know",
+        
+        "sameAs": ["https://github.com/godot107","https://www.linkedin.com/in/willieman828","https://twitter.com/WillieMaize828","https://mastodon.social/@williemaize","https://bsky.app/profile/williemaize.bsky.social","https://medium.com/@manwill"],
+        
+        "name": "Willie Man",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>:root{--max-content-width:930px}</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=63e2c625bb611f6547acbfd7fa6f15ad"> <link rel="canonical" href="https://willieman.com/blog/2026/auditable-fpa-forecast/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Willie Man </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/repositories/">repositories </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">cv </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-nav-dropdown-toggle="true" aria-haspopup="true" aria-expanded="false">submenus </a> <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> <a class="dropdown-item " href="/books/">books</a> <div class="dropdown-divider"></div> <a class="dropdown-item " href="/projects/">projects</a> <div class="dropdown-divider"></div> <a class="dropdown-item " href="/blog/">blog</a> </div> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">I let the controls fail, and they told me things I didn't know</h1> <p class="post-meta"> Created on September 17, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/data-science"> <i class="fa-solid fa-hashtag fa-sm"></i> data-science</a>   <a href="/blog/tag/machine-learning"> <i class="fa-solid fa-hashtag fa-sm"></i> machine-learning</a>   ·   <a href="/blog/category/project"> <i class="fa-solid fa-tag fa-sm"></i> project</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p><em>Building an auditable FP&amp;A forecasting pipeline on real SEC filings — and what happens when you make the integrity checks blocking. Source: <a href="https://github.com/godot107/auditable-fpa-forecast" rel="external nofollow noopener" target="_blank">github.com/godot107/auditable-fpa-forecast</a>.</em></p> <hr> <p>I set out to build a demo of AI-assisted financial planning. What I ended up with was mostly a demonstration of a much duller idea: <strong>write the arithmetic identities down as code, run them on every execution, and let them stop the pipeline.</strong></p> <p>That sounds like process hygiene. In practice it was the most productive thing in the project. The controls caught five defects I would not have found by reading the code, and one of them was a $1.83 billion error sitting in a number that looked completely reasonable.</p> <p>This is a write-up of those failures, because they’re more interesting than the parts that worked.</p> <hr> <h2 id="the-setup">The setup</h2> <p>The pipeline takes Netflix’s SEC filings and builds an FP&amp;A rolling forecast from them:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SEC EDGAR XBRL ──&gt; three statements ──&gt; disaggregation ──&gt; Odoo (posted double-entry)
+                          │                                        │
+                    articulation                              SQL extract
+                     controls                                      │
+                          └──────────&gt; control gate &lt;──────────────┘
+                                            │
+                     ┌──────────────────────┼──────────────────────┐
+                 forecast              variance bridge        commentary
+              (+ NUTS intervals)      (spend / mix)         (groundedness gate)
+</code></pre></div></div> <p>Actuals come from the XBRL <code class="language-plaintext highlighter-rouge">companyfacts</code> API, and every fact keeps the <strong>accession number</strong> of the filing it was tagged in. Cost-center detail below the filed lines is modeled — Netflix does not publish spend by department — and asserted to foot back to the filed total. Everything gets posted into a real ERP as double-entry journal entries, extracted back out through SQL, and reconciled against the 10-Q it started from.</p> <p>Twenty-three controls run inside the pipeline on every execution. Twenty-one of them are blocking: if one fails, no forecast is produced and no commentary is generated. Not a warning in a log — the run stops.</p> <p>That last decision is the one everything else came from.</p> <blockquote> <p>A control that only runs in a test suite protects the developer. A control that runs in the pipeline protects the number.</p> </blockquote> <hr> <h2 id="failure-1-the-183b-quarter-that-looked-fine">Failure 1: the $1.83B quarter that looked fine</h2> <p>Companies don’t file a Q4 10-Q. They roll the fourth quarter into the 10-K as a full year, so if you pull “quarterly” facts from XBRL you get three quarters a year and a hole every December. The standard fix is to derive it:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Q4 = FY − (Q1 + Q2 + Q3)
+</code></pre></div></div> <p>I wrote that. In pandas it looks like this:</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">filled</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">q4_end</span><span class="p">,</span> <span class="n">account</span><span class="p">]</span> <span class="o">=</span> <span class="n">annual_row</span><span class="p">[</span><span class="n">account</span><span class="p">]</span> <span class="o">-</span> <span class="n">filled</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">in_year</span><span class="p">,</span> <span class="n">account</span><span class="p">].</span><span class="nf">sum</span><span class="p">()</span>
+</code></pre></div></div> <p>Then I added pre-tax income to the chart of accounts, and a control I’d just written — <code class="language-plaintext highlighter-rouge">pretax − tax = net income</code> — went red by <strong>$1,831,472,000</strong>.</p> <p>Netflix only started tagging pre-tax income as a <em>quarterly</em> fact in 2020-Q3. For 2020, Q1 and Q2 were missing. And <code class="language-plaintext highlighter-rouge">Series.sum()</code> skips <code class="language-plaintext highlighter-rouge">NaN</code> by default.</p> <p>So the code computed <code class="language-plaintext highlighter-rouge">FY − Q3</code>. Two missing quarters’ worth of a $3.2B year, silently folded into a single derived quarter, in a cell that looked exactly like every other cell.</p> <p>The fix is one keyword:</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">prior</span> <span class="o">=</span> <span class="n">filled</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">in_year</span><span class="p">,</span> <span class="n">account</span><span class="p">].</span><span class="nf">sum</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">pd</span><span class="p">.</span><span class="nf">isna</span><span class="p">(</span><span class="n">prior</span><span class="p">):</span>
+    <span class="n">incomplete</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">account</span><span class="p">)</span>   <span class="c1"># refuse, and record why
+</span>    <span class="k">continue</span>
+</code></pre></div></div> <p>Nothing raised. Nothing logged. The only reason I know about it is that an unrelated identity disagreed by an amount too large to ignore.</p> <hr> <h2 id="failure-2-the-same-bug-wearing-a-different-hat">Failure 2: the same bug, wearing a different hat</h2> <p>Netflix’s three largest balance-sheet lines can’t be obtained as tags at all. Content assets sit under a company extension the API doesn’t expose. Treasury stock stopped being tagged in 2022 while the buyback programme kept running. Content liabilities are presented but never tagged.</p> <p>So they’re derived as residuals — <code class="language-plaintext highlighter-rouge">total − sum(the parts)</code> — which is fine as long as you’re honest that a residual is only a financial statement line if it <em>behaves</em> like one.</p> <p>I built the derivations, and <code class="language-plaintext highlighter-rouge">other_current_assets</code> came back populated for 26 of 26 quarters. Great. Except short-term investments are only tagged from 2021-Q4 onward, so ten of those quarters were resting on an assumption nobody had declared: that an untagged line is a zero balance.</p> <p>Same root cause. <code class="language-plaintext highlighter-rouge">DataFrame.sum</code> skipping <code class="language-plaintext highlighter-rouge">NaN</code>, a missing input contributing nothing, and a result that looks complete.</p> <p>That reading is often <em>correct</em> — a company holding no short-term investments doesn’t tag the concept. But it’s an interpretation, not a fact, so now it’s declared:</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ABSENT_MEANS_ZERO</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nf">frozenset</span><span class="p">({</span><span class="sh">"</span><span class="s">short_term_investments</span><span class="sh">"</span><span class="p">})</span>
+</code></pre></div></div> <p>Anything in that set may be treated as zero. Everything else propagates <code class="language-plaintext highlighter-rouge">NaN</code>. And a control reports the count on screen: <em>“10 period-lines read an absent tag as a zero balance.”</em></p> <p>By this point I’d started thinking of it as a bug <em>class</em> rather than two bugs:</p> <blockquote> <p><strong>A missing input that produces a plausible number instead of an error.</strong></p> </blockquote> <p>The third instance was in the original ingest, which hardcoded <code class="language-plaintext highlighter-rouge">units["USD"]</code>. For a per-share tag — reported in <code class="language-plaintext highlighter-rouge">USD/shares</code> — that returns an empty list. Not an error. The tag just silently vanishes from the chart of accounts.</p> <p>None of the three raise. All three are caught by controls that test an <em>identity</em> rather than a value. That’s the argument for having them.</p> <hr> <h2 id="failure-3-the-negative-liability">Failure 3: the negative liability</h2> <p>Here’s one where the control caught something I’d have defended in review.</p> <p>To post a balance sheet into a ledger you need a <strong>partition</strong> of the filed totals: no gaps, no overlaps. Every line exactly once. I mapped Netflix’s tags to lines, including the ASC 842 lease tags, which look exactly like balance-sheet lines.</p> <p>The non-current liability residual came out at <strong>−$571 million</strong>.</p> <p>A negative liability is nonsense, which is the only reason it was visible. Everything else in the statement looked plausible.</p> <p>The lease tags aren’t lines on the face of the statement — they’re <em>disclosures</em>, nested <strong>inside</strong> the “other non-current” captions. Including them alongside double-counts.</p> <p>I didn’t want to settle that by reading the filing and trusting my reading, so I tested it against the ASC 842 adoption in 2019-Q1, the quarter both tags first appear:</p> <table> <thead> <tr> <th>Caption</th> <th>Step at adoption</th> <th>Amount recognised</th> </tr> </thead> <tbody> <tr> <td><code class="language-plaintext highlighter-rouge">OtherAssetsNoncurrent</code></td> <td><strong>+$816M</strong></td> <td>right-of-use assets <strong>$812M</strong> </td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">OtherLiabilitiesNoncurrent</code></td> <td><strong>+$663M</strong></td> <td>lease liability <strong>$765M</strong> </td> </tr> </tbody> </table> <p>A caption that jumps by the amount of the thing being adopted contains it. The lease tags are now carried as disclosure columns and excluded from the posting partition.</p> <p>The control that caught it is four lines and does nothing but assert each residual keeps its expected sign — content assets can’t be negative, treasury stock can’t be positive:</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">worst</span> <span class="o">=</span> <span class="nf">float</span><span class="p">((</span><span class="n">series</span> <span class="o">*</span> <span class="n">spec</span><span class="p">.</span><span class="n">sign</span><span class="p">).</span><span class="nf">min</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">worst</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">offenders</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">worst</span>
+</code></pre></div></div> <hr> <h2 id="the-part-that-made-the-erp-worth-it">The part that made the ERP worth it</h2> <p>With the partition fixed, <code class="language-plaintext highlighter-rouge">Assets = Liabilities + Equity</code> holds to <strong>$0.00</strong> across all 26 quarters. That’s not a trivia fact. It means the balance sheet can be posted to the ledger as a <strong>self-balancing journal entry with no clearing account</strong> — the debits and credits <em>are</em> the filed statement.</p> <p>And Odoo will reject the entry outright if it doesn’t balance. So the ERP stops being a destination for the data and becomes an independent check on the ingest.</p> <p>The balances post as <em>movements</em>, not restated positions, which makes the round trip meaningfully harder: every quarter’s balance is a cumulative sum of every entry before it, so one bad entry in 2021 corrupts all twenty quarters after it. Reading it back out through SQL:</p> <p><strong>$0.00 across all 17 lines and all 26 quarter ends.</strong></p> <p>The P&amp;L round trip — EDGAR → disaggregation → ORM → posted double-entry → analytic distribution → <code class="language-plaintext highlighter-rouge">GROUP BY</code> → back to the filed 10-Q — ties to <strong>$0.02 on $10.4B</strong>. Those two cents are cent-rounding at the ERP boundary, which is correct behaviour for a ledger that stores cents.</p> <p>One thing I got right by accident and only understood afterwards: <strong>the cash-flow statement is not posted at all.</strong> No general ledger journalizes a cash-flow statement — it’s derived from the movement in balance-sheet accounts. That’s why a consolidation tool computes it and a transactional system doesn’t. It’s built in Python, reconciled against the filed roll-forward (<strong>$0.00</strong> across 25 quarters), and reported.</p> <hr> <h2 id="failure-4-a-discrepancy-that-turned-out-to-be-a-business">Failure 4: a discrepancy that turned out to be a business</h2> <p>Revenue by region isn’t in <code class="language-plaintext highlighter-rouge">companyfacts</code> at all. The API has no dimension field — it only ever exposes the consolidated value of a tag. Regional data lives in SEC’s Financial Statement Data Sets: bulk quarterly ZIPs, ~85 MB each, with a <code class="language-plaintext highlighter-rouge">segments</code> column you stream and filter.</p> <p>I pulled four archives, summed the four regions, compared to filed total revenue, and the control failed by <strong>$182.3 million</strong>.</p> <p>First cause was a straightforward trap: Netflix tags <em>two</em> overlapping geographic breakdowns. The four operating regions carry <code class="language-plaintext highlighter-rouge">ProductOrService=Streaming</code>. There’s also a standalone <code class="language-plaintext highlighter-rouge">Geographical=US</code> disclosure worth $18.5B in FY2025. Sum everything on the geographic axis and you inflate revenue by roughly 40% — glaringly obvious in a total, completely invisible in a per-region chart.</p> <p>But after fixing that, a residual remained. And it had a shape:</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/auditable-fpa-forecast/regional-revenue-residual-480.webp 480w,/assets/img/auditable-fpa-forecast/regional-revenue-residual-800.webp 800w,/assets/img/auditable-fpa-forecast/regional-revenue-residual-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/auditable-fpa-forecast/regional-revenue-residual.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="The residual between summed regional revenue and the filed total, by fiscal year. A declining tail reaching exactly zero in FY2024." loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <p>A declining tail reaching <em>exactly</em> zero.</p> <p>That’s the DVD-by-mail business, which Netflix shut down in September 2023.</p> <p>My control had asserted the wrong identity. The regions sum to <strong>streaming</strong> revenue, not consolidated revenue, and the gap is a real segment. The control now ties against the filed streaming line — <strong>$0.00</strong> across the three years it’s tagged — and separately requires the legacy residual to be non-negative and to stay at zero.</p> <p>I like this one because the control was wrong and the <em>data</em> corrected it.</p> <hr> <h2 id="the-llm-is-allowed-to-write-never-to-count">The LLM is allowed to write, never to count</h2> <p>There’s a language model in this pipeline. It writes the variance commentary. It is structurally incapable of producing a number.</p> <p>Every figure is computed in Python and handed over as a facts payload. The model may describe those figures in prose. Then every numeral it returns is checked back against the payload, and a draft citing anything else is rejected before a human sees it.</p> <p>The rule is borrowed from another project of mine, an energy trading bot, where the house rule is that the LLM may run the anomaly gate and never decides a trade:</p> <blockquote> <p><strong>The model is given a job it cannot get wrong in a way that matters.</strong></p> </blockquote> <p>Writing the checker immediately found bugs in the checker. The best one: my numeral regex ended with <code class="language-plaintext highlighter-rouge">(?![\w.])</code>, which was meant to avoid matching partial numbers. It also meant a figure at the end of a sentence — <code class="language-plaintext highlighter-rouge">$999.9M.</code> — never matched at all. A fabricated number was passing not because it was verified but because it was <strong>never checked</strong>.</p> <p>That’s the failure mode that matters for validators. Not “it rejected something valid” — you notice that immediately. It’s “it silently checked nothing,” which looks identical to working.</p> <p>So the test suite includes tests that assert the checks <em>fail</em> when they should. A dozen of the 90 tests deliberately corrupt the data: an unbalanced balance sheet, a double-counted line, a negative content-asset balance, a broken cash roll-forward, a share count misread as dollars.</p> <blockquote> <p>A validator that always passes is worse than no validator. It certifies nothing while looking like assurance.</p> </blockquote> <hr> <h2 id="never-publish-a-metric-without-its-benchmark">Never publish a metric without its benchmark</h2> <p>The forecast scores <strong>MASE 0.632</strong> on the monthly ledger. I don’t quote that number.</p> <p>The monthly grain is filed <em>quarterly</em> data that this project disaggregated into months. Some of the intra-quarter structure a model finds there is structure the disaggregation put there. A model scores well partly by rediscovering my own allocation weights.</p> <p>Re-run on filed quarterly data only — where every value is a figure Netflix actually reported — the same model scores <strong>0.936</strong>. It beats a seasonal-naive benchmark by about 6%, and loses outright on two of them — marketing (1.421) and operating income (1.308).</p> <p>Both numbers are reported side by side, with the gap named as the artifact. Operating income being hardest is not a surprise once stated: it’s a small difference between two large numbers, so proportionally modest errors either side compound in the residual. Which is the argument for forecasting the <strong>drivers</strong> and letting the margin fall out.</p> <hr> <h2 id="the-uncertainty-layer-and-the-average-that-hides-the-answer">The uncertainty layer, and the average that hides the answer</h2> <p>The last piece was posterior-predictive intervals — a NumPyro local linear trend with monthly seasonality, fitted with NUTS.</p> <p>The first full evaluation threw <strong>1,418 divergent transitions</strong>, about 10.5% of draws. So I tuned <code class="language-plaintext highlighter-rouge">target_accept_prob</code> up to 0.99, watched divergences fall to 0.4%, wrote it up as a measured improvement, and moved on.</p> <p>That was wrong, and it took a methodology review to catch it.</p> <p>Divergences are one of <em>three</em> standard MCMC diagnostics. The other two are <strong>R-hat</strong>, which compares variance between chains to variance within them, and <strong>effective sample size</strong>. I was running a single chain — which makes R-hat, a between-chain statistic, impossible to compute at all. I had been reporting the diagnostic that happened to be available.</p> <p>Adding three chains:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>R-hat 1.93     ESS 3     (thresholds: 1.01 and 400)
+</code></pre></div></div> <p>The intervals I’d published came from a posterior the sampler had never explored.</p> <p>Two causes. The first was a <strong>non-identified model</strong>: it had both a level shock and observation noise, and both explain month-to-month variation, so the data can’t separate them. Chains settled at <code class="language-plaintext highlighter-rouge">sigma_obs</code> values spanning 0.012 to 0.025 — a 2× spread in the parameter that sets the width of every interval. Dropping the redundant level shock fixed it.</p> <p>The second was my own tuning:</p> <table> <thead> <tr> <th><code class="language-plaintext highlighter-rouge">target_accept</code></th> <th>divergences</th> <th>R-hat</th> <th>ESS</th> </tr> </thead> <tbody> <tr> <td>0.80</td> <td>85–142</td> <td>1.010–1.028</td> <td>141–551</td> </tr> <tr> <td>0.90</td> <td>32–189</td> <td>1.007–1.037</td> <td>121–387</td> </tr> <tr> <td>0.95</td> <td>9–87</td> <td>1.006–1.069</td> <td>85–452</td> </tr> <tr> <td><strong>0.99</strong></td> <td><strong>0–38</strong></td> <td><strong>999–1804</strong></td> <td><strong>2</strong></td> </tr> </tbody> </table> <p>At 0.99 divergences reach zero because the step size collapses and <strong>the chains stop moving</strong>. Nothing diverges because nothing is being integrated through. I had optimized the one diagnostic I was watching and destroyed the two I wasn’t — in a project whose entire argument is that you should measure the thing rather than assert it.</p> <p>There’s a related one. My priors carried a comment claiming they were “weakly informative.” McElreath is blunt about this: <em>“To figure out what this prior implies, we have to simulate the prior predictive distribution. There is no other reliable way to understand.”</em> So I simulated. <code class="language-plaintext highlighter-rouge">trend0 ~ Normal(0, 0.10)</code> — a 10% log-slope per month — implied a 90% band on <strong>annual</strong> growth of 0.16× to 6.4×, with draws reaching 127×. A prior that says a cost center might grow 127-fold in a year is driving the answer, whatever you call it.</p> <p>With the model and the sampler fixed, I re-ran the evaluation. Here is where it actually stands:</p> <table> <thead> <tr> <th>series</th> <th>coverage</th> <th>rel. width</th> <th>beats naive?</th> <th>R-hat</th> <th>ESS</th> </tr> </thead> <tbody> <tr> <td><code class="language-plaintext highlighter-rouge">Content / Original Productions</code></td> <td>83%</td> <td>0.20</td> <td>no</td> <td>1.008</td> <td>521</td> </tr> <tr> <td> <code class="language-plaintext highlighter-rouge">Marketing / Brand &amp; Media</code> ⚠</td> <td>92%</td> <td>0.42</td> <td>no</td> <td>1.081</td> <td>54</td> </tr> <tr> <td> <code class="language-plaintext highlighter-rouge">G&amp;A / Facilities</code> ⚠</td> <td>78%</td> <td>0.44</td> <td>no</td> <td>1.020</td> <td>272</td> </tr> <tr> <td> <code class="language-plaintext highlighter-rouge">T&amp;P / CDN &amp; Delivery</code> ⚠</td> <td>86%</td> <td>0.21</td> <td><strong>yes</strong></td> <td>1.358</td> <td>10</td> </tr> <tr> <td> <code class="language-plaintext highlighter-rouge">T&amp;P / Cloud Infrastructure</code> ⚠</td> <td>92%</td> <td>0.22</td> <td><strong>yes</strong></td> <td><strong>1.991</strong></td> <td><strong>3</strong></td> </tr> </tbody> </table> <p><strong>Eight of the nine fits still fail their convergence thresholds.</strong> The full-data fits mostly converge; the <em>backtest</em> fits often don’t, because rolling origin trains on 42 to 66 months instead of 78, and a shorter series identifies the trend and noise scales less well.</p> <p>Which produces a genuinely awkward result. Two of the three series that beat the naive benchmark are the two worst-converged rows in the table. The one fit that cleanly converged loses to it.</p> <p>So the honest summary of my uncertainty layer is: <strong>it does not yet work well enough to quote.</strong> I could have picked the three winning rows and written a paragraph about posterior-predictive intervals beating a seasonal-naive benchmark. The diagnostics I’d just finished adding say those particular rows are the least trustworthy ones I have.</p> <p>What does survive is the diagnosis, because it shows up in converged and unconverged rows alike: Marketing is <em>over</em>-covered — above nominal — <strong>while losing to the benchmark</strong>. The band is wide, not well-placed. Ranked on coverage alone it would be among the best rows here. That’s McElreath’s forecaster who predicts a 40% chance of rain every single day: perfectly calibrated, perfectly useless. It’s exactly why coverage is never reported alone, and why the benchmark isn’t optional.</p> <hr> <h2 id="what-id-take-from-this">What I’d take from this</h2> <p><strong>Write identities as code, not as comments.</strong> Every one of these bugs was in territory a comment already claimed was fine. The comment can’t fail. The assertion can.</p> <p><strong>Make them blocking.</strong> A warning in a log is a warning nobody reads. The moment a failing check stops the run, you find out immediately — and you find out in the one place that matters, on real data, rather than on whatever a fixture happened to contain.</p> <p><strong>Distrust the plausible number.</strong> Every serious defect here produced output that looked correct. None raised. The <code class="language-plaintext highlighter-rouge">NaN</code>-skipping default in pandas is a reasonable design decision that happens to be catastrophic in accounting code, because in accounting a missing input isn’t zero — it’s unknown, and those are different.</p> <p><strong>Test the validators.</strong> Half the value of the control layer came from writing tests that corrupt the data and assert the control catches it. That’s where I learned my groundedness regex had been checking nothing at all.</p> <p><strong>Report the number that makes you look worse.</strong> The honest MASE is 0.936, not 0.632. And the honest state of the interval layer is “eight of nine fits don’t converge,” not “beats the benchmark on three of nine.” A metric without its benchmark — and an average without its distribution — isn’t a result. It’s a marketing claim with a decimal point.</p> <p><strong>The diagnostics you add last are the ones that indict the work you were proudest of.</strong> I added R-hat and ESS at the very end, as housekeeping, expecting to confirm what I already believed. They invalidated a published table and a tuning decision I’d written up as a success. That is what a good diagnostic is <em>for</em>, and it’s an argument for adding them before you need them rather than after you’ve drawn conclusions.</p> <hr> <p><em>Built on Netflix’s public SEC filings (CIK 0001065280), Odoo 18 Community with OCA modules, NumPyro, DuckDB and Streamlit. All actuals are filed figures carrying accession numbers; cost-center detail is modeled and labelled as such. Nothing here is investment advice or an analysis of Netflix — the filings are a well-tagged public dataset, and that is the only reason they were chosen.</em></p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/the-global-refugee-crisis-9ca91bc01943?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">The Global Refugee Crisis</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/reflections-on-2024-struggles-wins-and-lessons-c3d65c128ae1?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Reflections on 2024: Struggles, Wins, and Lessons</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/dont-get-a-rescue-dog-4fb1968ec530?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Don’t get a (rescue) dog</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/sentiment-analysis-with-tf-idf-and-logistic-regression-f4cd86f359a1?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Sentiment Analysis with TF-IDF and Logistic Regression</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/the-unseen-crisis-why-i-finally-read-how-to-know-a-person-5d845aacf052?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">The Unseen Crisis: Why I Finally Read ‘How to Know a Person’</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/humour-seriously-a-reflection-essay-30d6ad23dfc8?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Humour Seriously — A Reflection Essay</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/lightsail-tictactoe-dns/">I put a tic-tac-toe game on my own domain to finally understand DNS</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/fantasy-draft-co-pilot-everything-it-got-wrong/">I built a fantasy draft co-pilot, and the interesting part was everything it got wrong</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/textbook-to-knowledge-base/">I Turned Six Years of Data Science Textbooks Into a Knowledge Base My AI Can Reason Over</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/math-is-fun/">Applied Math for Engineers: Deconstructing the FFT and CNNs</a> </li> </ul> <div id="giscus_thread" style="max-width: 930px; margin: 0 auto;"> <br> <script>
+    (function setupGiscus() {
+      function determineGiscusTheme() {
+        var theme = localStorage.getItem("theme") || document.documentElement.getAttribute("data-theme") || "system";
+if (theme === "dark") return "dark";
+if (theme === "light") return "light";
+var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+return prefersDark ? "dark" : "light";
+
+      }
+
+      var giscusTheme = determineGiscusTheme();
+      var attrs = {
+        src: "https://giscus.app/client.js",
+        "data-repo": "godot107/godot107.github.io",
+        "data-repo-id": "R_kgDONUwEbg",
+        "data-category": "Announcements",
+        "data-category-id": "DIC_kwDONUwEbs4C_TYq",
+        "data-mapping": "title",
+        "data-strict": "1",
+        "data-reactions-enabled": "1",
+        "data-emit-metadata": "0",
+        "data-input-position": "bottom",
+        "data-theme": giscusTheme,
+        "data-lang": "en",
+        crossorigin: "anonymous",
+        async: true
+      };
+
+      var giscusScript = document.createElement("script");
+      Object.entries(attrs).forEach(function(entry) { giscusScript.setAttribute(entry[0], entry[1]); });
+      var host = document.getElementById("giscus_thread");
+      if (host) host.appendChild(giscusScript);
+    })();
+  </script> <noscript> Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments powered by giscus.</a> </noscript> </div> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Willie Man. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3H4T9PEFL"></script> <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-X3H4T9PEFL");
+</script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-blog",
+          title: "blog",
+          description: "Essays and project write-ups on machine learning, AI engineering, data science, and the things I learn building them.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-projects",
+          title: "projects",
+          description: "Projects related to Machine Learning, AI, and Data Sciences (plus fun stuff)",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-repositories",
+          title: "repositories",
+          description: "Repositories",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/repositories/";
+          },
+        },{id: "nav-cv",
+          title: "cv",
+          description: "Curriculum vitae for Willie Man — experience, education, projects, and skills across data analysis, data engineering, data quality, and machine learning.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "Books Reviews and Essays",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "dropdown-books",
+              title: "books",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/books/";
+              },
+            },{id: "dropdown-projects",
+              title: "projects",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/projects/";
+              },
+            },{id: "dropdown-blog",
+              title: "blog",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/blog/";
+              },
+            },{id: "post-i-let-the-controls-fail-and-they-told-me-things-i-didn-39-t-know",
+        
+          title: "I let the controls fail, and they told me things I didn&#39;t know...",
+        
+        description: "Building an auditable FP&amp;A forecasting pipeline on real SEC filings — and what happens when you make the integrity checks blocking.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/auditable-fpa-forecast/";
+          
+        },
+      },{id: "post-i-put-a-tic-tac-toe-game-on-my-own-domain-to-finally-understand-dns",
+        
+          title: "I put a tic-tac-toe game on my own domain to finally understand DNS...",
+        
+        description: "A deliberately tiny Flask app deployed to AWS Lightsail behind my own subdomain with automatic HTTPS, and the DNS, certificate and teardown lessons that turned out to be the real project.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/lightsail-tictactoe-dns/";
+          
+        },
+      },{id: "post-i-built-a-fantasy-draft-co-pilot-and-the-interesting-part-was-everything-it-got-wrong",
+        
+          title: "I built a fantasy draft co-pilot, and the interesting part was everything it...",
+        
+        description: "A read-only Sleeper draft assistant built on VONA and opponent survival modelling — and the four times its most authoritative numbers turned out to be measuring something else.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/fantasy-draft-co-pilot-everything-it-got-wrong/";
+          
+        },
+      },{id: "post-i-turned-six-years-of-data-science-textbooks-into-a-knowledge-base-my-ai-can-reason-over",
+        
+          title: "I Turned Six Years of Data Science Textbooks Into a Knowledge Base My...",
+        
+        description: "Building a private, local RAG system over my own library — and why I think almost everyone with a bookshelf of PDFs should do the same.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/textbook-to-knowledge-base/";
+          
+        },
+      },{id: "post-applied-math-for-engineers-deconstructing-the-fft-and-cnns",
+        
+          title: "Applied Math for Engineers: Deconstructing the FFT and CNNs",
+        
+        description: "A deep dive into the math behind CNNs and the FFT using the AGY CLI.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/math-is-fun/";
+          
+        },
+      },{id: "post-teaching-a-neural-network-to-hear-a-failing-bearing",
+        
+          title: "Teaching a Neural Network to Hear a Failing Bearing",
+        
+        description: "Building an end-to-end predictive-maintenance pipeline on the CWRU bearing dataset — and why hitting 100% accuracy made me trust it less.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/teaching-a-neural-network-to-hear-a-failing-bearing/";
+          
+        },
+      },{id: "post-humour-seriously-a-reflection-essay",
+        
+          title: 'Humour Seriously — A Reflection Essay <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/humour-seriously-a-reflection-essay-30d6ad23dfc8?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-the-unseen-crisis-why-i-finally-read-how-to-know-a-person",
+        
+          title: 'The Unseen Crisis: Why I Finally Read ‘How to Know a Person’ <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/the-unseen-crisis-why-i-finally-read-how-to-know-a-person-5d845aacf052?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-sentiment-analysis-with-tf-idf-and-logistic-regression",
+        
+          title: 'Sentiment Analysis with TF-IDF and Logistic Regression <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/sentiment-analysis-with-tf-idf-and-logistic-regression-f4cd86f359a1?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-don-t-get-a-rescue-dog",
+        
+          title: 'Don’t get a (rescue) dog <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/dont-get-a-rescue-dog-4fb1968ec530?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-reflections-on-2024-struggles-wins-and-lessons",
+        
+          title: 'Reflections on 2024: Struggles, Wins, and Lessons <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/reflections-on-2024-struggles-wins-and-lessons-c3d65c128ae1?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-the-global-refugee-crisis",
+        
+          title: 'The Global Refugee Crisis <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/the-global-refugee-crisis-9ca91bc01943?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-socialgood-hackathon-roundup",
+        
+          title: "SocialGood Hackathon Roundup",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2018/Social_Good_Hackathon/";
+          
+        },
+      },{id: "post-2016-in-review",
+        
+          title: "2016 in Review",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Life_Group/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-halcyon-end",
+        
+          title: "Community Summer Missions Project (CSMP) - Halcyon End",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Halcyon_End/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-excel-enrich-in-austin",
+        
+          title: "Community Summer Missions Project (CSMP) - Excel Enrich in Austin",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Excel_Austin/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-life-group",
+        
+          title: "Community Summer Missions Project (CSMP) - Life Group",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/2016_in_review/";
+          
+        },
+      },{id: "post-shifts-in-healthcare-and-information-technology-align-to-support-industry-transformation",
+        
+          title: "Shifts in Healthcare and Information Technology Align to Support Industry Transformation",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Shifts_in_Healthcare_and_IT/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-enter-intensive-and-field-work",
+        
+          title: "Community Summer Missions Project (CSMP) - Enter Intensive and Field Work",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_enter_field_work/";
+          
+        },
+      },{id: "post-enter-missions-csmp-2016",
+        
+          title: "Enter Missions - CSMP 2016",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Enter_Missions_csmp_2016/";
+          
+        },
+      },{id: "post-nba-graphs-2015-playoffs-with-r-studio",
+        
+          title: "NBA Graphs - 2015 Playoffs with R studio",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/NBA_graphs_2015/";
+          
+        },
+      },{id: "post-design-and-testing-of-an-ehr-integrated-busulfan-pharmacokinetic-decision-support-tool-for-the-point-of-care-clinician",
+        
+          title: "Design and Testing of an EHR-Integrated, Busulfan Pharmacokinetic Decision Support Tool for the...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Design-and-Testing-of-an-EHR-Integrated/";
+          
+        },
+      },{id: "books-never-enough",
+          title: 'Never Enough',
+          description: "Through a penetrating look at Never Enough, this review examines how America&#39;s obsession with academic achievement shapes our children&#39;s futures and sense of self-worth. Drawing from personal experience and cross-cultural insights, it challenges parents to question whether our pursuit of excellence has gone too far.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/never_enough_reflection_essay/";
+            },},{id: "books-practicing-the-way-book-reflection",
+          title: 'Practicing the Way - Book Reflection',
+          description: "The title, Practicing the Way, draws from the concept of apprenticeship. Jesus, known not only as the Son of God but also as a Rabbi, called ordinary people—fishermen, tax collectors, and zealots—to follow Him as disciples. In Jesus’ time, disciples were typically well-versed in the Torah and aspired to become like their rabbi in every way. Comer invites us to imagine the same goal today - to become like Jesus through the empowerment of the Holy Spirit, bringing heaven to earth in both ordinary and extraordinary ways.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/practicing_the_way_reflection_essay/";
+            },},{id: "books-the-unseen-crisis-why-i-finally-read-39-how-to-know-a-person-39",
+          title: 'The Unseen Crisis - Why I Finally Read &amp;#39;How to Know a Person&amp;#39;...',
+          description: "The title, Practicing the Way, draws from the concept of apprenticeship. Jesus, known not only as the Son of God but also as a Rabbi, called ordinary people—fishermen, tax collectors, and zealots—to follow Him as disciples. In Jesus’ time, disciples were typically well-versed in the Torah and aspired to become like their rabbi in every way. Comer invites us to imagine the same goal today - to become like Jesus through the empowerment of the Holy Spirit, bringing heaven to earth in both ordinary and extraordinary ways.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/how_to_know_a_person_reflection_essay/";
+            },},{id: "books-humour-seriously-a-reflection-essay",
+          title: 'Humour Seriously - A Reflection Essay',
+          description: "This reflection explores the intellectual depth of comedy, the balance between levity and gravity, and the profound benefits of laughter in personal and professional life, inspired by David Brooks&#39; insights.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/humor_seriously_reflection_essay/";
+            },},{id: "books-never-enough-part-2-parenting-with-grace",
+          title: 'Never Enough Part 2 - Parenting with Grace',
+          description: "Through a penetrating look at Never Enough, this review examines how America&#39;s obsession with academic achievement shapes our children&#39;s futures and sense of self-worth. Drawing from personal experience and cross-cultural insights, it challenges parents to question whether our pursuit of excellence has gone too far.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/never_enough_reflection_essay_part2/";
+            },},{id: "news-new-website-launched",
+          title: 'New Website Launched!',
+          description: "",
+          section: "News",},{id: "news-welcome",
+          title: 'Welcome',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2/";
+            },},{id: "news-tune-in-for-more-content",
+          title: '🚧 Tune in for more content 🚧',
+          description: "",
+          section: "News",},{id: "projects-analyze-the-characteristics-of-highly-accessible-population-centers-in-the-united-states",
+          title: 'Analyze the characteristics of highly accessible population centers in the United States',
+          description: "This project seeks to improve accessibility to jobs, entertainment, and shopping",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/analyze_the_characteristics_of_highly_accessible_population_centers_in_the_United_States/";
+            },},{id: "projects-apple-cultivars-and-climate-change-in-the-eastern-mountain-region-of-the-united-states",
+          title: 'Apple cultivars and climate change in the Eastern Mountain region of the United...',
+          description: "Extensive research exists regarding the effects of climate change on agriculture. However, there is often a gap between researchers and decision makers, particularly in industries with limited resources. The apple industry is one such example. Though apples are the most consumed fruit in the United States, apple orchards occupy less than 1% of the 880 million acres of United States farmland (Industry at a Glance, n.d.; National Agricultural Statistics Service, 2024).",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/apple_cultivars_climate_change/";
+            },},{id: "projects-auditable-fp-amp-a-forecasting-on-filed-sec-data",
+          title: 'Auditable FP&amp;amp;A forecasting on filed SEC data',
+          description: "A rolling FP&amp;A forecast built from Netflix&#39;s SEC filings, with 23 in-pipeline controls — 21 of them blocking — an ERP round trip that reconciles to $0.00, and an LLM that writes the commentary but never the number.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/auditable_fpa_forecast/";
+            },},{id: "projects-head-in-the-cloud-technology",
+          title: 'Head in the Cloud (Technology)',
+          description: "My Journey in Learning the Cloud - AWS and Azure",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/cloud_learning_journey/";
+            },},{id: "projects-don-39-t-get-a-rescue-dog",
+          title: 'Don&amp;#39;t get a (rescue) dog',
+          description: "Unless you want to make an Impact.Cross-Post from Medium Blog",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ladybird_separation_anxiety_journey/";
+            },},{id: "projects-my-baking-journey",
+          title: 'My Baking Journey',
+          description: "Baking as a gesture of goodwill",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ladybirdbakingco_intro/";
+            },},{id: "projects-nba-daily-fantasy-sports-dfs-project-competing-for-pocket-cash",
+          title: 'NBA Daily Fantasy Sports (DFS) Project - Competing for Pocket Cash',
+          description: "Yahoo NBA Daily Fantasy Sports",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/nba_daily_fantasy_sports/";
+            },},{id: "projects-visualizing-information-retrieval-a-tf-idf-approach-with-tilebars",
+          title: 'Visualizing Information Retrieval - A TF-IDF Approach with TileBars',
+          description: "This article explores a TF-IDF-based visual query system using TileBars to retrieve and rank research documents efficiently. By leveraging metadata and the first three paragraphs of each document, it combines preprocessing, normalization, and intuitive visualizations to present relevant results. Future improvements, including lemmatization and sparse matrices, are also discussed.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/tf-idf_retrieval/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%77%69%6C%6C%69%65%6D%61%69%7A%65%38%32%38@%67%6D%61%69%6C.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/godot107", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/willieman828", "_blank");
+        },
+      },{
+        id: 'social-x',
+        title: 'X',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://twitter.com/WillieMaize828", "_blank");
+        },
+      },{
+        id: 'social-mastodon',
+        title: 'Mastodon',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://mastodon.social/@williemaize", "_blank");
+        },
+      },{
+        id: 'social-bluesky',
+        title: 'Bluesky',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://bsky.app/profile/williemaize.bsky.social", "_blank");
+        },
+      },{
+        id: 'social-medium',
+        title: 'Medium',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://medium.com/@manwill", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>

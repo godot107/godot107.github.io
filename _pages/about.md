@@ -44,7 +44,7 @@ Welcome to my creation space where I share my journey in data, AI, and machine l
     <!-- Third Image with Link -->
     <div class="carousel-slide" style="position: absolute; width: 100%; height: 100%; transform: translateX(200%);">
       <a href="https://www.instagram.com/ladybirdbakingcompany/" target="_blank" style="display: block; height: 100%;">
-        <img class="carousel-img" src="{{ '/assets/img/carousel/LB_thumbnail.jpg' | relative_url }}" alt="Lady Bird Baking Co Thumbnail" style="width: 100%; height: 100%; object-fit: cover;">
+        <img class="carousel-img" src="{{ '/assets/img/carousel/ladybird_baking.jpg' | relative_url }}" alt="A cooling rack of everything bagels, with Lady Bird watching from the kitchen floor" style="width: 100%; height: 100%; object-fit: cover;">
         <div class="banner">
           Lady Bird Baking Company
         </div>

@@ -54,6 +54,9 @@ pagination:
         {% endunless %}
       {% endfor %}
     </ul>
+    <p class="tag-index-link">
+      <a href="{{ '/blog/tags/' | relative_url }}">browse all topics &rarr;</a>
+    </p>
   </div>
   {% endif %}
 

@@ -3,8 +3,8 @@ layout: post
 title: SocialGood Hackathon Roundup
 date: 2018-08-31 01:40:16
 description:
-tags:
-categories:
+tags: machine-learning
+categories: project
 thumbnail: assets/img/social_good_hackathon_team.png
 ---
 

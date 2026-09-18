@@ -79,18 +79,22 @@ layout: post
 title: "<Exact title>"          # quote if it contains a colon
 date: YYYY-MM-DD 12:00:00-0500
 description: <one-line dek>
-tags: <space-separated lowercase>   # recent convention; reuse existing tags
-categories: <project|tutorial|...>
+tags: <1-3, space-separated, from the closed list below>
+categories: <exactly one of project|tutorial|essay|slice-of-life>
 giscus_comments: true
 related_posts: true
 thumbnail: assets/img/<slug>/<hero>.png
 ---
 ```
 
-- **Reuse the existing taxonomy** rather than inventing tags. In use today:
-  tags — `machine-learning`, `signal-processing`, `predictive-maintenance`,
-  `deep-learning`, `math`, `datascience`, `healthcare`, `community`, `faith`;
-  categories — `project`, `tutorial`, `slice-of-life`.
+- **The taxonomy is closed — never invent a tag.** `docs/TAXONOMY.md` is
+  authoritative; read it before setting front matter.
+  - tags: `faith`, `machine-learning`, `data-science`, `healthcare`, `cloud`
+  - categories (pick one): `project`, `tutorial`, `essay`, `slice-of-life`
+  - A new tag needs two posts that would carry it. If nothing fits, use the
+    nearest tag and say so in the summary rather than adding one.
+  - Adding or retiring a tag means updating three places together:
+    `docs/TAXONOMY.md`, `_config.yml: display_tags`, and this list.
 - **Thumbnail:** pick the most representative figure (or generate one with
   matplotlib for image-less posts, as done for the healthcare posts).
 - **Cross-link** companion posts with `{% post_url YYYY-MM-DD-other-slug %}` and

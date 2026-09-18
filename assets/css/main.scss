@@ -70,6 +70,58 @@
 }
 
 /*
+ * Tag index (_pages/tags.md) and the link to it from _pages/blog.md.
+ *
+ * The page is one section per tag, so it needs to stay scannable as the
+ * vocabulary grows: a jump strip at the top, then a heading per tag carrying
+ * its post count, then a compact list with the dates set back from the titles.
+ */
+.tag-index-jump {
+  margin-bottom: 2rem;
+  line-height: 2;
+
+  a {
+    margin-right: 0.9rem;
+    white-space: nowrap;
+  }
+
+  i {
+    margin-right: 0.15rem;
+  }
+}
+
+.tag-index-heading {
+  margin-top: 2rem;
+
+  .tag-index-count {
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: var(--global-text-color-light, #828282);
+  }
+}
+
+.tag-index-posts {
+  padding-left: 1.1rem;
+
+  li {
+    margin-bottom: 0.35rem;
+  }
+
+  .tag-index-date {
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--global-text-color-light, #828282);
+    white-space: nowrap;
+  }
+}
+
+.tag-index-link {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+}
+
+/*
  * Home page section headings (_pages/about.md).
  *
  * The profile photo is `float: right`, and #carousel establishes a block

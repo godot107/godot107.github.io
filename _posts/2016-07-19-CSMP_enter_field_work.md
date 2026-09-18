@@ -3,7 +3,7 @@ layout: post
 title: Community Summer Missions Project (CSMP) - Enter Intensive and Field Work
 date: 2016-06-23 16:40:16
 description: Community
-tags: [community, faith]
+tags: faith
 categories: slice-of-life
 thumbnail: assets/img/csmp_field_work_1.jpg
 ---

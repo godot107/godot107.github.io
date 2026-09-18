@@ -3,7 +3,7 @@ layout: post
 title: "I Turned Six Years of Data Science Textbooks Into a Knowledge Base My AI Can Reason Over"
 date: 2026-06-18 12:00:00-0500
 description: Building a private, local RAG system over my own library — and why I think almost everyone with a bookshelf of PDFs should do the same.
-tags: machine-learning datascience deep-learning
+tags: machine-learning
 categories: project
 giscus_comments: true
 related_posts: true

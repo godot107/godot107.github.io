@@ -3,7 +3,7 @@ layout: post
 title: Enter Missions - CSMP 2016
 date: 2016-06-05 13:40:16
 description: Community
-tags: [community, faith]
+tags: faith
 categories: slice-of-life
 thumbnail: assets/img/csmp_prayer_card.jpeg
 ---

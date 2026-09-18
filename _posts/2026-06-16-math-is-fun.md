@@ -3,7 +3,7 @@ layout: post
 title: "Applied Math for Engineers: Deconstructing the FFT and CNNs"
 date: 2026-06-16 12:00:00-0500
 description: A deep dive into the math behind CNNs and the FFT using the AGY CLI.
-tags: machine-learning math signal-processing
+tags: machine-learning
 categories: tutorial
 giscus_comments: true
 related_posts: true

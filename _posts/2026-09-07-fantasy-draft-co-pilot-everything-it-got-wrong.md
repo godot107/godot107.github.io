@@ -3,7 +3,7 @@ layout: post
 title: "I built a fantasy draft co-pilot, and the interesting part was everything it got wrong"
 date: 2026-09-07 12:00:00-0500
 description: A read-only Sleeper draft assistant built on VONA and opponent survival modelling — and the four times its most authoritative numbers turned out to be measuring something else.
-tags: datascience sports-analytics
+tags: data-science
 categories: project
 giscus_comments: true
 related_posts: true

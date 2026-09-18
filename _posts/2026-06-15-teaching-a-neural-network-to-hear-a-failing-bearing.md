@@ -3,7 +3,7 @@ layout: post
 title: "Teaching a Neural Network to Hear a Failing Bearing"
 date: 2026-06-15 12:00:00-0500
 description: Building an end-to-end predictive-maintenance pipeline on the CWRU bearing dataset — and why hitting 100% accuracy made me trust it less.
-tags: machine-learning signal-processing predictive-maintenance deep-learning
+tags: machine-learning
 categories: project
 giscus_comments: true
 related_posts: true

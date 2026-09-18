@@ -3,7 +3,7 @@ layout: post
 title: Community Summer Missions Project (CSMP) - Excel Enrich in Austin
 date: 2016-07-27 16:40:16
 description: Community
-tags: [community, faith]
+tags: faith
 categories: slice-of-life
 thumbnail: assets/img/csmp_excel_austin.jpg
 ---

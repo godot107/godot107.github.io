@@ -3,7 +3,7 @@ layout: post
 title: 2016 in Review
 date: 2016-12-31 16:40:16
 description: Community
-tags: [community, faith]
+tags: faith
 categories: slice-of-life
 thumbnail: assets/img/2016_arise.png
 ---

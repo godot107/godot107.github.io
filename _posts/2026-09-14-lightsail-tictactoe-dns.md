@@ -3,7 +3,7 @@ layout: post
 title: "I put a tic-tac-toe game on my own domain to finally understand DNS"
 date: 2026-09-14 12:00:00-0500
 description: A deliberately tiny Flask app deployed to AWS Lightsail behind my own subdomain with automatic HTTPS, and the DNS, certificate and teardown lessons that turned out to be the real project.
-tags: aws dns devops
+tags: cloud
 categories: project
 giscus_comments: true
 related_posts: true

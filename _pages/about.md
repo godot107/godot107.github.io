@@ -21,13 +21,13 @@ Welcome to my creation space where I share my journey in data, AI, and machine l
 
 <h2>Featured</h2>
 
-<div id="carousel" style="position: relative; width: 300px; height: 200px; overflow: hidden;">
+<div id="carousel">
   <div class="carousel-container" style="display: flex; position: absolute; transition: transform 0.5s ease; height: 100%; width: 100%;">
     <!-- First Image with Link -->
     <div class="carousel-slide" style="position: absolute; width: 100%; height: 100%;">
       <a href="{{ '/projects/apple_cultivars_climate_change/' | relative_url }}" target="_blank" style="display: block; height: 100%;">
         <img class="carousel-img" src="{{ '/assets/img/apple_cultivars_thumbnail.png' | relative_url }}" alt="Apple Cultirvars" style="width: 100%; height: 100%; object-fit: cover;">
-        <div class="banner" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.7); color: white; text-align: center; padding: 5px;">
+        <div class="banner">
           Apple Cultivars and Climate Change
         </div>
       </a>
@@ -36,7 +36,7 @@ Welcome to my creation space where I share my journey in data, AI, and machine l
     <div class="carousel-slide" style="position: absolute; width: 100%; height: 100%; transform: translateX(100%);">
       <a href="https://medium.com/@manwill/dogs-vs-cats-audio-classification-56175ce58429" target="_blank" style="display: block; height: 100%;">
         <img class="carousel-img" src="https://miro.medium.com/v2/resize:fit:720/format:webp/0*waJB0GOUm-sjj_C8" alt="Dogs vs Cats Audio Classification" style="width: 100%; height: 100%; object-fit: cover;">
-        <div class="banner" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.7); color: white; text-align: center; padding: 5px;">
+        <div class="banner">
           Dogs vs. Cats Audio Classification
         </div>
       </a>
@@ -45,7 +45,7 @@ Welcome to my creation space where I share my journey in data, AI, and machine l
     <div class="carousel-slide" style="position: absolute; width: 100%; height: 100%; transform: translateX(200%);">
       <a href="https://www.instagram.com/ladybirdbakingcompany/" target="_blank" style="display: block; height: 100%;">
         <img class="carousel-img" src="https://raw.githubusercontent.com/godot107/godot107.github.io/refs/heads/main/assets/img/carousel/LB_thumbnail.jpg" alt="Lady Bird Baking Co Thumbnail" style="width: 100%; height: 100%; object-fit: cover;">
-        <div class="banner" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.7); color: white; text-align: center; padding: 5px;">
+        <div class="banner">
           Lady Bird Baking Company
         </div>
       </a>
@@ -54,8 +54,8 @@ Welcome to my creation space where I share my journey in data, AI, and machine l
 
   <!-- Navigation Buttons -->
 
-<button class="carousel-nav left" onclick="navigateCarousel(-1)" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer; z-index: 10;">←</button>
-<button class="carousel-nav right" onclick="navigateCarousel(1)" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px; cursor: pointer; z-index: 10;">→</button>
+<button class="carousel-nav left" onclick="navigateCarousel(-1)" aria-label="Previous slide">←</button>
+<button class="carousel-nav right" onclick="navigateCarousel(1)" aria-label="Next slide">→</button>
 
 </div>
 
@@ -102,6 +102,36 @@ document.getElementById('carousel').addEventListener('mouseleave', resumeCarouse
 updateSlides(); // Set initial positions
 startCarousel();
 </script>
+
+<h2>Latest</h2>
+
+{% comment %}
+Auto-updating companion to the hand-picked carousel above: newest blog post,
+featured project, newest book review. Adding content is enough to update it —
+the only knob is `featured: true` in a project's front matter, which pins that
+project to the middle card. Without the flag the lowest `importance` wins.
+{% endcomment %}
+
+{%- assign latest_post = site.posts | where_exp: "p", "p.thumbnail" | first -%}
+{%- assign flagged_projects = site.projects | where: "featured", true -%}
+{%- if flagged_projects.size > 0 -%}
+{%- assign latest_project = flagged_projects | first -%}
+{%- else -%}
+{%- assign latest_project = site.projects | sort: "importance" | first -%}
+{%- endif -%}
+{%- assign latest_book = site.books | sort: "date" | last -%}
+
+<div class="row row-cols-1 row-cols-md-3 featured-latest">
+  {% if latest_post %}
+    {% include featured_card.liquid item=latest_post kicker="blog" %}
+  {% endif %}
+  {% if latest_project %}
+    {% include featured_card.liquid item=latest_project kicker="project" %}
+  {% endif %}
+  {% if latest_book %}
+    {% include featured_card.liquid item=latest_book kicker="book" %}
+  {% endif %}
+</div>
 
 <!---
 Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.

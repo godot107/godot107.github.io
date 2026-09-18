@@ -68,3 +68,111 @@
   right: 0;
   left: 0;
 }
+
+/*
+ * Home page carousel (_pages/about.md).
+ *
+ * The box and its chrome live here rather than in inline styles, so the
+ * carousel spans the same width as the "Latest" card row beneath it and stays
+ * responsive — an inline `width: 300px` cannot be overridden from a stylesheet.
+ * Colours and placement are carried over unchanged from those inline styles;
+ * only the scale changes, since 5px of banner padding reads as nothing once the
+ * slide is full-width. The slide mechanics stay inline in about.md because the
+ * carousel script writes `transform` onto those elements directly.
+ */
+#carousel {
+  position: relative;
+  width: 100%;
+  /* An explicit height, not an aspect-ratio: every slide, link and image inside
+     sizes itself with `height: 100%`, and those percentages need a definite
+     height to resolve against. Caps at 24rem on desktop and floors at 12rem on
+     a phone, close to the carousel's original 200px. */
+  height: clamp(12rem, 45vw, 24rem);
+  overflow: hidden;
+  border-radius: 6px;
+
+  .banner {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0.6rem 1rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    text-align: center;
+  }
+
+  .carousel-nav {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    transform: translateY(-50%);
+    padding: 0.5rem 0.8rem;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .carousel-nav.left {
+    left: 10px;
+  }
+
+  .carousel-nav.right {
+    right: 10px;
+  }
+}
+
+/*
+ * Home page "Latest" row (_pages/about.md → _includes/featured_card.liquid).
+ *
+ * The three cards draw images from different places — post thumbnails are wide
+ * screenshots, book covers are tall portraits, some are hotlinked from Amazon
+ * or Medium at whatever size those CDNs serve. Without a fixed box the row ends
+ * up ragged and the card bodies never line up, so crop every thumbnail to one
+ * landscape aspect instead.
+ */
+.featured-latest {
+  .card-img-top {
+    width: 100%;
+    height: 11rem;
+    object-fit: cover;
+  }
+
+  /* figure.liquid wraps the <img> when it emits a responsive <picture>, so the
+     class can land on the wrapper rather than the image itself. */
+  .card-img-top img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .card-title {
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+
+  .card-text {
+    font-size: 0.85rem;
+  }
+
+  .featured-card-meta {
+    margin-bottom: 0.3rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--global-text-color-light, #828282);
+  }
+
+  /* Whole card is one link; keep the theme's body text colour inside it. */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}

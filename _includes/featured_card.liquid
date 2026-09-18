@@ -1,0 +1,57 @@
+{% comment %}
+  One card in the home page's "Latest" row (see _pages/about.md).
+
+  Takes a document from any of the three collections and normalises the
+  differences between them: posts carry their image in `thumbnail` while
+  projects and books use `img`, and all three may use `redirect` to point at an
+  off-site canonical version. Markup mirrors _includes/books.liquid so the card
+  inherits the theme's card styling rather than inventing its own.
+
+  Params:
+    item   (required) a post, project or book document
+    kicker (required) small label above the title, e.g. "blog"
+{% endcomment %}
+
+{%- assign card_img = include.item.thumbnail | default: include.item.img -%}
+{%- assign card_external = false -%}
+{%- if include.item.redirect contains '://' -%}
+  {%- assign card_url = include.item.redirect -%}
+  {%- assign card_external = true -%}
+{%- elsif include.item.redirect -%}
+  {%- assign card_url = include.item.redirect | relative_url -%}
+{%- else -%}
+  {%- assign card_url = include.item.url | relative_url -%}
+{%- endif -%}
+
+<div class="col">
+  <a
+    href="{{ card_url }}"
+    {% if card_external %}
+      target="_blank" rel="noopener noreferrer"
+    {% endif %}
+  >
+    <div class="card h-100 hoverable">
+      {% if card_img %}
+        {%
+          include figure.liquid
+          loading="eager"
+          path=card_img
+          sizes="(min-width: 768px) 290px, 90vw"
+          alt=include.item.title
+          class="card-img-top"
+        %}
+      {% endif %}
+      <div class="card-body">
+        <p class="featured-card-meta">
+          {{ include.kicker }}
+          {%- if include.item.date %} &middot; {{ include.item.date | date: '%b %-d, %Y' }}{% endif -%}
+          {%- if card_external %} &middot; off-site{% endif -%}
+        </p>
+        <h3 class="card-title">{{ include.item.title }}</h3>
+        {% if include.item.description %}
+          <p class="card-text">{{ include.item.description | strip_html | truncate: 140 }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </a>
+</div>

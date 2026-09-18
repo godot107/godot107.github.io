@@ -70,6 +70,21 @@
 }
 
 /*
+ * Home page section headings (_pages/about.md).
+ *
+ * The profile photo is `float: right`, and #carousel establishes a block
+ * formatting context (via overflow: hidden), which may not overlap a float. At
+ * full width it no longer fits in the ~599px beside the photo, so it is pushed
+ * below it. The heading is an ordinary block, so it stayed up alongside the
+ * photo and ended up ~112px above the carousel it labels. Clearing the heading
+ * sends it down with its section, which puts that space after the intro
+ * paragraph instead, where it reads as a break between sections.
+ */
+.home-section-title {
+  clear: both;
+}
+
+/*
  * Home page carousel (_pages/about.md).
  *
  * The box and its chrome live here rather than in inline styles, so the

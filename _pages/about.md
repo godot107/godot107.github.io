@@ -19,7 +19,7 @@ social: true # includes social icons at the bottom of the page
 
 Welcome to my creation space where I share my journey in data, AI, and machine learning through blogs and projects, while also offering a glimpse into my life outside of work. Whether you're in the industry exploring my professional skills or someone curious about my hobbies—like baking, traveling, or stories about my dog—I hope you find something here that resonates. Thank you for taking the time to visit and learn more about me!
 
-<h2>Featured</h2>
+<h2 class="home-section-title">Featured</h2>
 
 <div id="carousel">
   <div class="carousel-container" style="display: flex; position: absolute; transition: transform 0.5s ease; height: 100%; width: 100%;">
@@ -103,7 +103,7 @@ updateSlides(); // Set initial positions
 startCarousel();
 </script>
 
-<h2>Latest</h2>
+<h2 class="home-section-title">Latest</h2>
 
 {% comment %}
 Auto-updating companion to the hand-picked carousel above: newest blog post,

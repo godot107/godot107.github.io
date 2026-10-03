@@ -2,7 +2,7 @@
 layout: post
 title: "A/B testing my own dashboard, and the ways it tried to lie to me"
 date: 2026-10-03 12:00:00-0500
-description: An end-to-end A/B test on a hiring-demand dashboard — and the six places it would have produced a confident, wrong answer.
+description: An end-to-end A/B test on a dashboard tracking post-pandemic US hiring demand — and the six places it would have produced a confident, wrong answer.
 tags: data-science
 categories: project
 giscus_comments: true
@@ -10,7 +10,7 @@ related_posts: true
 thumbnail: assets/img/ab-lab/experiment_page.png
 ---
 
-_An end-to-end A/B test on the Hiring Demand Monitor, a dashboard on Indeed Hiring Lab's public Job Postings Index. Work in progress: the method and the pipeline are done, and **no real-traffic result exists yet**. Source: [github.com/godot107/ab-lab](https://github.com/godot107/ab-lab)._
+_An end-to-end A/B test on the Hiring Demand Monitor, a dashboard I built on [Indeed Hiring Lab](https://www.hiringlab.org/)'s public Job Postings Index. Work in progress: the method and the pipeline are done, and **no real-traffic result exists yet**. Source: [github.com/godot107/ab-lab](https://github.com/godot107/ab-lab)._
 
 ---
 
@@ -22,6 +22,52 @@ So I built the whole thing on a dashboard I'd already made, end to end: assignme
 logging, a written pre-registration, the analysis, and a stakeholder brief. This post is
 mostly about the places where it would have produced a confident, wrong answer if I hadn't
 caught them first.
+
+---
+
+## Why a hiring dashboard
+
+I started with a question about the job market, not about A/B testing.
+
+The US unemployment rate is low by historical standards: 4.2% in the
+[September 2026 jobs report](https://www.bls.gov/news.release/empsit.nr0.htm). On that number
+alone, it's a good time to be looking for work. It doesn't always feel that way, though, and
+part of the reason is that unemployment and hiring measure different things. The unemployment
+rate counts people who are looking for a job. Job postings count employers who are looking for
+people. The two can move apart for a long time.
+
+[Indeed Hiring Lab](https://www.hiringlab.org/), Indeed's economic research team, publishes the
+second one openly: a daily
+[Job Postings Index](https://data.indeed.com/) for the US and other countries, broken out by
+occupational sector, set to 100 on February 1, 2020, and released on
+[GitHub](https://github.com/hiring-lab/job_postings_tracker) under CC BY 4.0. It's one of the
+best free views of labor demand there is, and nearly every number below comes from it.
+
+The post-pandemic shape is striking once you plot it:
+
+- **The drop.** US postings fell to about 62 by early May 2020, nearly 40% below the
+  pre-pandemic baseline.
+- **The boom.** They passed the baseline within a year and peaked at **161 on March 31, 2022**,
+  when employers were advertising roughly 60% more openings than before the pandemic.
+- **The long cool-down.** From there they eased back for more than four years: 143 at the start
+  of 2023, 120 at the start of 2024, 111 at the start of 2025, and touching **100**, the
+  pre-pandemic level, in June 2026. As of September 25, 2026, the index stands at 103.8.
+
+The national number hides a split by sector. Healthcare is far above its 2020 baseline:
+physicians & surgeons at about 199, therapy at 186. Much of tech and knowledge work sits well
+below it: software development at 78, IT infrastructure at 69, and data & analytics, the field
+I work in, at 62. Some of those are recovering (software development is up from 64 a year ago).
+They are still below where they were before the pandemic.
+
+So "the job market" is really several job markets. I wanted a tool that answers one question
+for a weekly review: **where is employer hiring demand growing, and how broad is it?** That
+became the [Hiring Demand Monitor](https://github.com/godot107/ab-lab/tree/main/monitor), a
+Plotly Dash dashboard with a data-quality suite that checks the data before anything renders.
+Each sector's move is compared against its own normal variation, so a +0.7% wobble doesn't get
+the same bold color as a +37% jump.
+
+Once it existed, I had a real product with a real design question about how its page should
+be laid out. That is what the rest of this post is about.
 
 ---
 
@@ -218,3 +264,17 @@ it could have detected.
 
 The full pre-registration, the sample stakeholder briefs and the code are in the
 [repository](https://github.com/godot107/ab-lab).
+
+---
+
+## Data and credit
+
+All job-postings data comes from **Indeed Hiring Lab's Job Postings Index**
+([hiringlab.org](https://www.hiringlab.org/) ·
+[data.indeed.com](https://data.indeed.com/) ·
+[github.com/hiring-lab/job_postings_tracker](https://github.com/hiring-lab/job_postings_tracker)),
+licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Source: Indeed Hiring Lab.
+Thanks to the Hiring Lab team for publishing it openly. The unemployment figure is from the
+U.S. Bureau of Labor Statistics'
+[Employment Situation release for September 2026](https://www.bls.gov/news.release/empsit.nr0.htm).
+This is an independent project, not affiliated with or endorsed by Indeed.

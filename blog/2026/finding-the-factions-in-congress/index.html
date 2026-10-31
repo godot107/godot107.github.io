@@ -1,0 +1,570 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Finding the factions in Congress from votes alone | Willie Man </title> <meta name="author" content="Willie Man"> <meta name="description" content="PCA, logistic PCA and Bayesian ideal points on US House roll calls, graded against a synthetic Congress, and five clustering methods checked against caucus membership."> <meta name="keywords" content="Willie Man, data analyst, data scientist, data engineer, data quality, machine learning, AI engineering, analytics portfolio, Databricks, Houston"> <meta property="og:site_name" content="Willie Man"> <meta property="og:type" content="article"> <meta property="og:title" content="Finding the factions in Congress from votes alone | Willie Man"> <meta property="og:url" content="https://willieman.com/blog/2026/finding-the-factions-in-congress/"> <meta property="og:description" content="PCA, logistic PCA and Bayesian ideal points on US House roll calls, graded against a synthetic Congress, and five clustering methods checked against caucus membership."> <meta property="og:image" content="https://willieman.com/assets/img/og-default.png"> <meta property="og:image:type" content="image/png"> <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <meta property="og:image:alt" content="Willie Man — data analyst, scientist, and engineer. willieman.com"> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="Finding the factions in Congress from votes alone"> <meta name="twitter:description" content="PCA, logistic PCA and Bayesian ideal points on US House roll calls, graded against a synthetic Congress, and five clustering methods checked against caucus membership."> <meta name="twitter:image" content="https://willieman.com/assets/img/og-default.png"> <meta name="twitter:image:alt" content="Willie Man — data analyst, scientist, and engineer. willieman.com"> <meta name="twitter:site" content="@WillieMaize828"> <meta name="twitter:creator" content="@WillieMaize828"> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Willie Man"
+        },
+        "url": "https://willieman.com/blog/2026/finding-the-factions-in-congress/",
+        "@type": "BlogPosting",
+        "description": "PCA, logistic PCA and Bayesian ideal points on US House roll calls, graded against a synthetic Congress, and five clustering methods checked against caucus membership.",
+        "headline": "Finding the factions in Congress from votes alone",
+        
+        "sameAs": ["https://github.com/godot107","https://www.linkedin.com/in/willieman828","https://twitter.com/WillieMaize828","https://mastodon.social/@williemaize","https://bsky.app/profile/williemaize.bsky.social","https://medium.com/@manwill"],
+        
+        "name": "Willie Man",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>:root{--max-content-width:930px}</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=63e2c625bb611f6547acbfd7fa6f15ad"> <link rel="canonical" href="https://willieman.com/blog/2026/finding-the-factions-in-congress/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Willie Man </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/repositories/">repositories </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">cv </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-nav-dropdown-toggle="true" aria-haspopup="true" aria-expanded="false">submenus </a> <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> <a class="dropdown-item " href="/books/">books</a> <div class="dropdown-divider"></div> <a class="dropdown-item " href="/projects/">projects</a> <div class="dropdown-divider"></div> <a class="dropdown-item " href="/blog/">blog</a> </div> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Finding the factions in Congress from votes alone</h1> <p class="post-meta"> Created on October 31, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/data-science"> <i class="fa-solid fa-hashtag fa-sm"></i> data-science</a>   ·   <a href="/blog/category/project"> <i class="fa-solid fa-tag fa-sm"></i> project</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p><em>Every recorded vote in the House is public. How much can you learn about who stands where, and which methods can you trust?</em></p> <p>The standard data-science tutorial on this goes: download Congress’s roll-call votes, run PCA or k-means, and watch the Democrats and Republicans fall into two neat clouds. It looks impressive, and it proves almost nothing. Any method separates the two parties. The interesting questions are <em>inside</em> each party: who sits where, how sure can we be, and are there real factions or just a smooth spread?</p> <p>I compared three ways of placing members on a map and five ways of finding groups, and checked each one against answers the votes never saw. Code, results and executed notebooks: <a href="https://github.com/godot107/ideology-clusters" rel="external nofollow noopener" target="_blank">github.com/godot107/ideology-clusters</a>.</p> <h2 id="the-trap-it-separates-the-parties-proves-little">The trap: “it separates the parties” proves little</h2> <p>Lay the votes out as a table, one row per member, one column per vote, yes or no in each cell. Plain PCA on the 118th House (2023-24) matches DW-NOMINATE, political science’s standard scores, at a correlation of <strong>0.97</strong>. That sounds like a near-perfect result.</p> <p>Now score it <em>within</em> each party, the way you’d need it to work if you wanted to know which Democrats are more progressive or which Republicans are more hard-line. The agreement drops to <strong>0.52</strong> among Democrats and <strong>0.82</strong> among Republicans. Almost all of that 0.97 came from the two parties being far apart. So every method in this project is scored within party, and splitting the parties counts for nothing.</p> <h2 id="grading-against-a-congress-i-built">Grading against a Congress I built</h2> <p>The catch with real votes is that nobody knows members’ “true” positions. DW-NOMINATE is a useful comparison, but it’s a model too: it pools each member’s whole career. So I also built a synthetic Congress: 440 members in six factions, with positions I chose, noisy votes and realistic absences (chronic absentees, members who joined late). There, every method can be graded exactly.</p> <table> <thead> <tr> <th>Method</th> <th>Ordering within party (D / R)</th> <th>Full 2-D map recovered</th> </tr> </thead> <tbody> <tr> <td>PCA</td> <td>0.88 / 0.90</td> <td>0.61</td> </tr> <tr> <td><strong>Logistic PCA</strong></td> <td><strong>0.99 / 0.99</strong></td> <td><strong>0.95</strong></td> </tr> </tbody> </table> <p>The difference is how they handle missed votes. PCA treats yes/no as numbers and fills each missing vote with an average, which drags absentees toward the middle. Logistic PCA models the <em>chance</em> of a yes and simply skips votes that weren’t cast.</p> <h2 id="how-many-dimensions-does-congress-have">How many dimensions does Congress have?</h2> <p>On real votes there’s no answer key, so I hid a random 10% of the 118th House’s votes and predicted them. The rival to beat is trivial: “every member votes with their party’s majority”.</p> <table> <thead> <tr> <th>Predictor</th> <th>Hidden votes right</th> </tr> </thead> <tbody> <tr> <td>Vote with your party</td> <td>92.8%</td> </tr> <tr> <td>Logistic PCA, 1 dimension</td> <td>95.5%</td> </tr> <tr> <td>2 / 3 dimensions</td> <td>96.1% / 96.3%</td> </tr> </tbody> </table> <p>The party rule alone gets 93%. One left-right scale adds less than 3 points, and extra dimensions add less than one more. That matches decades of political science: modern Congress is close to one-dimensional.</p> <h2 id="error-bars-and-when-they-lie">Error bars, and when they lie</h2> <p>A position without an error bar hides how much the data actually supports it. So I fitted the standard Bayesian ideal-point model (Clinton, Jackman &amp; Rivers, 2004) in NumPyro, which gives every member a <em>range</em>.</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/ideology-clusters/01_fig3-480.webp 480w,/assets/img/ideology-clusters/01_fig3-800.webp 800w,/assets/img/ideology-clusters/01_fig3-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/ideology-clusters/01_fig3.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="Every member of the 118th House, ordered by position, with a 90% range" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <div class="caption">Every member of the 118th House, ordered by position, with a 90% range</div> <p>The wide ranges make sense once you look at who has them: members sworn in late after a special election, members who left early, and members at the far edge of their party, where no vote separates them from their neighbours. Within party, this model agrees best with DW-NOMINATE: <strong>0.90</strong> among Republicans and <strong>0.72</strong> among Democrats (0.89 and 0.75 in the current House).</p> <p>But the synthetic Congress caught something. For five of the six factions, the 90% ranges contained the true position 77-91% of the time, close to the promised 90%. For the sixth, a faction I’d made different on a <em>second</em> dimension (voting against its own leadership), they contained it only <strong>25%</strong> of the time. A one-dimensional model has nowhere to put that difference, so it squeezes those members onto the left-right line and reports narrow ranges around the wrong spot. Error bars are only as honest as the model behind them.</p> <p>The fix is to give the model somewhere to put it. With a second dimension, the same faction’s ranges contain the truth <strong>93%</strong> of the time on left-right (95% on the second dimension), and the other five stay at 82-97%. Getting there took one more lesson: these models only loosely fix where the axes point, so the sampler’s runs slowly drift and rotate, and the raw diagnostics looked like total failure. Lining every draw up on a common map (a rotation that moves nobody relative to anybody else) showed the runs had agreed all along.</p> <h2 id="factions-five-methods-one-trade-off">Factions: five methods, one trade-off</h2> <p>Next, clustering. I compared k-means with a Gaussian mixture (soft membership: “70% this group”), HDBSCAN (dense regions, with members in between as noise), Ward hierarchical clustering, and community detection on a co-voting network. Each picked its own number of groups by its standard rule.</p> <p>On the synthetic Congress, the honest finding was this: k-means, the mixture and Ward all found three groups (Democrats, Republicans and the faction that differs <em>in kind</em>). The factions that differed only <em>by degree</em> (a wing, a mainstream, moderates) formed a continuum with no gap between them, so there was nothing to find. Telling k-means the “right” answer of six groups made it score <em>worse</em>, because it then cuts the continuum at arbitrary points.</p> <p>On the current 119th House, I checked each method against caucus membership, which the votes never saw. F1 measures how well one cluster captures a caucus within its party (1 = exactly). Stability is how similar the clustering stays when the roll calls are resampled (1 = identical).</p> <table> <thead> <tr> <th>Method</th> <th>Groups</th> <th>Freedom Caucus</th> <th>Progressive Caucus</th> <th>Blue Dogs</th> <th>Stability</th> </tr> </thead> <tbody> <tr> <td>k-means</td> <td>3</td> <td>0.55</td> <td>0.63</td> <td>0.63</td> <td>0.95</td> </tr> <tr> <td>Gaussian mixture</td> <td>5</td> <td>0.59</td> <td>0.66</td> <td>0.31</td> <td>0.75</td> </tr> <tr> <td>HDBSCAN</td> <td>2</td> <td>0.24</td> <td>0.62</td> <td>0.05</td> <td>0.97</td> </tr> <tr> <td>Ward</td> <td>3</td> <td><strong>0.70</strong></td> <td>0.61</td> <td>0.09</td> <td>0.87</td> </tr> <tr> <td>Network communities</td> <td>5</td> <td>0.61</td> <td><strong>0.82</strong></td> <td>0.15</td> <td>0.68</td> </tr> </tbody> </table> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/ideology-clusters/02_fig1-480.webp 480w,/assets/img/ideology-clusters/02_fig1-800.webp 800w,/assets/img/ideology-clusters/02_fig1-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/ideology-clusters/02_fig1.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="119th House on two dimensions, coloured by Gaussian-mixture group, with Freedom Caucus and Progressive Caucus members marked" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <div class="caption">119th House on two dimensions, coloured by Gaussian-mixture group, with Freedom Caucus and Progressive Caucus members marked</div> <p>Explore the map yourself: <a href="/assets/html/ideology-clusters/explorer.html">hover over any member, highlight a caucus, or search by name</a>.</p> <p><strong>The methods that find the most faction structure are the least stable.</strong> HDBSCAN is rock-steady because it mostly just returns the two parties. Network communities isolate most of the Progressive Caucus but reshuffle the most between resamples. There’s no single best method. The useful habit is to report clusters together with their stability, and to use soft membership for the 86 members who don’t belong more than 80% to any one group.</p> <h2 id="so-what-is-the-second-dimension">So what is the second dimension?</h2> <p>In the map, Freedom Caucus members sit at the bottom of the Republican cloud. The axis has no label of its own, so I went back to the votes. For every roll call where at least 5% of a party broke with its majority, I asked which dimension predicts <em>who</em> broke away.</p> <p>Among Republicans, left-right barely does (correlation 0.07). Dimension 2 does (0.36), and most clearly on “suspension” bills, the fast-tracked, two-thirds-majority bills that are in practice the bipartisan ones (0.61). One reading fits both parties: dimension 2 tracks <strong>how often a member votes yes on bills that both parties’ majorities support</strong>. Across the 80 such votes in the current House, the rank correlation is 0.88 among Democrats and 0.88 among Republicans.</p> <p>The median Freedom Caucus member voted yes on 53% of those bipartisan bills. Other Republicans: 99%. The Progressive Caucus sits lower than other Democrats too (88% vs 97%), but nowhere near as far.</p> <p>One caution: the positions were estimated from these same votes, so this <em>describes</em> the axis rather than proving anything about it. The independent part is the caucus comparison, since the caucus lists never went into the model. This is also exactly the kind of group the synthetic Congress warned about: one that differs on a second dimension, where a one-dimensional model’s error bars miss.</p> <p>So I fitted the two-dimensional Bayesian model to the current House too, to get error bars on both axes. On dimension 2, <strong>30 of the 31</strong> Freedom Caucus members have a 90% range lying entirely below the median of other Republicans. That isn’t automatic: only a third of the other Republicans do. Their ranges are also narrow (half as wide as other Republicans’), so the gap isn’t a few noisy members.</p> <p>The second axis also changes the first. Among Republicans, the one-dimensional scale and DW-NOMINATE’s first dimension both largely <em>are</em> the bipartisan-bills pattern (rank correlation with the yes-rate -0.85 and -0.76). Once the model has a separate axis for it, its left-right scale barely relates to that pattern (-0.16), and agrees much less with DW-NOMINATE among Republicans (0.54, down from 0.89). The median Freedom Caucus member moves from the 93rd percentile of Republicans on the one-dimensional scale to the 66th on the two-dimensional left-right axis.</p> <p>In other words, much of what puts them at the far end of a one-dimensional scale is voting no on bills both parties back. A caveat: a two-dimensional model doesn’t fix which way its axes point. I lined them up with logistic PCA’s map, so this split is one reading of the same positions, not the only one.</p> <h2 id="polarisation-since-1973">Polarisation since 1973</h2> <p>Finally I fitted every Congress from 1973 to 2025 separately and measured the gap between the party medians in “typical party widths”. It’s a scale-free measure, so different years can be compared.</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/ideology-clusters/03_fig1-480.webp 480w,/assets/img/ideology-clusters/03_fig1-800.webp 800w,/assets/img/ideology-clusters/03_fig1-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/ideology-clusters/03_fig1.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="Separation, overlap and party-line voting in the House and Senate, 1973-2025" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <div class="caption">Separation, overlap and party-line voting in the House and Senate, 1973-2025</div> <p>In the House the gap grew from 1.9 party widths in 1973 to about 7 today. My series tracks DW-NOMINATE’s closely (correlation 0.98 in the House, 0.89 in the Senate), and so does the share of party-line votes taken straight from the raw data with no model at all. Since the early 2000s essentially no member is closer to the other party’s median than to their own.</p> <p>The two models disagree about the 1970s: about 1 member in 5 overlapped the other party by my one-dimensional fit, but 1 in 20 by DW-NOMINATE. That era’s cross-party votes (notably Southern Democrats) ran partly along a second dimension, and a one-dimensional fit squeezes them onto left-right. It’s the same failure the synthetic Congress showed, appearing in real history.</p> <h2 id="what-id-tell-someone-running-this-analysis">What I’d tell someone running this analysis</h2> <ol> <li> <strong>Score within party.</strong> The party split is free. Report the 0.52, not the 0.97.</li> <li> <strong>Build an answer key.</strong> A simulation with known positions is the only place a method can be graded exactly. DW-NOMINATE is a comparison, not the truth.</li> <li> <strong>Beat the party rule.</strong> “Vote with your party” already predicts 93% of votes, so a model has to clear that.</li> <li><strong>Don’t trust error bars from a model that can’t represent the thing you’re measuring.</strong></li> <li> <strong>Report clusters with their stability.</strong> A clustering that changes when you resample isn’t a finding yet.</li> </ol> <p><em>Data: Voteview (Lewis, Poole, Rosenthal, Boche, Rudkin &amp; Sonnet), <a href="https://voteview.com" rel="external nofollow noopener" target="_blank">voteview.com</a>. Caucus lists: Wikipedia, retrieved 2026-10-17; the Freedom Caucus doesn’t publish its roster, so that list covers publicly identified members. These are public officials’ public votes, described with the methods’ own neutral terms.</em></p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/reflections-on-2024-struggles-wins-and-lessons-c3d65c128ae1?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Reflections on 2024: Struggles, Wins, and Lessons</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/dont-get-a-rescue-dog-4fb1968ec530?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Don’t get a (rescue) dog</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/sentiment-analysis-with-tf-idf-and-logistic-regression-f4cd86f359a1?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Sentiment Analysis with TF-IDF and Logistic Regression</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/the-unseen-crisis-why-i-finally-read-how-to-know-a-person-5d845aacf052?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">The Unseen Crisis: Why I Finally Read ‘How to Know a Person’</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/humour-seriously-a-reflection-essay-30d6ad23dfc8?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Humour Seriously — A Reflection Essay</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/a-b-testing-my-own-dashboard-and-the-ways-it-tried-to-lie-to-me-willie-man-2eb973e77bef?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">A/B testing my own dashboard, and the ways it tried to lie to me | Willie Man</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/your-models-score-is-an-estimate/">Your model's score is an estimate. Here's how wrong it can be.</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/ab-testing-my-own-dashboard/">A/B testing my own dashboard, and the ways it tried to lie to me</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/auditable-fpa-forecast/">I let the controls fail, and they told me things I didn't know</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/lightsail-tictactoe-dns/">I put a tic-tac-toe game on my own domain to finally understand DNS</a> </li> </ul> <div id="giscus_thread" style="max-width: 930px; margin: 0 auto;"> <br> <script>
+    (function setupGiscus() {
+      function determineGiscusTheme() {
+        var theme = localStorage.getItem("theme") || document.documentElement.getAttribute("data-theme") || "system";
+if (theme === "dark") return "dark";
+if (theme === "light") return "light";
+var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+return prefersDark ? "dark" : "light";
+
+      }
+
+      var giscusTheme = determineGiscusTheme();
+      var attrs = {
+        src: "https://giscus.app/client.js",
+        "data-repo": "godot107/godot107.github.io",
+        "data-repo-id": "R_kgDONUwEbg",
+        "data-category": "Announcements",
+        "data-category-id": "DIC_kwDONUwEbs4C_TYq",
+        "data-mapping": "title",
+        "data-strict": "1",
+        "data-reactions-enabled": "1",
+        "data-emit-metadata": "0",
+        "data-input-position": "bottom",
+        "data-theme": giscusTheme,
+        "data-lang": "en",
+        crossorigin: "anonymous",
+        async: true
+      };
+
+      var giscusScript = document.createElement("script");
+      Object.entries(attrs).forEach(function(entry) { giscusScript.setAttribute(entry[0], entry[1]); });
+      var host = document.getElementById("giscus_thread");
+      if (host) host.appendChild(giscusScript);
+    })();
+  </script> <noscript> Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments powered by giscus.</a> </noscript> </div> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Willie Man. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3H4T9PEFL"></script> <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-X3H4T9PEFL");
+</script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-blog",
+          title: "blog",
+          description: "Essays and project write-ups on machine learning, AI engineering, data science, and the things I learn building them.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-projects",
+          title: "projects",
+          description: "Projects related to Machine Learning, AI, and Data Sciences (plus fun stuff)",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-repositories",
+          title: "repositories",
+          description: "Repositories",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/repositories/";
+          },
+        },{id: "nav-cv",
+          title: "cv",
+          description: "Curriculum vitae for Willie Man — experience, education, projects, and skills across data analysis, data engineering, data quality, and machine learning.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "Books Reviews and Essays",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "dropdown-books",
+              title: "books",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/books/";
+              },
+            },{id: "dropdown-projects",
+              title: "projects",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/projects/";
+              },
+            },{id: "dropdown-blog",
+              title: "blog",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/blog/";
+              },
+            },{id: "post-finding-the-factions-in-congress-from-votes-alone",
+        
+          title: "Finding the factions in Congress from votes alone",
+        
+        description: "PCA, logistic PCA and Bayesian ideal points on US House roll calls, graded against a synthetic Congress, and five clustering methods checked against caucus membership.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/finding-the-factions-in-congress/";
+          
+        },
+      },{id: "post-your-model-39-s-score-is-an-estimate-here-39-s-how-wrong-it-can-be",
+        
+          title: "Your model&#39;s score is an estimate. Here&#39;s how wrong it can be.",
+        
+        description: "Eight experiments on simulated data where the true score is known, grading every common evaluation shortcut — metrics, cross-validation, leakage, tuning, model comparison.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/your-models-score-is-an-estimate/";
+          
+        },
+      },{id: "post-a-b-testing-my-own-dashboard-and-the-ways-it-tried-to-lie-to-me-willie-man",
+        
+          title: 'A/B testing my own dashboard, and the ways it tried to lie to... <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/a-b-testing-my-own-dashboard-and-the-ways-it-tried-to-lie-to-me-willie-man-2eb973e77bef?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-a-b-testing-my-own-dashboard-and-the-ways-it-tried-to-lie-to-me",
+        
+          title: "A/B testing my own dashboard, and the ways it tried to lie to...",
+        
+        description: "An end-to-end A/B test on a dashboard tracking post-pandemic US hiring demand — and the six places it would have produced a confident, wrong answer.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/ab-testing-my-own-dashboard/";
+          
+        },
+      },{id: "post-i-let-the-controls-fail-and-they-told-me-things-i-didn-39-t-know",
+        
+          title: "I let the controls fail, and they told me things I didn&#39;t know...",
+        
+        description: "Building an auditable FP&amp;A forecasting pipeline on real SEC filings — and what happens when you make the integrity checks blocking.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/auditable-fpa-forecast/";
+          
+        },
+      },{id: "post-i-put-a-tic-tac-toe-game-on-my-own-domain-to-finally-understand-dns",
+        
+          title: "I put a tic-tac-toe game on my own domain to finally understand DNS...",
+        
+        description: "A deliberately tiny Flask app deployed to AWS Lightsail behind my own subdomain with automatic HTTPS, and the DNS, certificate and teardown lessons that turned out to be the real project.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/lightsail-tictactoe-dns/";
+          
+        },
+      },{id: "post-i-built-a-fantasy-draft-co-pilot-and-the-interesting-part-was-everything-it-got-wrong",
+        
+          title: "I built a fantasy draft co-pilot, and the interesting part was everything it...",
+        
+        description: "A read-only Sleeper draft assistant built on VONA and opponent survival modelling — and the four times its most authoritative numbers turned out to be measuring something else.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/fantasy-draft-co-pilot-everything-it-got-wrong/";
+          
+        },
+      },{id: "post-i-turned-six-years-of-data-science-textbooks-into-a-knowledge-base-my-ai-can-reason-over",
+        
+          title: "I Turned Six Years of Data Science Textbooks Into a Knowledge Base My...",
+        
+        description: "Building a private, local RAG system over my own library — and why I think almost everyone with a bookshelf of PDFs should do the same.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/textbook-to-knowledge-base/";
+          
+        },
+      },{id: "post-applied-math-for-engineers-deconstructing-the-fft-and-cnns",
+        
+          title: "Applied Math for Engineers: Deconstructing the FFT and CNNs",
+        
+        description: "A deep dive into the math behind CNNs and the FFT using the AGY CLI.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/math-is-fun/";
+          
+        },
+      },{id: "post-teaching-a-neural-network-to-hear-a-failing-bearing",
+        
+          title: "Teaching a Neural Network to Hear a Failing Bearing",
+        
+        description: "Building an end-to-end predictive-maintenance pipeline on the CWRU bearing dataset — and why hitting 100% accuracy made me trust it less.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/teaching-a-neural-network-to-hear-a-failing-bearing/";
+          
+        },
+      },{id: "post-humour-seriously-a-reflection-essay",
+        
+          title: 'Humour Seriously — A Reflection Essay <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/humour-seriously-a-reflection-essay-30d6ad23dfc8?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-the-unseen-crisis-why-i-finally-read-how-to-know-a-person",
+        
+          title: 'The Unseen Crisis: Why I Finally Read ‘How to Know a Person’ <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/the-unseen-crisis-why-i-finally-read-how-to-know-a-person-5d845aacf052?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-sentiment-analysis-with-tf-idf-and-logistic-regression",
+        
+          title: 'Sentiment Analysis with TF-IDF and Logistic Regression <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/sentiment-analysis-with-tf-idf-and-logistic-regression-f4cd86f359a1?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-don-t-get-a-rescue-dog",
+        
+          title: 'Don’t get a (rescue) dog <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/dont-get-a-rescue-dog-4fb1968ec530?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-reflections-on-2024-struggles-wins-and-lessons",
+        
+          title: 'Reflections on 2024: Struggles, Wins, and Lessons <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/reflections-on-2024-struggles-wins-and-lessons-c3d65c128ae1?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-socialgood-hackathon-roundup",
+        
+          title: "SocialGood Hackathon Roundup",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2018/Social_Good_Hackathon/";
+          
+        },
+      },{id: "post-2016-in-review",
+        
+          title: "2016 in Review",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Life_Group/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-halcyon-end",
+        
+          title: "Community Summer Missions Project (CSMP) - Halcyon End",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Halcyon_End/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-excel-enrich-in-austin",
+        
+          title: "Community Summer Missions Project (CSMP) - Excel Enrich in Austin",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Excel_Austin/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-life-group",
+        
+          title: "Community Summer Missions Project (CSMP) - Life Group",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/2016_in_review/";
+          
+        },
+      },{id: "post-shifts-in-healthcare-and-information-technology-align-to-support-industry-transformation",
+        
+          title: "Shifts in Healthcare and Information Technology Align to Support Industry Transformation",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Shifts_in_Healthcare_and_IT/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-enter-intensive-and-field-work",
+        
+          title: "Community Summer Missions Project (CSMP) - Enter Intensive and Field Work",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_enter_field_work/";
+          
+        },
+      },{id: "post-enter-missions-csmp-2016",
+        
+          title: "Enter Missions - CSMP 2016",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Enter_Missions_csmp_2016/";
+          
+        },
+      },{id: "post-nba-graphs-2015-playoffs-with-r-studio",
+        
+          title: "NBA Graphs - 2015 Playoffs with R studio",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/NBA_graphs_2015/";
+          
+        },
+      },{id: "post-design-and-testing-of-an-ehr-integrated-busulfan-pharmacokinetic-decision-support-tool-for-the-point-of-care-clinician",
+        
+          title: "Design and Testing of an EHR-Integrated, Busulfan Pharmacokinetic Decision Support Tool for the...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Design-and-Testing-of-an-EHR-Integrated/";
+          
+        },
+      },{id: "books-never-enough",
+          title: 'Never Enough',
+          description: "Through a penetrating look at Never Enough, this review examines how America&#39;s obsession with academic achievement shapes our children&#39;s futures and sense of self-worth. Drawing from personal experience and cross-cultural insights, it challenges parents to question whether our pursuit of excellence has gone too far.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/never_enough_reflection_essay/";
+            },},{id: "books-practicing-the-way-book-reflection",
+          title: 'Practicing the Way - Book Reflection',
+          description: "The title, Practicing the Way, draws from the concept of apprenticeship. Jesus, known not only as the Son of God but also as a Rabbi, called ordinary people—fishermen, tax collectors, and zealots—to follow Him as disciples. In Jesus’ time, disciples were typically well-versed in the Torah and aspired to become like their rabbi in every way. Comer invites us to imagine the same goal today - to become like Jesus through the empowerment of the Holy Spirit, bringing heaven to earth in both ordinary and extraordinary ways.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/practicing_the_way_reflection_essay/";
+            },},{id: "books-the-unseen-crisis-why-i-finally-read-39-how-to-know-a-person-39",
+          title: 'The Unseen Crisis - Why I Finally Read &amp;#39;How to Know a Person&amp;#39;...',
+          description: "The title, Practicing the Way, draws from the concept of apprenticeship. Jesus, known not only as the Son of God but also as a Rabbi, called ordinary people—fishermen, tax collectors, and zealots—to follow Him as disciples. In Jesus’ time, disciples were typically well-versed in the Torah and aspired to become like their rabbi in every way. Comer invites us to imagine the same goal today - to become like Jesus through the empowerment of the Holy Spirit, bringing heaven to earth in both ordinary and extraordinary ways.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/how_to_know_a_person_reflection_essay/";
+            },},{id: "books-humour-seriously-a-reflection-essay",
+          title: 'Humour Seriously - A Reflection Essay',
+          description: "This reflection explores the intellectual depth of comedy, the balance between levity and gravity, and the profound benefits of laughter in personal and professional life, inspired by David Brooks&#39; insights.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/humor_seriously_reflection_essay/";
+            },},{id: "books-never-enough-part-2-parenting-with-grace",
+          title: 'Never Enough Part 2 - Parenting with Grace',
+          description: "Through a penetrating look at Never Enough, this review examines how America&#39;s obsession with academic achievement shapes our children&#39;s futures and sense of self-worth. Drawing from personal experience and cross-cultural insights, it challenges parents to question whether our pursuit of excellence has gone too far.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/never_enough_reflection_essay_part2/";
+            },},{id: "news-new-website-launched",
+          title: 'New Website Launched!',
+          description: "",
+          section: "News",},{id: "news-welcome",
+          title: 'Welcome',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2/";
+            },},{id: "news-tune-in-for-more-content",
+          title: '🚧 Tune in for more content 🚧',
+          description: "",
+          section: "News",},{id: "projects-analyze-the-characteristics-of-highly-accessible-population-centers-in-the-united-states",
+          title: 'Analyze the characteristics of highly accessible population centers in the United States',
+          description: "This project seeks to improve accessibility to jobs, entertainment, and shopping",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/analyze_the_characteristics_of_highly_accessible_population_centers_in_the_United_States/";
+            },},{id: "projects-apple-cultivars-and-climate-change-in-the-eastern-mountain-region-of-the-united-states",
+          title: 'Apple cultivars and climate change in the Eastern Mountain region of the United...',
+          description: "Extensive research exists regarding the effects of climate change on agriculture. However, there is often a gap between researchers and decision makers, particularly in industries with limited resources. The apple industry is one such example. Though apples are the most consumed fruit in the United States, apple orchards occupy less than 1% of the 880 million acres of United States farmland (Industry at a Glance, n.d.; National Agricultural Statistics Service, 2024).",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/apple_cultivars_climate_change/";
+            },},{id: "projects-auditable-fp-amp-a-forecasting-on-filed-sec-data",
+          title: 'Auditable FP&amp;amp;A forecasting on filed SEC data',
+          description: "A rolling FP&amp;A forecast built from Netflix&#39;s SEC filings, with 23 in-pipeline controls — 21 of them blocking — an ERP round trip that reconciles to $0.00, and an LLM that writes the commentary but never the number.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/auditable_fpa_forecast/";
+            },},{id: "projects-head-in-the-cloud-technology",
+          title: 'Head in the Cloud (Technology)',
+          description: "My Journey in Learning the Cloud - AWS and Azure",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/cloud_learning_journey/";
+            },},{id: "projects-don-39-t-get-a-rescue-dog",
+          title: 'Don&amp;#39;t get a (rescue) dog',
+          description: "Unless you want to make an Impact.Cross-Post from Medium Blog",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ladybird_separation_anxiety_journey/";
+            },},{id: "projects-my-baking-journey",
+          title: 'My Baking Journey',
+          description: "Baking as a gesture of goodwill",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ladybirdbakingco_intro/";
+            },},{id: "projects-nba-daily-fantasy-sports-dfs-project-competing-for-pocket-cash",
+          title: 'NBA Daily Fantasy Sports (DFS) Project - Competing for Pocket Cash',
+          description: "Yahoo NBA Daily Fantasy Sports",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/nba_daily_fantasy_sports/";
+            },},{id: "projects-visualizing-information-retrieval-a-tf-idf-approach-with-tilebars",
+          title: 'Visualizing Information Retrieval - A TF-IDF Approach with TileBars',
+          description: "This article explores a TF-IDF-based visual query system using TileBars to retrieve and rank research documents efficiently. By leveraging metadata and the first three paragraphs of each document, it combines preprocessing, normalization, and intuitive visualizations to present relevant results. Future improvements, including lemmatization and sparse matrices, are also discussed.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/tf-idf_retrieval/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%77%69%6C%6C%69%65%6D%61%69%7A%65%38%32%38@%67%6D%61%69%6C.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/godot107", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/willieman828", "_blank");
+        },
+      },{
+        id: 'social-x',
+        title: 'X',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://twitter.com/WillieMaize828", "_blank");
+        },
+      },{
+        id: 'social-mastodon',
+        title: 'Mastodon',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://mastodon.social/@williemaize", "_blank");
+        },
+      },{
+        id: 'social-bluesky',
+        title: 'Bluesky',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://bsky.app/profile/williemaize.bsky.social", "_blank");
+        },
+      },{
+        id: 'social-medium',
+        title: 'Medium',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://medium.com/@manwill", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>

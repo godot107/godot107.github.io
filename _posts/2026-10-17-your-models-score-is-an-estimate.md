@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Your model's score is an estimate. Here's how wrong it can be."
-date: 2026-10-31 09:00:00-0500
+date: 2026-10-17 12:00:00-0500
 description: Eight experiments on simulated data where the true score is known, grading every common evaluation shortcut — metrics, cross-validation, leakage, tuning, model comparison.
 tags: data-science
 categories: project

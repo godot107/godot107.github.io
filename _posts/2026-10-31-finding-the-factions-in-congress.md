@@ -191,7 +191,92 @@ left-right. It's the same failure the synthetic Congress showed, appearing in re
 5. **Report clusters with their stability.** A clustering that changes when you resample isn't a finding
    yet.
 
-*Data: Voteview (Lewis, Poole, Rosenthal, Boche, Rudkin & Sonnet), [voteview.com](https://voteview.com). Caucus lists:
-Wikipedia, retrieved 2026-10-17; the Freedom Caucus doesn't publish its roster, so that list covers
-publicly identified members. These are public officials' public votes, described with the methods'
-own neutral terms.*
+## Methods
+
+For readers who want to check the work or repeat it. Everything is in the
+[repository](https://github.com/godot107/ideology-clusters), and one command re-runs each stage.
+
+**Data.** Every roll-call vote comes from [Voteview](https://voteview.com) (Lewis, Poole, Rosenthal,
+Boche, Rudkin & Sonnet), the standard public database of congressional votes. For each Congress and
+chamber, it provides three files: the members (with their DW-NOMINATE scores), every member's vote on
+every roll call, and a description of each roll call. The files were downloaded on 2026-10-17, so the
+119th House covers votes from January 3, 2025 to September 16, 2026. Caucus membership comes from
+Wikipedia's current member lists, retrieved the same day. The Freedom Caucus doesn't publish its roster,
+so that list covers publicly identified members. Members were matched to the lists by state and district,
+then checked by surname so that a seat that changed hands isn't credited to the wrong person. The caucus
+lists were used only to grade the results, never as an input.
+
+**Pre-processing.**
+
+- Each vote becomes a 1 (any kind of yes), a 0 (any kind of no), or blank (present, not voting, or not
+  yet in office).
+- Voteview also records the President's announced positions as if he were a member, so I removed them.
+- Following DW-NOMINATE's conventions, I dropped near-unanimous roll calls, where the losing side had
+  under 2.5% of the votes (naming a post office tells you nothing about ideology). I also dropped members
+  with fewer than 20 remaining votes.
+- That left 451 members and 1,119 roll calls in the 118th House (of 1,235), and 448 members and 573 roll
+  calls in the 119th (of 674). About 7% of the cells are blank.
+
+**Placing members.**
+
+- *PCA* fills each blank with that roll call's average yes-rate, then finds the directions of greatest
+  variation.
+- *Logistic PCA* models the probability of a yes as a logistic function of a few member and roll-call
+  coordinates. It fits only the votes that were cast, using L-BFGS with an L2 penalty on the coordinates.
+- *Bayesian ideal points* are the Clinton–Jackman–Rivers model in NumPyro, sampled with NUTS. The priors
+  are Normal(0, 1) for positions and Normal(0, 5) for each roll call's cut point and direction.
+  - One-dimensional fits: two chains of 1,000 warm-up and 1,000 kept draws for the 119th House, and one
+    chain of 500 + 500 for the 118th.
+  - Two-dimensional fits: two chains of 1,000 + 500. The most party-line vote is held to dimension 1 to
+    fix the rotation.
+  - Because these models only loosely pin where the axes sit, each draw is standardised (1-D) or rotated
+    onto the logistic-PCA map (2-D) before scoring. After that, R-hat is at most 1.04, with no divergent
+    transitions.
+- In every method, the axes are flipped if needed so that Republicans come out on the positive side.
+
+**Choosing settings (hyperparameters).** No setting was tuned against DW-NOMINATE or the caucus lists,
+since those are what the results are graded on.
+
+- *Logistic PCA* has two settings: the number of dimensions and the penalty strength. Both were chosen by
+  hiding a random 10% of the 118th House's votes and predicting them. I tried 1, 2 and 3 dimensions with
+  penalties of 0.3, 1, 3 and 10.
+  - A penalty of 1 was within 0.05 points of the best and was used throughout.
+  - Two dimensions were used for the maps and clusters. A third added only 0.2 points (96.1% vs 96.3%).
+- *Clustering* methods each chose their own number of groups by their standard rule, so none was told
+  the answer:
+
+| Method | Settings | How the number of groups was chosen |
+|---|---|---|
+| k-means | 10 random starts | best silhouette score, k from 2 to 8 |
+| Gaussian mixture | full covariance, 5 starts | lowest BIC, k from 1 to 8 |
+| HDBSCAN | minimum cluster size 10 | found by the algorithm; members between groups are left unassigned |
+| Ward (hierarchical) | Ward linkage | best silhouette score, k from 2 to 8 |
+| Network communities | each member linked to the 15 colleagues they agree with most | Louvain modularity |
+
+The embedding-based methods ran on the standardised two-dimensional logistic-PCA positions. The network
+method ran on the raw votes. To show what a hand-picked k does, I also ran k-means with k fixed at the
+synthetic Congress's true 6. It scored worse than letting the silhouette choose (adjusted Rand index 0.42
+vs 0.58).
+
+**Checks.**
+
+- *Synthetic Congress:* 440 members in six factions, 1,000 roll calls, and one Republican faction set
+  apart on a second dimension. Most members miss 3% of votes, a few chronic absentees miss 20-50%, and
+  12 members arrive late or leave early. Positions are scored by within-party rank correlation, and
+  clusters by the adjusted Rand index against the true factions.
+- *Caucus F1:* for each caucus, the cluster that best matches its members within their party.
+- *Stability:* resample the roll calls with replacement 20 times, re-fit and re-cluster each time, and
+  take the median adjusted Rand index against the full-data clustering.
+- *Error bars:* 90% ranges from the posterior draws, checked for coverage on the synthetic Congress.
+
+**Polarisation.**
+
+- For each Congress from the 93rd (1973) to the 119th, I fitted a one-dimensional logistic PCA to each
+  chamber separately.
+- *Separation* is the gap between the party medians divided by the average within-party standard
+  deviation.
+- *Overlap* is the share of members closer to the other party's median than to their own.
+- *Party-line share* is the share of roll calls where the two parties' majorities voted opposite ways.
+  It is computed straight from the votes, with no model.
+
+*These are public officials' public votes, described with the methods' own neutral terms.*

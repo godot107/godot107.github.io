@@ -1,0 +1,3323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Great War was a family feud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (~66ch) with figures that break wider; a heraldic palette: ink blue, gules red, brass. */
+:root {
+  --paper: #f5f6f8;
+  --paper-2: #e9ecf1;
+  --ink: #1b2233;
+  --ink-soft: #545e72;
+  --rule: #c9cfda;
+  --heat: #241a4a;
+  --brass: #9a7224;
+  --allies: #1f5fa8;
+  --central: #b0302a;
+  --neutral: #6c7280;
+  --prior: #b9c0cc;
+  --display: "IM Fell English", "Iowan Old Style", Georgia, serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #10141d; --paper-2: #1a202c; --ink: #e6e9f0; --ink-soft: #a2abbd; --rule: #313a4b;
+    --heat: #d9cfff; --brass: #d6aa52; --allies: #74a7e8; --central: #ee7a72; --neutral: #a2a8b5; --prior: #4a5366;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #10141d; --paper-2: #1a202c; --ink: #e6e9f0; --ink-soft: #a2abbd; --rule: #313a4b;
+  --heat: #d9cfff; --brass: #d6aa52; --allies: #74a7e8; --central: #ee7a72; --neutral: #a2a8b5; --prior: #4a5366;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font: 16px/1.62 var(--body); padding-inline: 18px; padding-block: 0 64px; }
+main { max-width: 66ch; margin: 0 auto; display: grid; gap: 1.1rem; }
+.wide { width: min(980px, calc(100vw - 36px)); justify-self: center; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; line-height: 1.12; margin: 0; }
+h1 { font-size: clamp(2.6rem, 7vw, 4.4rem); letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.7rem, 4vw, 2.3rem); margin-top: 2.4rem; }
+h3 { font-size: 1.3rem; }
+p { margin: 0; }
+a { color: var(--allies); }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.eyebrow { font: 500 0.74rem/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); }
+.dek { font-size: 1.18rem; color: var(--ink-soft); }
+header { padding-block: 3.2rem 0.6rem; display: grid; gap: 1rem; }
+.byline { font: 0.8rem var(--mono); color: var(--ink-soft); }
+.num { font-variant-numeric: tabular-nums; }
+.big { font-family: var(--display); font-size: clamp(3.4rem, 10vw, 5.6rem); line-height: 0.9; color: var(--heat); }
+.stat { display: grid; grid-template-columns: auto 1fr; gap: 1.1rem; align-items: center; padding-block: 1rem; border-block: 1px solid var(--rule); }
+.stat p { min-width: 0; }
+.allies { color: var(--allies); } .central { color: var(--central); } .neutral { color: var(--neutral); }
+
+/* Questions answered */
+.qa { display: grid; gap: 0; border-top: 2px solid var(--ink); }
+.qa details { border-bottom: 1px solid var(--rule); padding-block: 0.75rem; }
+.qa summary { cursor: pointer; font-weight: 600; list-style: none; display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.4rem; }
+.qa summary::-webkit-details-marker { display: none; }
+.qa summary::before { content: "+"; font-family: var(--mono); color: var(--brass); }
+.qa details[open] summary::before { content: "–"; }
+.qa .answer { padding: 0.5rem 0 0.2rem 2rem; color: var(--ink); display: grid; gap: 0.5rem; }
+.qa .short { font-family: var(--display); font-size: 1.15rem; }
+.qa .tag { font: 0.68rem var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-left: 0.4rem; font-weight: 400; }
+
+/* Figures */
+figure { margin: 0; display: grid; gap: 0.7rem; }
+figcaption { font-size: 0.86rem; color: var(--ink-soft); }
+.scroll { overflow-x: auto; }
+svg text { fill: var(--ink); font-family: var(--body); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; font-size: 0.82rem; color: var(--ink-soft); align-items: center; }
+.swatch { display: inline-block; width: 0.9rem; height: 0.9rem; vertical-align: -0.15rem; margin-right: 0.35rem; border-radius: 2px; }
+.heatgrid { display: grid; grid-template-columns: minmax(0, 1fr) 17rem; gap: 1.2rem; align-items: start; }
+@media (max-width: 760px) { .heatgrid { grid-template-columns: minmax(0, 1fr); } }
+.cell { cursor: pointer; }
+.cell:hover, .cell.on { stroke: var(--brass); stroke-width: 2.5; }
+.panel { background: var(--paper-2); padding: 1rem 1.1rem; border-radius: 4px; display: grid; gap: 0.45rem; min-width: 0; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); }
+.panel .who { font-family: var(--display); font-size: 1.25rem; line-height: 1.2; }
+.panel dl { display: grid; grid-template-columns: auto 1fr; gap: 0.25rem 0.8rem; margin: 0; font-size: 0.88rem; }
+.panel dt { color: var(--ink-soft); }
+.panel dd { margin: 0; min-width: 0; }
+.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+@media (max-width: 560px) { .trio { grid-template-columns: minmax(0, 1fr); } }
+.trio div { border-top: 3px solid var(--ink); padding-top: 0.55rem; display: grid; gap: 0.25rem; }
+.trio .pair { font-weight: 600; }
+.trio .rel { font-family: var(--display); font-size: 1.15rem; }
+.trio .meta { font: 0.78rem var(--mono); color: var(--ink-soft); }
+.filters { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.filters button { font: 500 0.8rem var(--body); border: 1px solid var(--rule); background: transparent; color: var(--ink); padding: 0.35rem 0.75rem; border-radius: 999px; cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.affected { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 0.35rem 1.2rem; font-size: 0.88rem; padding: 0; margin: 0; list-style: none; }
+.affected li { border-left: 3px solid var(--central); padding-left: 0.6rem; }
+.method { counter-reset: step; display: grid; gap: 0.8rem; padding: 0; margin: 0; list-style: none; }
+.method li { display: grid; grid-template-columns: 2rem 1fr; gap: 0.4rem; }
+.method li::before { counter-increment: step; content: counter(step); font-family: var(--display); font-size: 1.5rem; line-height: 1; color: var(--brass); }
+.note { font-size: 0.88rem; color: var(--ink-soft); border-left: 2px solid var(--rule); padding-left: 0.9rem; }
+footer { margin-top: 2.4rem; padding-top: 1rem; border-top: 1px solid var(--rule); font-size: 0.82rem; color: var(--ink-soft); display: grid; gap: 0.5rem; }
+@media (prefers-reduced-motion: no-preference) { .cell { transition: stroke-width 0.1s; } }
+</style>
+</head>
+<body>
+
+
+<main>
+<header>
+  <div class="eyebrow">A computational genealogy · 1914</div>
+  <h1>The Great War was a family feud</h1>
+  <p class="dek">In August 1914 nineteen monarchs reigned in Europe. We traced eight generations of their ancestry
+  through 1,835 people on Wikidata and measured how closely each pair was related. Then we followed the gene that
+  Queen Victoria passed to Russia and Spain.</p>
+  <p class="byline">famtree · data: Wikidata (CC0) · method and code: github.com/godot107/family-tree</p>
+</header>
+
+<div class="stat">
+  <div class="big num" id="statBig">120/120</div>
+  <p>Every pair of monarchs whose ancestry Wikidata records well was related within eight generations. That includes all
+  <strong id="statEnemy">15</strong> pairs who ended up on <span class="allies">opposite</span>
+  <span class="central">sides</span> of the war.</p>
+</div>
+
+<h2 id="questions">Questions this project answers</h2>
+<div class="qa" id="qa"></div>
+
+<h2 id="matrix">A continent of cousins</h2>
+<p>Each square is one pair of monarchs. The darker it is, the more ancestry they share. That is measured by the
+<em>kinship coefficient</em>, which genealogists and geneticists both use. It adds up every line of descent the two
+have in common, not only the nearest one. Tap a square to see how the pair connects.</p>
+</main>
+
+<figure class="wide">
+  <div class="legend">
+    <span><span class="swatch" style="background: var(--allies)"></span>Allies</span>
+    <span><span class="swatch" style="background: var(--central)"></span>Central Powers</span>
+    <span><span class="swatch" style="background: var(--neutral)"></span>Neutral</span>
+    <span>Shade: <span class="swatch" style="background: var(--heat); opacity: 0.15"></span>fifth cousins →
+      <span class="swatch" style="background: var(--heat)"></span>siblings</span>
+    <span>* hatched: ancestry sparse on Wikidata, so blank means unknown</span>
+  </div>
+  <div class="heatgrid">
+    <div class="scroll"><svg id="heat" role="img" aria-label="Kinship matrix of the 19 monarchs of 1914"></svg></div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+  <figcaption>φ (phi) is the chance that a gene picked at random from each person is the same copy, inherited from a shared ancestor.
+  Siblings have φ = 1/4, first cousins 1/16, second cousins 1/64. Ancestry is eight generations deep for every monarch, so the
+  values compare fairly. Unknown parents count as unrelated, so every value is a lower bound.</figcaption>
+</figure>
+
+<main>
+<h2 id="trio">The three emperors</h2>
+<p>The war's best-known family story involves King George V, Kaiser Wilhelm II and Tsar Nicholas II. Wilhelm and Nicholas
+wrote to each other as "Willy" and "Nicky". The nearest lines are the ones history books give. The count shows
+how many more lines there were.</p>
+<div class="trio" id="trioCards"></div>
+<p>Look at the Kaiser and the Tsar. Their nearest line makes them second cousins once removed. But they share
+<strong id="wnLines">118</strong> lines of descent within eight generations, and together those make them more related than
+plain second cousins. Royal pedigrees fold back on themselves so often that the nearest line understates
+how related two people are.</p>
+
+<h2 id="method">How the matching works</h2>
+<ol class="method">
+  <li><p><strong>A family tree is a graph, not a tree.</strong> Each person points to two parents. When cousins marry, two
+  branches join again lower down (pedigree collapse). Across eight generations the 19 monarchs have 9,690 ancestor slots.
+  Wikidata fills 7,591 of them, using only 1,816 different people, so the average ancestor fills four slots.</p></li>
+  <li><p><strong>A relationship is a pair of paths.</strong> Climb from each person to a shared ancestor. The climbs must
+  pass through two different children of that ancestor and not meet again lower down. The number of generations on each
+  side gives the name: cousin degree is the shorter climb minus one, and "removed" is the difference between the two climbs.</p></li>
+  <li><p><strong>Kinship adds up every path.</strong> Each shared line contributes ½ for every generation it spans. The
+  computation runs from older to younger, so 1,835 people take well under a second.</p></li>
+  <li><p><strong>Checked against history before use.</strong> Elizabeth II and Philip come out as third cousins and second
+  cousins once removed. Victoria and Albert come out as first cousins. Isabella II of Spain comes out with an inbreeding
+  coefficient of exactly 1/8, because her parents were uncle and niece.</p></li>
+</ol>
+
+<h2 id="gene">Victoria's gene</h2>
+<p>Queen Victoria carried haemophilia B, a bleeding disorder on the X chromosome. A carrier mother passes it to
+half her children on average. Sons who inherit it bleed, and daughters who inherit it become carriers in turn. Nine of her male
+descendants are documented as affected, including Tsarevich Alexei and two sons of the King of Spain.</p>
+<ul class="affected" id="affected"></ul>
+<p>Mendel alone says each of Victoria's daughters had an even chance of being a carrier. The family's sons then
+changed those odds. One affected son proves his mother was a carrier. Each son who grew up healthy makes it less likely
+that she was. The chart puts both numbers side by side, worked out exactly with Bayes' rule over the
+whole line of descent.</p>
+</main>
+
+<figure class="wide">
+  <div class="filters" role="group" aria-label="Generation">
+    <button type="button" data-gen="1" aria-pressed="true">Daughters</button>
+    <button type="button" data-gen="2" aria-pressed="false">Granddaughters</button>
+    <button type="button" data-gen="3" aria-pressed="false">Great-granddaughters</button>
+  </div>
+  <div class="legend">
+    <span><span class="swatch" style="background: var(--prior)"></span>Mendel alone</span>
+    <span><span class="swatch" style="background: var(--central)"></span>after seeing which sons were affected</span>
+  </div>
+  <div class="scroll"><svg id="bars" role="img" aria-label="Carrier probabilities before and after evidence"></svg></div>
+  <figcaption>A son counts as healthy if he lived past 15 and isn't on the documented list. Severe haemophilia shows in childhood.
+  Prince Maurice of Battenberg's case is disputed, so he counts as unknown. People marrying into the family are assumed not to carry it.</figcaption>
+</figure>
+
+<main>
+<p id="geneClose"></p>
+<p id="geneDeep"></p>
+<p class="note">Limits: Wikidata stops where its records stop. Most lines still open end with women whose children aren't
+recorded, and the answer for real people today would come from a genetic test, not from a family tree. Living
+descendants are counted but never named.</p>
+
+<footer>
+  <p>Data: Wikidata (CC0), crawled October 2026: 1,835 people for the monarchs; 4,261 for Victoria's and Christian IX's
+  families, with Victoria's open lines followed to the present. Affected descendants are from D. M. Potts and W. T. W. Potts, <em>Queen Victoria's Gene</em> (1995). The type
+  was confirmed as haemophilia B from Romanov remains by Rogaev et al., <em>Science</em> 326 (2009).</p>
+  <p>Kinship: S. Wright (1922); G. Malécot (1948). Wartime alignment is by the end of the war: Italy joined in 1915,
+  Bulgaria in 1915, Romania in 1916, and Greece joined after Constantine I was deposed in 1917.</p>
+</footer>
+</main>
+
+<script>
+{ /* block scope: names like `top` would collide with window globals */
+const DATA = {
+ "cousins_war": {
+  "documented_pairs": 120,
+  "documented_related": 120,
+  "documented_enemy_pairs": 15,
+  "documented_enemy_related": 15,
+  "sparse": [
+   "Peter I (Serbia)",
+   "Nicholas I (Montenegro)",
+   "Mehmed V (Ottoman Empire)"
+  ],
+  "monarchs": [
+   {
+    "id": "Q269412",
+    "name": "George V",
+    "country": "United Kingdom",
+    "side": "Allies",
+    "note": "",
+    "born": "1865",
+    "known": 1.0,
+    "inbreeding": 0.013401508331298828
+   },
+   {
+    "id": "Q40787",
+    "name": "Nicholas II",
+    "country": "Russia",
+    "side": "Allies",
+    "note": "abdicated 1917",
+    "born": "1868",
+    "known": 1.0,
+    "inbreeding": 0.006639957427978516
+   },
+   {
+    "id": "Q55008046",
+    "name": "Albert I",
+    "country": "Belgium",
+    "side": "Allies",
+    "note": "",
+    "born": "1875",
+    "known": 1.0,
+    "inbreeding": 0.0010302066802978516
+   },
+   {
+    "id": "Q211827",
+    "name": "Peter I",
+    "country": "Serbia",
+    "side": "Allies",
+    "note": "",
+    "born": "1844",
+    "known": 0.4,
+    "inbreeding": 0.0
+   },
+   {
+    "id": "Q283255",
+    "name": "Nicholas I",
+    "country": "Montenegro",
+    "side": "Allies",
+    "note": "",
+    "born": "1841",
+    "known": 0.3,
+    "inbreeding": 0.0
+   },
+   {
+    "id": "Q150642",
+    "name": "Victor Emmanuel III",
+    "country": "Italy",
+    "side": "Allies",
+    "note": "joined 1915",
+    "born": "1869",
+    "known": 1.0,
+    "inbreeding": 0.11385774612426758
+   },
+   {
+    "id": "Q57165",
+    "name": "Ferdinand I",
+    "country": "Romania",
+    "side": "Allies",
+    "note": "joined 1916",
+    "born": "1865",
+    "known": 1.0,
+    "inbreeding": 0.0009999275207519531
+   },
+   {
+    "id": "Q2677",
+    "name": "Wilhelm II",
+    "country": "Germany",
+    "side": "Central Powers",
+    "note": "",
+    "born": "1859",
+    "known": 1.0,
+    "inbreeding": 0.012858033180236816
+   },
+   {
+    "id": "Q51056",
+    "name": "Franz Joseph I",
+    "country": "Austria-Hungary",
+    "side": "Central Powers",
+    "note": "died 1916",
+    "born": "1830",
+    "known": 1.0,
+    "inbreeding": 0.006824493408203125
+   },
+   {
+    "id": "Q151667",
+    "name": "Ferdinand I",
+    "country": "Bulgaria",
+    "side": "Central Powers",
+    "note": "joined 1915",
+    "born": "1861",
+    "known": 1.0,
+    "inbreeding": 0.0014085769653320312
+   },
+   {
+    "id": "Q151494",
+    "name": "Mehmed V",
+    "country": "Ottoman Empire",
+    "side": "Central Powers",
+    "note": "",
+    "born": "1844",
+    "known": 0.27,
+    "inbreeding": 0.0
+   },
+   {
+    "id": "Q152099",
+    "name": "Constantine I",
+    "country": "Greece",
+    "side": "Neutral",
+    "note": "deposed 1917; Greece then joined the Allies",
+    "born": "1868",
+    "known": 1.0,
+    "inbreeding": 0.009874939918518066
+   },
+   {
+    "id": "Q156617",
+    "name": "Christian X",
+    "country": "Denmark",
+    "side": "Neutral",
+    "note": "",
+    "born": "1870",
+    "known": 1.0,
+    "inbreeding": 0.008656144142150879
+   },
+   {
+    "id": "Q154927",
+    "name": "Haakon VII",
+    "country": "Norway",
+    "side": "Neutral",
+    "note": "",
+    "born": "1872",
+    "known": 1.0,
+    "inbreeding": 0.008656144142150879
+   },
+   {
+    "id": "Q52890",
+    "name": "Gustaf V",
+    "country": "Sweden",
+    "side": "Neutral",
+    "note": "",
+    "born": "1858",
+    "known": 1.0,
+    "inbreeding": 0.0033916234970092773
+   },
+   {
+    "id": "Q150747",
+    "name": "Wilhelmina",
+    "country": "Netherlands",
+    "side": "Neutral",
+    "note": "",
+    "born": "1880",
+    "known": 1.0,
+    "inbreeding": 0.016786694526672363
+   },
+   {
+    "id": "Q18363",
+    "name": "Alfonso XIII",
+    "country": "Spain",
+    "side": "Neutral",
+    "note": "",
+    "born": "1886",
+    "known": 1.0,
+    "inbreeding": 0.05410969257354736
+   },
+   {
+    "id": "Q159075",
+    "name": "Marie-Adélaïde",
+    "country": "Luxembourg",
+    "side": "Neutral",
+    "note": "occupied by Germany",
+    "born": "1894",
+    "known": 1.0,
+    "inbreeding": 0.0025119781494140625
+   },
+   {
+    "id": "Q159646",
+    "name": "Albert I",
+    "country": "Monaco",
+    "side": "Neutral",
+    "note": "",
+    "born": "1848",
+    "known": 0.77,
+    "inbreeding": 0.0001220703125
+   }
+  ],
+  "pairs": [
+   {
+    "a": 0,
+    "b": 1,
+    "phi": 0.07340705394744873,
+    "lines": 65,
+    "nearest": "first cousin",
+    "via": "Christian IX of Denmark & Louise of Hesse-Kassel",
+    "plain": "about as related as first cousins"
+   },
+   {
+    "a": 0,
+    "b": 2,
+    "phi": 0.019528061151504517,
+    "lines": 95,
+    "nearest": "second cousin once removed",
+    "via": "Francis, Duke of Saxe-Coburg-Saalfeld & Countess Augusta Reuss of Ebersdorf",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 0,
+    "b": 3,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 0,
+    "b": 4,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 0,
+    "b": 5,
+    "phi": 0.003094986081123352,
+    "lines": 75,
+    "nearest": "sixth cousin",
+    "via": "Princess Christine Louise of Oettingen-Oettingen & Louis Rudolph, Duke of Brunswick-Lüneburg",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 0,
+    "b": 6,
+    "phi": 0.010724365711212158,
+    "lines": 91,
+    "nearest": "third cousin",
+    "via": "Francis, Duke of Saxe-Coburg-Saalfeld & Countess Augusta Reuss of Ebersdorf",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 0,
+    "b": 7,
+    "phi": 0.08237522840499878,
+    "lines": 71,
+    "nearest": "first cousin",
+    "via": "Prince Albert of Saxe-Coburg and Gotha & Victoria",
+    "plain": "about as related as first cousins"
+   },
+   {
+    "a": 0,
+    "b": 8,
+    "phi": 0.00469893217086792,
+    "lines": 75,
+    "nearest": "fifth cousin once removed",
+    "via": "Princess Christine Louise of Oettingen-Oettingen & Louis Rudolph, Duke of Brunswick-Lüneburg",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 0,
+    "b": 9,
+    "phi": 0.01926368474960327,
+    "lines": 71,
+    "nearest": "second cousin once removed",
+    "via": "Francis, Duke of Saxe-Coburg-Saalfeld & Countess Augusta Reuss of Ebersdorf",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 0,
+    "b": 10,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 0,
+    "b": 11,
+    "phi": 0.07524186372756958,
+    "lines": 80,
+    "nearest": "first cousin",
+    "via": "Christian IX of Denmark & Louise of Hesse-Kassel",
+    "plain": "about as related as first cousins"
+   },
+   {
+    "a": 0,
+    "b": 12,
+    "phi": 0.0742422342300415,
+    "lines": 67,
+    "nearest": "first cousin",
+    "via": "Christian IX of Denmark & Louise of Hesse-Kassel",
+    "plain": "about as related as first cousins"
+   },
+   {
+    "a": 0,
+    "b": 13,
+    "phi": 0.0742422342300415,
+    "lines": 67,
+    "nearest": "first cousin",
+    "via": "Christian IX of Denmark & Louise of Hesse-Kassel",
+    "plain": "about as related as first cousins"
+   },
+   {
+    "a": 0,
+    "b": 14,
+    "phi": 0.006333976984024048,
+    "lines": 119,
+    "nearest": "fourth cousin once removed",
+    "via": "Frederick, Prince of Wales & Princess Augusta of Saxe-Gotha",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 0,
+    "b": 15,
+    "phi": 0.009666934609413147,
+    "lines": 145,
+    "nearest": "fifth cousin",
+    "via": "George II of Great Britain & Caroline of Ansbach",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 0,
+    "b": 16,
+    "phi": 0.004268258810043335,
+    "lines": 76,
+    "nearest": "fifth cousin once removed",
+    "via": "George II of Great Britain & Caroline of Ansbach",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 0,
+    "b": 17,
+    "phi": 0.014106005430221558,
+    "lines": 115,
+    "nearest": "second cousin once removed",
+    "via": "Princess Louise Charlotte of Denmark & Prince William of Hesse-Kassel",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 0,
+    "b": 18,
+    "phi": 2.4557113647460938e-05,
+    "lines": 5,
+    "nearest": "eighth cousin",
+    "via": "Countess Juliane of Nassau-Siegen & Maurice, Landgrave of Hesse-Kassel",
+    "plain": "about as related as fourth cousins"
+   },
+   {
+    "a": 1,
+    "b": 2,
+    "phi": 0.008814185857772827,
+    "lines": 108,
+    "nearest": "third cousin",
+    "via": "Landgravine Amalie of Hesse-Darmstadt & Prince Karl Ludwig, Hereditary Prince of Baden",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 1,
+    "b": 3,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 1,
+    "b": 4,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 1,
+    "b": 5,
+    "phi": 0.006259694695472717,
+    "lines": 81,
+    "nearest": "third cousin once removed",
+    "via": "Landgravine Amalie of Hesse-Darmstadt & Prince Karl Ludwig, Hereditary Prince of Baden",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 1,
+    "b": 6,
+    "phi": 0.008032053709030151,
+    "lines": 105,
+    "nearest": "third cousin",
+    "via": "Landgravine Amalie of Hesse-Darmstadt & Prince Karl Ludwig, Hereditary Prince of Baden",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 1,
+    "b": 7,
+    "phi": 0.02485625445842743,
+    "lines": 118,
+    "nearest": "second cousin once removed",
+    "via": "Louise of Mecklenburg-Strelitz & Frederick William III of Prussia",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 1,
+    "b": 8,
+    "phi": 0.016739249229431152,
+    "lines": 81,
+    "nearest": "second cousin once removed",
+    "via": "Landgravine Amalie of Hesse-Darmstadt & Prince Karl Ludwig, Hereditary Prince of Baden",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 1,
+    "b": 9,
+    "phi": 0.0033054351806640625,
+    "lines": 88,
+    "nearest": "fourth cousin once removed",
+    "via": "Princess Anna Sophie of Schwarzburg-Rudolstadt & Francis Josias, Duke of Saxe-Coburg-Saalfeld",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 1,
+    "b": 10,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 1,
+    "b": 11,
+    "phi": 0.09093360602855682,
+    "lines": 81,
+    "nearest": "first cousin",
+    "via": "Christian IX of Denmark & Louise of Hesse-Kassel",
+    "plain": "about as related as half-siblings / double first cousins"
+   },
+   {
+    "a": 1,
+    "b": 12,
+    "phi": 0.07896725833415985,
+    "lines": 77,
+    "nearest": "first cousin",
+    "via": "Christian IX of Denmark & Louise of Hesse-Kassel",
+    "plain": "about as related as first cousins"
+   },
+   {
+    "a": 1,
+    "b": 13,
+    "phi": 0.07896725833415985,
+    "lines": 77,
+    "nearest": "first cousin",
+    "via": "Christian IX of Denmark & Louise of Hesse-Kassel",
+    "plain": "about as related as first cousins"
+   },
+   {
+    "a": 1,
+    "b": 14,
+    "phi": 0.008905023336410522,
+    "lines": 125,
+    "nearest": "fourth cousin",
+    "via": "Karl II, Grand Duke of Mecklenburg-Strelitz & Landgravine Friederike of Hesse-Darmstadt",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 1,
+    "b": 15,
+    "phi": 0.021920382976531982,
+    "lines": 149,
+    "nearest": "second cousin once removed",
+    "via": "Paul I of Russia & Sophie Dorothee of Württemberg",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 1,
+    "b": 16,
+    "phi": 0.0056526511907577515,
+    "lines": 84,
+    "nearest": "fourth cousin",
+    "via": "Margravine Friederike of Brandenburg-Schwedt & Friedrich II Eugen, Duke of Württemberg",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 1,
+    "b": 17,
+    "phi": 0.014994949102401733,
+    "lines": 130,
+    "nearest": "second cousin once removed",
+    "via": "Princess Louise Charlotte of Denmark & Prince William of Hesse-Kassel",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 1,
+    "b": 18,
+    "phi": 1.895427703857422e-05,
+    "lines": 7,
+    "nearest": "eighth cousin",
+    "via": "Countess Juliane of Nassau-Siegen & Maurice, Landgrave of Hesse-Kassel",
+    "plain": "about as related as fourth cousins"
+   },
+   {
+    "a": 2,
+    "b": 3,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 2,
+    "b": 4,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 2,
+    "b": 5,
+    "phi": 0.015550851821899414,
+    "lines": 84,
+    "nearest": "third cousin once removed",
+    "via": "Maria Carolina of Austria & Ferdinand I of the Two Sicilies",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 2,
+    "b": 6,
+    "phi": 0.07588383555412292,
+    "lines": 86,
+    "nearest": "first cousin",
+    "via": "Josephine of Baden & Karl Anton, Prince of Hohenzollern",
+    "plain": "about as related as first cousins"
+   },
+   {
+    "a": 2,
+    "b": 7,
+    "phi": 0.022582173347473145,
+    "lines": 111,
+    "nearest": "second cousin once removed",
+    "via": "Francis, Duke of Saxe-Coburg-Saalfeld & Countess Augusta Reuss of Ebersdorf",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 2,
+    "b": 8,
+    "phi": 0.025873541831970215,
+    "lines": 74,
+    "nearest": "second cousin once removed",
+    "via": "Maria Carolina of Austria & Ferdinand I of the Two Sicilies",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 2,
+    "b": 9,
+    "phi": 0.049795567989349365,
+    "lines": 63,
+    "nearest": "first cousin once removed",
+    "via": "Maria Amalia of Naples and Sicily & Louis-Philippe I",
+    "plain": "about as related as first cousins"
+   },
+   {
+    "a": 2,
+    "b": 10,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 2,
+    "b": 11,
+    "phi": 0.005075424909591675,
+    "lines": 122,
+    "nearest": "fourth cousin once removed",
+    "via": "Princess Anna Sophie of Schwarzburg-Rudolstadt & Francis Josias, Duke of Saxe-Coburg-Saalfeld",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 2,
+    "b": 12,
+    "phi": 0.005960911512374878,
+    "lines": 114,
+    "nearest": "fourth cousin once removed",
+    "via": "Princess Anna Sophie of Schwarzburg-Rudolstadt & Francis Josias, Duke of Saxe-Coburg-Saalfeld",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 2,
+    "b": 13,
+    "phi": 0.005960911512374878,
+    "lines": 114,
+    "nearest": "fourth cousin once removed",
+    "via": "Princess Anna Sophie of Schwarzburg-Rudolstadt & Francis Josias, Duke of Saxe-Coburg-Saalfeld",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 2,
+    "b": 14,
+    "phi": 0.0033647119998931885,
+    "lines": 120,
+    "nearest": "fifth cousin",
+    "via": "Renée Hardouineau de Landanière & Claude de Beauharnais",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 2,
+    "b": 15,
+    "phi": 0.00562383234500885,
+    "lines": 139,
+    "nearest": "fourth cousin",
+    "via": "Louis IX of Hesse-Darmstadt & Countess Palatine Caroline of Zweibrücken",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 2,
+    "b": 16,
+    "phi": 0.01602587103843689,
+    "lines": 91,
+    "nearest": "third cousin once removed",
+    "via": "Maria Carolina of Austria & Ferdinand I of the Two Sicilies",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 2,
+    "b": 17,
+    "phi": 0.005984857678413391,
+    "lines": 150,
+    "nearest": "fourth cousin",
+    "via": "Maria Amalia of Saxony & Charles III of Spain",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 2,
+    "b": 18,
+    "phi": 9.21487808227539e-05,
+    "lines": 8,
+    "nearest": "sixth cousin",
+    "via": "Marie Gabriele, Comtesse de Lalaing & Karl Florentin zu Salm",
+    "plain": "about as related as fourth cousins"
+   },
+   {
+    "a": 3,
+    "b": 4,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 3,
+    "b": 5,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 3,
+    "b": 6,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 3,
+    "b": 7,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 3,
+    "b": 8,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 3,
+    "b": 9,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 3,
+    "b": 10,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 3,
+    "b": 11,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 3,
+    "b": 12,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 3,
+    "b": 13,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 3,
+    "b": 14,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 3,
+    "b": 15,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 3,
+    "b": 16,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 3,
+    "b": 17,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 3,
+    "b": 18,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 4,
+    "b": 5,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 4,
+    "b": 6,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 4,
+    "b": 7,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 4,
+    "b": 8,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 4,
+    "b": 9,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 4,
+    "b": 10,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 4,
+    "b": 11,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 4,
+    "b": 12,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 4,
+    "b": 13,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 4,
+    "b": 14,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 4,
+    "b": 15,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 4,
+    "b": 16,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 4,
+    "b": 17,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 4,
+    "b": 18,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 5,
+    "b": 6,
+    "phi": 0.020347580313682556,
+    "lines": 86,
+    "nearest": "third cousin once removed",
+    "via": "Leopold II, Holy Roman Emperor & Maria Luisa of Spain",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 5,
+    "b": 7,
+    "phi": 0.0057149529457092285,
+    "lines": 91,
+    "nearest": "fourth cousin once removed",
+    "via": "Louis IX of Hesse-Darmstadt & Countess Palatine Caroline of Zweibrücken",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 5,
+    "b": 8,
+    "phi": 0.06666344404220581,
+    "lines": 52,
+    "nearest": "first cousin twice removed",
+    "via": "Caroline of Baden & Maximilian I Joseph of Bavaria",
+    "plain": "about as related as first cousins"
+   },
+   {
+    "a": 5,
+    "b": 9,
+    "phi": 0.02435573935508728,
+    "lines": 81,
+    "nearest": "second cousin twice removed",
+    "via": "Maria Carolina of Austria & Ferdinand I of the Two Sicilies",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 5,
+    "b": 10,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 5,
+    "b": 11,
+    "phi": 0.0041441768407821655,
+    "lines": 92,
+    "nearest": "fifth cousin",
+    "via": "Louis IX of Hesse-Darmstadt & Countess Palatine Caroline of Zweibrücken",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 5,
+    "b": 12,
+    "phi": 0.005403921008110046,
+    "lines": 81,
+    "nearest": "half-third cousin once removed",
+    "via": "Maximilian I Joseph of Bavaria",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 5,
+    "b": 13,
+    "phi": 0.005403921008110046,
+    "lines": 81,
+    "nearest": "half-third cousin once removed",
+    "via": "Maximilian I Joseph of Bavaria",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 5,
+    "b": 14,
+    "phi": 0.004643484950065613,
+    "lines": 79,
+    "nearest": "half-third cousin",
+    "via": "Maximilian I Joseph of Bavaria",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 5,
+    "b": 15,
+    "phi": 0.005584202706813812,
+    "lines": 99,
+    "nearest": "fourth cousin once removed",
+    "via": "Louis IX of Hesse-Darmstadt & Countess Palatine Caroline of Zweibrücken",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 5,
+    "b": 16,
+    "phi": 0.05676336586475372,
+    "lines": 84,
+    "nearest": "third cousin",
+    "via": "Leopold II, Holy Roman Emperor & Maria Luisa of Spain",
+    "plain": "about as related as first cousins"
+   },
+   {
+    "a": 5,
+    "b": 17,
+    "phi": 0.012653447687625885,
+    "lines": 115,
+    "nearest": "fourth cousin",
+    "via": "Maria Amalia of Saxony & Charles III of Spain",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 5,
+    "b": 18,
+    "phi": 0.0003636479377746582,
+    "lines": 11,
+    "nearest": "sixth cousin once removed",
+    "via": "Countess Maria Anna of Löwenstein-Wertheim-Rochefort & William, Landgrave of Hesse-Rotenburg",
+    "plain": "about as related as fourth cousins"
+   },
+   {
+    "a": 6,
+    "b": 7,
+    "phi": 0.01386500895023346,
+    "lines": 109,
+    "nearest": "third cousin",
+    "via": "Francis, Duke of Saxe-Coburg-Saalfeld & Countess Augusta Reuss of Ebersdorf",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 6,
+    "b": 8,
+    "phi": 0.03717982769012451,
+    "lines": 66,
+    "nearest": "first cousin twice removed",
+    "via": "Francis II, Holy Roman Emperor & Maria Theresa of Naples and Sicily",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 6,
+    "b": 9,
+    "phi": 0.04148024320602417,
+    "lines": 67,
+    "nearest": "first cousin once removed",
+    "via": "Princess Maria Antonia Koháry, 2nd Princess of Koháry & Prince Ferdinand of Saxe-Coburg and Gotha",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 6,
+    "b": 10,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 6,
+    "b": 11,
+    "phi": 0.004149243235588074,
+    "lines": 118,
+    "nearest": "fourth cousin once removed",
+    "via": "Louis IX of Hesse-Darmstadt & Countess Palatine Caroline of Zweibrücken",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 6,
+    "b": 12,
+    "phi": 0.004935935139656067,
+    "lines": 116,
+    "nearest": "fourth cousin once removed",
+    "via": "Louis IX of Hesse-Darmstadt & Countess Palatine Caroline of Zweibrücken",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 6,
+    "b": 13,
+    "phi": 0.004935935139656067,
+    "lines": 116,
+    "nearest": "fourth cousin once removed",
+    "via": "Louis IX of Hesse-Darmstadt & Countess Palatine Caroline of Zweibrücken",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 6,
+    "b": 14,
+    "phi": 0.003073960542678833,
+    "lines": 120,
+    "nearest": "fifth cousin",
+    "via": "Renée Hardouineau de Landanière & Claude de Beauharnais",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 6,
+    "b": 15,
+    "phi": 0.0048494040966033936,
+    "lines": 137,
+    "nearest": "fourth cousin",
+    "via": "Louis IX of Hesse-Darmstadt & Countess Palatine Caroline of Zweibrücken",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 6,
+    "b": 16,
+    "phi": 0.02714349329471588,
+    "lines": 87,
+    "nearest": "third cousin once removed",
+    "via": "Leopold II, Holy Roman Emperor & Maria Luisa of Spain",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 6,
+    "b": 17,
+    "phi": 0.014771848917007446,
+    "lines": 134,
+    "nearest": "second cousin once removed",
+    "via": "Carlota Joaquina of Spain & John VI of Portugal",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 6,
+    "b": 18,
+    "phi": 7.700920104980469e-05,
+    "lines": 9,
+    "nearest": "sixth cousin",
+    "via": "Marie Gabriele, Comtesse de Lalaing & Karl Florentin zu Salm",
+    "plain": "about as related as fourth cousins"
+   },
+   {
+    "a": 7,
+    "b": 8,
+    "phi": 0.013306140899658203,
+    "lines": 91,
+    "nearest": "third cousin once removed",
+    "via": "Louis IX of Hesse-Darmstadt & Countess Palatine Caroline of Zweibrücken",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 7,
+    "b": 9,
+    "phi": 0.01950526237487793,
+    "lines": 89,
+    "nearest": "second cousin once removed",
+    "via": "Francis, Duke of Saxe-Coburg-Saalfeld & Countess Augusta Reuss of Ebersdorf",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 7,
+    "b": 10,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 7,
+    "b": 11,
+    "phi": 0.026842087507247925,
+    "lines": 128,
+    "nearest": "second cousin once removed",
+    "via": "Louise of Mecklenburg-Strelitz & Frederick William III of Prussia",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 7,
+    "b": 12,
+    "phi": 0.02234560251235962,
+    "lines": 123,
+    "nearest": "second cousin once removed",
+    "via": "Louise of Mecklenburg-Strelitz & Frederick William III of Prussia",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 7,
+    "b": 13,
+    "phi": 0.02234560251235962,
+    "lines": 123,
+    "nearest": "second cousin once removed",
+    "via": "Louise of Mecklenburg-Strelitz & Frederick William III of Prussia",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 7,
+    "b": 14,
+    "phi": 0.011261716485023499,
+    "lines": 133,
+    "nearest": "third cousin once removed",
+    "via": "Karl II, Grand Duke of Mecklenburg-Strelitz & Landgravine Friederike of Hesse-Darmstadt",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 7,
+    "b": 15,
+    "phi": 0.025138549506664276,
+    "lines": 157,
+    "nearest": "second cousin once removed",
+    "via": "Paul I of Russia & Sophie Dorothee of Württemberg",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 7,
+    "b": 16,
+    "phi": 0.005398347973823547,
+    "lines": 90,
+    "nearest": "fourth cousin",
+    "via": "Margravine Friederike of Brandenburg-Schwedt & Friedrich II Eugen, Duke of Württemberg",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 7,
+    "b": 17,
+    "phi": 0.009735256433486938,
+    "lines": 169,
+    "nearest": "third cousin once removed",
+    "via": "Karl II, Grand Duke of Mecklenburg-Strelitz & Landgravine Friederike of Hesse-Darmstadt",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 7,
+    "b": 18,
+    "phi": 2.7418136596679688e-05,
+    "lines": 7,
+    "nearest": "eighth cousin",
+    "via": "Countess Juliane of Nassau-Siegen & Maurice, Landgrave of Hesse-Kassel",
+    "plain": "about as related as fourth cousins"
+   },
+   {
+    "a": 8,
+    "b": 9,
+    "phi": 0.02939760684967041,
+    "lines": 71,
+    "nearest": "second cousin",
+    "via": "Maria Carolina of Austria & Ferdinand I of the Two Sicilies",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 8,
+    "b": 10,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 8,
+    "b": 11,
+    "phi": 0.007901608943939209,
+    "lines": 92,
+    "nearest": "third cousin twice removed",
+    "via": "Louis IX of Hesse-Darmstadt & Countess Palatine Caroline of Zweibrücken",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 8,
+    "b": 12,
+    "phi": 0.013268530368804932,
+    "lines": 79,
+    "nearest": "half-first cousin three times removed",
+    "via": "Maximilian I Joseph of Bavaria",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 8,
+    "b": 13,
+    "phi": 0.013268530368804932,
+    "lines": 79,
+    "nearest": "half-first cousin three times removed",
+    "via": "Maximilian I Joseph of Bavaria",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 8,
+    "b": 14,
+    "phi": 0.013197660446166992,
+    "lines": 80,
+    "nearest": "half-first cousin twice removed",
+    "via": "Maximilian I Joseph of Bavaria",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 8,
+    "b": 15,
+    "phi": 0.011581480503082275,
+    "lines": 100,
+    "nearest": "third cousin once removed",
+    "via": "Louis IX of Hesse-Darmstadt & Countess Palatine Caroline of Zweibrücken",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 8,
+    "b": 16,
+    "phi": 0.05951488018035889,
+    "lines": 74,
+    "nearest": "second cousin once removed",
+    "via": "Leopold II, Holy Roman Emperor & Maria Luisa of Spain",
+    "plain": "about as related as first cousins"
+   },
+   {
+    "a": 8,
+    "b": 17,
+    "phi": 0.01594337821006775,
+    "lines": 111,
+    "nearest": "third cousin once removed",
+    "via": "Maria Amalia of Saxony & Charles III of Spain",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 8,
+    "b": 18,
+    "phi": 0.00013756752014160156,
+    "lines": 5,
+    "nearest": "fifth cousin once removed",
+    "via": "Countess Maria Anna of Löwenstein-Wertheim-Rochefort & William, Landgrave of Hesse-Rotenburg",
+    "plain": "about as related as fourth cousins"
+   },
+   {
+    "a": 9,
+    "b": 10,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 9,
+    "b": 11,
+    "phi": 0.0036035776138305664,
+    "lines": 93,
+    "nearest": "fourth cousin once removed",
+    "via": "Princess Anna Sophie of Schwarzburg-Rudolstadt & Francis Josias, Duke of Saxe-Coburg-Saalfeld",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 9,
+    "b": 12,
+    "phi": 0.003738224506378174,
+    "lines": 90,
+    "nearest": "fourth cousin once removed",
+    "via": "Princess Anna Sophie of Schwarzburg-Rudolstadt & Francis Josias, Duke of Saxe-Coburg-Saalfeld",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 9,
+    "b": 13,
+    "phi": 0.003738224506378174,
+    "lines": 90,
+    "nearest": "fourth cousin once removed",
+    "via": "Princess Anna Sophie of Schwarzburg-Rudolstadt & Francis Josias, Duke of Saxe-Coburg-Saalfeld",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 9,
+    "b": 14,
+    "phi": 0.0017986893653869629,
+    "lines": 95,
+    "nearest": "fourth cousin twice removed",
+    "via": "Princess Antoinette of Brunswick-Wolfenbüttel & Ferdinand Albert II, Duke of Brunswick-Wolfenbüttel",
+    "plain": "about as related as fourth cousins"
+   },
+   {
+    "a": 9,
+    "b": 15,
+    "phi": 0.003670722246170044,
+    "lines": 108,
+    "nearest": "fourth cousin once removed",
+    "via": "Princess Antoinette of Brunswick-Wolfenbüttel & Ferdinand Albert II, Duke of Brunswick-Wolfenbüttel",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 9,
+    "b": 16,
+    "phi": 0.029726803302764893,
+    "lines": 69,
+    "nearest": "second cousin twice removed",
+    "via": "Maria Carolina of Austria & Ferdinand I of the Two Sicilies",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 9,
+    "b": 17,
+    "phi": 0.007220238447189331,
+    "lines": 119,
+    "nearest": "third cousin once removed",
+    "via": "Maria Amalia of Saxony & Charles III of Spain",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 9,
+    "b": 18,
+    "phi": 6.318092346191406e-05,
+    "lines": 8,
+    "nearest": "half-sixth cousin once removed",
+    "via": "Maurice Henry, Prince of Nassau-Hadamar",
+    "plain": "about as related as fourth cousins"
+   },
+   {
+    "a": 10,
+    "b": 11,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 10,
+    "b": 12,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 10,
+    "b": 13,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 10,
+    "b": 14,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 10,
+    "b": 15,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 10,
+    "b": 16,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 10,
+    "b": 17,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 10,
+    "b": 18,
+    "phi": 0.0,
+    "lines": 0,
+    "nearest": "",
+    "via": "",
+    "plain": "no shared ancestor within 8 generations"
+   },
+   {
+    "a": 11,
+    "b": 12,
+    "phi": 0.07988998293876648,
+    "lines": 90,
+    "nearest": "first cousin",
+    "via": "Christian IX of Denmark & Louise of Hesse-Kassel",
+    "plain": "about as related as first cousins"
+   },
+   {
+    "a": 11,
+    "b": 13,
+    "phi": 0.07988998293876648,
+    "lines": 90,
+    "nearest": "first cousin",
+    "via": "Christian IX of Denmark & Louise of Hesse-Kassel",
+    "plain": "about as related as first cousins"
+   },
+   {
+    "a": 11,
+    "b": 14,
+    "phi": 0.015484258532524109,
+    "lines": 126,
+    "nearest": "third cousin",
+    "via": "Frederick, Duke of Saxe-Hildburghausen & Duchess Charlotte Georgine of Mecklenburg-Strelitz",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 11,
+    "b": 15,
+    "phi": 0.027698494493961334,
+    "lines": 145,
+    "nearest": "second cousin once removed",
+    "via": "Paul I of Russia & Sophie Dorothee of Württemberg",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 11,
+    "b": 16,
+    "phi": 0.010495319962501526,
+    "lines": 82,
+    "nearest": "third cousin",
+    "via": "Duke Ludwig of Württemberg & Henriette of Nassau-Weilburg",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 11,
+    "b": 17,
+    "phi": 0.01932254433631897,
+    "lines": 134,
+    "nearest": "second cousin once removed",
+    "via": "Princess Louise Charlotte of Denmark & Prince William of Hesse-Kassel",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 11,
+    "b": 18,
+    "phi": 2.658367156982422e-05,
+    "lines": 6,
+    "nearest": "eighth cousin",
+    "via": "Countess Juliane of Nassau-Siegen & Maurice, Landgrave of Hesse-Kassel",
+    "plain": "about as related as fourth cousins"
+   },
+   {
+    "a": 12,
+    "b": 13,
+    "phi": 0.2593574821949005,
+    "lines": 32,
+    "nearest": "brother",
+    "via": "Frederik VIII of Denmark & Louise of Sweden",
+    "plain": "about as related as siblings"
+   },
+   {
+    "a": 12,
+    "b": 14,
+    "phi": 0.0392674058675766,
+    "lines": 114,
+    "nearest": "first cousin once removed",
+    "via": "Josephine of Leuchtenberg & Oscar I of Sweden",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 12,
+    "b": 15,
+    "phi": 0.02155015617609024,
+    "lines": 132,
+    "nearest": "second cousin once removed",
+    "via": "William I of the Netherlands & Wilhelmine of Prussia, Queen of the Netherlands",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 12,
+    "b": 16,
+    "phi": 0.005152150988578796,
+    "lines": 92,
+    "nearest": "fifth cousin",
+    "via": "Anne, Princess Royal and Princess of Orange & William IV, Prince of Orange",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 12,
+    "b": 17,
+    "phi": 0.014919251203536987,
+    "lines": 132,
+    "nearest": "second cousin once removed",
+    "via": "Princess Louise Charlotte of Denmark & Prince William of Hesse-Kassel",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 12,
+    "b": 18,
+    "phi": 3.5762786865234375e-05,
+    "lines": 7,
+    "nearest": "sixth cousin twice removed",
+    "via": "Countess Maria Anna of Löwenstein-Wertheim-Rochefort & William, Landgrave of Hesse-Rotenburg",
+    "plain": "about as related as fourth cousins"
+   },
+   {
+    "a": 13,
+    "b": 14,
+    "phi": 0.0392674058675766,
+    "lines": 114,
+    "nearest": "first cousin once removed",
+    "via": "Josephine of Leuchtenberg & Oscar I of Sweden",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 13,
+    "b": 15,
+    "phi": 0.02155015617609024,
+    "lines": 132,
+    "nearest": "second cousin once removed",
+    "via": "William I of the Netherlands & Wilhelmine of Prussia, Queen of the Netherlands",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 13,
+    "b": 16,
+    "phi": 0.005152150988578796,
+    "lines": 92,
+    "nearest": "fifth cousin",
+    "via": "Anne, Princess Royal and Princess of Orange & William IV, Prince of Orange",
+    "plain": "about as related as third cousins"
+   },
+   {
+    "a": 13,
+    "b": 17,
+    "phi": 0.014919251203536987,
+    "lines": 132,
+    "nearest": "second cousin once removed",
+    "via": "Princess Louise Charlotte of Denmark & Prince William of Hesse-Kassel",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 13,
+    "b": 18,
+    "phi": 3.5762786865234375e-05,
+    "lines": 7,
+    "nearest": "sixth cousin twice removed",
+    "via": "Countess Maria Anna of Löwenstein-Wertheim-Rochefort & William, Landgrave of Hesse-Rotenburg",
+    "plain": "about as related as fourth cousins"
+   },
+   {
+    "a": 14,
+    "b": 15,
+    "phi": 0.04164275527000427,
+    "lines": 76,
+    "nearest": "first cousin once removed",
+    "via": "Princess Pauline of Württemberg & Wilhelm I, Duke of Nassau",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 14,
+    "b": 16,
+    "phi": 0.013262942433357239,
+    "lines": 79,
+    "nearest": "second cousin once removed",
+    "via": "Burgravine Louise Isabelle of Kirchberg & Prince Friedrich Wilhelm, Prince of Nassau",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 14,
+    "b": 17,
+    "phi": 0.023446664214134216,
+    "lines": 131,
+    "nearest": "half-first cousin once removed",
+    "via": "Wilhelm I, Duke of Nassau",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 14,
+    "b": 18,
+    "phi": 4.839897155761719e-05,
+    "lines": 7,
+    "nearest": "sixth cousin once removed",
+    "via": "Countess Maria Anna of Löwenstein-Wertheim-Rochefort & William, Landgrave of Hesse-Rotenburg",
+    "plain": "about as related as fourth cousins"
+   },
+   {
+    "a": 15,
+    "b": 16,
+    "phi": 0.015054889023303986,
+    "lines": 83,
+    "nearest": "third cousin",
+    "via": "Burgravine Louise Isabelle of Kirchberg & Prince Friedrich Wilhelm, Prince of Nassau",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 15,
+    "b": 17,
+    "phi": 0.01686900109052658,
+    "lines": 164,
+    "nearest": "half-second cousin",
+    "via": "Wilhelm I, Duke of Nassau",
+    "plain": "about as related as second cousins"
+   },
+   {
+    "a": 15,
+    "b": 18,
+    "phi": 3.516674041748047e-05,
+    "lines": 7,
+    "nearest": "eighth cousin",
+    "via": "Philipp Reinhard von Solms & Elizabeth of Wied",
+    "plain": "about as related as fourth cousins"
+   },
+   {
+    "a": 16,
+    "b": 17,
+    "phi": 0.030535802245140076,
+    "lines": 97,
+    "nearest": "third cousin",
+    "via": "Charles IV of Spain & Maria Luisa of Parma",
+    "plain": "about as related as first cousins once removed"
+   },
+   {
+    "a": 16,
+    "b": 18,
+    "phi": 1.33514404296875e-05,
+    "lines": 5,
+    "nearest": "eighth cousin once removed",
+    "via": "Countess Juliane of Nassau-Siegen & Maurice, Landgrave of Hesse-Kassel",
+    "plain": "about as related as fourth cousins"
+   },
+   {
+    "a": 17,
+    "b": 18,
+    "phi": 3.9696693420410156e-05,
+    "lines": 8,
+    "nearest": "seventh cousin once removed",
+    "via": "Ferdinand Charles, Count of Löwenstein-Wertheim-Rochefort & Anna Maria, Gräfin und Landgräfin von Fürstenberg",
+    "plain": "about as related as fourth cousins"
+   }
+  ],
+  "generations": 8,
+  "people": 1835,
+  "enemy_pairs": 28,
+  "related_enemy_pairs": 15
+ },
+ "victorias_gene": {
+  "affected": [
+   {
+    "id": "Q160541",
+    "who": "Leopold, Duke of Albany (son)",
+    "born": "1853",
+    "died": "1884"
+   },
+   {
+    "id": "Q2562528",
+    "who": "Friedrich of Hesse (grandson, via Alice)",
+    "born": "1870",
+    "died": "1873"
+   },
+   {
+    "id": "Q63093",
+    "who": "Waldemar of Prussia (great-grandson, via Alice → Irene)",
+    "born": "1889",
+    "died": "1945"
+   },
+   {
+    "id": "Q7902792",
+    "who": "Henry of Prussia (great-grandson, via Alice → Irene)",
+    "born": "1900",
+    "died": "1904"
+   },
+   {
+    "id": "Q154045",
+    "who": "Tsarevich Alexei (great-grandson, via Alice → Alix)",
+    "born": "1904",
+    "died": "1918"
+   },
+   {
+    "id": "Q6677995",
+    "who": "Rupert, Viscount Trematon (great-grandson, via Leopold → Alice)",
+    "born": "1907",
+    "died": "1928"
+   },
+   {
+    "id": "Q2205590",
+    "who": "Lord Leopold Mountbatten (grandson, via Beatrice)",
+    "born": "1889",
+    "died": "1922"
+   },
+   {
+    "id": "Q518846",
+    "who": "Alfonso, Prince of Asturias (great-grandson, via Beatrice → Victoria Eugenie)",
+    "born": "1907",
+    "died": "1938"
+   },
+   {
+    "id": "Q1332391",
+    "who": "Infante Gonzalo (great-grandson, via Beatrice → Victoria Eugenie)",
+    "born": "1914",
+    "died": "1934"
+   }
+  ],
+  "women": [
+   {
+    "id": "Q9439",
+    "name": "Victoria",
+    "born": "1819",
+    "died": "1901",
+    "gen": 0,
+    "mother": "Princess Victoria of Saxe-Coburg-Saalfeld",
+    "prior": 1.0,
+    "posterior": 1.0,
+    "posterior_4gen": 1.0,
+    "sons": [
+     {
+      "name": "Alfred, Duke of Saxe-Coburg and Gotha",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Leopold, Duke of Albany",
+      "evidence": "affected"
+     },
+     {
+      "name": "Prince Arthur, Duke of Connaught and Strathearn",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Edward VII",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q155566",
+    "name": "Princess Alice of the United Kingdom",
+    "born": "1843",
+    "died": "1878",
+    "gen": 1,
+    "mother": "Victoria",
+    "prior": 0.5,
+    "posterior": 1.0,
+    "posterior_4gen": 1.0,
+    "sons": [
+     {
+      "name": "Prince Friedrich of Hesse and by Rhine",
+      "evidence": "affected"
+     },
+     {
+      "name": "Ernest Louis, Grand Duke of Hesse and by Rhine",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q158140",
+    "name": "Princess Beatrice of the United Kingdom",
+    "born": "1857",
+    "died": "1944",
+    "gen": 1,
+    "mother": "Victoria",
+    "prior": 0.5,
+    "posterior": 1.0,
+    "posterior_4gen": 1.0,
+    "sons": [
+     {
+      "name": "Lord Leopold Mountbatten",
+      "evidence": "affected"
+     },
+     {
+      "name": "Prince Maurice of Battenberg",
+      "evidence": "unknown"
+     },
+     {
+      "name": "Alexander Mountbatten, 1st Marquess of Carisbrooke",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q161167",
+    "name": "Princess Louise, Duchess of Argyll",
+    "born": "1848",
+    "died": "1939",
+    "gen": 1,
+    "mother": "Victoria",
+    "prior": 0.5,
+    "posterior": 0.5,
+    "posterior_4gen": 0.5,
+    "sons": []
+   },
+   {
+    "id": "Q160539",
+    "name": "Princess Helena of the United Kingdom",
+    "born": "1846",
+    "died": "1923",
+    "gen": 1,
+    "mother": "Victoria",
+    "prior": 0.5,
+    "posterior": 0.2,
+    "posterior_4gen": 0.2,
+    "sons": [
+     {
+      "name": "Albert, Duke of Schleswig-Holstein",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Harald of Schleswig-Holstein",
+      "evidence": "unknown"
+     },
+     {
+      "name": "Prince Christian Victor of Schleswig-Holstein",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q116728",
+    "name": "Victoria, Princess Royal",
+    "born": "1840",
+    "died": "1901",
+    "gen": 1,
+    "mother": "Victoria",
+    "prior": 0.5,
+    "posterior": 0.0626,
+    "posterior_4gen": 0.0626,
+    "sons": [
+     {
+      "name": "Wilhelm II",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Sigismund of Prussia",
+      "evidence": "unknown"
+     },
+     {
+      "name": "Prince Waldemar of Prussia",
+      "evidence": "unknown"
+     },
+     {
+      "name": "Prince Henry of Prussia",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q233990",
+    "name": "Princess Irene of Hesse and by Rhine",
+    "born": "1866",
+    "died": "1953",
+    "gen": 2,
+    "mother": "Princess Alice of the United Kingdom",
+    "prior": 0.25,
+    "posterior": 1.0,
+    "posterior_4gen": 1.0,
+    "sons": [
+     {
+      "name": "Prince Waldemar of Prussia",
+      "evidence": "affected"
+     },
+     {
+      "name": "Prince Sigismund of Prussia",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Henry of Prussia",
+      "evidence": "affected"
+     }
+    ]
+   },
+   {
+    "id": "Q152094",
+    "name": "Alexandra Feodorovna (Alix of Hesse)",
+    "born": "1872",
+    "died": "1918",
+    "gen": 2,
+    "mother": "Princess Alice of the United Kingdom",
+    "prior": 0.25,
+    "posterior": 1.0,
+    "posterior_4gen": 1.0,
+    "sons": [
+     {
+      "name": "Alexei Nikolaevich, Tsarevich of Russia",
+      "evidence": "affected"
+     }
+    ]
+   },
+   {
+    "id": "Q235521",
+    "name": "Princess Alice, Countess of Athlone",
+    "born": "1883",
+    "died": "1981",
+    "gen": 2,
+    "mother": "Princess Helena, Duchess of Albany",
+    "prior": 0.5,
+    "posterior": 1.0,
+    "posterior_4gen": 1.0,
+    "sons": [
+     {
+      "name": "Rupert Cambridge, Viscount Trematon",
+      "evidence": "affected"
+     },
+     {
+      "name": "Prince Maurice of Teck",
+      "evidence": "unknown"
+     }
+    ]
+   },
+   {
+    "id": "Q160001",
+    "name": "Victoria Eugenie of Battenberg",
+    "born": "1887",
+    "died": "1969",
+    "gen": 2,
+    "mother": "Princess Beatrice of the United Kingdom",
+    "prior": 0.25,
+    "posterior": 1.0,
+    "posterior_4gen": 1.0,
+    "sons": [
+     {
+      "name": "Infante Gonzalo of Spain",
+      "evidence": "affected"
+     },
+     {
+      "name": "Infante Juan, Count of Barcelona",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Alfonso, Prince of Asturias",
+      "evidence": "affected"
+     },
+     {
+      "name": "Infante Jaime, Duke of Segovia",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Fernando de Borbón y Battenberg",
+      "evidence": "unknown"
+     }
+    ]
+   },
+   {
+    "id": "Q58063",
+    "name": "Princess Elisabeth of Hesse and by Rhine",
+    "born": "1864",
+    "died": "1918",
+    "gen": 2,
+    "mother": "Princess Alice of the United Kingdom",
+    "prior": 0.25,
+    "posterior": 0.5,
+    "posterior_4gen": 0.5,
+    "sons": []
+   },
+   {
+    "id": "Q1208045",
+    "name": "Princess Marie of Hesse and by Rhine",
+    "born": "1874",
+    "died": "1878",
+    "gen": 2,
+    "mother": "Princess Alice of the United Kingdom",
+    "prior": 0.25,
+    "posterior": 0.5,
+    "posterior_4gen": 0.5,
+    "sons": []
+   },
+   {
+    "id": "Q57658",
+    "name": "Princess Victoria of Hesse and by Rhine",
+    "born": "1863",
+    "died": "1950",
+    "gen": 2,
+    "mother": "Princess Alice of the United Kingdom",
+    "prior": 0.25,
+    "posterior": 0.1197,
+    "posterior_4gen": 0.1197,
+    "sons": [
+     {
+      "name": "Louis Mountbatten, 1st Earl Mountbatten of Burma",
+      "evidence": "healthy"
+     },
+     {
+      "name": "George Mountbatten, 2nd Marquess of Milford Haven",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q204864",
+    "name": "Princess Helena Victoria of Schleswig-Holstein",
+    "born": "1870",
+    "died": "1948",
+    "gen": 2,
+    "mother": "Princess Helena of the United Kingdom",
+    "prior": 0.25,
+    "posterior": 0.1,
+    "posterior_4gen": 0.1,
+    "sons": []
+   },
+   {
+    "id": "Q242876",
+    "name": "Princess Marie Louise of Schleswig-Holstein",
+    "born": "1872",
+    "died": "1956",
+    "gen": 2,
+    "mother": "Princess Helena of the United Kingdom",
+    "prior": 0.25,
+    "posterior": 0.1,
+    "posterior_4gen": 0.1,
+    "sons": []
+   },
+   {
+    "id": "Q58670",
+    "name": "Princess Charlotte of Prussia",
+    "born": "1860",
+    "died": "1919",
+    "gen": 2,
+    "mother": "Victoria, Princess Royal",
+    "prior": 0.25,
+    "posterior": 0.0313,
+    "posterior_4gen": 0.0313,
+    "sons": []
+   },
+   {
+    "id": "Q60382",
+    "name": "Princess Viktoria of Prussia",
+    "born": "1866",
+    "died": "1929",
+    "gen": 2,
+    "mother": "Victoria, Princess Royal",
+    "prior": 0.25,
+    "posterior": 0.0313,
+    "posterior_4gen": 0.0313,
+    "sons": []
+   },
+   {
+    "id": "Q155822",
+    "name": "Sophia of Prussia",
+    "born": "1870",
+    "died": "1932",
+    "gen": 2,
+    "mother": "Victoria, Princess Royal",
+    "prior": 0.25,
+    "posterior": 0.0031,
+    "posterior_4gen": 0.0031,
+    "sons": [
+     {
+      "name": "Alexander of Greece",
+      "evidence": "healthy"
+     },
+     {
+      "name": "George II of Greece",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Paul of Greece",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q61338",
+    "name": "Princess Margaret of Prussia",
+    "born": "1872",
+    "died": "1954",
+    "gen": 2,
+    "mother": "Victoria, Princess Royal",
+    "prior": 0.25,
+    "posterior": 0.001,
+    "posterior_4gen": 0.001,
+    "sons": [
+     {
+      "name": "Prince Richard of Hesse",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Christoph of Hesse-Kassel",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Friedrich Wilhelm of Hesse-Kassel",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Maximilian of Hesse-Kassel",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Philipp, Landgrave of Hesse",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Wolfgang of Hesse",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q233516",
+    "name": "Louise, Princess Royal",
+    "born": "1867",
+    "died": "1931",
+    "gen": 2,
+    "mother": "Alexandra of Denmark",
+    "prior": 0.5,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Alastair Duff",
+      "evidence": "unknown"
+     }
+    ]
+   },
+   {
+    "id": "Q234542",
+    "name": "Princess Victoria of the United Kingdom",
+    "born": "1868",
+    "died": "1935",
+    "gen": 2,
+    "mother": "Alexandra of Denmark",
+    "prior": 0.5,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": []
+   },
+   {
+    "id": "Q154423",
+    "name": "Maud of Wales",
+    "born": "1869",
+    "died": "1938",
+    "gen": 2,
+    "mother": "Alexandra of Denmark",
+    "prior": 0.5,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Olav V of Norway",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q57666",
+    "name": "Marie of Romania",
+    "born": "1875",
+    "died": "1938",
+    "gen": 2,
+    "mother": "Grand Duchess Maria Alexandrovna of Russia",
+    "prior": 0.5,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Carol II of Romania",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Mircea of Romania",
+      "evidence": "unknown"
+     },
+     {
+      "name": "Prince Nicolae of Romania",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q164500",
+    "name": "Princess Victoria Melita of Saxe-Coburg and Gotha",
+    "born": "1876",
+    "died": "1936",
+    "gen": 2,
+    "mother": "Grand Duchess Maria Alexandrovna of Russia",
+    "prior": 0.5,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Grand Duke Vladimir Kirillovich, Grand Duke of Russia",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q61345",
+    "name": "Princess Alexandra of Saxe-Coburg and Gotha",
+    "born": "1878",
+    "died": "1942",
+    "gen": 2,
+    "mother": "Grand Duchess Maria Alexandrovna of Russia",
+    "prior": 0.5,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Gottfried, 8th Prince of Hohenlohe-Langenburg",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Alfred of Hohenlohe-Langenburg",
+      "evidence": "unknown"
+     }
+    ]
+   },
+   {
+    "id": "Q158173",
+    "name": "Princess Margaret of Connaught",
+    "born": "1882",
+    "died": "1920",
+    "gen": 2,
+    "mother": "Princess Louise Margaret, Duchess of Connaught and Strathearn",
+    "prior": 0.5,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Prince Gustaf Adolf, Duke of Västerbotten",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Bertil, Duke of Halland",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Carl Johan Bernadotte",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Sigvard Bernadotte",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q235597",
+    "name": "Princess Beatrice of Saxe-Coburg and Gotha",
+    "born": "1884",
+    "died": "1966",
+    "gen": 2,
+    "mother": "Grand Duchess Maria Alexandrovna of Russia",
+    "prior": 0.5,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Prince Álvaro of Orleans",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Alfonso of Orleans",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Ataulfo of Orleans",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q256951",
+    "name": "Princess Patricia of Connaught",
+    "born": "1886",
+    "died": "1974",
+    "gen": 2,
+    "mother": "Princess Louise Margaret, Duchess of Connaught and Strathearn",
+    "prior": 0.5,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Alexander Ramsay of Mar",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q113584",
+    "name": "Grand Duchess Olga Nikolaevna of Russia",
+    "born": "1895",
+    "died": "1918",
+    "gen": 3,
+    "mother": "Alexandra Feodorovna (Alix of Hesse)",
+    "prior": 0.125,
+    "posterior": 0.5,
+    "posterior_4gen": 0.5,
+    "sons": []
+   },
+   {
+    "id": "Q158148",
+    "name": "Grand Duchess Tatiana Nikolaevna of Russia",
+    "born": "1897",
+    "died": "1918",
+    "gen": 3,
+    "mother": "Alexandra Feodorovna (Alix of Hesse)",
+    "prior": 0.125,
+    "posterior": 0.5,
+    "posterior_4gen": 0.5,
+    "sons": []
+   },
+   {
+    "id": "Q155422",
+    "name": "Grand Duchess Maria Nikolaevna of Russia",
+    "born": "1899",
+    "died": "1918",
+    "gen": 3,
+    "mother": "Alexandra Feodorovna (Alix of Hesse)",
+    "prior": 0.125,
+    "posterior": 0.5,
+    "posterior_4gen": 0.5,
+    "sons": []
+   },
+   {
+    "id": "Q151130",
+    "name": "Grand Duchess Anastasia Nikolaevna of Russia",
+    "born": "1901",
+    "died": "1918",
+    "gen": 3,
+    "mother": "Alexandra Feodorovna (Alix of Hesse)",
+    "prior": 0.125,
+    "posterior": 0.5,
+    "posterior_4gen": 0.5,
+    "sons": []
+   },
+   {
+    "id": "Q2412713",
+    "name": "Infanta María Cristina of Spain",
+    "born": "1911",
+    "died": "1996",
+    "gen": 3,
+    "mother": "Victoria Eugenie of Battenberg",
+    "prior": 0.125,
+    "posterior": 0.2909,
+    "posterior_4gen": 0.5,
+    "sons": []
+   },
+   {
+    "id": "Q4424877",
+    "name": "Lady May Abel Smith",
+    "born": "1906",
+    "died": "1994",
+    "gen": 3,
+    "mother": "Princess Alice, Countess of Athlone",
+    "prior": 0.25,
+    "posterior": 0.2074,
+    "posterior_4gen": 0.3333,
+    "sons": [
+     {
+      "name": "Richard Abel Smith",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q269493",
+    "name": "Infanta Beatriz of Spain",
+    "born": "1909",
+    "died": "2002",
+    "gen": 3,
+    "mother": "Victoria Eugenie of Battenberg",
+    "prior": 0.125,
+    "posterior": 0.1136,
+    "posterior_4gen": 0.2,
+    "sons": [
+     {
+      "name": "Marco Torlonia, 6th Prince of Civitella-Cesi",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Marino Torlonia",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q115477",
+    "name": "Louise Mountbatten",
+    "born": "1889",
+    "died": "1965",
+    "gen": 3,
+    "mother": "Princess Victoria of Hesse and by Rhine",
+    "prior": 0.125,
+    "posterior": 0.0599,
+    "posterior_4gen": 0.0599,
+    "sons": []
+   },
+   {
+    "id": "Q177769",
+    "name": "Princess Feodora of Saxe-Meiningen",
+    "born": "1879",
+    "died": "1945",
+    "gen": 3,
+    "mother": "Princess Charlotte of Prussia",
+    "prior": 0.125,
+    "posterior": 0.0157,
+    "posterior_4gen": 0.0157,
+    "sons": []
+   },
+   {
+    "id": "Q116062",
+    "name": "Princess Alice of Battenberg",
+    "born": "1885",
+    "died": "1969",
+    "gen": 3,
+    "mother": "Princess Victoria of Hesse and by Rhine",
+    "prior": 0.125,
+    "posterior": 0.0097,
+    "posterior_4gen": 0.0097,
+    "sons": [
+     {
+      "name": "Prince Philip, Duke of Edinburgh",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q162177",
+    "name": "Helen of Greece and Denmark",
+    "born": "1896",
+    "died": "1982",
+    "gen": 3,
+    "mother": "Sophia of Prussia",
+    "prior": 0.125,
+    "posterior": 0.001,
+    "posterior_4gen": 0.001,
+    "sons": [
+     {
+      "name": "Michael I of Romania",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q236770",
+    "name": "Princess Irene, Duchess of Aosta",
+    "born": "1904",
+    "died": "1974",
+    "gen": 3,
+    "mother": "Sophia of Prussia",
+    "prior": 0.125,
+    "posterior": 0.001,
+    "posterior_4gen": 0.001,
+    "sons": [
+     {
+      "name": "Prince Amedeo, 5th Duke of Aosta",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q242338",
+    "name": "Princess Katherine of Greece and Denmark",
+    "born": "1913",
+    "died": "2007",
+    "gen": 3,
+    "mother": "Sophia of Prussia",
+    "prior": 0.125,
+    "posterior": 0.001,
+    "posterior_4gen": 0.001,
+    "sons": [
+     {
+      "name": "Paul Brandram",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q255953",
+    "name": "Princess Alexandra, 2nd Duchess of Fife",
+    "born": "1891",
+    "died": "1959",
+    "gen": 3,
+    "mother": "Louise, Princess Royal",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Alastair Windsor, 2nd Duke of Connaught and Strathearn",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q57529",
+    "name": "Princess Viktoria Luise of Prussia",
+    "born": "1892",
+    "died": "1980",
+    "gen": 3,
+    "mother": "Augusta Victoria of Schleswig-Holstein",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Ernst August, Prince of Hanover",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Georg Wilhelm of Hanover",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Christian Oscar of Hanover",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Welf Heinrich of Hanover",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q439167",
+    "name": "Princess Maud, Countess of Southesk",
+    "born": "1893",
+    "died": "1945",
+    "gen": 3,
+    "mother": "Louise, Princess Royal",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "James Carnegie, 3rd Duke of Fife",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q232735",
+    "name": "Princess Elisabeth of Romania",
+    "born": "1894",
+    "died": "1956",
+    "gen": 3,
+    "mother": "Marie of Romania",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": []
+   },
+   {
+    "id": "Q70850",
+    "name": "Princess Elisabeth of Hesse and by Rhine",
+    "born": "1895",
+    "died": "1903",
+    "gen": 3,
+    "mother": "Princess Victoria Melita of Saxe-Coburg and Gotha",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": []
+   },
+   {
+    "id": "Q233913",
+    "name": "Mary, Princess Royal and Countess of Harewood",
+    "born": "1897",
+    "died": "1965",
+    "gen": 3,
+    "mother": "Mary of Teck",
+    "prior": 0.0,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Gerald David Lascelles",
+      "evidence": "healthy"
+     },
+     {
+      "name": "George Lascelles, 7th Earl of Harewood",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q2332225",
+    "name": "Princess Marie Melita of Hohenlohe-Langenburg",
+    "born": "1899",
+    "died": "1967",
+    "gen": 3,
+    "mother": "Princess Alexandra of Saxe-Coburg and Gotha",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Hans Albrecht, Hereditary Prince of Schleswig-Holstein",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Peter, Duke of Schleswig-Holstein",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Wilhelm of Schleswig-Holstein",
+      "evidence": "unknown"
+     }
+    ]
+   },
+   {
+    "id": "Q167387",
+    "name": "Maria of Yugoslavia",
+    "born": "1900",
+    "died": "1961",
+    "gen": 3,
+    "mother": "Marie of Romania",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Peter II of Yugoslavia",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Andrej of Yugoslavia",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Tomislav of Yugoslavia",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q75384295",
+    "name": "Valerie Marie Schwalb",
+    "born": "1900",
+    "died": "1953",
+    "gen": 3,
+    "mother": "",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": []
+   },
+   {
+    "id": "Q75384225",
+    "name": "Princess Alexandra of Hohenlohe-Langenburg",
+    "born": "1901",
+    "died": "1963",
+    "gen": 3,
+    "mother": "Princess Alexandra of Saxe-Coburg and Gotha",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": []
+   },
+   {
+    "id": "Q47139432",
+    "name": "Princess Irma of Hohenlohe-Langenburg",
+    "born": "1902",
+    "died": "1986",
+    "gen": 3,
+    "mother": "Princess Alexandra of Saxe-Coburg and Gotha",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": []
+   },
+   {
+    "id": "Q778200",
+    "name": "Grand Duchess Maria Kirillovna of Russia",
+    "born": "1907",
+    "died": "1951",
+    "gen": 3,
+    "mother": "Princess Victoria Melita of Saxe-Coburg and Gotha",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Prince Karl of Leiningen",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Emich, 7th Prince of Leiningen",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Friedrich of Leiningen",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Peter of Leiningen",
+      "evidence": "unknown"
+     }
+    ]
+   },
+   {
+    "id": "Q57626",
+    "name": "Princess Sibylla of Saxe-Coburg and Gotha",
+    "born": "1908",
+    "died": "1972",
+    "gen": 3,
+    "mother": "Princess Viktoria Adelheid of Schleswig-Holstein",
+    "prior": 0.0,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "a living son",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q237341",
+    "name": "Grand Duchess Kira Kirillovna of Russia",
+    "born": "1909",
+    "died": "1967",
+    "gen": 3,
+    "mother": "Princess Victoria Melita of Saxe-Coburg and Gotha",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Prince Friedrich Wilhelm of Prussia",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Michael of Prussia",
+      "evidence": "healthy"
+     },
+     {
+      "name": "a living son",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Prince Louis Ferdinand of Prussia",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q235595",
+    "name": "Princess Ileana of Romania",
+    "born": "1909",
+    "died": "1991",
+    "gen": 3,
+    "mother": "Marie of Romania",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Archduke Stefan of Austria",
+      "evidence": "healthy"
+     },
+     {
+      "name": "a living son",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q163010",
+    "name": "Ingrid of Sweden",
+    "born": "1910",
+    "died": "2000",
+    "gen": 3,
+    "mother": "Princess Margaret of Connaught",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": []
+   },
+   {
+    "id": "Q5365163",
+    "name": "Princess Caroline Mathilde of Saxe-Coburg and Gotha",
+    "born": "1912",
+    "died": "1983",
+    "gen": 3,
+    "mother": "Princess Viktoria Adelheid of Schleswig-Holstein",
+    "prior": 0.0,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "Peter Michael Schnirring",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Bertram Friedrich Graf zu Castell-Rüdenhausen",
+      "evidence": "healthy"
+     },
+     {
+      "name": "Konradin Friedrich Graf zu Castell-Rüdenhausen",
+      "evidence": "healthy"
+     }
+    ]
+   },
+   {
+    "id": "Q75388852",
+    "name": "unnamed daughter Bernadotte",
+    "born": "1920",
+    "died": "1920",
+    "gen": 3,
+    "mother": "Princess Margaret of Connaught",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": []
+   },
+   {
+    "id": "Q10315513",
+    "name": "Iris Mountbatten",
+    "born": "1920",
+    "died": "1982",
+    "gen": 3,
+    "mother": "Irene Mountbatten, Marchioness of Carisbrooke",
+    "prior": 0.25,
+    "posterior": 0.0,
+    "posterior_4gen": 0.0,
+    "sons": [
+     {
+      "name": "a living son",
+      "evidence": "healthy"
+     }
+    ]
+   }
+  ],
+  "descendants": 349,
+  "descendants_4gen": 313,
+  "deepest_generation": 6,
+  "living_women": 61,
+  "living_women_over_1pct": 14,
+  "living_women_max": 0.145
+ }
+};
+const cw = DATA.cousins_war, vg = DATA.victorias_gene, M = cw.monarchs;
+const SIDE = { "Allies": "allies", "Central Powers": "central", "Neutral": "neutral" };
+const SPARSE = 0.5;
+const fmtPhi = (p) => p > 0 ? `${p.toFixed(4)} (≈ 1/${Math.round(1 / p)})` : "0";
+const pairOf = (i, j) => cw.pairs.find((p) => (p.a === i && p.b === j) || (p.a === j && p.b === i));
+const idx = (name, country) => M.findIndex((m) => m.name === name && (!country || m.country === country));
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const SVGNS = "http://www.w3.org/2000/svg";
+function el(tag, attrs, text) {
+  const e = document.createElementNS(SVGNS, tag);
+  for (const [k, v] of Object.entries(attrs || {})) e.setAttribute(k, v);
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+/* headline numbers */
+document.getElementById("statBig").textContent = `${cw.documented_related}/${cw.documented_pairs}`;
+document.getElementById("statEnemy").textContent = cw.documented_enemy_related;
+const W = idx("Wilhelm II"), N = idx("Nicholas II"), G = idx("George V");
+document.getElementById("wnLines").textContent = pairOf(W, N).lines;
+
+/* questions answered */
+const pct = (x) => Math.round(x * 100);
+const mc = vg.women.find((w) => w.name === "Infanta María Cristina of Spain");
+const bz = vg.women.find((w) => w.name === "Infanta Beatriz of Spain");
+const QA = [
+  ["story", "Were the monarchs of 1914 related?",
+   `Yes, all of them that the records cover. ${cw.documented_related} of ${cw.documented_pairs} pairs share an ancestor within eight generations, and so do all ${cw.documented_enemy_related} pairs of wartime enemies. The only gaps are Serbia, Montenegro and the Ottoman sultan, whose ancestry Wikidata barely records.`,
+   "#matrix"],
+  ["story", "How closely were the enemies related?",
+   `George V and Wilhelm II were first cousins through Queen Victoria, and ${pairOf(G, W).lines} separate lines connect them. Wilhelm II and Nicholas II were second cousins once removed, and ${pairOf(W, N).lines} lines connect them.`,
+   "#trio"],
+  ["story", "Who carried Victoria's haemophilia gene?",
+   "Her daughters Alice and Beatrice certainly did, because each had an affected son. Two of Victoria's granddaughters married into ruling houses and carried it to the thrones of Russia and Spain. Her eldest daughter Vicky, mother of the Kaiser, drops from a 50% to a 6% chance once you count her healthy sons.",
+   "#gene"],
+  ["story", "Could it still be out there?",
+   `Probably not, but the records can't rule it out. No case has been documented since 1934. Following every open line down to the present (${vg.deepest_generation} generations below Victoria), the odds keep falling as healthy sons are counted. Infanta María Cristina of Spain drops from 50% to ${pct(mc.posterior)}%, and her sister Beatriz from 20% to ${pct(bz.posterior)}%. Of the ${vg.living_women} living women in these lines, ${vg.living_women_over_1pct} still have odds above 1%, and the highest is ${(vg.living_women_max * 100).toFixed(1)}%. They are counted here but not named, because a carrier probability is a statement about a real person's health.`,
+   "#gene"],
+  ["project", "Did this use graph theory?",
+   "Yes, throughout, though without a graph library. A pedigree is a directed acyclic graph rather than a tree, because cousin marriages join branches again. Ancestors come from a breadth-first search up the parent edges. A relationship is a pair of paths that meet only at a shared ancestor. Kinship adds up every such pair, working from the oldest generation down. The haemophilia odds are belief propagation, a standard algorithm for probabilities on a graph, run on the same line of descent.",
+   "#method"],
+  ["project", "What was the point of the project?",
+   "It started as a personal family-tree tool. Your own data comes in from a GEDCOM export and stays on your machine, and the royal tree is the public demo. As a portfolio piece it shows modelling messy real-world data, a graph algorithm that is easy to get subtly wrong, and results checked against documented history.",
+   "#method"],
+  ["project", "What came out of it that was interesting?",
+   "Three things. Everyone who reigned in 1914 was a cousin. A single nearest relationship understates royal kinship: the Kaiser and the Tsar share 118 lines. And Bayes' rule over the line of descent can say who carried the gene without reading anyone's DNA.",
+   "#questions"],
+];
+const qa = document.getElementById("qa");
+QA.forEach(([tag, q, a, href], k) => {
+  const d = document.createElement("details");
+  if (k < 2) d.open = true;
+  d.innerHTML = `<summary>${esc(q)}<span class="tag">${tag}</span></summary>
+    <div class="answer"><p class="short">${esc(a)}</p>${href !== "#questions" ? `<p><a href="${href}">See the evidence</a></p>` : ""}</div>`;
+  qa.append(d);
+});
+
+/* kinship matrix */
+const heat = document.getElementById("heat"), panel = document.getElementById("panel");
+const n = M.length, cell = 26, left = 190, topY = 190;
+heat.setAttribute("viewBox", `0 0 ${left + n * cell + 4} ${topY + n * cell + 4}`);
+heat.style.width = "100%"; heat.style.minWidth = "560px";
+const defs = el("defs");
+const pat = el("pattern", { id: "hatch", width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
+pat.append(el("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: "var(--rule)", "stroke-width": 2 }));
+defs.append(pat); heat.append(defs);
+const shade = (phi) => phi > 0 ? Math.max(0.08, Math.min(1, (Math.log2(phi) + 12) / 10)) : 0;
+M.forEach((m, i) => {
+  const label = `${m.name} · ${m.country}${m.known < SPARSE ? " *" : ""}`;
+  heat.append(el("text", { x: left - 8, y: topY + i * cell + cell * 0.66, "text-anchor": "end", "font-size": 11.5,
+    style: `fill: var(--${SIDE[m.side]})` }, label));
+  heat.append(el("text", { x: 0, y: 0, "font-size": 11.5, "text-anchor": "start",
+    transform: `translate(${left + i * cell + cell * 0.66}, ${topY - 8}) rotate(-60)`, style: `fill: var(--${SIDE[m.side]})` }, label));
+});
+const cells = [];
+for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
+  const x = left + j * cell, y = topY + i * cell;
+  if (i === j) { heat.append(el("rect", { x, y, width: cell - 1, height: cell - 1, fill: "var(--paper-2)" })); continue; }
+  const p = pairOf(i, j), sparse = M[i].known < SPARSE || M[j].known < SPARSE;
+  const r = el("rect", { x, y, width: cell - 1, height: cell - 1, class: "cell", tabindex: 0,
+    fill: p.phi > 0 ? "var(--heat)" : (sparse ? "url(#hatch)" : "var(--paper-2)"), "fill-opacity": p.phi > 0 ? shade(p.phi) : 1 });
+  r.append(el("title", {}, `${M[i].name} and ${M[j].name}: ${p.nearest || "no shared ancestor found"}`));
+  const pick = () => { cells.forEach((c) => c.classList.remove("on")); r.classList.add("on"); show(i, j); };
+  r.addEventListener("click", pick);
+  r.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } });
+  cells.push(r); heat.append(r);
+}
+const sides = M.map((m) => m.side);
+for (let k = 1; k < n; k++) if (sides[k] !== sides[k - 1]) {
+  heat.append(el("line", { x1: left, x2: left + n * cell, y1: topY + k * cell - 0.5, y2: topY + k * cell - 0.5, stroke: "var(--ink)", "stroke-width": 1.2 }));
+  heat.append(el("line", { y1: topY, y2: topY + n * cell, x1: left + k * cell - 0.5, x2: left + k * cell - 0.5, stroke: "var(--ink)", "stroke-width": 1.2 }));
+}
+function show(i, j) {
+  const a = M[i], b = M[j], p = pairOf(i, j), sparse = a.known < SPARSE || b.known < SPARSE;
+  const enemies = new Set([a.side, b.side]).size === 2 && [a.side, b.side].every((s) => s !== "Neutral");
+  panel.innerHTML = `<div class="eyebrow">${enemies ? "Wartime enemies" : "Pair"}</div>
+    <div class="who"><span class="${SIDE[a.side]}">${esc(a.name)}</span> and <span class="${SIDE[b.side]}">${esc(b.name)}</span></div>
+    <dl>
+      <dt>Countries</dt><dd>${esc(a.country)} · ${esc(b.country)}</dd>
+      <dt>Nearest line</dt><dd>${p.nearest ? esc(p.nearest) : (sparse ? "unknown (sparse ancestry)" : "none found")}</dd>
+      ${p.via ? `<dt>Through</dt><dd>${esc(p.via)}</dd>` : ""}
+      <dt>Lines</dt><dd class="num">${p.lines}</dd>
+      <dt>Kinship φ</dt><dd class="num">${fmtPhi(p.phi)}</dd>
+      <dt>Overall</dt><dd>${esc(p.phi > 0 ? p.plain : "—")}</dd>
+    </dl>
+    ${a.note || b.note ? `<p class="note">${[a, b].filter((m) => m.note).map((m) => `${esc(m.name)}: ${esc(m.note)}`).join("; ")}</p>` : ""}`;
+}
+cells[(G * (n - 1)) + (W > G ? W - 1 : W)]?.classList.add("on");
+show(G, W);
+
+/* three emperors */
+const trio = document.getElementById("trioCards");
+[[G, W], [G, N], [W, N]].forEach(([i, j]) => {
+  const p = pairOf(i, j), d = document.createElement("div");
+  d.innerHTML = `<span class="pair"><span class="${SIDE[M[i].side]}">${esc(M[i].name)}</span> &amp; <span class="${SIDE[M[j].side]}">${esc(M[j].name)}</span></span>
+    <span class="rel">${esc(p.nearest)}</span><span>through ${esc(p.via)}</span>
+    <span class="meta num">${p.lines} lines · φ ${p.phi.toFixed(4)}</span>`;
+  trio.append(d);
+});
+
+/* Victoria's gene */
+document.getElementById("affected").innerHTML = vg.affected
+  .map((a) => `<li>${esc(a.who)} <span class="num" style="color: var(--ink-soft)">${a.born}–${a.died}</span></li>`).join("");
+const bars = document.getElementById("bars");
+function drawBars(gen) {
+  const rows = vg.women.filter((w) => w.gen === gen && w.prior > 0);
+  const lw = 300, bw = 460, rh = 30, h = rows.length * rh + 34;
+  bars.innerHTML = "";
+  bars.setAttribute("viewBox", `0 0 ${lw + bw + 110} ${h}`);
+  bars.style.width = "100%"; bars.style.minWidth = "560px";
+  [0, 0.25, 0.5, 0.75, 1].forEach((t) => {
+    const x = lw + t * bw;
+    bars.append(el("line", { x1: x, x2: x, y1: 0, y2: h - 22, stroke: "var(--rule)", "stroke-width": 1 }));
+    bars.append(el("text", { x, y: h - 6, "text-anchor": "middle", "font-size": 11, style: "fill: var(--ink-soft)" }, `${t * 100}%`));
+  });
+  rows.forEach((w, k) => {
+    const y = k * rh + 4;
+    bars.append(el("text", { x: lw - 10, y: y + 15, "text-anchor": "end", "font-size": 12 }, `${w.name} (${w.born})`));
+    bars.append(el("rect", { x: lw, y: y + 2, width: Math.max(1, w.prior * bw), height: 9, fill: "var(--prior)" }));
+    bars.append(el("rect", { x: lw, y: y + 13, width: Math.max(w.posterior > 0 ? 2 : 0, w.posterior * bw), height: 11, fill: "var(--central)" }));
+    bars.append(el("text", { x: lw + Math.max(w.prior, w.posterior) * bw + 6, y: y + 22, "font-size": 11,
+      class: "num", style: "fill: var(--ink-soft)" }, `${Math.round(w.prior * 100)}% → ${w.posterior < 0.005 && w.posterior > 0 ? "<1" : Math.round(w.posterior * 100)}%`));
+    const t = el("title", {}, `${w.name}, daughter of ${w.mother || "?"}. Sons: ${w.sons.map((s) => `${s.name} (${s.evidence})`).join(", ") || "none recorded"}`);
+    bars.lastChild.append(t);
+  });
+}
+document.querySelectorAll(".filters button").forEach((b) => b.addEventListener("click", () => {
+  document.querySelectorAll(".filters button").forEach((o) => o.setAttribute("aria-pressed", o === b));
+  drawBars(Number(b.dataset.gen));
+}));
+drawBars(1);
+document.getElementById("geneDeep").innerHTML = `The first crawl stopped four generations below Victoria. Following every line that
+  could still carry the gene down to the present reached ${vg.descendants} descendants, ${vg.deepest_generation} generations deep. Each healthy son found
+  further down lowers the odds for his mother's line. Infanta María Cristina falls from 50% to <strong class="num">${pct(mc.posterior)}%</strong>,
+  Lady May Abel Smith from 33% to <strong class="num">${pct(vg.women.find((w) => w.name === "Lady May Abel Smith").posterior)}%</strong> and Infanta Beatriz from 20% to
+  <strong class="num">${pct(bz.posterior)}%</strong>. Among the ${vg.living_women} living women in these lines, ${vg.living_women_over_1pct} remain above 1% and the highest is
+  <strong class="num">${(vg.living_women_max * 100).toFixed(1)}%</strong>. No case has been recorded since Infante Gonzalo died in 1934.`;
+const vicky = vg.women.find((w) => w.name.startsWith("Victoria, Princess Royal"));
+document.getElementById("geneClose").innerHTML = `Two daughters, Alice and Beatrice, move from 50% to certain. Vicky, the Kaiser's mother, falls to
+  <strong class="num">${Math.round(vicky.posterior * 100)}%</strong> because two of her sons grew up healthy (two others died young, which tells us nothing).
+  The daughters of Victoria's sons fall to zero. Edward VII, Alfred and Arthur were healthy, and a healthy father cannot pass on an X-linked gene.`;
+}
+</script>
+
+</body>
+</html>

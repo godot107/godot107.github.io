@@ -8,6 +8,7 @@ categories: project
 giscus_comments: true
 related_posts: true
 thumbnail: assets/img/congress-issues/04_issues.png
+og_image: https://willieman.com/assets/img/og/congress-agreed-417-3-on-data-centers.png
 ---
 
 *Democrats and Republicans split on most energy votes this term. Then, on September 16, they voted

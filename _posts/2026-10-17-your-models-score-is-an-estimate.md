@@ -8,6 +8,7 @@ categories: project
 giscus_comments: true
 related_posts: true
 thumbnail: assets/img/eval-lab/l1_classification.png
+og_image: https://willieman.com/assets/img/og/your-models-score-is-an-estimate.png
 ---
 
 *Eight experiments where the right answer is known, so every evaluation shortcut can be graded.*

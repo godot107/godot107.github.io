@@ -6,6 +6,7 @@ description:
 tags: healthcare
 categories: project
 thumbnail: assets/img/healthcare_tdm_busulfan_thumbnail.png
+og_image: https://willieman.com/assets/img/og/design-and-testing-of-an-ehr-integrated.png
 ---
 
 Introduction:

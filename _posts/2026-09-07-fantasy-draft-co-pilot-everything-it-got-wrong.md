@@ -8,6 +8,7 @@ categories: project
 giscus_comments: true
 related_posts: true
 thumbnail: assets/img/fantasy-draft-co-pilot-everything-it-got-wrong/survival-calibration.png
+og_image: https://willieman.com/assets/img/og/fantasy-draft-co-pilot-everything-it-got-wrong.png
 ---
 
 *A read-only draft assistant for Sleeper, grounded in Isaac T. Petersen's* Fantasy Football Analytics. *Source: [github.com/godot107/sleeper-drafter](https://github.com/godot107/sleeper-drafter).*

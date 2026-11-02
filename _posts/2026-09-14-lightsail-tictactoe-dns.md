@@ -8,6 +8,7 @@ categories: project
 giscus_comments: true
 related_posts: true
 thumbnail: assets/img/lightsail-tictactoe-dns/game.png
+og_image: https://willieman.com/assets/img/og/lightsail-tictactoe-dns.png
 ---
 
 *A Flask tic-tac-toe game on AWS Lightsail, served at my own subdomain over HTTPS. Source: [github.com/godot107/lightsail-tictactoe](https://github.com/godot107/lightsail-tictactoe).*

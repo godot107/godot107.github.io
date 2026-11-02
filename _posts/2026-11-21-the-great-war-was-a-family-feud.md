@@ -8,6 +8,7 @@ categories: project
 giscus_comments: true
 related_posts: true
 thumbnail: assets/img/family-tree/cousins_war_heatmap.png
+og_image: https://willieman.com/assets/img/og/the-great-war-was-a-family-feud.png
 ---
 
 *In August 1914, sixteen European monarchs had well-recorded family trees. Every one of the 120 pairs among

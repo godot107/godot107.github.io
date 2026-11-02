@@ -8,6 +8,7 @@ categories: project
 giscus_comments: true
 related_posts: true
 thumbnail: assets/img/textbook-to-knowledge-base/architecture.png
+og_image: https://willieman.com/assets/img/og/textbook-to-knowledge-base.png
 ---
 
 *Building a private, local RAG system over my own library — and why I think almost everyone with a bookshelf of PDFs should do the same.*

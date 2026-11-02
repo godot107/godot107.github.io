@@ -8,6 +8,7 @@ categories: project
 giscus_comments: true
 related_posts: true
 thumbnail: assets/img/ideology-clusters/02_fig1.png
+og_image: https://willieman.com/assets/img/og/finding-the-factions-in-congress.png
 ---
 
 *Every recorded vote in the House is public. How much can you learn about who stands where, and which

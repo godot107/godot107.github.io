@@ -8,6 +8,7 @@ categories: project
 giscus_comments: true
 related_posts: true
 thumbnail: assets/img/ab-lab/experiment_page.png
+og_image: https://willieman.com/assets/img/og/ab-testing-my-own-dashboard.png
 ---
 
 _An end-to-end A/B test on the Hiring Demand Monitor, a dashboard I built on [Indeed Hiring Lab](https://www.hiringlab.org/)'s public Job Postings Index. Work in progress: the method and the pipeline are done, and **no real-traffic result exists yet**. Source: [github.com/godot107/ab-lab](https://github.com/godot107/ab-lab)._

@@ -6,6 +6,7 @@ description:
 tags: machine-learning
 categories: project
 thumbnail: assets/img/social_good_hackathon_team.png
+og_image: https://willieman.com/assets/img/og/social-good-hackathon.png
 ---
 
 This month I've participated in a company-sponsored Hackathon with the theme of social good, attempting to solve social problems with technology.  There were about 80 participants many were students, graduates, and industry professionals.  We were also supported by mentors and corporate sponsors to help us use their tools for our code and application.

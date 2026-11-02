@@ -6,6 +6,7 @@ description:
 tags: healthcare
 categories: essay
 thumbnail: assets/img/healthcare_it_convergence_thumbnail.png
+og_image: https://willieman.com/assets/img/og/shifts-in-healthcare-and-it.png
 ---
 
 # Converging Trends: Shifts in Healthcare and Information Technology Align to Support Industry Transformation

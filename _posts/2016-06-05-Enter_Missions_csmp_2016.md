@@ -6,6 +6,7 @@ description: Community
 tags: faith
 categories: slice-of-life
 thumbnail: assets/img/csmp_prayer_card.jpeg
+og_image: https://willieman.com/assets/img/og/enter-missions-csmp-2016.png
 ---
 
 **_ Preface _**

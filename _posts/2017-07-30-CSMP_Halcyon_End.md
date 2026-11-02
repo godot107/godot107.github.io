@@ -6,6 +6,7 @@ description: Community
 tags: faith
 categories: slice-of-life
 thumbnail: assets/img/csmp_team_end_photo.jpg
+og_image: https://willieman.com/assets/img/og/csmp-halcyon-end.png
 ---
 
 Now that I have returned to Austin, I was able to process and reflect a bit.

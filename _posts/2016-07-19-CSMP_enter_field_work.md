@@ -6,6 +6,7 @@ description: Community
 tags: faith
 categories: slice-of-life
 thumbnail: assets/img/csmp_field_work_1.jpg
+og_image: https://willieman.com/assets/img/og/csmp-enter-field-work.png
 ---
 
 We flew into Ann Arbor, Michigan and met the rest of the team. This was the first time meeting them in person other than the brief Skype call a couple of weeks before.  Prior to meeting everyone, the challenge was to come together and function as a team.  The team consisted of 33 members of various education background, home origins, and personalities. The larger Ann Arbor team has been meeting up since February but the Austin team, where I am in,  haven't joined until in late June.  We had a very short amount of time of a month to get to know each other personally and understand work style.  As you expect, there will be conflicts in decision making and struggles of creative control.  I want to stress that conflicts are not bad.  They are inevitable.  We all have opinions and make different judgement but I do believe that by working together we can find the best solution.

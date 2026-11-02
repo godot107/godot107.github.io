@@ -6,6 +6,7 @@ description: Community
 tags: faith
 categories: slice-of-life
 thumbnail: assets/img/2016_arise.png
+og_image: https://willieman.com/assets/img/og/csmp-life-group.png
 ---
 
 2016

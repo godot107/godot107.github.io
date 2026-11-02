@@ -8,6 +8,7 @@ categories: project
 giscus_comments: true
 related_posts: true
 thumbnail: assets/img/auditable-fpa-forecast/regional-revenue-residual.png
+og_image: https://willieman.com/assets/img/og/auditable-fpa-forecast.png
 ---
 
 _Building an auditable FP&A forecasting pipeline on real SEC filings — and what happens when you make the integrity checks blocking. Source: [github.com/godot107/auditable-fpa-forecast](https://github.com/godot107/auditable-fpa-forecast)._

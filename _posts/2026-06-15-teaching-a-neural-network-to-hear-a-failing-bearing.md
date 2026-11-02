@@ -8,6 +8,7 @@ categories: project
 giscus_comments: true
 related_posts: true
 thumbnail: assets/img/predictive-maintenance-cwru/eda_tsne.png
+og_image: https://willieman.com/assets/img/og/teaching-a-neural-network-to-hear-a-failing-bearing.png
 ---
 
 *How I built an end-to-end predictive-maintenance pipeline — and why hitting 100% accuracy made me trust it **less**.*

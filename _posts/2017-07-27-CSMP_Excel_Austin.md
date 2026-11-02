@@ -6,6 +6,7 @@ description: Community
 tags: faith
 categories: slice-of-life
 thumbnail: assets/img/csmp_excel_austin.jpg
+og_image: https://willieman.com/assets/img/og/csmp-excel-austin.png
 ---
 
 And all good things must come to an end at some point. We've concluded our missions trip this past Saturday and now returning to real life.

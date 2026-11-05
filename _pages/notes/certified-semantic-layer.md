@@ -100,6 +100,9 @@ Definitions on a command line help engineers. Business users need them in a dash
 people seeing the right rows, and someone needs to know whether the certified version is the one people
 actually use. So I added an optional BI layer, all open source:
 
+{% include figure.liquid loading="lazy" path="assets/img/airflow-elt/bi_architecture.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+<div class="caption">Definitions live in one layer; dashboards read them; usage flows back into the warehouse.</div>
+
 - **Cube** serves the same eight metrics as a semantic model, through two "certified views": flat tables
   with the joins already done and only business fields exposed. It reads the warehouse through a login
   that can see the published report tables and nothing else.
@@ -111,8 +114,11 @@ actually use. So I added an optional BI layer, all open source:
   "certified" badge, and a viewer role can open that one dashboard and nothing else: no raw datasets, no
   database connections, no SQL editor.
 
-{% include figure.liquid loading="eager" path="assets/img/airflow-elt/superset_dashboard.png" class="img-fluid rounded z-depth-1" zoomable=true %}
-<div class="caption">The certified "Taxi operations" dashboard. Every number comes from a metric defined once in the semantic layer.</div>
+<img src="/assets/img/airflow-elt/superset_walkthrough.gif" alt="Walkthrough of the certified Taxi operations dashboard in Superset" class="img-fluid rounded z-depth-1" loading="eager" style="width:100%">
+<div class="caption">The certified "Taxi operations" dashboard. The badge says who certified it and how; every number comes from a metric defined once in the semantic layer.</div>
+
+<img src="/assets/img/airflow-elt/rls_and_check.gif" alt="Terminal replay: same query as admin and as the Queens analyst, then the certification check" class="img-fluid rounded z-depth-1" loading="lazy" style="width:100%">
+<div class="caption">Live output, replayed: the same query as an admin returns every borough, as the Queens analyst only Queens, even for a grand total. Then the certification check runs.</div>
 
 The certification check grew with it. It now proves the three copies agree (Cube, MetricFlow and the
 hand-written reports), that row-level security holds through both of Cube's interfaces, that the rollup

@@ -21,7 +21,7 @@ on every execution, and let them stop the pipeline.**
 
 That sounds like process hygiene. In practice it was the most productive thing in the project.
 The controls caught five defects I would not have found by reading the code, and one of them
-was a $1.83 billion error sitting in a number that looked completely reasonable.
+was a \\$1.83 billion error sitting in a number that looked completely reasonable.
 
 This is a write-up of those failures, because they're more interesting than the parts that
 worked.
@@ -61,7 +61,7 @@ That last decision is the one everything else came from.
 
 ---
 
-## Failure 1: the $1.83B quarter that looked fine
+## Failure 1: the \\$1.83B quarter that looked fine
 
 Companies don't file a Q4 10-Q. They roll the fourth quarter into the 10-K as a full year, so
 if you pull "quarterly" facts from XBRL you get three quarters a year and a hole every
@@ -78,12 +78,12 @@ filled.loc[q4_end, account] = annual_row[account] - filled.loc[in_year, account]
 ```
 
 Then I added pre-tax income to the chart of accounts, and a control I'd just written —
-`pretax − tax = net income` — went red by **$1,831,472,000**.
+`pretax − tax = net income` — went red by **\\$1,831,472,000**.
 
 Netflix only started tagging pre-tax income as a _quarterly_ fact in 2020-Q3. For 2020, Q1 and
 Q2 were missing. And `Series.sum()` skips `NaN` by default.
 
-So the code computed `FY − Q3`. Two missing quarters' worth of a $3.2B year, silently folded
+So the code computed `FY − Q3`. Two missing quarters' worth of a \\$3.2B year, silently folded
 into a single derived quarter, in a cell that looked exactly like every other cell.
 
 The fix is one keyword:
@@ -149,7 +149,7 @@ To post a balance sheet into a ledger you need a **partition** of the filed tota
 overlaps. Every line exactly once. I mapped Netflix's tags to lines, including the ASC 842
 lease tags, which look exactly like balance-sheet lines.
 
-The non-current liability residual came out at **−$571 million**.
+The non-current liability residual came out at **−\\$571 million**.
 
 A negative liability is nonsense, which is the only reason it was visible. Everything else in
 the statement looked plausible.
@@ -162,8 +162,8 @@ against the ASC 842 adoption in 2019-Q1, the quarter both tags first appear:
 
 | Caption                      | Step at adoption | Amount recognised             |
 | ---------------------------- | ---------------- | ----------------------------- |
-| `OtherAssetsNoncurrent`      | **+$816M**       | right-of-use assets **$812M** |
-| `OtherLiabilitiesNoncurrent` | **+$663M**       | lease liability **$765M**     |
+| `OtherAssetsNoncurrent`      | **+\\$816M**       | right-of-use assets **\\$812M** |
+| `OtherLiabilitiesNoncurrent` | **+\\$663M**       | lease liability **\\$765M**     |
 
 A caption that jumps by the amount of the thing being adopted contains it. The lease tags are
 now carried as disclosure columns and excluded from the posting partition.
@@ -181,7 +181,7 @@ if worst < 0:
 
 ## The part that made the ERP worth it
 
-With the partition fixed, `Assets = Liabilities + Equity` holds to **$0.00** across all 26
+With the partition fixed, `Assets = Liabilities + Equity` holds to **\\$0.00** across all 26
 quarters. That's not a trivia fact. It means the balance sheet can be posted to the ledger as a
 **self-balancing journal entry with no clearing account** — the debits and credits _are_ the
 filed statement.
@@ -193,10 +193,10 @@ The balances post as _movements_, not restated positions, which makes the round 
 meaningfully harder: every quarter's balance is a cumulative sum of every entry before it, so
 one bad entry in 2021 corrupts all twenty quarters after it. Reading it back out through SQL:
 
-**$0.00 across all 17 lines and all 26 quarter ends.**
+**\\$0.00 across all 17 lines and all 26 quarter ends.**
 
 The P&L round trip — EDGAR → disaggregation → ORM → posted double-entry → analytic
-distribution → `GROUP BY` → back to the filed 10-Q — ties to **$0.02 on $10.4B**. Those two
+distribution → `GROUP BY` → back to the filed 10-Q — ties to **\\$0.02 on \\$10.4B**. Those two
 cents are cent-rounding at the ERP boundary, which is correct behaviour for a ledger that
 stores cents.
 
@@ -204,7 +204,7 @@ One thing I got right by accident and only understood afterwards: **the cash-flo
 not posted at all.** No general ledger journalizes a cash-flow statement — it's derived from
 the movement in balance-sheet accounts. That's why a consolidation tool computes it and a
 transactional system doesn't. It's built in Python, reconciled against the filed roll-forward
-(**$0.00** across 25 quarters), and reported.
+(**\\$0.00** across 25 quarters), and reported.
 
 ---
 
@@ -215,11 +215,11 @@ exposes the consolidated value of a tag. Regional data lives in SEC's Financial 
 Sets: bulk quarterly ZIPs, ~85 MB each, with a `segments` column you stream and filter.
 
 I pulled four archives, summed the four regions, compared to filed total revenue, and the
-control failed by **$182.3 million**.
+control failed by **\\$182.3 million**.
 
 First cause was a straightforward trap: Netflix tags _two_ overlapping geographic breakdowns.
 The four operating regions carry `ProductOrService=Streaming`. There's also a standalone
-`Geographical=US` disclosure worth $18.5B in FY2025. Sum everything on the geographic axis and
+`Geographical=US` disclosure worth \\$18.5B in FY2025. Sum everything on the geographic axis and
 you inflate revenue by roughly 40% — glaringly obvious in a total, completely invisible in a
 per-region chart.
 
@@ -233,7 +233,7 @@ That's the DVD-by-mail business, which Netflix shut down in September 2023.
 
 My control had asserted the wrong identity. The regions sum to **streaming** revenue, not
 consolidated revenue, and the gap is a real segment. The control now ties against the filed
-streaming line — **$0.00** across the three years it's tagged — and separately requires the
+streaming line — **\\$0.00** across the three years it's tagged — and separately requires the
 legacy residual to be non-negative and to stay at zero.
 
 I like this one because the control was wrong and the _data_ corrected it.

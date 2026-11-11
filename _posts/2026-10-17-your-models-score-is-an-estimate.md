@@ -60,7 +60,7 @@ all of them on all metrics:
 <div class="caption">Lesson 2: each metric crowns its own model; interval coverage by noise level.</div>
 
 Each metric crowned the model built for it (left). Absolute error rewards predicting the median. Percentage error
-(MAPE) rewards predicting *below* the median: it treats a 10% miss on a $5 item like a 10% miss on a $5,000 one,
+(MAPE) rewards predicting *below* the median: it treats a 10% miss on a \\$5 item like a 10% miss on a \\$5,000 one,
 and pays you to forecast low. Only the squared-error model was unbiased on average; the median-type models,
 including the common habit of fitting log(price) and converting back, under-predicted by about 11%. Fine for a
 typical house; a problem if the forecasts are added up into an inventory order or a budget.

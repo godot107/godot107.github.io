@@ -7,7 +7,7 @@ tags: data-science
 categories: project
 giscus_comments: true
 related_posts: true
-thumbnail: assets/img/ab-lab/experiment_page.png
+thumbnail: assets/img/ab-lab/cover.png
 og_image: https://willieman.com/assets/img/og/ab-testing-my-own-dashboard.png
 ---
 

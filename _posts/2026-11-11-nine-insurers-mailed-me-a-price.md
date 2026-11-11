@@ -180,6 +180,21 @@ the first custom model went live, the share marked **"not on the document"** jum
 values up). After the "bad documents" retraining it fell to 29%. In production, that spike is the alarm that says
 retrain.
 
+An alarm alone isn't enough, though. If the reviewers start correcting much more than usual, the system should stop
+trusting the model before anyone reads an email. The design I'd use is a **circuit breaker**, set per letter layout:
+
+- **Baseline first.** When a layout is new, a person reviews its first documents in full anyway. Those reviews set
+  its normal rates: how often values are accepted, corrected, or marked "not on the document".
+- **Trip on a real shift, not noise.** Compare each window of new decisions with that baseline, and trip only when
+  the shift is well beyond normal variation, with enough decisions to be sure, two windows in a row.
+- **Fail safe, not shut.** Tripping doesn't stop the work: it stops *auto-accepting*. Every value from that layout
+  goes to a person while support looks into it. Only a wider failure pauses intake altogether.
+- **Retrain with a person in the decision.** The corrections are new training examples, but a retrained model goes
+  live only after it's checked on held-out letters and someone approves it. Retraining automatically on a bad week
+  of reviews would teach the model the bad week.
+
+It's per layout because one insurer redesigning its letter shouldn't stop everyone else's.
+
 ## The dashboard
 
 The same Power BI report has pages for operations and finance next to the homeowner's page above, all built as code.

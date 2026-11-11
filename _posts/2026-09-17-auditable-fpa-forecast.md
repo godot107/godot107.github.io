@@ -7,7 +7,7 @@ tags: data-science machine-learning
 categories: project
 giscus_comments: true
 related_posts: true
-thumbnail: assets/img/auditable-fpa-forecast/regional-revenue-residual.png
+thumbnail: assets/img/auditable-fpa-forecast/cover.png
 og_image: https://willieman.com/assets/img/og/auditable-fpa-forecast.png
 ---
 

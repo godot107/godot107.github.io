@@ -7,7 +7,7 @@ tags: data-science
 categories: project
 giscus_comments: true
 related_posts: true
-thumbnail: assets/img/eval-lab/l1_classification.png
+thumbnail: assets/img/eval-lab/cover.png
 og_image: https://willieman.com/assets/img/og/your-models-score-is-an-estimate.png
 ---
 

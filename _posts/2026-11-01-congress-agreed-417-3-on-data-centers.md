@@ -7,7 +7,7 @@ tags: data-science
 categories: project
 giscus_comments: true
 related_posts: true
-thumbnail: assets/img/congress-issues/04_issues.png
+thumbnail: assets/img/congress-issues/cover.png
 og_image: https://willieman.com/assets/img/og/congress-agreed-417-3-on-data-centers.png
 ---
 

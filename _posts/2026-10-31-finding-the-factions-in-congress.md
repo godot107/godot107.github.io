@@ -7,7 +7,7 @@ tags: data-science
 categories: project
 giscus_comments: true
 related_posts: true
-thumbnail: assets/img/ideology-clusters/02_fig1.png
+thumbnail: assets/img/ideology-clusters/cover.png
 og_image: https://willieman.com/assets/img/og/finding-the-factions-in-congress.png
 ---
 

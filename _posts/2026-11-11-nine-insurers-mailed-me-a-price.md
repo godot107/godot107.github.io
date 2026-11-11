@@ -7,7 +7,7 @@ tags: data-science
 categories: project
 giscus_comments: true
 related_posts: true
-thumbnail: assets/img/insurance-docai/1-should-i-switch.png
+thumbnail: assets/img/insurance-docai/cover.png
 og_image: https://willieman.com/assets/img/og/nine-insurers-mailed-me-a-price.png
 ---
 

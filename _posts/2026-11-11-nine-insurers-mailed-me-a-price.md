@@ -9,16 +9,13 @@ giscus_comments: true
 related_posts: true
 thumbnail: assets/img/insurance-docai/1-should-i-switch.png
 og_image: https://willieman.com/assets/img/og/nine-insurers-mailed-me-a-price.png
-mermaid:
-  enabled: true
-  zoomable: true
 ---
 
 *My renewal said about \\$7,200 a year. Nine other insurers had mailed me "personalized quotes" between roughly
 \\$1,000 and \\$3,000. Picking the cheap one looked easy. It wasn't.*
 
 No two letters were alike. One says "Dwelling Protection", another "Dwelling Coverage". One prints a wind/hail
-deductible, eight don't. One quotes \\$440k of coverage, another \\$529k. Two had my square footage wrong. To compare
+deductible, eight don't. Two letters for the same house disagreed by almost 20% on how much dwelling coverage it needs. Two had my square footage wrong. To compare
 them you have to read every letter, pull out the same dozen numbers, and notice which ones can't be compared at all.
 
 ## The question: should I switch?
@@ -117,16 +114,16 @@ double-checking the hand labels.)
 Here's one of them, end to end: a quote mailer that arrived as a phone-quality scan, with my details blacked out.
 
 {% include figure.liquid path="assets/img/insurance-docai/real-mailer-redacted.png" class="img-fluid rounded z-depth-1" %}
-<div class="caption">A real quote mailer, redacted (names, addresses and the agent's contact details removed).</div>
+<div class="caption">A real quote mailer, redacted: names, addresses and the agent's contact details, plus the amounts that describe my house (dwelling, other structures, contents) and the quoted premium. Liability and medical limits are standard round numbers and stay visible.</div>
 
 | On the letter | What the model read | Confidence | What happened |
 | :--- | :--- | :--- | :--- |
-| Dwelling \\$445,500 | \\$445,500 | 0.94 | accepted automatically |
-| Other structure \\$44,600 | \\$44,600 | 0.90 | accepted automatically |
-| Personal property \\$178,400 | \\$178,400 | 0.96 | accepted automatically |
+| Dwelling *(hidden)* | read exactly | 0.94 | accepted automatically |
+| Other structure *(hidden)* | read exactly | 0.90 | accepted automatically |
+| Personal property *(hidden)* | read exactly | 0.96 | accepted automatically |
 | Liability \\$300,000 | \\$300,000 | 0.94 | accepted automatically |
 | Guest medical \\$1,000 | \\$1,000 | 0.92 | accepted automatically |
-| Annual premium \\$2,187.45 | \\$2,187.45 | 0.94 | accepted automatically |
+| Annual premium *(hidden)* | read exactly | 0.94 | accepted automatically |
 | Additional living expense "Included" | "Included" (no amount) | 0.40 | **sent to a person** |
 
 Six of seven values were read exactly and went straight through. The seventh is the interesting one. The letter
@@ -134,7 +131,7 @@ prints "Included" instead of an amount, and the two versions of the model handle
 
 - The **first model** filled in **\\$300,000**, the liability number from the line above, at a fairly confident
   0.83. Confidence alone would have let that through. What caught it was a simple rule: living-expense coverage
-  is normally 5–50% of the dwelling amount, and \\$300,000 is 67%.
+  is normally 5–50% of the dwelling amount, and \\$300,000 was well over half of it.
 - The **retrained model** read the word "Included", reported low confidence, and sent it to a person, who marks
   it "not on the document".
 
@@ -174,6 +171,33 @@ The same Power BI report has pages for operations and finance next to the homeow
 {% include figure.liquid path="assets/img/insurance-docai/3-review-feedback.png" class="img-fluid rounded z-depth-1" %}
 <div class="caption">Review decisions by week: the "not on the document" spike is the drift alarm.</div>
 
+## Why not just upload the letters to ChatGPT?
+
+Fair question. For nine letters, once, a chat assistant would probably do fine, and I'd use one too. This project
+isn't really about my nine letters. They're a small, checkable stand-in for a problem that looks very different at
+work:
+
+- **Volume and repetition.** An insurer, bank or agency gets thousands of documents a day, every day. That needs a
+  pipeline that runs unattended, not a person pasting files into a chat window.
+- **A measured error rate.** A chat answer looks equally sure whether it's right or wrong. Here every value has a
+  confidence score that was checked against known answers, and the rate of silent errors is a number you can
+  report and manage.
+- **A person in the loop, on record.** Uncertain values go to a reviewer, and every decision is stored with who
+  made it and when. When an auditor asks "where did this number come from?", there's an answer.
+- **The data stays inside your own cloud account.** Documents full of names, addresses and account numbers never
+  go to a consumer chat service; access is controlled with the organization's own sign-in.
+- **It plugs into everything else.** Results land in a database, feed a dashboard, and can feed any other system,
+  instead of living in a chat transcript.
+- **It extends to other paperwork.** Nothing here is specific to insurance. Swap the field list and retrain the
+  custom model, and the same pipeline reads claims forms, invoices, loan files, benefit applications or permits.
+- **It scales and has a known price.** The cloud services scale with volume, and the cost per page is known up
+  front: at list price, reading a page with a custom model costs about 3 cents. Building and testing this whole
+  project cost **under a dollar** on Azure's bill so far, because almost everything ran on free tiers (Document
+  Intelligence free tier, the Azure SQL free offer, Databricks Free Edition, the Power Apps developer plan).
+
+The skill on show isn't "getting an AI to read a letter". It's building the system around the AI so that an
+organization can trust, check and run it.
+
 ## What I'd tell anyone deploying document AI
 
 - **Test on the layouts you didn't design for.** Familiar-layout accuracy (96%) hid the real number (78%).
@@ -192,23 +216,11 @@ renewal date, and repeat every year.
 
 ## How it fits together
 
-What was actually built (one Azure resource group, deployed from Bicep templates, signed in with Microsoft
-Entra ID, no passwords or keys):
+What was actually built: one Azure resource group, deployed from Bicep templates, signed in with Microsoft
+Entra ID, no passwords or keys.
 
-```mermaid
-flowchart TD
-  A["Real letters (scans, PDFs)<br/>+ synthetic letters (AI Foundry wording)"] --> B[("Azure Blob Storage<br/>stored by content hash")]
-  B --> C["Azure AI Document Intelligence<br/>layout + custom model: values + confidence"]
-  C --> D["Python: map to one schema,<br/>range and ratio checks"]
-  D --> R["Azure AI Language<br/>remove personal info"]
-  D -- "confident and valid" --> S[("Azure SQL<br/>clean values + full history")]
-  D -- "unsure or suspicious" --> Q["Power Apps review app<br/>accept · correct · not on document"]
-  Q --> S
-  S --> P["Power BI dashboard<br/>homeowner · operations · finance"]
-  D --> X["Databricks lakehouse<br/>bronze → silver → gold, MLflow"]
-  C -. logs .-> L["Log Analytics + App Insights"]
-  Q -. usage events .-> L
-```
+{% include figure.liquid path="assets/img/insurance-docai/architecture.png" class="img-fluid rounded z-depth-1" %}
+<div class="caption">How a letter moves through the system. Values the checks trust go straight to Azure SQL; anything unsure goes to a person in the Power Apps review app first.</div>
 
 For a production version (private networking, no public endpoints, separate dev/test/prod), the repo has a
 reference architecture: [docs/ARCHITECTURE.md](https://github.com/godot107/insurance-docai/blob/main/docs/ARCHITECTURE.md).

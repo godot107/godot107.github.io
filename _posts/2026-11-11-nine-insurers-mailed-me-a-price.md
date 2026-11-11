@@ -90,9 +90,28 @@ its confidence actually means something: values above 0.95 were all correct, val
 
 ### Training on "bad" documents fixed most of that
 
-I generated 150 deliberately difficult training letters: fields left off the page, misleading extra numbers
-("last term you paid…"), labels above values instead of beside them, fax-quality and upside-down scans. Made-up
-values dropped from 30 to 5, and precision rose from 76% to 92%.
+Why did the first model make values up? In its 72 training letters, every field was always printed, so it learned
+"there is always a dwelling amount somewhere: find the likeliest number". Real mail breaks that constantly. So I
+generated 150 deliberately difficult training letters, each built to teach one thing:
+
+{% include figure.liquid path="assets/img/insurance-docai/hard-training-letters.png" class="img-fluid rounded z-depth-1" %}
+<div class="caption">Four of the 150 difficult training letters (all synthetic, fictional insurers).</div>
+
+1. **Labels above the values, a field left off, and a decoy amount** ("Neighbors who switched saved an average of
+   \\$1,081"; elsewhere "Last term you paid…"). Lesson: the nearest dollar figure isn't necessarily the answer, and
+   sometimes the honest answer is "not on this letter".
+2. **Fax-style black and white, with the dwelling coverage missing entirely.** Lesson: the biggest field can be
+   absent, and thin, broken text still has to be read.
+3. **A phone photo, upside down.** Lesson: orientation and lighting shouldn't matter.
+4. **A phone photo at an angle.** Lesson: the table doesn't have to be straight to be a table.
+
+| On the two unseen layouts | Before | After the difficult letters |
+| :--- | :--- | :--- |
+| Made-up values | 30 | **5** |
+| Precision (share of returned values that were right) | 76% | **92%** |
+
+The real-letter walkthrough below shows the same change on actual mail: the first model invented a number where
+the letter said "Included"; the retrained one didn't.
 
 ### The review threshold didn't transfer, and that's the real lesson
 

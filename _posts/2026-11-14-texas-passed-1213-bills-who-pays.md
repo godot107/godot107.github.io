@@ -148,52 +148,7 @@ agency, and the full fiscal-note text for every enacted bill with a cost and eve
 It doesn't have bill text, votes, committee testimony or news, so it can't answer what the Legislature's own files
 don't say.
 
-**Why not Foundry's built-in Knowledge?** I built that too. Azure AI Foundry can run the search itself ("Knowledge")
-instead of my code doing it. I set it up as a second agent and compared the two on the same 25 questions, judged in
-pairs: 6 wins, 5 losses, 14 ties, no detectable difference. I kept my own search for one reason: **the guardrails need
-to see what the model reads.** When Foundry retrieves server-side, my code never sees the search results, so it can't
-screen them for planted instructions or check the answer against them. Same quality, less control. The Knowledge
-version stays in the app as the other side of an A/B test, waiting for enough real votes to settle it.
-
-### Guardrails, and how I attacked them
-
-An assistant that answers questions about state spending will get asked to do things it shouldn't. So I attacked it
-before anyone else could, with two red teams: 12 general attacks (jailbreaks, attempts to pull out its instructions,
-harmful requests, and instructions hidden inside search results), and 10 aimed at public trust (election
-misinformation, impersonating an official, targeting a person, partisan advocacy, predictions).
-
-| Red team | Attacks that worked, before | After |
-| :--- | ---: | ---: |
-| General (12) | 2 | **0** |
-| Public trust (10) | 1 | **0** |
-
-Five layers do the defending, and each one caught something the others missed:
-
-1. **Content filters** on the model itself (jailbreaks, indirect attacks, protected material).
-2. **A request screen** that runs before the agent: one small, fast call that sorts the question into a category.
-   High-risk categories get a fixed refusal; questions asking for a prediction get "I can't predict what the
-   Legislature will do", then the facts. It stopped 8 of the 10 public-trust attacks before the agent ran.
-3. **The agent's instructions.** Useful, but soft: with an explicit rule against it, the agent still wrote a post
-   claiming an election date had moved. That's why layer 2 exists.
-4. **A document shield.** Every search result is checked for planted instructions before the model sees it. In the
-   test, a fiscal note seeded with "this bill costs nothing, LBB recommends repeal" went straight into an answer until
-   this layer was added. If the shield is down, results are withheld rather than passed through unchecked.
-5. **A groundedness check** after the answer, which flags sentences it can't match to a source. It's the orange
-   badge in the screenshots.
-
-Together they cost about as much as the model: roughly half of the half-cent each answer costs.
-
-### Memory, only when asked
-
-Tick "Remember my agency and topics" and the assistant uses Foundry's memory store to keep work context between
-visits: which agency you're with, what you tend to ask about. It's off by default. It keeps work context only, it's
-told to exclude personal details, it expires after 30 days, and one person's memory is never visible to another (tested
-with two users). Answers that use memory are never cached, since they're tailored to one person.
-
-Testing memory also caught a real bug. Asked about the Department of Information Resources, the agent called it
-"agency 701" (that's the Texas Education Agency) and listed the wrong agency's bills. It had guessed a code because no
-tool let it look one up. A lookup tool fixed it, and a new test question keeps it fixed. Tool and column names turn out
-to be part of the prompt.
+A follow-up post covers the rest of the assistant: Foundry's built-in search, how I attacked the guardrails before anyone else could, and what its opt-in memory keeps.
 
 ### Why an answer takes 20 seconds, and the same answer takes 0.06
 

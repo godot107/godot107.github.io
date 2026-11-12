@@ -26,6 +26,11 @@ pipeline that reads all of them, on Microsoft Azure, and kept it running for 202
 
 Code, results and runbooks: [github.com/godot107/tx-fiscal-radar](https://github.com/godot107/tx-fiscal-radar).
 
+This is the second of two Azure projects about turning documents into data you can trust. The first,
+[Nine insurers mailed me a price](/blog/2026/nine-insurers-mailed-me-a-price/), reads home-insurance letters with
+Azure AI Document Intelligence and a custom model I trained, then routes uncertain values to a person in a Power Apps
+review app. This one applies the same idea to text that's already digital, but just as unstructured.
+
 ## How a session actually goes
 
 {% include figure.liquid loading="eager" path="assets/img/tx-fiscal-radar/funnel_89r.png" class="img-fluid rounded z-depth-1" %}
@@ -101,6 +106,22 @@ one pays. I had a language model (GPT-4.1-mini on Azure) read that prose and spl
 sentence is really in the note, the number is really in the sentence, the agency is listed on the note, and the
 sentence names that agency. **48% of rows passed.** The rest wait for a person on a review page. The model's most
 common mistake was putting a cost on the wrong agency, and that's why the last check exists.
+
+**Then I trained a model to do it better, and it didn't simply win.** The checks made a training set possible: every
+row that passed all four is a verified example. I fine-tuned the same model on those rows (about \\$1 to train) and
+compared the two on 59 bills neither had seen:
+
+| On 59 held-out bills | Prompted model | Fine-tuned model |
+| :--- | ---: | ---: |
+| Rows that passed all four checks | 48% | **68%** |
+| Rows extracted | **367** | 220 |
+| Rows verified (count) | **176** | 149 |
+| Bills whose extracted amounts add up to the note's total | **19** | 13 |
+
+The fine-tuned model is more precise and less complete. That's a trade-off, not a winner. If only verified rows are
+ever shown, the fine-tuned model wastes less of a reviewer's time. If the job is to find every cost, the prompted
+model misses less. Which one to run depends on who reads the output, and that's a decision for the people using it,
+not for the model.
 
 {% include figure.liquid loading="lazy" path="assets/img/tx-fiscal-radar/pbi-trust-review.png" class="img-fluid rounded z-depth-1" %}
 

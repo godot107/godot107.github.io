@@ -70,8 +70,10 @@ With those checks, every bank tested ended with **0 wrong values slipping throug
 
 <div class="caption">The review queue. The model read the monthly payment as the principal; the bank's own schedule says $1,051,000. The page, the model's reading, the reason it was flagged and the schedule sit side by side.</div>
 
-**4. For free text, combine a careful model with a thorough one.** Simple text models were never wrong but
-missed half the flags at a new bank. An LLM caught every flag but raised false alarms. Accepting what both
+**4. For free text, combine a careful model with a thorough one.** Simple text models (TF-IDF + logistic
+regression) were never wrong but
+missed half the flags at a new bank. An LLM (gpt-4.1-mini on Azure AI Foundry) caught every flag but raised
+false alarms. Accepting what both
 agree on, and sending the LLM's extra flags to a person, gave **zero wrong auto-accepts and every real flag
 found**, with about half the flags reviewed. Every flag carries the sentence it came from, and the app checks
 that the quote appears word-for-word on the page.

@@ -21,7 +21,7 @@ For now, I want to share what I will be doing and why.
 
 **_ Who I will be working with: _**
 
-<blockquote class="imgur-embed-pub" lang="en" data-id="8axRB5O"  ><a href="//imgur.com/8axRB5O">Community Summer Missions Project</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+<blockquote class="imgur-embed-pub" lang="en" data-id="8axRB5O"  ><a href="https://imgur.com/8axRB5O">Community Summer Missions Project</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
 This is a prayer card that includes our team members in Austin.  This is not everybody as there is another team up north at Michigan as well.  I look forward in getting to know and working with people I have not met yet.  There will be differences in culture and social demographics.  But despite these differences, I believe it our strength because what talent I lack is what another team member have. And likewise, I have strengths and talents that I can offer to a team.
 

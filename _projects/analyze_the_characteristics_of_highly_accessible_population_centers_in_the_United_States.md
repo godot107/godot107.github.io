@@ -134,7 +134,7 @@ Despite the variety of algorithms and hyperparameter training, the non-baseline 
 
 Considering the tradeoffs listed above, the XGBoost model was selected due to its better MAE score, its explainability, its deterministic and repeatable nature, and that it did not require additional time to refine.
 
-### Feature Analysis ![](RackMultipart20231020-1-cxpey8_html_798e21508f1e1384.png)
+### Feature Analysis
 
 Shapely Additive Explanations (SHAP) was used to calculate the overall importance of features and provide insights into some of the highest ranked.
 
@@ -156,7 +156,7 @@ Per SHAP's interaction values, the feature that has the most interactive effects
 
 ### Model Accuracy
 
-The MAE results of 0.757 ± 0.026 indicated that the model should be capable of providing reasonable results at predicting the aggregated National Walkability Index (NWI), which has a possible range of 1 to 15.96 points. The scatterplot results in Fig. 5 has the dependent variable (_NatWalkInd_) on the X axis, the feature with the highest SHAP value (_Urban_Pct_) on the Y axis, and the plot is colored by the difference between the actual NWI values and our predicted values. The shape of the data is similar to a sigmoidal curve, and our model has clearly captured this non-linearity, as evidenced by observing the narrow band of green in the diagram, which represents a near zero difference in actuals versus predictions. ![](RackMultipart20231020-1-cxpey8_html_aa735820d6138971.png)
+The MAE results of 0.757 ± 0.026 indicated that the model should be capable of providing reasonable results at predicting the aggregated National Walkability Index (NWI), which has a possible range of 1 to 15.96 points. The scatterplot results in Fig. 5 has the dependent variable (_NatWalkInd_) on the X axis, the feature with the highest SHAP value (_Urban_Pct_) on the Y axis, and the plot is colored by the difference between the actual NWI values and our predicted values. The shape of the data is similar to a sigmoidal curve, and our model has clearly captured this non-linearity, as evidenced by observing the narrow band of green in the diagram, which represents a near zero difference in actuals versus predictions.
 
 ### Ablative Analysis of Top 5 Features
 
@@ -269,7 +269,7 @@ An early hypothesis was developed around using _Home Value_ to predict the Natio
 
 This process produced mediocre results (MAE 1.253 ± 0.043), so we pivoted from leveraging time series to a classic regression approach, still using _Home Value_, but augmented with features built from the Food Atlas. The decision to pivot from the Prophet time series approach was ultimately correct, but that process consumed a considerable amount of time, manpower, and compute cycles; we should have decided to change tack earlier in the project.
 
-A major complication to our analysis was the lack of alignment in the granularity of data between the Zillow ZHVI, SLD and Food Atlas data sources. Rolling up our dependent variable (NWI) by two levels inherently introduced a degree of inaccuracy into the predictions from the start. Despite this issue, the model was ![](RackMultipart20231020-1-cxpey8_html_e989d45976da4065.png)surprisingly successful in predicting the NWI, with a clear normalized curve in the predictions, and an overall mean of differences in NWI actuals versus predictions of 0.034 ± 0.967.
+A major complication to our analysis was the lack of alignment in the granularity of data between the Zillow ZHVI, SLD and Food Atlas data sources. Rolling up our dependent variable (NWI) by two levels inherently introduced a degree of inaccuracy into the predictions from the start. Despite this issue, the model wassurprisingly successful in predicting the NWI, with a clear normalized curve in the predictions, and an overall mean of differences in NWI actuals versus predictions of 0.034 ± 0.967.
 
 ![Fig. 9](https://github.com/godot107/godot107.github.io/blob/main/assets/img/accessible_populations_SHAP_force_plot.png)
 

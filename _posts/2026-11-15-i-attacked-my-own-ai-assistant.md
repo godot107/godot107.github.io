@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "I attacked my own AI assistant before anyone else could. 3 of 22 attacks worked."
-date: 2026-11-28 09:00:00-0600
+date: 2026-11-15 09:00:00-0600
 description: The guardrails, red teams and opt-in memory behind Fiscal Note Desk, an assistant that answers questions about Texas bills. Plus Azure AI Foundry's built-in search, which matched mine on quality, and the one reason it isn't the default.
 tags: data-science
 categories: project

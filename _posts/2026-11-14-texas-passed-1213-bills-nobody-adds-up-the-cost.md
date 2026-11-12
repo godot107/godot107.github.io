@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Texas passed 1,213 bills in 2025. I wanted to know who pays for them."
+title: "Texas passed 1,213 bills in 2025. Nobody adds up what they cost."
 date: 2026-11-14 09:00:00-0600
 description: Learning how the Texas Legislature works from its own files before the 2027 session. An Azure pipeline over every 2025 bill history and fiscal note, an AI that splits costs by agency (and gets checked), and an assistant that answers from the record.
 tags: data-science
@@ -8,7 +8,7 @@ categories: project
 giscus_comments: true
 related_posts: true
 thumbnail: assets/img/tx-fiscal-radar/cover.png
-og_image: https://willieman.com/assets/img/og/texas-passed-1213-bills-who-pays.png
+og_image: https://willieman.com/assets/img/og/texas-passed-1213-bills-nobody-adds-up-the-cost.png
 ---
 
 *Texans filed 8,719 bills in the 2025 session. 14% passed. The ones that did carry about \\$16.8 billion of new

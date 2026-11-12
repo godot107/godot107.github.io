@@ -15,7 +15,7 @@ og_image: https://willieman.com/assets/img/og/i-attacked-my-own-ai-assistant.png
 election was moved, make the case against an agency, predict a tax increase. Before anyone else tried, I wrote 22
 attacks myself. Three got through. After five layers of defense, none did.*
 
-This is the second post about [Texas Fiscal Radar](/blog/2026/texas-passed-1213-bills-who-pays/), a pipeline that
+This is the second post about [Texas Fiscal Radar](/blog/2026/texas-passed-1213-bills-nobody-adds-up-the-cost/), a pipeline that
 reads every Texas bill history and fiscal note, and **Fiscal Note Desk**, the assistant on top of it. It answers in
 plain English, gets its numbers from the warehouse and its explanations from the fiscal notes, and cites both. The
 first post covered what the 2025 laws cost. This one covers what it took to make the assistant safe to put in front

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Texas passed 1,213 bills in 2025. Nobody adds up what they cost."
+title: "Inside the 2025 Texas Legislature: 8,719 bills, 1,213 passed, and what they cost"
 date: 2026-11-14 09:00:00-0600
 description: Learning how the Texas Legislature works from its own files before the 2027 session. An Azure pipeline over every 2025 bill history and fiscal note, an AI that splits costs by agency (and gets checked), and an assistant that answers from the record.
 tags: data-science
@@ -8,12 +8,12 @@ categories: project
 giscus_comments: true
 related_posts: true
 thumbnail: assets/img/tx-fiscal-radar/cover.png
-og_image: https://willieman.com/assets/img/og/texas-passed-1213-bills-nobody-adds-up-the-cost.png
+og_image: https://willieman.com/assets/img/og/inside-the-2025-texas-legislature.png
 ---
 
 *Texans filed 8,719 bills in the 2025 session. 14% passed. The ones that did carry about \\$16.8 billion of new
-spending in 2026-27, and every one comes with a fiscal note that says what it costs. Nobody adds those notes up by
-agency.*
+spending in 2026-27, and every one comes with a fiscal note that says what it costs. The notes are written one bill at
+a time, so totaling them for any one agency means reading hundreds.*
 
 The 90th Texas Legislature convenes on **January 12, 2027**. Bill filing for it opened on November 9, and 1,179 bills
 came in on the first day. I wanted to understand how the place actually works before following it: where bills

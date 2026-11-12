@@ -59,7 +59,7 @@ Five things the 2025 record shows:
 - **Estimates move as a bill moves.** Each version of a bill gets a new fiscal note. 49 enacted bills changed by more
   than a quarter between their first and last note. The homestead exemption increase (SB 4) went from \\$1.0 billion to
   \\$2.7 billion.
-- **Some costs come later.** A franchise-tax credit (SB 2206) costs nothing in 2026-27 and \\$1.8 billion in 2028-30.
+- **Some costs come later.** A franchise-tax credit (SB 2206) gives up about \\$250 million of state revenue in 2026-27, then \\$1.8 billion in 2028-30.
   That cost belongs in the next budget request, not this one.
 - **Relative to its size**, the Department of Information Resources took on new costs of about 10% of its yearly
   spending, plus 139 new positions. The Office of Court Administration and the Public Utility Commission came close

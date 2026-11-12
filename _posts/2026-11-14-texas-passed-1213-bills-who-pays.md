@@ -92,7 +92,12 @@ moving them around quietly.
 Dashboards answer the questions you thought of in advance. For everything else there's **Fiscal Note Desk**, an
 assistant (an Azure AI Foundry agent) that answers in plain English. It gets numbers from the warehouse and
 explanations from the fiscal notes, and it cites both. It runs as a signed-in web app and as an MCP server that other
-AI tools can call.
+AI tools can call. Every bill in the Power BI report has an **Ask** link that opens the assistant with a question about
+that bill already typed in.
+
+{% include figure.liquid loading="lazy" path="assets/img/tx-fiscal-radar/desk-2-hb2-answer-tools-cost.png" class="img-fluid rounded z-depth-1" %}
+
+<div class="caption">One answer, opened up: the tools it called (two warehouse queries, one fiscal-note search), what each part cost, and which sentences the groundedness check couldn't match to a source.</div>
 
 I measured it before trusting it:
 
@@ -106,6 +111,55 @@ I measured it before trusting it:
 One problem isn't solved yet. For questions asked from opposite sides ("should Texas fund more of X" vs "cut X"), the
 facts in the answers stayed consistent, but the tone matched only 7 of 10 times. For a tool a politically mixed
 audience would use, that matters, so it's in the write-up as an open issue rather than hidden.
+
+### Why an answer takes 20 seconds, and the same answer takes 0.06
+
+My first guess for the wait was the trip to the warehouse. So I timed every stage of an answer. The warehouse wasn't
+it:
+
+| Stage (school vouchers question, 23 seconds) | Time | Share |
+| :--- | ---: | ---: |
+| The model deciding what to look up, then reading the results (3 rounds) | 14.1 s | 63% |
+| Searching the fiscal notes, and screening the results for planted instructions | 4.2 s | 19% |
+| Screening the question before anything runs | 1.5 s | 7% |
+| Starting the run, reading the answer back | 2.3 s | 10% |
+| Checking the answer against its sources | 0.4 s | 2% |
+| **Warehouse queries** | **under 0.1 s** | **0%** |
+
+An agent is a loop. The model asks for a tool, the tool runs, and the model reads the result and decides what to do
+next. Each round trip costs several seconds, so the wait grows with the number of lookups: about 15 seconds for a
+question that needs one, 30 to 37 for one that needs three. Making the database faster wouldn't change any of that.
+
+What does help is not asking twice. Legislative data changes once a night, when the pipeline loads, so an answer
+stays correct until then. Fiscal Note Desk keeps each answer for the rest of the day:
+
+{% include figure.liquid loading="lazy" path="assets/img/tx-fiscal-radar/desk-6-cache-first-vs-repeat.png" class="img-fluid rounded z-depth-1" %}
+
+<div class="caption">The same question twice. The first time: 23 seconds and 1.3 cents. The second time: 0.06 seconds, at no cost, served from the answer cache.</div>
+
+A cache is easy to add and easy to get wrong. These are the decisions that make it safe:
+
+- **The cache key includes the time of the last data load.** Each stored answer is tied to the warehouse load it was
+  computed from. When tonight's load lands, every key changes, so a stale answer can't be served. No expiry timer to
+  tune, no "clear the cache" step anyone has to remember.
+- **Some answers are never cached.** Answers personalized with a user's saved context, and A/B comparison answers,
+  always run fresh.
+- **Flagged answers aren't cached.** A cache repeats whatever you put in it, including a weak answer. When the
+  groundedness check flags more than a quarter of an answer as unsupported, the answer goes to the person who asked
+  and nowhere else. I added this after watching a weak answer to a leading question get served again from the cache.
+- **Cached answers are free, even over the limit.** Each user has a daily spending cap. A cached answer costs nothing,
+  so it's served even to someone who has hit the cap.
+- **No "similar question" matching.** Matching paraphrases would raise the hit rate. But "SB 2206" and "SB 2207" look
+  nearly identical to that kind of matching, and a near-miss would confidently answer about the wrong bill. Only
+  exact repeats (ignoring case and punctuation) count.
+
+There are two more caches underneath. The AI step that splits fiscal-note costs by agency stores every model response
+under a hash of its prompt, so re-checking all 1,012 extracted rows after a rule change costs nothing. And the model
+provider discounts repeated prompt text: input it has seen recently is billed at a quarter of the price.
+
+The next step is to pre-fill the cache. The report's Ask links always send the same wording for a given bill, so
+answering the 20 largest bills right after each night's load (10 to 30 cents) would make every click from the report
+instant.
 
 ## How it's built
 

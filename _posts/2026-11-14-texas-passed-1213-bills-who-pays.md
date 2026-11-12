@@ -69,6 +69,30 @@ Five things the 2025 record shows:
 
 <div class="caption">New 2026-27 cost from enacted bills, as a share of each agency's FY2024 spending (Comptroller data).</div>
 
+## What this means for 2027
+
+**The 2027 Legislature inherits a bill before it files a single one.** The 2025 laws keep costing money
+after 2027. Ninety-three of them carry about \\$24.7 billion of General Revenue impact in fiscal 2028 through 2030, counting
+new spending and revenue given up. The first two of those years are the budget the 2027 Legislature writes. School
+finance (HB 2) is \\$14.1 billion of it. The franchise-tax credit (SB 2206) gives up about \\$250 million in 2026-27
+and \\$1.8 billion in 2028-30. For anyone planning around the next budget, part of the room is already spoken for.
+
+**A handful of bills carry the money.** Of 1,186 new laws, about 110 have a two-year cost at all, and one bill is half
+of the total. A budget office that reads every 2027 fiscal note with equal care will run out of time. Sorting by size
+first, then reading the top of the list closely, is the realistic approach.
+
+**Read the latest fiscal note, not the first.** In 2025, 49 enacted bills changed by more than a quarter between
+their first and last fiscal note, and SB 4 nearly tripled. An estimate for a bill that's still moving through
+committees is a range, not a number, and should carry a contingency.
+
+**Plan for the crunch.** In 2025, 29% of all bills arrived in the week before the filing deadline, and 79% of the
+bills that passed both chambers did so in the last two weeks. In 2027 that means mid-March and the end of May. That's
+when fiscal-note analysis piles up, and when a tool that reads the notes overnight is most useful.
+
+**2027 is starting slower.** After its first two days of filing, the 2027 session had 1,278 bills, against 1,476 at the
+same point in 2025, about 13% behind. Early filing isn't a strong signal on its own: only 10% of the bills prefiled
+for 2025 became law, below the 14% for the session as a whole. Committee referrals in January will say more.
+
 ## Why you can't just add up the fiscal notes
 
 **A fiscal note gives one cost for the whole bill.** When a bill touches nine agencies, the note's prose says which

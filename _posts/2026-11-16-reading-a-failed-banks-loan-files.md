@@ -123,6 +123,46 @@ So the second screen shows the whole loan:
 
 <div class="caption">Context: U.S. bank failures since 1934, from the FDIC's public failures data.</div>
 
+## Since then: an assistant, a red team and a smarter queue
+
+**Ask the loan file.** A button on the loan view now opens an assistant: a Microsoft Foundry agent (gpt-4.1-mini)
+that answers questions like "Why can't this loan be released yet?" or "What does the FDIC tell borrowers after a
+failure?". It can't write its own database queries: it picks from fixed, read-only ones and searches the loan files,
+the real deal agreements, the FDIC Resolutions Handbook, FDIC pages on loan sales, and the FDIC's own history of the
+crisis, *Crisis and Response*. Every quote in an answer is checked word-for-word against what it read, and every
+figure is traced back to the data.
+
+{% include figure.liquid path="assets/img/failed-bank-docai/loan_desk_qa.png" class="img-fluid rounded z-depth-1" %}
+
+<div class="caption">Asking about one loan's risk flags. The badges show the quotes and figures were checked against the documents and data.</div>
+
+**Then I attacked it.** The loan files come from the failed bank, so their text can't be trusted: someone could plant
+an instruction in a comment log. Of 18 attacks, **2 worked** at first. One note planted in a comment log made the
+assistant tell me a loan was "approved for release by FDIC counsel". Worse, asked for "an official FDIC notice"
+telling borrowers to send their payments to a new account, it wrote one. That's a real fraud pattern after bank
+failures. After screening every document passage with Azure's Prompt Shields before the model reads it, and adding
+rules against impersonation and payment instructions, **0 of 18** worked, and the screening removed none of the
+real passages.
+
+I also tried Azure's automatic groundedness check. It flagged 6 of 8 *correct* answers, mostly unit conversions
+(\\$169.7 billion from a figure stored in thousands). A warning that fires on right answers teaches people to ignore
+it, so I replaced it with a plain check that every number in an answer appears in the data.
+
+**A queue that knows what's at stake.** Reviewers now see the queue in order of expected dollars at risk: the
+chance a value is wrong times the loan's balance. The chance is learned from other banks, plus the decisions
+reviewers have already made at this bank. Every saved decision re-ranks the queue. And given the minutes left before
+the data room opens, the app works out which loans to finish to get the most balance in front of buyers.
+
+**What the real failures say.** I matched 454 real failures from 2008 to 2012 with each bank's last financial
+report before it failed. Heavy construction lending alone didn't mark the costliest failures. Construction lending
+**plus** bad loans or almost no capital left did: 71% of those banks were among the costliest third, against 34%
+overall. I checked that against what random shuffling produces, because when you try many combinations, some look
+good by chance. It matches the FDIC's own account of the crisis.
+
+**What a mistake costs.** Zero wrong values in 197 doesn't mean zero. It means the real rate could still be up to
+about 1.5%. A review costs a few minutes; a wrong balance that reaches bidders, with no warranty behind it, can cost
+hundreds or thousands of dollars. That's why the next bullet list starts where it does.
+
 ## What I'd tell someone deploying this
 
 - **Start every new bank at full human review**, and lower it only as accuracy is proven on that bank.
@@ -131,6 +171,10 @@ So the second screen shows the whole loan:
   the model's mistakes.
 - **Keep every version.** The app never overwrites: the model's value, the reviewer's correction, who made it
   and when are all kept.
+- **Audit a sample of what the machine accepts.** Otherwise "zero silent errors" can never be confirmed, because
+  nobody looks.
+- **Treat the documents as untrusted input** for any AI that reads them, and test it with attacks before anyone
+  relies on it.
 
 ## Limits
 

@@ -1,0 +1,602 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Inside the 2025 Texas Legislature: 8,719 bills, 1,213 passed, and what they cost | Willie Man </title> <meta name="author" content="Willie Man"> <meta name="description" content="Learning how the Texas Legislature works from its own files before the 2027 session. An Azure pipeline over every 2025 bill history and fiscal note, an AI that splits costs by agency (and gets checked), and an assistant that answers from the record."> <meta name="keywords" content="Willie Man, data analyst, data scientist, data engineer, data quality, machine learning, AI engineering, analytics portfolio, Databricks, Houston"> <meta property="og:site_name" content="Willie Man"> <meta property="og:type" content="article"> <meta property="og:title" content="Inside the 2025 Texas Legislature: 8,719 bills, 1,213 passed, and what they cost | Willie Man"> <meta property="og:url" content="https://willieman.com/blog/2026/inside-the-2025-texas-legislature/"> <meta property="og:description" content="Learning how the Texas Legislature works from its own files before the 2027 session. An Azure pipeline over every 2025 bill history and fiscal note, an AI that splits costs by agency (and gets checked), and an assistant that answers from the record."> <meta property="og:image" content="https://willieman.com/assets/img/og/inside-the-2025-texas-legislature.png"> <meta property="og:image:type" content="image/png"> <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <meta property="og:image:alt" content="Inside the 2025 Texas Legislature: 8,719 bills, 1,213 passed, and what they cost"> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="Inside the 2025 Texas Legislature: 8,719 bills, 1,213 passed, and what they cost"> <meta name="twitter:description" content="Learning how the Texas Legislature works from its own files before the 2027 session. An Azure pipeline over every 2025 bill history and fiscal note, an AI that splits costs by agency (and gets checked), and an assistant that answers from the record."> <meta name="twitter:image" content="https://willieman.com/assets/img/og/inside-the-2025-texas-legislature.png"> <meta name="twitter:image:alt" content="Inside the 2025 Texas Legislature: 8,719 bills, 1,213 passed, and what they cost"> <meta name="twitter:site" content="@WillieMaize828"> <meta name="twitter:creator" content="@WillieMaize828"> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Willie Man"
+        },
+        "url": "https://willieman.com/blog/2026/inside-the-2025-texas-legislature/",
+        "@type": "BlogPosting",
+        "description": "Learning how the Texas Legislature works from its own files before the 2027 session. An Azure pipeline over every 2025 bill history and fiscal note, an AI that splits costs by agency (and gets checked), and an assistant that answers from the record.",
+        "headline": "Inside the 2025 Texas Legislature: 8,719 bills, 1,213 passed, and what they cost",
+        
+        "sameAs": ["https://github.com/godot107","https://www.linkedin.com/in/willieman828","https://twitter.com/WillieMaize828","https://mastodon.social/@williemaize","https://bsky.app/profile/williemaize.bsky.social","https://medium.com/@manwill"],
+        
+        "name": "Willie Man",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>:root{--max-content-width:930px}</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=63e2c625bb611f6547acbfd7fa6f15ad"> <link rel="canonical" href="https://willieman.com/blog/2026/inside-the-2025-texas-legislature/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Willie Man </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/repositories/">repositories </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">cv </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-nav-dropdown-toggle="true" aria-haspopup="true" aria-expanded="false">submenus </a> <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> <a class="dropdown-item " href="/books/">books</a> <div class="dropdown-divider"></div> <a class="dropdown-item " href="/projects/">projects</a> <div class="dropdown-divider"></div> <a class="dropdown-item " href="/blog/">blog</a> </div> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Inside the 2025 Texas Legislature: 8,719 bills, 1,213 passed, and what they cost</h1> <p class="post-meta"> Created on November 14, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/data-science"> <i class="fa-solid fa-hashtag fa-sm"></i> data-science</a>   ·   <a href="/blog/category/project"> <i class="fa-solid fa-tag fa-sm"></i> project</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p><em>Texans filed 8,719 bills in the 2025 session. 14% passed. The ones that did carry about \$16.8 billion of new spending in 2026-27, and every one comes with a fiscal note that says what it costs. The notes are written one bill at a time, so totaling them for any one agency means reading hundreds.</em></p> <p>The 90th Texas Legislature convenes on <strong>January 12, 2027</strong>. Bill filing for it opened on November 9, and 1,179 bills came in on the first day. I wanted to understand how the place actually works before following it: where bills stall, when things happen, and what the laws that pass end up costing the agencies that carry them out. I didn’t want to learn that from news coverage. I wanted it from the Legislature’s own records.</p> <p>Those records are all public. The Texas Legislative Council publishes every bill’s history and every Legislative Budget Board fiscal note as bulk files. They’re thorough, and they’re written one bill at a time. So I built a pipeline that reads all of them, on Microsoft Azure, and kept it running for 2027.</p> <p>Code, results and runbooks: <a href="https://github.com/godot107/tx-fiscal-radar" rel="external nofollow noopener" target="_blank">github.com/godot107/tx-fiscal-radar</a>.</p> <p>This is the second of two Azure projects about turning documents into data you can trust. The first, <a href="/blog/2026/nine-insurers-mailed-me-a-price/">Nine insurers mailed me a price</a>, reads home-insurance letters with Azure AI Document Intelligence and a custom model I trained, then routes uncertain values to a person in a Power Apps review app. This one applies the same idea to text that’s already digital, but just as unstructured.</p> <h2 id="how-a-session-actually-goes">How a session actually goes</h2> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/tx-fiscal-radar/funnel_89r-480.webp 480w,/assets/img/tx-fiscal-radar/funnel_89r-800.webp 800w,/assets/img/tx-fiscal-radar/funnel_89r-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/tx-fiscal-radar/funnel_89r.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <div class="caption">The 2025 regular session (89th Legislature), House and Senate bills.</div> <p>Five things the 2025 record shows:</p> <ul> <li> <strong>Committees are where bills stop.</strong> Almost every bill goes to a committee, and three in four never pass either chamber. House Public Education received 679 bills, and 556 of them never came out.</li> <li> <strong>The session runs on deadlines.</strong> 29% of all bills were filed in the last week before the filing deadline, and 79% of the bills that passed both chambers did so in the final two weeks.</li> <li> <strong>Prefiling is busy but doesn’t predict much.</strong> 27% of bills were filed before the session opened. Only 10% of those became law.</li> <li> <strong>The governor acts after everyone goes home.</strong> Most new laws (844) were signed in June, after the session ended. All 26 vetoes came by June 22, the end of the governor’s 20-day window.</li> <li> <strong>“Passed” is harder to count than it sounds.</strong> My first rule (each chamber passed the bill) gave 1,221. The Legislature’s own report says 1,213. The 8-bill difference: each chamber passed a <em>different version</em>, and the two were never reconciled. Counting a bill once both chambers agree on the same text (enrolled) matches the official number exactly, and the pipeline checks that match on every load.</li> </ul> <h2 id="what-the-2025-laws-cost">What the 2025 laws cost</h2> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/tx-fiscal-radar/pbi-fiscal-exposure-480.webp 480w,/assets/img/tx-fiscal-radar/pbi-fiscal-exposure-800.webp 800w,/assets/img/tx-fiscal-radar/pbi-fiscal-exposure-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/tx-fiscal-radar/pbi-fiscal-exposure.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <div class="caption">The "Fiscal exposure" page of the Power BI report. The whole report is built from code.</div> <ul> <li> <strong>About \$16.8 billion of new 2026-27 spending</strong>, across 114 enacted bills, plus about 800 new state jobs and \$2.2 billion of revenue given up through tax relief. School finance (HB 2) is half of the spending by itself. Appropriations bills, which move money to many agencies at once, are counted separately.</li> <li> <strong>Estimates move as a bill moves.</strong> Each version of a bill gets a new fiscal note. 49 enacted bills changed by more than a quarter between their first and last note. The homestead exemption increase (SB 4) went from \$1.0 billion to \$2.7 billion.</li> <li> <strong>Some costs come later.</strong> A franchise-tax credit (SB 2206) gives up about \$250 million of state revenue in 2026-27, then \$1.8 billion in 2028-30. That cost belongs in the next budget request, not this one.</li> <li> <strong>Relative to its size</strong>, the Department of Information Resources took on new costs of about 10% of its yearly spending, plus 139 new positions. The Office of Court Administration and the Public Utility Commission came close behind.</li> </ul> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/tx-fiscal-radar/agency_exposure-480.webp 480w,/assets/img/tx-fiscal-radar/agency_exposure-800.webp 800w,/assets/img/tx-fiscal-radar/agency_exposure-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/tx-fiscal-radar/agency_exposure.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <div class="caption">New 2026-27 cost from enacted bills, as a share of each agency's FY2024 spending (Comptroller data).</div> <h2 id="what-this-means-for-2027">What this means for 2027</h2> <p><strong>The 2027 Legislature inherits a bill before it files a single one.</strong> The 2025 laws keep costing money after 2027. Ninety-three of them carry about \$24.7 billion of General Revenue impact in fiscal 2028 through 2030, counting new spending and revenue given up. The first two of those years are the budget the 2027 Legislature writes. School finance (HB 2) is \$14.1 billion of it. The franchise-tax credit (SB 2206) gives up about \$250 million in 2026-27 and \$1.8 billion in 2028-30. For anyone planning around the next budget, part of the room is already spoken for.</p> <p><strong>A handful of bills carry the money.</strong> Of 1,186 new laws, about 110 have a two-year cost at all, and one bill is half of the total. A budget office that reads every 2027 fiscal note with equal care will run out of time. Sorting by size first, then reading the top of the list closely, is the realistic approach.</p> <p><strong>Read the latest fiscal note, not the first.</strong> In 2025, 49 enacted bills changed by more than a quarter between their first and last fiscal note, and SB 4 nearly tripled. An estimate for a bill that’s still moving through committees is a range, not a number, and should carry a contingency.</p> <p><strong>Plan for the crunch.</strong> In 2025, 29% of all bills arrived in the week before the filing deadline, and 79% of the bills that passed both chambers did so in the last two weeks. In 2027 that means mid-March and the end of May. That’s when fiscal-note analysis piles up, and when a tool that reads the notes overnight is most useful.</p> <p><strong>2027 is starting slower.</strong> After its first two days of filing, the 2027 session had 1,278 bills, against 1,476 at the same point in 2025, about 13% behind. Early filing isn’t a strong signal on its own: only 10% of the bills prefiled for 2025 became law, below the 14% for the session as a whole. Committee referrals in January will say more.</p> <h2 id="why-you-cant-just-add-up-the-fiscal-notes">Why you can’t just add up the fiscal notes</h2> <p><strong>A fiscal note gives one cost for the whole bill.</strong> When a bill touches nine agencies, the note’s prose says which one pays. I had a language model (GPT-4.1-mini on Azure) read that prose and split the cost by agency, for about 24 cents across 198 bills. Then I didn’t trust it. An extracted amount only counts if four checks pass: the quoted sentence is really in the note, the number is really in the sentence, the agency is listed on the note, and the sentence names that agency. <strong>48% of rows passed.</strong> The rest wait for a person on a review page. The model’s most common mistake was putting a cost on the wrong agency, and that’s why the last check exists.</p> <p><strong>Then I trained a model to do it better, and it didn’t simply win.</strong> The checks made a training set possible: every row that passed all four is a verified example. I fine-tuned the same model on those rows (about \$1 to train) and compared the two on 59 bills neither had seen:</p> <table> <thead> <tr> <th style="text-align: left">On 59 held-out bills</th> <th style="text-align: right">Prompted model</th> <th style="text-align: right">Fine-tuned model</th> </tr> </thead> <tbody> <tr> <td style="text-align: left">Rows that passed all four checks</td> <td style="text-align: right">48%</td> <td style="text-align: right"><strong>68%</strong></td> </tr> <tr> <td style="text-align: left">Rows extracted</td> <td style="text-align: right"><strong>367</strong></td> <td style="text-align: right">220</td> </tr> <tr> <td style="text-align: left">Rows verified (count)</td> <td style="text-align: right"><strong>176</strong></td> <td style="text-align: right">149</td> </tr> <tr> <td style="text-align: left">Bills whose extracted amounts add up to the note’s total</td> <td style="text-align: right"><strong>19</strong></td> <td style="text-align: right">13</td> </tr> </tbody> </table> <p>The fine-tuned model is more precise and less complete. That’s a trade-off, not a winner. If only verified rows are ever shown, the fine-tuned model wastes less of a reviewer’s time. If the job is to find every cost, the prompted model misses less. Which one to run depends on who reads the output, and that’s a decision for the people using it, not for the model.</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/tx-fiscal-radar/pbi-trust-review-480.webp 480w,/assets/img/tx-fiscal-radar/pbi-trust-review-800.webp 800w,/assets/img/tx-fiscal-radar/pbi-trust-review-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/tx-fiscal-radar/pbi-trust-review.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <div class="caption">Every load is reconciled to the Legislature's count, and AI rows that fail a check wait here for review.</div> <p><strong>The listed agencies aren’t always the ones that pay.</strong> A fiscal note’s “source agencies” are the agencies the Budget Board consulted. On tax bills that’s often just the Comptroller, even when the cost lands on school finance. That’s why the Comptroller tops the raw ranking at 38% of its spending. The pipeline flags tax-bill costs instead of moving them around quietly.</p> <h2 id="asking-it-questions">Asking it questions</h2> <p>Dashboards answer the questions you thought of in advance. For everything else there’s <strong>Fiscal Note Desk</strong>, an assistant (an Azure AI Foundry agent) that answers in plain English. It gets numbers from the warehouse and explanations from the fiscal notes, and it cites both. It runs as a signed-in web app and as an MCP server that other AI tools can call. Every bill in the Power BI report has an <strong>Ask</strong> link that opens the assistant with a question about that bill already typed in.</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/tx-fiscal-radar/desk-2-hb2-answer-tools-cost-480.webp 480w,/assets/img/tx-fiscal-radar/desk-2-hb2-answer-tools-cost-800.webp 800w,/assets/img/tx-fiscal-radar/desk-2-hb2-answer-tools-cost-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/tx-fiscal-radar/desk-2-hb2-answer-tools-cost.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <div class="caption">One answer, opened up: the tools it called (two warehouse queries, one fiscal-note search), what each part cost, and which sentences the groundedness check couldn't match to a source.</div> <p>I measured it before trusting it:</p> <table> <thead> <tr> <th style="text-align: left"> </th> <th style="text-align: right">Before</th> <th style="text-align: right">After</th> </tr> </thead> <tbody> <tr> <td style="text-align: left">Test questions answered correctly (expected answers computed from SQL)</td> <td style="text-align: right">19 / 25</td> <td style="text-align: right"><strong>26 / 26</strong></td> </tr> <tr> <td style="text-align: left">Right fiscal note in the top 6 search results</td> <td style="text-align: right">53%</td> <td style="text-align: right"><strong>97%</strong></td> </tr> <tr> <td style="text-align: left">Red-team attacks that got through (22, including prompt injection)</td> <td style="text-align: right">3</td> <td style="text-align: right"><strong>0</strong></td> </tr> <tr> <td style="text-align: left">Cost per answer, with every guardrail on</td> <td style="text-align: right"> </td> <td style="text-align: right"><strong>\$0.0056</strong></td> </tr> </tbody> </table> <p>One problem isn’t solved yet. For questions asked from opposite sides (“should Texas fund more of X” vs “cut X”), the facts in the answers stayed consistent, but the tone matched only 7 of 10 times. For a tool a politically mixed audience would use, that matters, so it’s in the write-up as an open issue rather than hidden.</p> <h3 id="search-engine-questions-within-what-the-legislature-published">Search-engine questions, within what the Legislature published</h3> <p>You can ask it things the way you’d type them into a search box: “what passed about data centers?”, “which 2027 bills mention the Texas Education Agency?” That works because the search behind it matches meaning, not just words. “School vouchers” finds a bill that only says “education savings account”. On 20 reworded questions, keyword search found the right fiscal note 35% of the time; hybrid search with a semantic reranker found it 95% of the time.</p> <p>It searches 11,224 documents: a summary card for every bill in the 2025 sessions and 2027 so far, one for every agency, and the full fiscal-note text for every enacted bill with a cost and every 2027 note. That’s also its limit. It doesn’t have bill text, votes, committee testimony or news, so it can’t answer what the Legislature’s own files don’t say.</p> <p>A follow-up post covers the rest of the assistant: Foundry’s built-in search, how I attacked the guardrails before anyone else could, and what its opt-in memory keeps.</p> <h3 id="why-an-answer-takes-20-seconds-and-the-same-answer-takes-006">Why an answer takes 20 seconds, and the same answer takes 0.06</h3> <p>My first guess for the wait was the trip to the warehouse. So I timed every stage of an answer. The warehouse wasn’t it:</p> <table> <thead> <tr> <th style="text-align: left">Stage (school vouchers question, 23 seconds)</th> <th style="text-align: right">Time</th> <th style="text-align: right">Share</th> </tr> </thead> <tbody> <tr> <td style="text-align: left">The model deciding what to look up, then reading the results (3 rounds)</td> <td style="text-align: right">14.1 s</td> <td style="text-align: right">63%</td> </tr> <tr> <td style="text-align: left">Searching the fiscal notes, and screening the results for planted instructions</td> <td style="text-align: right">4.2 s</td> <td style="text-align: right">19%</td> </tr> <tr> <td style="text-align: left">Screening the question before anything runs</td> <td style="text-align: right">1.5 s</td> <td style="text-align: right">7%</td> </tr> <tr> <td style="text-align: left">Starting the run, reading the answer back</td> <td style="text-align: right">2.3 s</td> <td style="text-align: right">10%</td> </tr> <tr> <td style="text-align: left">Checking the answer against its sources</td> <td style="text-align: right">0.4 s</td> <td style="text-align: right">2%</td> </tr> <tr> <td style="text-align: left"><strong>Warehouse queries</strong></td> <td style="text-align: right"><strong>under 0.1 s</strong></td> <td style="text-align: right"><strong>0%</strong></td> </tr> </tbody> </table> <p>An agent is a loop. The model asks for a tool, the tool runs, and the model reads the result and decides what to do next. Each round trip costs several seconds, so the wait grows with the number of lookups: about 15 seconds for a question that needs one, 30 to 37 for one that needs three. Making the database faster wouldn’t change any of that.</p> <p>What does help is not asking twice. Legislative data changes once a night, when the pipeline loads, so an answer stays correct until then. Fiscal Note Desk keeps each answer for the rest of the day:</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/tx-fiscal-radar/desk-6-cache-first-vs-repeat-480.webp 480w,/assets/img/tx-fiscal-radar/desk-6-cache-first-vs-repeat-800.webp 800w,/assets/img/tx-fiscal-radar/desk-6-cache-first-vs-repeat-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/tx-fiscal-radar/desk-6-cache-first-vs-repeat.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <div class="caption">The same question twice. The first time: 23 seconds and 1.3 cents. The second time: 0.06 seconds, at no cost, served from the answer cache.</div> <p>A cache is easy to add and easy to get wrong. These are the decisions that make it safe:</p> <ul> <li> <strong>The cache key includes the time of the last data load.</strong> Each stored answer is tied to the warehouse load it was computed from. When tonight’s load lands, every key changes, so a stale answer can’t be served. No expiry timer to tune, no “clear the cache” step anyone has to remember.</li> <li> <strong>Some answers are never cached.</strong> Answers personalized with a user’s saved context, and A/B comparison answers, always run fresh.</li> <li> <strong>Flagged answers aren’t cached.</strong> A cache repeats whatever you put in it, including a weak answer. When the groundedness check flags more than a quarter of an answer as unsupported, the answer goes to the person who asked and nowhere else. I added this after watching a weak answer to a leading question get served again from the cache.</li> <li> <strong>Cached answers are free, even over the limit.</strong> Each user has a daily spending cap. A cached answer costs nothing, so it’s served even to someone who has hit the cap.</li> <li> <strong>No “similar question” matching.</strong> Matching paraphrases would raise the hit rate. But “SB 2206” and “SB 2207” look nearly identical to that kind of matching, and a near-miss would confidently answer about the wrong bill. Only exact repeats (ignoring case and punctuation) count.</li> </ul> <p>There are two more caches underneath. The AI step that splits fiscal-note costs by agency stores every model response under a hash of its prompt, so re-checking all 1,012 extracted rows after a rule change costs nothing. And the model provider discounts repeated prompt text: input it has seen recently is billed at a quarter of the price.</p> <p>The next step is to pre-fill the cache. The report’s Ask links always send the same wording for a given bill, so answering the 20 largest bills right after each night’s load (10 to 30 cents) would make every click from the report instant.</p> <h2 id="how-its-built">How it’s built</h2> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/tx-fiscal-radar/architecture-480.webp 480w,/assets/img/tx-fiscal-radar/architecture-800.webp 800w,/assets/img/tx-fiscal-radar/architecture-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/tx-fiscal-radar/architecture.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <div class="caption">Azure Data Factory → data lake → Synapse Spark → Azure SQL → Power BI, plus the Foundry agent.</div> <ul> <li> <strong>Ingestion.</strong> Azure Data Factory copies from the Legislature’s FTP site into a data lake. The FTP server doesn’t report when files change, so the pipeline uses the Legislature’s own daily change list, plus a full copy every Sunday. It reads the FTP site only, at a low rate, as the Legislative Council asks.</li> <li> <strong>Transformation.</strong> Spark turns the HTML and XML into tables (10,635 bills, 139,178 actions, 7,334 fiscal-note versions). Notes it can’t read go to quarantine instead of into the totals. The same code ran unchanged on Databricks serverless.</li> <li> <strong>Serving.</strong> A star schema in Azure SQL feeds Power BI. The report is code too, so rebuilding it is one command.</li> <li> <strong>No passwords or keys anywhere.</strong> Every service signs in with its own managed identity. There are budget alerts, a failed-run alert, and a cost breaker that stops the app if spend runs away. A second region can take over if the model’s region goes down (13 of 13 failover tests passed).</li> <li> <strong>Cost.</strong> About \$14 of free-trial credit for everything above.</li> </ul> <h2 id="following-2027">Following 2027</h2> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/tx-fiscal-radar/filing_pace-480.webp 480w,/assets/img/tx-fiscal-radar/filing_pace-800.webp 800w,/assets/img/tx-fiscal-radar/filing_pace-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/tx-fiscal-radar/filing_pace.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();"> </picture> </figure> <div class="caption">2027 filing pace against 2025, by days since prefiling opened. Updated nightly.</div> <p>The pipeline picks up new filings every night. What I’ll be watching, based on 2025:</p> <ul> <li> <strong>~March 12, 2027</strong>, the 60th day: the filing surge (in 2025, 29% of all bills came in the final week).</li> <li> <strong>March to May</strong>: bills leaving committee, and fiscal notes that move between versions.</li> <li> <strong>~May 31</strong>, the 140th day: the end-of-session crunch.</li> <li> <strong>~June 20</strong>: the veto deadline.</li> </ul> <h2 id="limits">Limits</h2> <p>Fiscal notes are estimates of one version of a bill at one moment, not appropriations. Agency spending is FY2024, before these laws, and I use it only to measure agency size. The AI’s agency split is a lower bound where a note doesn’t itemize. This is an independent analysis of public records. It isn’t affiliated with the Legislature or any agency, and the assistant reports what was filed and estimated. It doesn’t predict what the Legislature will do.</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/dont-get-a-rescue-dog-4fb1968ec530?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Don’t get a (rescue) dog</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/sentiment-analysis-with-tf-idf-and-logistic-regression-f4cd86f359a1?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Sentiment Analysis with TF-IDF and Logistic Regression</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/the-unseen-crisis-why-i-finally-read-how-to-know-a-person-5d845aacf052?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">The Unseen Crisis: Why I Finally Read ‘How to Know a Person’</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/humour-seriously-a-reflection-essay-30d6ad23dfc8?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Humour Seriously — A Reflection Essay</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/a-b-testing-my-own-dashboard-and-the-ways-it-tried-to-lie-to-me-willie-man-2eb973e77bef?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">A/B testing my own dashboard, and the ways it tried to lie to me | Willie Man</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/nine-insurers-mailed-me-a-price/">Nine insurers mailed me a price for my house. Reading them took AI, and knowing when not to trust it.</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/congress-agreed-417-3-on-data-centers/">Congress agreed 417–3 on data centers. What else do they agree on?</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/finding-the-factions-in-congress/">Finding the factions in Congress from votes alone</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/your-models-score-is-an-estimate/">Your model's score is an estimate. Here's how wrong it can be.</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/ab-testing-my-own-dashboard/">A/B testing my own dashboard, and the ways it tried to lie to me</a> </li> </ul> <div id="giscus_thread" style="max-width: 930px; margin: 0 auto;"> <br> <script>
+    (function setupGiscus() {
+      function determineGiscusTheme() {
+        var theme = localStorage.getItem("theme") || document.documentElement.getAttribute("data-theme") || "system";
+if (theme === "dark") return "dark";
+if (theme === "light") return "light";
+var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+return prefersDark ? "dark" : "light";
+
+      }
+
+      var giscusTheme = determineGiscusTheme();
+      var attrs = {
+        src: "https://giscus.app/client.js",
+        "data-repo": "godot107/godot107.github.io",
+        "data-repo-id": "R_kgDONUwEbg",
+        "data-category": "Announcements",
+        "data-category-id": "DIC_kwDONUwEbs4C_TYq",
+        "data-mapping": "title",
+        "data-strict": "1",
+        "data-reactions-enabled": "1",
+        "data-emit-metadata": "0",
+        "data-input-position": "bottom",
+        "data-theme": giscusTheme,
+        "data-lang": "en",
+        crossorigin: "anonymous",
+        async: true
+      };
+
+      var giscusScript = document.createElement("script");
+      Object.entries(attrs).forEach(function(entry) { giscusScript.setAttribute(entry[0], entry[1]); });
+      var host = document.getElementById("giscus_thread");
+      if (host) host.appendChild(giscusScript);
+    })();
+  </script> <noscript> Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments powered by giscus.</a> </noscript> </div> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Willie Man. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3H4T9PEFL"></script> <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-X3H4T9PEFL");
+</script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-blog",
+          title: "blog",
+          description: "Essays and project write-ups on machine learning, AI engineering, data science, and the things I learn building them.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-projects",
+          title: "projects",
+          description: "Projects related to Machine Learning, AI, and Data Sciences (plus fun stuff)",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-repositories",
+          title: "repositories",
+          description: "Repositories",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/repositories/";
+          },
+        },{id: "nav-cv",
+          title: "cv",
+          description: "Curriculum vitae for Willie Man — experience, education, projects, and skills across data analysis, data engineering, data quality, and machine learning.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "Books Reviews and Essays",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "dropdown-books",
+              title: "books",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/books/";
+              },
+            },{id: "dropdown-projects",
+              title: "projects",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/projects/";
+              },
+            },{id: "dropdown-blog",
+              title: "blog",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/blog/";
+              },
+            },{id: "post-inside-the-2025-texas-legislature-8-719-bills-1-213-passed-and-what-they-cost",
+        
+          title: "Inside the 2025 Texas Legislature: 8,719 bills, 1,213 passed, and what they cost...",
+        
+        description: "Learning how the Texas Legislature works from its own files before the 2027 session. An Azure pipeline over every 2025 bill history and fiscal note, an AI that splits costs by agency (and gets checked), and an assistant that answers from the record.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/inside-the-2025-texas-legislature/";
+          
+        },
+      },{id: "post-nine-insurers-mailed-me-a-price-for-my-house-reading-them-took-ai-and-knowing-when-not-to-trust-it",
+        
+          title: "Nine insurers mailed me a price for my house. Reading them took AI,...",
+        
+        description: "Azure Document Intelligence, a human review app and Power BI on home-insurance letters, tested on layouts the model never saw. The confidence score lied; silent errors were the number that mattered.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/nine-insurers-mailed-me-a-price/";
+          
+        },
+      },{id: "post-congress-agreed-417-3-on-data-centers-what-else-do-they-agree-on",
+        
+          title: "Congress agreed 417–3 on data centers. What else do they agree on?",
+        
+        description: "A non-partisan look at the U.S. House record before Election Day — which issues bring the parties together, who crosses party lines, and a dashboard to look up your own representative.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/congress-agreed-417-3-on-data-centers/";
+          
+        },
+      },{id: "post-finding-the-factions-in-congress-from-votes-alone",
+        
+          title: "Finding the factions in Congress from votes alone",
+        
+        description: "PCA, logistic PCA and Bayesian ideal points on US House roll calls, graded against a synthetic Congress, and five clustering methods checked against caucus membership.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/finding-the-factions-in-congress/";
+          
+        },
+      },{id: "post-your-model-39-s-score-is-an-estimate-here-39-s-how-wrong-it-can-be",
+        
+          title: "Your model&#39;s score is an estimate. Here&#39;s how wrong it can be.",
+        
+        description: "Eight experiments on simulated data where the true score is known, grading every common evaluation shortcut — metrics, cross-validation, leakage, tuning, model comparison.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/your-models-score-is-an-estimate/";
+          
+        },
+      },{id: "post-a-b-testing-my-own-dashboard-and-the-ways-it-tried-to-lie-to-me-willie-man",
+        
+          title: 'A/B testing my own dashboard, and the ways it tried to lie to... <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/a-b-testing-my-own-dashboard-and-the-ways-it-tried-to-lie-to-me-willie-man-2eb973e77bef?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-a-b-testing-my-own-dashboard-and-the-ways-it-tried-to-lie-to-me",
+        
+          title: "A/B testing my own dashboard, and the ways it tried to lie to...",
+        
+        description: "An end-to-end A/B test on a dashboard tracking post-pandemic US hiring demand — and the six places it would have produced a confident, wrong answer.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/ab-testing-my-own-dashboard/";
+          
+        },
+      },{id: "post-i-let-the-controls-fail-and-they-told-me-things-i-didn-39-t-know",
+        
+          title: "I let the controls fail, and they told me things I didn&#39;t know...",
+        
+        description: "Building an auditable FP&amp;A forecasting pipeline on real SEC filings — and what happens when you make the integrity checks blocking.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/auditable-fpa-forecast/";
+          
+        },
+      },{id: "post-i-put-a-tic-tac-toe-game-on-my-own-domain-to-finally-understand-dns",
+        
+          title: "I put a tic-tac-toe game on my own domain to finally understand DNS...",
+        
+        description: "A deliberately tiny Flask app deployed to AWS Lightsail behind my own subdomain with automatic HTTPS, and the DNS, certificate and teardown lessons that turned out to be the real project.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/lightsail-tictactoe-dns/";
+          
+        },
+      },{id: "post-i-built-a-fantasy-draft-co-pilot-and-the-interesting-part-was-everything-it-got-wrong",
+        
+          title: "I built a fantasy draft co-pilot, and the interesting part was everything it...",
+        
+        description: "A read-only Sleeper draft assistant built on VONA and opponent survival modelling — and the four times its most authoritative numbers turned out to be measuring something else.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/fantasy-draft-co-pilot-everything-it-got-wrong/";
+          
+        },
+      },{id: "post-i-turned-six-years-of-data-science-textbooks-into-a-knowledge-base-my-ai-can-reason-over",
+        
+          title: "I Turned Six Years of Data Science Textbooks Into a Knowledge Base My...",
+        
+        description: "Building a private, local RAG system over my own library — and why I think almost everyone with a bookshelf of PDFs should do the same.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/textbook-to-knowledge-base/";
+          
+        },
+      },{id: "post-applied-math-for-engineers-deconstructing-the-fft-and-cnns",
+        
+          title: "Applied Math for Engineers: Deconstructing the FFT and CNNs",
+        
+        description: "A deep dive into the math behind CNNs and the FFT using the AGY CLI.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/math-is-fun/";
+          
+        },
+      },{id: "post-teaching-a-neural-network-to-hear-a-failing-bearing",
+        
+          title: "Teaching a Neural Network to Hear a Failing Bearing",
+        
+        description: "Building an end-to-end predictive-maintenance pipeline on the CWRU bearing dataset — and why hitting 100% accuracy made me trust it less.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/teaching-a-neural-network-to-hear-a-failing-bearing/";
+          
+        },
+      },{id: "post-humour-seriously-a-reflection-essay",
+        
+          title: 'Humour Seriously — A Reflection Essay <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/humour-seriously-a-reflection-essay-30d6ad23dfc8?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-the-unseen-crisis-why-i-finally-read-how-to-know-a-person",
+        
+          title: 'The Unseen Crisis: Why I Finally Read ‘How to Know a Person’ <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/the-unseen-crisis-why-i-finally-read-how-to-know-a-person-5d845aacf052?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-sentiment-analysis-with-tf-idf-and-logistic-regression",
+        
+          title: 'Sentiment Analysis with TF-IDF and Logistic Regression <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/sentiment-analysis-with-tf-idf-and-logistic-regression-f4cd86f359a1?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-don-t-get-a-rescue-dog",
+        
+          title: 'Don’t get a (rescue) dog <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/dont-get-a-rescue-dog-4fb1968ec530?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-socialgood-hackathon-roundup",
+        
+          title: "SocialGood Hackathon Roundup",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2018/Social_Good_Hackathon/";
+          
+        },
+      },{id: "post-2016-in-review",
+        
+          title: "2016 in Review",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Life_Group/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-halcyon-end",
+        
+          title: "Community Summer Missions Project (CSMP) - Halcyon End",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Halcyon_End/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-excel-enrich-in-austin",
+        
+          title: "Community Summer Missions Project (CSMP) - Excel Enrich in Austin",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Excel_Austin/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-life-group",
+        
+          title: "Community Summer Missions Project (CSMP) - Life Group",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/2016_in_review/";
+          
+        },
+      },{id: "post-shifts-in-healthcare-and-information-technology-align-to-support-industry-transformation",
+        
+          title: "Shifts in Healthcare and Information Technology Align to Support Industry Transformation",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Shifts_in_Healthcare_and_IT/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-enter-intensive-and-field-work",
+        
+          title: "Community Summer Missions Project (CSMP) - Enter Intensive and Field Work",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_enter_field_work/";
+          
+        },
+      },{id: "post-enter-missions-csmp-2016",
+        
+          title: "Enter Missions - CSMP 2016",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Enter_Missions_csmp_2016/";
+          
+        },
+      },{id: "post-nba-graphs-2015-playoffs-with-r-studio",
+        
+          title: "NBA Graphs - 2015 Playoffs with R studio",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/NBA_graphs_2015/";
+          
+        },
+      },{id: "post-design-and-testing-of-an-ehr-integrated-busulfan-pharmacokinetic-decision-support-tool-for-the-point-of-care-clinician",
+        
+          title: "Design and Testing of an EHR-Integrated, Busulfan Pharmacokinetic Decision Support Tool for the...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Design-and-Testing-of-an-EHR-Integrated/";
+          
+        },
+      },{id: "books-never-enough",
+          title: 'Never Enough',
+          description: "Through a penetrating look at Never Enough, this review examines how America&#39;s obsession with academic achievement shapes our children&#39;s futures and sense of self-worth. Drawing from personal experience and cross-cultural insights, it challenges parents to question whether our pursuit of excellence has gone too far.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/never_enough_reflection_essay/";
+            },},{id: "books-practicing-the-way-book-reflection",
+          title: 'Practicing the Way - Book Reflection',
+          description: "The title, Practicing the Way, draws from the concept of apprenticeship. Jesus, known not only as the Son of God but also as a Rabbi, called ordinary people—fishermen, tax collectors, and zealots—to follow Him as disciples. In Jesus’ time, disciples were typically well-versed in the Torah and aspired to become like their rabbi in every way. Comer invites us to imagine the same goal today - to become like Jesus through the empowerment of the Holy Spirit, bringing heaven to earth in both ordinary and extraordinary ways.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/practicing_the_way_reflection_essay/";
+            },},{id: "books-the-unseen-crisis-why-i-finally-read-39-how-to-know-a-person-39",
+          title: 'The Unseen Crisis - Why I Finally Read &amp;#39;How to Know a Person&amp;#39;...',
+          description: "The title, Practicing the Way, draws from the concept of apprenticeship. Jesus, known not only as the Son of God but also as a Rabbi, called ordinary people—fishermen, tax collectors, and zealots—to follow Him as disciples. In Jesus’ time, disciples were typically well-versed in the Torah and aspired to become like their rabbi in every way. Comer invites us to imagine the same goal today - to become like Jesus through the empowerment of the Holy Spirit, bringing heaven to earth in both ordinary and extraordinary ways.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/how_to_know_a_person_reflection_essay/";
+            },},{id: "books-humour-seriously-a-reflection-essay",
+          title: 'Humour Seriously - A Reflection Essay',
+          description: "This reflection explores the intellectual depth of comedy, the balance between levity and gravity, and the profound benefits of laughter in personal and professional life, inspired by David Brooks&#39; insights.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/humor_seriously_reflection_essay/";
+            },},{id: "books-never-enough-part-2-parenting-with-grace",
+          title: 'Never Enough Part 2 - Parenting with Grace',
+          description: "Through a penetrating look at Never Enough, this review examines how America&#39;s obsession with academic achievement shapes our children&#39;s futures and sense of self-worth. Drawing from personal experience and cross-cultural insights, it challenges parents to question whether our pursuit of excellence has gone too far.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/never_enough_reflection_essay_part2/";
+            },},{id: "news-new-website-launched",
+          title: 'New Website Launched!',
+          description: "",
+          section: "News",},{id: "news-welcome",
+          title: 'Welcome',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2/";
+            },},{id: "news-tune-in-for-more-content",
+          title: '🚧 Tune in for more content 🚧',
+          description: "",
+          section: "News",},{id: "projects-analyze-the-characteristics-of-highly-accessible-population-centers-in-the-united-states",
+          title: 'Analyze the characteristics of highly accessible population centers in the United States',
+          description: "This project seeks to improve accessibility to jobs, entertainment, and shopping",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/analyze_the_characteristics_of_highly_accessible_population_centers_in_the_United_States/";
+            },},{id: "projects-apple-cultivars-and-climate-change-in-the-eastern-mountain-region-of-the-united-states",
+          title: 'Apple cultivars and climate change in the Eastern Mountain region of the United...',
+          description: "Extensive research exists regarding the effects of climate change on agriculture. However, there is often a gap between researchers and decision makers, particularly in industries with limited resources. The apple industry is one such example. Though apples are the most consumed fruit in the United States, apple orchards occupy less than 1% of the 880 million acres of United States farmland (Industry at a Glance, n.d.; National Agricultural Statistics Service, 2024).",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/apple_cultivars_climate_change/";
+            },},{id: "projects-auditable-fp-amp-a-forecasting-on-filed-sec-data",
+          title: 'Auditable FP&amp;amp;A forecasting on filed SEC data',
+          description: "A rolling FP&amp;A forecast built from Netflix&#39;s SEC filings, with 23 in-pipeline controls — 21 of them blocking — an ERP round trip that reconciles to $0.00, and an LLM that writes the commentary but never the number.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/auditable_fpa_forecast/";
+            },},{id: "projects-bot-control-console",
+          title: 'Bot Control Console',
+          description: "A serverless mobile web app on AWS to see and stop every trading bot I run, with Cognito sign-in and MFA, least-privilege IAM, and an audit trail.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/bot-control-console/";
+            },},{id: "projects-head-in-the-cloud-technology",
+          title: 'Head in the Cloud (Technology)',
+          description: "My Journey in Learning the Cloud - AWS and Azure",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/cloud_learning_journey/";
+            },},{id: "projects-don-39-t-get-a-rescue-dog",
+          title: 'Don&amp;#39;t get a (rescue) dog',
+          description: "Unless you want to make an Impact.Cross-Post from Medium Blog",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ladybird_separation_anxiety_journey/";
+            },},{id: "projects-my-baking-journey",
+          title: 'My Baking Journey',
+          description: "Baking as a gesture of goodwill",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ladybirdbakingco_intro/";
+            },},{id: "projects-nba-daily-fantasy-sports-dfs-project-competing-for-pocket-cash",
+          title: 'NBA Daily Fantasy Sports (DFS) Project - Competing for Pocket Cash',
+          description: "Yahoo NBA Daily Fantasy Sports",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/nba_daily_fantasy_sports/";
+            },},{id: "projects-serverless-trading-bots-on-aws",
+          title: 'Serverless Trading Bots on AWS',
+          description: "Three paper-trading bots running unattended as scheduled container Lambdas, defined in CloudFormation with least-privilege IAM, alarms, budget guards, and hard safety limits.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/serverless-trading-bots/";
+            },},{id: "projects-visualizing-information-retrieval-a-tf-idf-approach-with-tilebars",
+          title: 'Visualizing Information Retrieval - A TF-IDF Approach with TileBars',
+          description: "This article explores a TF-IDF-based visual query system using TileBars to retrieve and rank research documents efficiently. By leveraging metadata and the first three paragraphs of each document, it combines preprocessing, normalization, and intuitive visualizations to present relevant results. Future improvements, including lemmatization and sparse matrices, are also discussed.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/tf-idf_retrieval/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%77%69%6C%6C%69%65%6D%61%69%7A%65%38%32%38@%67%6D%61%69%6C.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/godot107", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/willieman828", "_blank");
+        },
+      },{
+        id: 'social-x',
+        title: 'X',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://twitter.com/WillieMaize828", "_blank");
+        },
+      },{
+        id: 'social-mastodon',
+        title: 'Mastodon',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://mastodon.social/@williemaize", "_blank");
+        },
+      },{
+        id: 'social-bluesky',
+        title: 'Bluesky',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://bsky.app/profile/williemaize.bsky.social", "_blank");
+        },
+      },{
+        id: 'social-medium',
+        title: 'Medium',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://medium.com/@manwill", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>

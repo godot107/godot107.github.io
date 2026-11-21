@@ -1,0 +1,624 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> The Great War was a family feud. I measured how close. | Willie Man </title> <meta name="author" content="Willie Man"> <meta name="description" content="How related were the monarchs who went to war in 1914? Kinship coefficients on eight generations of Wikidata ancestry, and Bayes' rule on Queen Victoria's haemophilia gene."> <meta name="keywords" content="Willie Man, data analyst, data scientist, data engineer, data quality, machine learning, AI engineering, analytics portfolio, Databricks, Houston"> <meta property="og:site_name" content="Willie Man"> <meta property="og:type" content="article"> <meta property="og:title" content="The Great War was a family feud. I measured how close. | Willie Man"> <meta property="og:url" content="https://willieman.com/blog/2026/the-great-war-was-a-family-feud/"> <meta property="og:description" content="How related were the monarchs who went to war in 1914? Kinship coefficients on eight generations of Wikidata ancestry, and Bayes' rule on Queen Victoria's haemophilia gene."> <meta property="og:image" content="https://willieman.com/assets/img/og/the-great-war-was-a-family-feud.png"> <meta property="og:image:type" content="image/png"> <meta property="og:image:width" content="1200"> <meta property="og:image:height" content="630"> <meta property="og:image:alt" content="The Great War was a family feud. I measured how close."> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="The Great War was a family feud. I measured how close."> <meta name="twitter:description" content="How related were the monarchs who went to war in 1914? Kinship coefficients on eight generations of Wikidata ancestry, and Bayes' rule on Queen Victoria's haemophilia gene."> <meta name="twitter:image" content="https://willieman.com/assets/img/og/the-great-war-was-a-family-feud.png"> <meta name="twitter:image:alt" content="The Great War was a family feud. I measured how close."> <meta name="twitter:site" content="@WillieMaize828"> <meta name="twitter:creator" content="@WillieMaize828"> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Willie Man"
+        },
+        "url": "https://willieman.com/blog/2026/the-great-war-was-a-family-feud/",
+        "@type": "BlogPosting",
+        "description": "How related were the monarchs who went to war in 1914? Kinship coefficients on eight generations of Wikidata ancestry, and Bayes' rule on Queen Victoria's haemophilia gene.",
+        "headline": "The Great War was a family feud. I measured how close.",
+        
+        "sameAs": ["https://github.com/godot107","https://www.linkedin.com/in/willieman828","https://twitter.com/WillieMaize828","https://mastodon.social/@williemaize","https://bsky.app/profile/williemaize.bsky.social","https://medium.com/@manwill"],
+        
+        "name": "Willie Man",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>:root{--max-content-width:930px}</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=8238c3f86a4724bae7178ae6ef749237"> <link rel="canonical" href="https://willieman.com/blog/2026/the-great-war-was-a-family-feud/"> <script src="/assets/js/theme.js?v=5286c3e4c334d0ecb8fc0c40ff4fa7ec"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> Willie Man </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">projects </a> </li> <li class="nav-item "> <a class="nav-link" href="/repositories/">repositories </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">cv </a> </li> <li class="nav-item "> <a class="nav-link" href="/books/">books </a> </li> <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-nav-dropdown-toggle="true" aria-haspopup="true" aria-expanded="false">submenus </a> <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> <a class="dropdown-item " href="/books/">books</a> <div class="dropdown-divider"></div> <a class="dropdown-item " href="/projects/">projects</a> <div class="dropdown-divider"></div> <a class="dropdown-item " href="/blog/">blog</a> </div> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">The Great War was a family feud. I measured how close.</h1> <p class="post-meta"> Created on November 21, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/data-science"> <i class="fa-solid fa-hashtag fa-sm"></i> data-science</a>   ·   <a href="/blog/category/project"> <i class="fa-solid fa-tag fa-sm"></i> project</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p><em>In August 1914, sixteen European monarchs had well-recorded family trees. Every one of the 120 pairs among them was related, including all fifteen pairs whose countries fought each other.</em></p> <p>Everyone knows the First World War was a family quarrel. George V, Kaiser Wilhelm II and Tsar Nicholas II were cousins, and Wilhelm and Nicholas signed their telegrams “Willy” and “Nicky”. I wanted to know whether the story holds up as a number. How related were the monarchs who went to war in 1914? Was it three famous cousins, or all of them?</p> <p>Code and data: <a href="https://github.com/godot107/family-tree" rel="external nofollow noopener" target="_blank">github.com/godot107/family-tree</a>. There is also an <a href="/assets/html/family-tree/family-feud.html">interactive version of this story</a>.</p> <h2 id="building-the-family">Building the family</h2> <p>I took the nineteen people who reigned in Europe in August 1914 and pulled eight generations of their ancestry from Wikidata, the free database behind Wikipedia’s infoboxes. Eight generations reach back to people born in the 1600s. Nineteen monarchs have 9,690 ancestor slots across those generations. Wikidata filled 7,591 of them with only <strong>1,816 different people</strong>, so the average ancestor appears four times. Genealogists call this pedigree collapse. In royal houses it is the norm.</p> <p>That repetition is why a family “tree” is the wrong picture. It is a graph: each person points to two parents, and cousin marriages join branches again further down. So I wrote the code as graph code. A relationship is a pair of paths climbing from two people to a shared ancestor through two different children. The number of generations on each side gives the name, so “second cousin once removed” is just a two-and-three climb with a difference of one.</p> <p>Before trusting it, I checked it against cases historians already know. Elizabeth II and Prince Philip come out as third cousins through Queen Victoria and second cousins once removed through Christian IX of Denmark, which is right. Victoria and Albert come out as first cousins. Isabella II of Spain has an inbreeding coefficient of exactly 1/8, which is correct because her parents were uncle and niece. (The inbreeding coefficient is the chance that a person’s two copies of a gene, one from each parent, are the same copy handed down from a shared ancestor.)</p> <h2 id="a-continent-of-cousins">A continent of cousins</h2> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/family-tree/cousins_war_heatmap-480.webp 480w,/assets/img/family-tree/cousins_war_heatmap-800.webp 800w,/assets/img/family-tree/cousins_war_heatmap-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/family-tree/cousins_war_heatmap.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="Kinship among the monarchs of 1914. Darker squares share more ancestry." loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"> </picture> </figure> <div class="caption">Kinship among the monarchs of 1914. Darker squares share more ancestry.</div> <p>The darker a square, the more ancestry two monarchs share. The measure is the kinship coefficient: the chance that a gene drawn at random from each of them is the same copy, inherited from a common ancestor. Siblings score 1/4, first cousins 1/16, second cousins 1/64.</p> <p>The answer is all of them. Sixteen of the nineteen monarchs have well-recorded ancestry, and <strong>every one of the 120 pairs among them is related</strong> within eight generations. That includes all fifteen pairs whose countries fought on opposite sides. (Italy and Romania joined later, and Russia left in 1917.) The three exceptions are Serbia’s Peter I, Montenegro’s Nicholas I and the Ottoman sultan Mehmed V. For them the hatched squares mean the records are thin, not that there is no relation.</p> <h2 id="the-nearest-cousin-understates-it">The nearest cousin understates it</h2> <p>The usual way to describe two relatives is the nearest line: “first cousins”. Royal pedigrees fold back on themselves so often that the nearest line is a poor summary. Wilhelm II and Nicholas II were second cousins once removed by their nearest line. But <strong>118 separate lines</strong> connect them within eight generations. Added up, they make the Kaiser and the Tsar about as related as first cousins once removed, and 1.6 times as related as ordinary second cousins. George V and Wilhelm, first cousins through Victoria, share 71 lines.</p> <h2 id="victorias-gene">Victoria’s gene</h2> <p>The same graph tells a second story. Queen Victoria carried haemophilia B on one of her X chromosomes. A carrier mother passes the gene to each child with even odds. Sons who get it bleed, and daughters who get it become carriers. Nine of her male descendants are documented as affected. They include her son Leopold, Tsarevich Alexei, and two sons of Alfonso XIII of Spain.</p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/family-tree/victorias_gene-480.webp 480w,/assets/img/family-tree/victorias_gene-800.webp 800w,/assets/img/family-tree/victorias_gene-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/family-tree/victorias_gene.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" title="Victoria's daughters and granddaughters: the chance each carried the gene, from Mendel alone (grey) and after the evidence from their sons (purple)" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"> </picture> </figure> <div class="caption">Victoria's daughters and granddaughters: the chance each carried the gene, from Mendel alone (grey) and after the evidence from their sons (purple)</div> <p>Mendel alone gives each of Victoria’s daughters a 50% chance of being a carrier. The family’s sons are evidence. An affected son proves his mother was a carrier. A son who grows up healthy makes it less likely. Run Bayes’ rule over the whole line of descent and the daughters separate:</p> <ul> <li> <strong>Alice and Beatrice: certain.</strong> Each had an affected son, and through their daughters the gene reached the Romanovs and the Spanish Bourbons.</li> <li> <strong>Vicky, the Kaiser’s mother: 6%.</strong> Two of her sons grew up healthy. That is why the German imperial line was spared.</li> <li> <strong>Helena: 20%.</strong> Louise had no children, so she stays at 50%.</li> <li> <strong>Daughters of her healthy sons: 0%.</strong> Edward VII, Alfred and Arthur were healthy, and a healthy father can’t pass on an X-linked gene.</li> <li> <strong>Leopold’s daughter Alice: certain.</strong> Leopold was the one affected son. A father gives his only X chromosome to every daughter, so Alice was a carrier, and her son Rupert was affected.</li> </ul> <p>Could the gene still be out there? My first crawl stopped four generations below Victoria, so I went further. I followed every line that could still carry it down to the present, six generations deep. Each healthy son found further down lowered the odds for his mother’s line: Infanta María Cristina of Spain fell from 50% to 29%, and her sister Beatriz from 20% to 11%. Of the 61 living women in those lines, 14 still have odds above 1%, and the highest is 14.5%. I count them but don’t name them, because a carrier probability is a statement about a real person’s health. The family tree can’t settle it: the lines still open mostly end with women whose children aren’t recorded, and only a genetic test could answer it for any one person. No case has been recorded since Infante Gonzalo died in 1934.</p> <h2 id="method-notes">Method notes</h2> <ul> <li>Data: Wikidata (CC0), crawled October 2026. Affected descendants: Potts &amp; Potts, <em>Queen Victoria’s Gene</em> (1995). The type was confirmed as haemophilia B from Romanov remains by Rogaev et al., <em>Science</em> (2009).</li> <li>Kinship: Wright (1922), Malécot (1948). Unknown parents count as unrelated, so every value is a lower bound.</li> <li>Carrier odds: exact belief propagation. People marrying in are assumed not to carry the gene. A son counts as healthy once he lived past 15, and Maurice of Battenberg’s disputed case counts as unknown.</li> <li>The same code reads a GEDCOM export of your own family and keeps it on your machine.</li> </ul> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/sentiment-analysis-with-tf-idf-and-logistic-regression-f4cd86f359a1?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Sentiment Analysis with TF-IDF and Logistic Regression</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/the-unseen-crisis-why-i-finally-read-how-to-know-a-person-5d845aacf052?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">The Unseen Crisis: Why I Finally Read ‘How to Know a Person’</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/humour-seriously-a-reflection-essay-30d6ad23dfc8?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">Humour Seriously — A Reflection Essay</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="https://medium.com/@manwill/a-b-testing-my-own-dashboard-and-the-ways-it-tried-to-lie-to-me-willie-man-2eb973e77bef?source=rss-986259afba31------2" target="_blank" rel="noopener noreferrer">A/B testing my own dashboard, and the ways it tried to lie to me | Willie Man</a> <svg width="1rem" height="1rem" viewbox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"> <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/reading-a-failed-banks-loan-files/">When a bank fails, someone has to read its loan files. I tested how far AI can be trusted with that.</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/i-attacked-my-own-ai-assistant/">I attacked my own AI assistant before anyone else could. 3 of 22 attacks worked.</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/inside-the-2025-texas-legislature/">Inside the 2025 Texas Legislature: 8,719 bills, 1,213 passed, and what they cost</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/nine-insurers-mailed-me-a-price/">Nine insurers mailed me a price for my house. Reading them took AI, and knowing when not to trust it.</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/congress-agreed-417-3-on-data-centers/">Congress agreed 417–3 on data centers. What else do they agree on?</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/finding-the-factions-in-congress/">Finding the factions in Congress from votes alone</a> </li> </ul> <div id="giscus_thread" style="max-width: 930px; margin: 0 auto;"> <br> <script>
+    (function setupGiscus() {
+      function determineGiscusTheme() {
+        var theme = localStorage.getItem("theme") || document.documentElement.getAttribute("data-theme") || "system";
+if (theme === "dark") return "dark";
+if (theme === "light") return "light";
+var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+return prefersDark ? "dark" : "light";
+
+      }
+
+      var giscusTheme = determineGiscusTheme();
+      var attrs = {
+        src: "https://giscus.app/client.js",
+        "data-repo": "godot107/godot107.github.io",
+        "data-repo-id": "R_kgDONUwEbg",
+        "data-category": "Announcements",
+        "data-category-id": "DIC_kwDONUwEbs4C_TYq",
+        "data-mapping": "title",
+        "data-strict": "1",
+        "data-reactions-enabled": "1",
+        "data-emit-metadata": "0",
+        "data-input-position": "bottom",
+        "data-theme": giscusTheme,
+        "data-lang": "en",
+        crossorigin: "anonymous",
+        async: true
+      };
+
+      var giscusScript = document.createElement("script");
+      Object.entries(attrs).forEach(function(entry) { giscusScript.setAttribute(entry[0], entry[1]); });
+      var host = document.getElementById("giscus_thread");
+      if (host) host.appendChild(giscusScript);
+    })();
+  </script> <noscript> Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments powered by giscus.</a> </noscript> </div> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Willie Man. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3H4T9PEFL"></script> <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-X3H4T9PEFL");
+</script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-blog",
+          title: "blog",
+          description: "Essays and project write-ups on machine learning, AI engineering, data science, and the things I learn building them.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-projects",
+          title: "projects",
+          description: "Projects related to Machine Learning, AI, and Data Sciences (plus fun stuff)",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/projects/";
+          },
+        },{id: "nav-repositories",
+          title: "repositories",
+          description: "Repositories",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/repositories/";
+          },
+        },{id: "nav-cv",
+          title: "cv",
+          description: "Curriculum vitae for Willie Man — experience, education, projects, and skills across data analysis, data engineering, data quality, and machine learning.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "nav-books",
+          title: "books",
+          description: "Books Reviews and Essays",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/books/";
+          },
+        },{id: "dropdown-books",
+              title: "books",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/books/";
+              },
+            },{id: "dropdown-projects",
+              title: "projects",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/projects/";
+              },
+            },{id: "dropdown-blog",
+              title: "blog",
+              description: "",
+              section: "Dropdown",
+              handler: () => {
+                window.location.href = "/blog/";
+              },
+            },{id: "post-the-great-war-was-a-family-feud-i-measured-how-close",
+        
+          title: "The Great War was a family feud. I measured how close.",
+        
+        description: "How related were the monarchs who went to war in 1914? Kinship coefficients on eight generations of Wikidata ancestry, and Bayes&#39; rule on Queen Victoria&#39;s haemophilia gene.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/the-great-war-was-a-family-feud/";
+          
+        },
+      },{id: "post-when-a-bank-fails-someone-has-to-read-its-loan-files-i-tested-how-far-ai-can-be-trusted-with-that",
+        
+          title: "When a bank fails, someone has to read its loan files. I tested...",
+        
+        description: "Azure Document Intelligence, a loan-file review app and Power BI on synthetic failed-bank loan files and 22 real FDIC deal agreements. Rules broke at every new bank; the safety checks came from the failures.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/reading-a-failed-banks-loan-files/";
+          
+        },
+      },{id: "post-i-attacked-my-own-ai-assistant-before-anyone-else-could-3-of-22-attacks-worked",
+        
+          title: "I attacked my own AI assistant before anyone else could. 3 of 22...",
+        
+        description: "The guardrails, red teams and opt-in memory behind Fiscal Note Desk, an assistant that answers questions about Texas bills. Plus Azure AI Foundry&#39;s built-in search, which matched mine on quality, and the one reason it isn&#39;t the default.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/i-attacked-my-own-ai-assistant/";
+          
+        },
+      },{id: "post-inside-the-2025-texas-legislature-8-719-bills-1-213-passed-and-what-they-cost",
+        
+          title: "Inside the 2025 Texas Legislature: 8,719 bills, 1,213 passed, and what they cost...",
+        
+        description: "Learning how the Texas Legislature works from its own files before the 2027 session. An Azure pipeline over every 2025 bill history and fiscal note, an AI that splits costs by agency (and gets checked), and an assistant that answers from the record.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/inside-the-2025-texas-legislature/";
+          
+        },
+      },{id: "post-nine-insurers-mailed-me-a-price-for-my-house-reading-them-took-ai-and-knowing-when-not-to-trust-it",
+        
+          title: "Nine insurers mailed me a price for my house. Reading them took AI,...",
+        
+        description: "Azure Document Intelligence, a human review app and Power BI on home-insurance letters, tested on layouts the model never saw. The confidence score lied; silent errors were the number that mattered.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/nine-insurers-mailed-me-a-price/";
+          
+        },
+      },{id: "post-congress-agreed-417-3-on-data-centers-what-else-do-they-agree-on",
+        
+          title: "Congress agreed 417–3 on data centers. What else do they agree on?",
+        
+        description: "A non-partisan look at the U.S. House record before Election Day — which issues bring the parties together, who crosses party lines, and a dashboard to look up your own representative.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/congress-agreed-417-3-on-data-centers/";
+          
+        },
+      },{id: "post-finding-the-factions-in-congress-from-votes-alone",
+        
+          title: "Finding the factions in Congress from votes alone",
+        
+        description: "PCA, logistic PCA and Bayesian ideal points on US House roll calls, graded against a synthetic Congress, and five clustering methods checked against caucus membership.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/finding-the-factions-in-congress/";
+          
+        },
+      },{id: "post-your-model-39-s-score-is-an-estimate-here-39-s-how-wrong-it-can-be",
+        
+          title: "Your model&#39;s score is an estimate. Here&#39;s how wrong it can be.",
+        
+        description: "Eight experiments on simulated data where the true score is known, grading every common evaluation shortcut — metrics, cross-validation, leakage, tuning, model comparison.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/your-models-score-is-an-estimate/";
+          
+        },
+      },{id: "post-a-b-testing-my-own-dashboard-and-the-ways-it-tried-to-lie-to-me-willie-man",
+        
+          title: 'A/B testing my own dashboard, and the ways it tried to lie to... <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/a-b-testing-my-own-dashboard-and-the-ways-it-tried-to-lie-to-me-willie-man-2eb973e77bef?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-a-b-testing-my-own-dashboard-and-the-ways-it-tried-to-lie-to-me",
+        
+          title: "A/B testing my own dashboard, and the ways it tried to lie to...",
+        
+        description: "An end-to-end A/B test on a dashboard tracking post-pandemic US hiring demand — and the six places it would have produced a confident, wrong answer.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/ab-testing-my-own-dashboard/";
+          
+        },
+      },{id: "post-i-let-the-controls-fail-and-they-told-me-things-i-didn-39-t-know",
+        
+          title: "I let the controls fail, and they told me things I didn&#39;t know...",
+        
+        description: "Building an auditable FP&amp;A forecasting pipeline on real SEC filings — and what happens when you make the integrity checks blocking.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/auditable-fpa-forecast/";
+          
+        },
+      },{id: "post-i-put-a-tic-tac-toe-game-on-my-own-domain-to-finally-understand-dns",
+        
+          title: "I put a tic-tac-toe game on my own domain to finally understand DNS...",
+        
+        description: "A deliberately tiny Flask app deployed to AWS Lightsail behind my own subdomain with automatic HTTPS, and the DNS, certificate and teardown lessons that turned out to be the real project.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/lightsail-tictactoe-dns/";
+          
+        },
+      },{id: "post-i-built-a-fantasy-draft-co-pilot-and-the-interesting-part-was-everything-it-got-wrong",
+        
+          title: "I built a fantasy draft co-pilot, and the interesting part was everything it...",
+        
+        description: "A read-only Sleeper draft assistant built on VONA and opponent survival modelling — and the four times its most authoritative numbers turned out to be measuring something else.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/fantasy-draft-co-pilot-everything-it-got-wrong/";
+          
+        },
+      },{id: "post-i-turned-six-years-of-data-science-textbooks-into-a-knowledge-base-my-ai-can-reason-over",
+        
+          title: "I Turned Six Years of Data Science Textbooks Into a Knowledge Base My...",
+        
+        description: "Building a private, local RAG system over my own library — and why I think almost everyone with a bookshelf of PDFs should do the same.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/textbook-to-knowledge-base/";
+          
+        },
+      },{id: "post-applied-math-for-engineers-deconstructing-the-fft-and-cnns",
+        
+          title: "Applied Math for Engineers: Deconstructing the FFT and CNNs",
+        
+        description: "A deep dive into the math behind CNNs and the FFT using the AGY CLI.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/math-is-fun/";
+          
+        },
+      },{id: "post-teaching-a-neural-network-to-hear-a-failing-bearing",
+        
+          title: "Teaching a Neural Network to Hear a Failing Bearing",
+        
+        description: "Building an end-to-end predictive-maintenance pipeline on the CWRU bearing dataset — and why hitting 100% accuracy made me trust it less.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/teaching-a-neural-network-to-hear-a-failing-bearing/";
+          
+        },
+      },{id: "post-humour-seriously-a-reflection-essay",
+        
+          title: 'Humour Seriously — A Reflection Essay <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/humour-seriously-a-reflection-essay-30d6ad23dfc8?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-the-unseen-crisis-why-i-finally-read-how-to-know-a-person",
+        
+          title: 'The Unseen Crisis: Why I Finally Read ‘How to Know a Person’ <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/the-unseen-crisis-why-i-finally-read-how-to-know-a-person-5d845aacf052?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-sentiment-analysis-with-tf-idf-and-logistic-regression",
+        
+          title: 'Sentiment Analysis with TF-IDF and Logistic Regression <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@manwill/sentiment-analysis-with-tf-idf-and-logistic-regression-f4cd86f359a1?source=rss-986259afba31------2", "_blank");
+          
+        },
+      },{id: "post-socialgood-hackathon-roundup",
+        
+          title: "SocialGood Hackathon Roundup",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2018/Social_Good_Hackathon/";
+          
+        },
+      },{id: "post-2016-in-review",
+        
+          title: "2016 in Review",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Life_Group/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-halcyon-end",
+        
+          title: "Community Summer Missions Project (CSMP) - Halcyon End",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Halcyon_End/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-excel-enrich-in-austin",
+        
+          title: "Community Summer Missions Project (CSMP) - Excel Enrich in Austin",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_Excel_Austin/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-life-group",
+        
+          title: "Community Summer Missions Project (CSMP) - Life Group",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/2016_in_review/";
+          
+        },
+      },{id: "post-shifts-in-healthcare-and-information-technology-align-to-support-industry-transformation",
+        
+          title: "Shifts in Healthcare and Information Technology Align to Support Industry Transformation",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Shifts_in_Healthcare_and_IT/";
+          
+        },
+      },{id: "post-community-summer-missions-project-csmp-enter-intensive-and-field-work",
+        
+          title: "Community Summer Missions Project (CSMP) - Enter Intensive and Field Work",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/CSMP_enter_field_work/";
+          
+        },
+      },{id: "post-enter-missions-csmp-2016",
+        
+          title: "Enter Missions - CSMP 2016",
+        
+        description: "Community",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Enter_Missions_csmp_2016/";
+          
+        },
+      },{id: "post-nba-graphs-2015-playoffs-with-r-studio",
+        
+          title: "NBA Graphs - 2015 Playoffs with R studio",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/NBA_graphs_2015/";
+          
+        },
+      },{id: "post-design-and-testing-of-an-ehr-integrated-busulfan-pharmacokinetic-decision-support-tool-for-the-point-of-care-clinician",
+        
+          title: "Design and Testing of an EHR-Integrated, Busulfan Pharmacokinetic Decision Support Tool for the...",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2016/Design-and-Testing-of-an-EHR-Integrated/";
+          
+        },
+      },{id: "books-never-enough",
+          title: 'Never Enough',
+          description: "Through a penetrating look at Never Enough, this review examines how America&#39;s obsession with academic achievement shapes our children&#39;s futures and sense of self-worth. Drawing from personal experience and cross-cultural insights, it challenges parents to question whether our pursuit of excellence has gone too far.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/never_enough_reflection_essay/";
+            },},{id: "books-practicing-the-way-book-reflection",
+          title: 'Practicing the Way - Book Reflection',
+          description: "The title, Practicing the Way, draws from the concept of apprenticeship. Jesus, known not only as the Son of God but also as a Rabbi, called ordinary people—fishermen, tax collectors, and zealots—to follow Him as disciples. In Jesus’ time, disciples were typically well-versed in the Torah and aspired to become like their rabbi in every way. Comer invites us to imagine the same goal today - to become like Jesus through the empowerment of the Holy Spirit, bringing heaven to earth in both ordinary and extraordinary ways.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/practicing_the_way_reflection_essay/";
+            },},{id: "books-the-unseen-crisis-why-i-finally-read-39-how-to-know-a-person-39",
+          title: 'The Unseen Crisis - Why I Finally Read &amp;#39;How to Know a Person&amp;#39;...',
+          description: "The title, Practicing the Way, draws from the concept of apprenticeship. Jesus, known not only as the Son of God but also as a Rabbi, called ordinary people—fishermen, tax collectors, and zealots—to follow Him as disciples. In Jesus’ time, disciples were typically well-versed in the Torah and aspired to become like their rabbi in every way. Comer invites us to imagine the same goal today - to become like Jesus through the empowerment of the Holy Spirit, bringing heaven to earth in both ordinary and extraordinary ways.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/how_to_know_a_person_reflection_essay/";
+            },},{id: "books-humour-seriously-a-reflection-essay",
+          title: 'Humour Seriously - A Reflection Essay',
+          description: "This reflection explores the intellectual depth of comedy, the balance between levity and gravity, and the profound benefits of laughter in personal and professional life, inspired by David Brooks&#39; insights.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/humor_seriously_reflection_essay/";
+            },},{id: "books-never-enough-part-2-parenting-with-grace",
+          title: 'Never Enough Part 2 - Parenting with Grace',
+          description: "Through a penetrating look at Never Enough, this review examines how America&#39;s obsession with academic achievement shapes our children&#39;s futures and sense of self-worth. Drawing from personal experience and cross-cultural insights, it challenges parents to question whether our pursuit of excellence has gone too far.",
+          section: "Books",handler: () => {
+              window.location.href = "/books/never_enough_reflection_essay_part2/";
+            },},{id: "news-new-website-launched",
+          title: 'New Website Launched!',
+          description: "",
+          section: "News",},{id: "news-welcome",
+          title: 'Welcome',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_2/";
+            },},{id: "news-tune-in-for-more-content",
+          title: '🚧 Tune in for more content 🚧',
+          description: "",
+          section: "News",},{id: "projects-analyze-the-characteristics-of-highly-accessible-population-centers-in-the-united-states",
+          title: 'Analyze the characteristics of highly accessible population centers in the United States',
+          description: "This project seeks to improve accessibility to jobs, entertainment, and shopping",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/analyze_the_characteristics_of_highly_accessible_population_centers_in_the_United_States/";
+            },},{id: "projects-apple-cultivars-and-climate-change-in-the-eastern-mountain-region-of-the-united-states",
+          title: 'Apple cultivars and climate change in the Eastern Mountain region of the United...',
+          description: "Extensive research exists regarding the effects of climate change on agriculture. However, there is often a gap between researchers and decision makers, particularly in industries with limited resources. The apple industry is one such example. Though apples are the most consumed fruit in the United States, apple orchards occupy less than 1% of the 880 million acres of United States farmland (Industry at a Glance, n.d.; National Agricultural Statistics Service, 2024).",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/apple_cultivars_climate_change/";
+            },},{id: "projects-auditable-fp-amp-a-forecasting-on-filed-sec-data",
+          title: 'Auditable FP&amp;amp;A forecasting on filed SEC data',
+          description: "A rolling FP&amp;A forecast built from Netflix&#39;s SEC filings, with 23 in-pipeline controls — 21 of them blocking — an ERP round trip that reconciles to $0.00, and an LLM that writes the commentary but never the number.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/auditable_fpa_forecast/";
+            },},{id: "projects-bot-control-console",
+          title: 'Bot Control Console',
+          description: "A serverless mobile web app on AWS to see and stop every trading bot I run, with Cognito sign-in and MFA, least-privilege IAM, and an audit trail.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/bot-control-console/";
+            },},{id: "projects-head-in-the-cloud-technology",
+          title: 'Head in the Cloud (Technology)',
+          description: "My Journey in Learning the Cloud - AWS and Azure",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/cloud_learning_journey/";
+            },},{id: "projects-don-39-t-get-a-rescue-dog",
+          title: 'Don&amp;#39;t get a (rescue) dog',
+          description: "Unless you want to make an Impact.Cross-Post from Medium Blog",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ladybird_separation_anxiety_journey/";
+            },},{id: "projects-my-baking-journey",
+          title: 'My Baking Journey',
+          description: "Baking as a gesture of goodwill",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ladybirdbakingco_intro/";
+            },},{id: "projects-nba-daily-fantasy-sports-dfs-project-competing-for-pocket-cash",
+          title: 'NBA Daily Fantasy Sports (DFS) Project - Competing for Pocket Cash',
+          description: "Yahoo NBA Daily Fantasy Sports",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/nba_daily_fantasy_sports/";
+            },},{id: "projects-serverless-trading-bots-on-aws",
+          title: 'Serverless Trading Bots on AWS',
+          description: "Three paper-trading bots running unattended as scheduled container Lambdas, defined in CloudFormation with least-privilege IAM, alarms, budget guards, and hard safety limits.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/serverless-trading-bots/";
+            },},{id: "projects-visualizing-information-retrieval-a-tf-idf-approach-with-tilebars",
+          title: 'Visualizing Information Retrieval - A TF-IDF Approach with TileBars',
+          description: "This article explores a TF-IDF-based visual query system using TileBars to retrieve and rank research documents efficiently. By leveraging metadata and the first three paragraphs of each document, it combines preprocessing, normalization, and intuitive visualizations to present relevant results. Future improvements, including lemmatization and sparse matrices, are also discussed.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/tf-idf_retrieval/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%77%69%6C%6C%69%65%6D%61%69%7A%65%38%32%38@%67%6D%61%69%6C.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/godot107", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/willieman828", "_blank");
+        },
+      },{
+        id: 'social-x',
+        title: 'X',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://twitter.com/WillieMaize828", "_blank");
+        },
+      },{
+        id: 'social-mastodon',
+        title: 'Mastodon',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://mastodon.social/@williemaize", "_blank");
+        },
+      },{
+        id: 'social-bluesky',
+        title: 'Bluesky',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://bsky.app/profile/williemaize.bsky.social", "_blank");
+        },
+      },{
+        id: 'social-medium',
+        title: 'Medium',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://medium.com/@manwill", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
